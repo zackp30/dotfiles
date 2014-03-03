@@ -1,0 +1,6 @@
+image: ubuntu
+
+script:
+    - apt-get install -y vim
+    - ./symlink.sh
+    - vim +:q
