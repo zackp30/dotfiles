@@ -1,0 +1,16 @@
+alias ..="cd .."
+#alias gitlab="HOME=/home/morpheus/.gitlab git"
+function addmusic {
+	sudo cp $1 /var/lib/mpd/music/$1 &&
+	sudo chown mpd:audio /var/lib/mpd/music/$1
+}
+
+alias pi="mosh --predict=experimental pi@172.23.32.6"
+alias diffgen="~/diff2html.py"
+
+function pyhi {
+	cp ~/github.css . &&
+    pygmentize -f html -l $3 $1 > $2
+    echo "<head> \n <link rel=\"stylesheet\" type=\"text/css\" href=\"github.css\"> \n<head>" > $2
+}
+	

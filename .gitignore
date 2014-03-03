@@ -1,0 +1,5 @@
+*.pyc
+Vim/bundle/
+! Vim/bundle/ZackFileTypes/*
+Vim/bundle/.neobundle/
+*.swp

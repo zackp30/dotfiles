@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/morpheus/gitlab/dotfiles/Vim/bundle/ZFileTypes/ftplugin'
+let g:netrw_dirhist_2='/home/morpheus/supybot-cleverbot'
+let g:netrw_dirhist_3='/etc/munin/plugin-conf.d'
+let g:netrw_dirhist_4='/etc/munin/munin-conf.d'
+let g:netrw_dirhist_5='/etc/munin'
+let g:netrw_dirhist_6='/etc/munin/plugins'
+let g:netrw_dirhist_7='/etc/munin'
+let g:netrw_dirhist_8='/etc/munin/templates'
