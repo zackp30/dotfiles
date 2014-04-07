@@ -2,3 +2,11 @@ dotfiles
 ========
 [![Build Status](http://apertron.net:9014/github.com/zackp30/dotfiles/status.png?branch=master)](http://apertron.net:9014/github.com/zackp30/dotfiles)
 Just my dotfiles.
+
+Installation
+============
+Using [homesick](https://github.com/technicalpickles/homesick):
+```
+bundle install
+homesick clone https://github.com/zackp30/dotfiles
+```

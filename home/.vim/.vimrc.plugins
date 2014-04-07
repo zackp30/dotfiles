@@ -1,0 +1,95 @@
+" Plugins {{{
+  " vim-airline {{{
+    let g:airline_enable_syntastic=1
+    let g:airline_enable_branch=1
+    let g:airline#extensions#bufferline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#eclim#enabled = 1
+    let g:airline_enable_branch = 1
+    let g:airline_mode_map = {'c': 'C', '^S': 'S-BLOCK', 'R': 'R', 's': 'S', 'V': 'V-L', '^V': 'V-B', 'i': 'I', '__': '------', 'S': 'S -LINE', 'v': 'V', 'n': 'N'}
+  " }}}
+  " Neo Complete {{{
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:acp_enableAtStartup = 0
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType tex setlocal omnifunc=texcomplete#Complete
+    "let g:neocomplete#sources#dictionary#dictionaries="/usr/share/dict/words"
+  " }}}
+  " vim-sunflower {{{
+    let g:sunflower_lat=51
+    let g:sunflower_long=0
+    let g:sunflower_colorscheme_day='zm3_vim'
+    let g:sunflower_colorscheme_night=''
+  " }}}
+  " delimitMate {{{
+  " }}}
+  " CSV.vim {{{
+    let g:csv_delim=','
+    let g:airline#extensions#csv#enabled = 1
+  " }}}
+  " DBExt {{{
+    let g:dbext_default_profile_testuser = 'type=DBI:driver=mysql:user=testuser:passwd=yeshellotestuser:conn_parms=database=testdb;host=localhost'
+  " }}}
+  " CTRLP {{{
+    let g:ctrlp_extensions = []
+    let g:ctrlp_extensions += ['undo', 'smarttabs', 'test']
+  " }}}
+  " LaTeX-suite {{{
+    let g:tex_flavor='latex'
+    let g:Tex_CompileRule_pdf = 'pdflatex $*'
+  " imo this was broken. vvv
+    let g:tex_indent_items = 0
+  " }}}
+" ctags {{{
+  let g:Tlist_WinWidth = 20
+  let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections'
+" }}}
+" Bufferline {{{
+  let g:bufferline_echo = 0
+" }}}
+" vim-sneak {{{
+" I use S a lot...
+    let g:sneak#streak = 1
+" }}}
+" vim-choosewin {{{
+  let g:choosewin_overlay_enable = 1
+" }}}
+" vim-filer {{{
+  let g:vimfiler_as_default_explorer = 1
+" }}}
+" NeoSnippet {{{
+  let g:neosnippet#snippets_directory = "~/.vim/snippets/"
+" }}}
+" vim-EtherPad {{{
+  " To connect to the pad at URI http://localhost:9001/p/test per default:
+  let g:epad_host = "localhost" " Hostname to connect to
+  let g:epad_port = 9011      " Port to connect to
+  let g:epad_path = "p/"        " URL Path to the pad
+  let g:epad_pad = "test"       " Name of the pad to connect to
+
+" GUI feel
+  let g:epad_updatetime = 1000  " lower this for more realtime, higher this for less load
+
+" GUI look
+  let g:epad_attributes = 0     " set to 1 to display attributes (works only with a font that)
+  let g:epad_authors = 0        " set to 1 to display authors (works only in gui mode)
+
+" Enable verbosity
+  let g:epad_verbose = 2        " set to 1 for INFO level, 2 for DEBUG level
+" }}}
+" Syntastic {{{
+  let g:syntastic_ruby_checkers=['mri', 'rubycop']
+  let g:syntastic_javascript_checkers=['jshint']  
+" }}}
+" Slime {{{
+    let g:slime_target = "tmux"
+" }}}
+" TComment {{{
+        call tcomment#DefineType('scribble', "@; %s")
+" }}}
+" }}}

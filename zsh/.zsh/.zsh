@@ -1,1 +1,0 @@
-/home/pi/gitlab/dotfiles/zsh/.zsh
