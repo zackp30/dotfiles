@@ -10,3 +10,6 @@ ln -sv $dotfiles_dir/zsh/.zsh $HOME/.zsh
 echo "======================== VIM! ================================="
 ln -sv $dotfiles_dir/Vim/.vimrc $HOME/.vimrc
 ln -sv $dotfiles_dir/Vim $HOME/.vim
+
+# tmux
+ln -sv $dotfiles_dir/.tmux.conf $HOME/.tmux.conf
