@@ -20,12 +20,14 @@
   nnoremap <leader>' bi'<esc>wwa'<esc>
   nnoremap H ^
   nnoremap L $
-  nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-  nnoremap <leader>em :vsplit ~/.vim/.vimrc.maps<cr>
-  nnoremap <leader>eM :vsplit ~/.vim/.vimrc.misc<cr>
-  nnoremap <leader>eb :vsplit ~/.vim/.vimrc.bundles<cr>
-  nnoremap <leader>ep :vsplit ~/.vim/.vimrc.plugins<cr>
-  nnoremap <leader>sv :source $MYVIMRC<cr>
+  " Configuration maps {{{
+    nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+    nnoremap <leader>em :vsplit ~/.vim/.vimrc.maps<cr>
+    nnoremap <leader>eM :vsplit ~/.vim/.vimrc.misc<cr>
+    nnoremap <leader>eb :vsplit ~/.vim/.vimrc.bundles<cr>
+    nnoremap <leader>ep :vsplit ~/.vim/.vimrc.plugins<cr>
+    nnoremap <leader>sv :source $MYVIMRC<cr>
+  " "}}}
   nnoremap <leader>t :Tlist<cr>
   nnoremap <silent> <C-l> :nohl<CR><C-l>
   nnoremap <leader>yl Vy
