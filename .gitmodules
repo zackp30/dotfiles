@@ -10,3 +10,6 @@
 [submodule "home/.zsh/plugins/zsh-completions"]
 	path = home/.zsh/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
+[submodule "home/.zsh/plugins/zsh-vcs-prompt"]
+	path = home/.zsh/plugins/zsh-vcs-prompt
+	url = git://github.com/yonchu/zsh-vcs-prompt.git
