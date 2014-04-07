@@ -124,5 +124,5 @@ autoload -Uz compinit
 compinit
 export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 .  /usr/share/autojump/autojump.sh 
