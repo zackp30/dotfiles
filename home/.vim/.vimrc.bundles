@@ -76,6 +76,7 @@
   Bundle 'gregsexton/gitv'
   Bundle 'nathanaelkane/vim-indent-guides'
   Bundle 'tpope/timl'
+  Bundle 'maxmeyer/vim-taskjuggler'
   NeoBundleCheck
   " }}}
 " }}}
