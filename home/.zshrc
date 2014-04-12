@@ -65,7 +65,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
     . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
     . ~/.zsh/plugins/tmuxinator.zsh
     ZSH_VCS_PROMPT_ENABLE_CACHING='true'
-    fpath=(~/.zsh/plugins/zsh-completions/src $fpath)
+    fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
     export rvmsudo_secure_path=1
 
     #export PAGER=~/bin/vimpager
