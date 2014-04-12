@@ -1,3 +1,4 @@
+
 source ~/.fzf.zsh
 setopt prompt_subst
 # Prompts {{{
