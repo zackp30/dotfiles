@@ -77,9 +77,10 @@
   Bundle 'nathanaelkane/vim-indent-guides'
   Bundle 'tpope/timl'
   Bundle 'maxmeyer/vim-taskjuggler'
-  Bundle 'kopischke/unite-spell-suggest'
-  " United {{{
+  Bundle 'tpope/vim-dispatch'
+  " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
+    Bundle 'kopischke/unite-spell-suggest'
   " }}
   NeoBundleCheck
   " }}}
