@@ -1,3 +1,0 @@
-" Learn Vim script the hard way. {{{
-    "nnoremap <silent> <leader>w :match /\v   
-" }}}
