@@ -13,3 +13,6 @@
 [submodule "home/.zsh/plugins/zsh-vcs-prompt"]
 	path = home/.zsh/plugins/zsh-vcs-prompt
 	url = git://github.com/yonchu/zsh-vcs-prompt.git
+[submodule "home/.zsh/plugins/envirius"]
+	path = home/.zsh/plugins/envirius
+	url = https://github.com/ekalinin/envirius
