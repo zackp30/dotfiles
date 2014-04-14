@@ -1,0 +1,16 @@
+NV_VERSION=0.6.1
+
+nv_cmd_default() {
+    echo "$(nv_cmd_name) $NV_VERSION"
+}
+
+nv_cmd_desc() {
+    echo "Display the version number"
+}
+
+nv_cmd_help() {
+    nv_show_usage
+    nv_show_desc "$(nv_cmd_desc)"
+}
+
+# /* vim: set filetype=sh : */
