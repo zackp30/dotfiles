@@ -127,3 +127,13 @@ export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
 export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 .  /usr/share/autojump/autojump.sh 
+# activate envirius
+if [ -e "~/.envirius/nv" ] ; then
+  . ~/.envirius/nv
+fi
+
+# auto env activation
+if [ -e ".envirius" ] && [ -f ".envirius" ]; then
+  nv on `cat .envirius`
+fi
+
