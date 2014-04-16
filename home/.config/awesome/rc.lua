@@ -12,7 +12,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local myplacesmenu = require("myplacesmenu")
-local vicious = require("vicious")
+vicious = require("vicious")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -257,8 +257,16 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
-netwidget = wibox.widget.textbox()
-vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
+cpuwidget = awful.widget.graph()
+cpuwidget:set_width(500)
+cpuwidget:set_background_color("#494B4F")
+
+cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
+                    {1, "#AECF96" }}})
+
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
+
 
 
 -- Create a wibox for each screen and add it
@@ -328,18 +336,18 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
-    mywibox[s].widgets = {
-      {
-        mylauncher,
-        mytaglist[s],
-        mypromptbox[s],
-      },
-      mylayoutbox[s],
-      mytextclock,
-      netwidget,       --   ADD THIS, don't forget the comma!
-      s == 1 and mysystray or nil,
-      mytasklist[s],
-    }
+    -- mywibox[s].widgets = {
+    --   {
+    --     mylauncher,
+    --     mytaglist[s],
+    --     mypromptbox[s],
+    --   },
+    --   mylayoutbox[s],
+    --   mytextclock,
+    --   netwidget,       --   ADD THIS, don't forget the comma!
+    --   s == 1 and mysystray or nil,
+    --   mytasklist[s],
+    -- }
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -352,6 +360,7 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
+    right_layout:add(cpuwidget)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
