@@ -25,3 +25,6 @@
 [submodule "home/.config/awesome/hints"]
 	path = home/.config/awesome/hints
 	url = https://github.com/zackpete/hints
+[submodule "home/.config/awesome/awesome-redshift"]
+	path = home/.config/awesome/awesome-redshift
+	url = git://github.com/YoRyan/awesome-redshift.git
