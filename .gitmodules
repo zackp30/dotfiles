@@ -19,3 +19,6 @@
 [submodule "home/.config/awesome/lib/blingbling"]
 	path = home/.config/awesome/lib/blingbling
 	url = git://github.com/cedlemo/blingbling.git
+[submodule "home/.config/awesome/blingbling"]
+	path = home/.config/awesome/blingbling
+	url = git://github.com/cedlemo/blingbling.git
