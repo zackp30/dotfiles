@@ -3,6 +3,7 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
+require("hints/hints")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
@@ -11,6 +12,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local myplacesmenu = require("myplacesmenu")
+local vicious = require("vicious")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -37,9 +39,140 @@ do
 end
 -- }}}
 
+-- xrandr {{{
+-- Get active outputs
+local function outputs()
+  local outputs = {}
+  local xrandr = io.popen("xrandr -q")
+  if xrandr then
+    for line in xrandr:lines() do
+      output = line:match("^([%w-]+) connected ")
+      if output then
+        outputs[#outputs + 1] = output
+      end
+    end
+    xrandr:close()
+  end
+
+  return outputs
+end
+
+local function arrange(out)
+  -- We need to enumerate all the way to combinate output. We assume
+  -- we want only an horizontal layout.
+  local choices  = {}
+  local previous = { {} }
+  for i = 1, #out do
+    -- Find all permutation of length `i`: we take the permutation
+    -- of length `i-1` and for each of them, we create new
+    -- permutations by adding each output at the end of it if it is
+    -- not already present.
+    local new = {}
+    for _, p in pairs(previous) do
+      for _, o in pairs(out) do
+        if not awful.util.table.hasitem(p, o) then
+          new[#new + 1] = awful.util.table.join(p, {o})
+        end
+      end
+    end
+    choices = awful.util.table.join(choices, new)
+    previous = new
+  end
+
+  return choices
+end
+
+-- Build available choices
+local function menu()
+  local menu = {}
+  local out = outputs()
+  local choices = arrange(out)
+
+  for _, choice in pairs(choices) do
+    local cmd = "xrandr"
+    -- Enabled outputs
+    for i, o in pairs(choice) do
+      cmd = cmd .. " --output " .. o .. " --auto"
+      if i > 1 then
+        cmd = cmd .. " --right-of " .. choice[i-1]
+      end
+    end
+    -- Disabled outputs
+    for _, o in pairs(out) do
+      if not awful.util.table.hasitem(choice, o) then
+        cmd = cmd .. " --output " .. o .. " --off"
+      end
+    end
+
+    local label = ""
+    if #choice == 1 then
+      label = 'Only <span weight="bold">' .. choice[1] .. '</span>'
+    else
+      for i, o in pairs(choice) do
+        if i > 1 then label = label .. " + " end
+        label = label .. '<span weight="bold">' .. o .. '</span>'
+      end
+    end
+
+    menu[#menu + 1] = { label,
+    cmd,
+    "/usr/share/icons/Tango/32x32/devices/display.png"}
+  end
+
+  return menu
+end
+
+-- Display xrandr notifications from choices
+local state = { iterator = nil,
+timer = nil,
+cid = nil }
+local function xrandr()
+  -- Stop any previous timer
+  if state.timer then
+    state.timer:stop()
+    state.timer = nil
+  end
+
+  -- Build the list of choices
+  if not state.iterator then
+    state.iterator = awful.util.table.iterate(menu(),
+    function() return true end)
+  end
+
+  -- Select one and display the appropriate notification
+  local next  = state.iterator()
+  local label, action, icon
+  if not next then
+    label, icon = "Keep the current configuration", "/usr/share/icons/Tango/32x32/devices/display.png"
+    state.iterator = nil
+  else
+    label, action, icon = unpack(next)
+  end
+  state.cid = naughty.notify({ text = label,
+  icon = icon,
+  timeout = 4,
+  screen = mouse.screen, -- Important, not all screens may be visible
+  font = "Free Sans 18",
+  replaces_id = state.cid }).id
+
+  -- Setup the timer
+  state.timer = timer { timeout = 4 }
+  state.timer:connect_signal("timeout",
+  function()
+    state.timer:stop()
+    state.timer = nil
+    state.iterator = nil
+    if action then
+      awful.util.spawn(action, false)
+    end
+  end)
+  state.timer:start()
+end
+
+-- }}}
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "konsole"
@@ -124,6 +257,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
+netwidget = wibox.widget.textbox()
+vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
+
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -192,6 +328,18 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s].widgets = {
+      {
+        mylauncher,
+        mytaglist[s],
+        mypromptbox[s],
+      },
+      mylayoutbox[s],
+      mytextclock,
+      netwidget,       --   ADD THIS, don't forget the comma!
+      s == 1 and mysystray or nil,
+      mytasklist[s],
+    }
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -223,8 +371,55 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
+-- Conky {{{
+function get_conky()
+    local clients = client.get()
+    local conky = nil
+    local i = 1
+    while clients[i]
+    do
+        if clients[i].class == "Conky"
+        then
+            conky = clients[i]
+        end
+        i = i + 1
+    end
+    return conky
+end
+function raise_conky()
+    local conky = get_conky()
+    if conky
+    then
+        conky.ontop = true
+    end
+end
+function lower_conky()
+    local conky = get_conky()
+    if conky
+    then
+        conky.ontop = false
+    end
+end
+function toggle_conky()
+    local conky = get_conky()
+    if conky
+    then
+        if conky.ontop
+        then
+            conky.ontop = false
+        else
+            conky.ontop = true
+        end
+    end
+end
+
+-- }}}
 -- {{{ Key bindings
+hints.init()
 globalkeys = awful.util.table.join(
+  awful.key({modkey, "Shift"}, "x", xrandr),
+    awful.key({modkey, "Shift"}, "A", raise_conky, lower_conky),
+    awful.key({ modkey }, "j", function () hints.focus() end),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end), -- Spawn the pass dmenu script.
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -359,6 +554,14 @@ root.keys(globalkeys)
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
+{ rule = { class = "Conky" },
+  properties = {
+      floating = true,
+      sticky = true,
+      ontop = false,
+      focusable = false,
+      size_hints = {"program_position", "program_size"}
+  } },
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
@@ -371,6 +574,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { class = "konsole" },
+      properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
