@@ -1,8 +1,10 @@
-# activate envirius
-if [ -e "~/.envirius/nv" ] ; then
-  source ~/.envirius/nv
+if [ -e "$HOME/.envirius/nv" ] ; then
+  . ~/.envirius/nv
 fi
-# auto env activation
+
+if [ -e ".envirius" ] && [ -f ".envirius" ]; then
+  nv on `cat .envirius`
+fi
 source ~/.fzf.zsh
 setopt prompt_subst
 # Prompts {{{
