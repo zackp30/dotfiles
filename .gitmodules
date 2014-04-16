@@ -16,3 +16,6 @@
 [submodule "home/.zsh/plugins/envirius"]
 	path = home/.zsh/plugins/envirius
 	url = https://github.com/ekalinin/envirius
+[submodule "home/.config/awesome/lib/blingbling"]
+	path = home/.config/awesome/lib/blingbling
+	url = git://github.com/cedlemo/blingbling.git
