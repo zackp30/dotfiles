@@ -1,6 +1,3 @@
-! Cursor theme
-! Xcursor.theme: CG
-
 ! Colors - also see scripts/xcolor for switching
 #include "/home/zack/.xcolours/solarized.xcolours"
 
@@ -9,9 +6,8 @@ Xft.antialias:  true
 Xft.hinting:    true
 Xft.rgba:       rgb
 Xft.hintstyle:  hintfull
-Xft.dpi:        220
 
-urxvt.font:  xft:Source Code Pro:size=8
+urxvt.font:  xft:Source Code Pro Black:size=4
 /* urxvt.font:  xft:DejaVuSansMono:size=8 */
 /* urxvt.font:  xft:DejaVuSansMono:size=10 */
 
@@ -38,4 +34,4 @@ URxvt.perl-ext-common: default,keyboard-select,url-select,clipboard
 URxvt.url-select.launcher: firefox
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:      perl:url-select:select_next
-URxvt.keysym.M-p:      perl:clipboard:paste
+URxvt.keysym.M-shift->:      perl:clipboard:paste
