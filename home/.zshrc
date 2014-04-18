@@ -64,7 +64,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
     export KEYTIMEOUT=1
 # }}}
 # Plugins {{{
-    source ~/.zshrc.aliases
     . $HOME/.zsh/plugins/bd/bd.zsh
     . ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
     bindkey -e

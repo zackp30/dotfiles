@@ -12,7 +12,7 @@
   Bundle 'Shougo/neocomplete.vim'
   Bundle 'mbbill/undotree'
   Bundle 'scrooloose/syntastic'
-  Bundle 'airblade/vim-gitgutter'
+  " Bundle 'airblade/vim-gitgutter'
   Bundle 'bling/vim-bufferline'
   Bundle 'tomtom/tcomment_vim'
   Bundle 'Shougo/unite.vim'
