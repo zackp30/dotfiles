@@ -81,23 +81,15 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # }}}
 # Vi stuff. {{{
 
-# zle-line-init () { auto-fu-init }
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
-vi-mode-fix () {
-  ((auto_fu_init_p==1)) && [[ ${KEYMAP-} == main ]] && return
-
-  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins|afu)/}"
+function zle-line-init zle-keymap-select {
+  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
   zle reset-prompt
 }
 
-zle-keymap-select() {
-  auto-fu-zle-keymap-select "$@"
-  vi-mode-fix
-}
+zle -N zle-line-init
 zle -N zle-keymap-select
 
-zle -N zle-keymap-select auto-fu-zle-keymap-select
-zle -N zle-keymap-select
 source ~/.zsh/plugins/opp.zsh/opp.zsh
 # }}}
 # Stuff that needs to go last {{{
