@@ -11,8 +11,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local myplacesmenu = require("myplacesmenu")
 vicious = require("vicious")
+-- require("obvious.battery")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -235,7 +235,6 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-  { "files", myplacesmenu.myplacesmenu()},
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
@@ -258,7 +257,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 cpuwidget = awful.widget.graph()
-cpuwidget:set_width(500)
+cpuwidget:set_width(50)
 cpuwidget:set_background_color("#494B4F")
 
 cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
@@ -344,7 +343,6 @@ for s = 1, screen.count() do
     --   },
     --   mylayoutbox[s],
     --   mytextclock,
-    --   netwidget,       --   ADD THIS, don't forget the comma!
     --   s == 1 and mysystray or nil,
     --   mytasklist[s],
     -- }
@@ -361,6 +359,7 @@ for s = 1, screen.count() do
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
     right_layout:add(cpuwidget)
+    -- right_layout:add(obvious.battery())
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
