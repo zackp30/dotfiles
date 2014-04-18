@@ -1,3 +1,4 @@
+-- Libs {{{
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -11,10 +12,10 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-vicious = require("vicious")
+local vicious = require("vicious")
 require("obvious.volume_alsa")
 require("obvious.mem")
-require("blingbling")
+local blingbling = require("blingbling")
 
 
 -- {{{ Error handling
@@ -41,7 +42,6 @@ do
     end)
 end
 -- }}}
-
 -- xrandr {{{
 -- Get active outputs
 local function outputs()
@@ -199,7 +199,6 @@ local layouts =
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
-    -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
@@ -210,14 +209,11 @@ local layouts =
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
 }
 -- }}}
-
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
@@ -225,16 +221,14 @@ if beautiful.wallpaper then
     end
 end
 -- }}}
-
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", "IRC", "Misc" }, s, layouts[1])
 end
 -- }}}
-
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
@@ -255,11 +249,20 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
-
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 -- CPU {{{
+  -- Main graph {{{
+  cpu_graph = blingbling.line_graph({ height = 18,
+      width = 200,
+      show_text = true,
+      label = "Load: $percent %",
+      rounded_size = 0.3,
+      graph_background_color = "#00000033"
+      })
+    vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
+    -- }}}
 -- Old {{{
 -- cpuwidget = awful.widget.graph()
 -- cpuwidget:set_width(50)
@@ -270,18 +273,12 @@ mytextclock = awful.widget.textclock()
 --
 -- vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 -- }}}
--- }}}
 -- Net {{{
 -- netwidget = obvious.net.send()
 -- }}}
 -- Mem {{{
 
 -- }}}
-
-
-
-
-
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -342,7 +339,8 @@ for s = 1, screen.count() do
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    -- mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    mytaglist[s]=blingbling.tagslist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
@@ -375,6 +373,7 @@ for s = 1, screen.count() do
     -- right_layout:add(cpuwidget)
     right_layout:add(obvious.volume_alsa(0, "Speaker"))
     -- right_layout:add(obvious.mem)
+    right_layout:add(cpu_graph)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -385,7 +384,6 @@ for s = 1, screen.count() do
     mywibox[s]:set_widget(layout)
 end
 -- }}}
-
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -393,7 +391,6 @@ root.buttons(awful.util.table.join(
     awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
-
 -- Conky {{{
 function get_conky()
     local clients = client.get()
@@ -575,7 +572,6 @@ clientbuttons = awful.util.table.join(
 -- Set keys
 root.keys(globalkeys)
 -- }}}
-
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -606,7 +602,6 @@ awful.rules.rules = {
     --   properties = { tag = tags[1][2] } },
 }
 -- }}}
-
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
