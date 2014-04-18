@@ -1,0 +1,41 @@
+! Cursor theme
+! Xcursor.theme: CG
+
+! Colors - also see scripts/xcolor for switching
+#include "/home/zack/.xcolours/solarized.xcolours"
+
+! Fonts
+Xft.antialias:  true
+Xft.hinting:    true
+Xft.rgba:       rgb
+Xft.hintstyle:  hintfull
+Xft.dpi:        220
+
+urxvt.font:  xft:Source Code Pro:size=8
+/* urxvt.font:  xft:DejaVuSansMono:size=8 */
+/* urxvt.font:  xft:DejaVuSansMono:size=10 */
+
+URxvt.scrollBar:  false
+URxvt.jumpScroll: true
+URxvt.skipScroll: true
+URxvt.saveLines:  64000
+URxvt.visualBell: false
+
+URxvt.depth:       24
+URxvt.buffered:    true
+!URxvt.foreground:  #f0f0f0
+!URxvt.background:  #000000
+URxvt.transparent: false
+URxvt.shading:     100
+
+URxvt.intensityStyles: true
+URxvt.termName:        rxvt-unicode-256color
+URxvt.urgentOnBell:    true
+
+URxvt*cursorBlink:     true
+
+URxvt.perl-ext-common: default,keyboard-select,url-select,clipboard
+URxvt.url-select.launcher: firefox
+URxvt.url-select.underline: true
+URxvt.keysym.M-u:      perl:url-select:select_next
+URxvt.keysym.M-p:      perl:clipboard:paste
