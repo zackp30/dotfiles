@@ -175,7 +175,7 @@ end
 beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "konsole"
+terminal = "urxvt-256color"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -582,7 +582,7 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "konsole" },
+    { rule = { class = "urxvt-256color" },
       properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
