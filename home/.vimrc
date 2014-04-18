@@ -78,6 +78,7 @@
   Bundle 'tpope/timl'
   Bundle 'maxmeyer/vim-taskjuggler'
   Bundle 'tpope/vim-dispatch'
+  Bundle 'dyng/ctrlsf.vim'
   " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
     Bundle 'kopischke/unite-spell-suggest'

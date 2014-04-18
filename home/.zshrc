@@ -69,7 +69,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
     . ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
     bindkey -e
     bindkey $'\e' vi-cmd-mode # From https://github.com/hchbaw/auto-fu.zsh/issues/29
-    . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
+    # . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
     . ~/.zsh/plugins/tmuxinator.zsh
     ZSH_VCS_PROMPT_ENABLE_CACHING='true'
     fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
@@ -81,7 +81,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # }}}
 # Vi stuff. {{{
 
-zle-line-init () { auto-fu-init }
+# zle-line-init () { auto-fu-init }
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
 vi-mode-fix () {
   ((auto_fu_init_p==1)) && [[ ${KEYMAP-} == main ]] && return
@@ -97,7 +97,6 @@ zle-keymap-select() {
 zle -N zle-keymap-select
 
 zle -N zle-keymap-select auto-fu-zle-keymap-select
-zle -N zle-line-init
 zle -N zle-keymap-select
 source ~/.zsh/plugins/opp.zsh/opp.zsh
 # }}}
