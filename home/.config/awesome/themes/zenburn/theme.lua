@@ -13,53 +13,6 @@ local blingbling = require("blingbling")
 theme = {}
 theme.wallpaper = "/usr/share/awesome/themes/zenburn/zenburn-background.png"
 -- }}}
--- Colours {{{
-local function rgb(red, green, blue)
-  if type(red) == "number" or type(green) == "number" or type(blue) == "number" then
-    return "#"..string.format("%02x",red)..string.format("%02x",green)..string.format("%02x",blue)
-  else    
-    return nil
-  end
-end
-
-local function rgba(red, green, blue, alpha) 
-  if type(red) == "number" or type(green) == "number" or type(blue) == "number" or type(alpha) == "number" then
-    return "#"..string.format("%02x",red)..string.format("%02x",green)..string.format("%02x",blue)..string.format("%02x",alpha * 255)
-  else
-    return nil
-  end
-end
-
---colors
-local bordeaux= rgb(47,28,28)
-local light_bordeaux = rgba(191,64,64,0.6)
-local dark_grey = "#121212"
-local grey = "#444444ff"
-local light_grey = "#555555"
-local white = "#ffffff"
-local light_white = "#999999"
-local light_black = "#232323"
-local red = "#b9214f"
-local bright_red = "#ff5c8d"
-local yellow = "#ff9800"
-local bright_yellow = "#ffff00"
-local black = "#000000"
-local bright_black = "#5D5D5D"
-local green = "#A6E22E"
-local bright_green = "#CDEE69"
-local blue = "#3399ff"
-local bright_blue = "#9CD9F0"
-local magenta = "#8e33ff"
-local bright_magenta = "#FBB1F9"
-local cyan = "#06a2dc"
-local bright_cyan = "#77DFD8"
-local widget_background = "#303030"
---local white = "#B0B0B0"
-local bright_white = "#F7F7F7"
-local transparent = "#00000000"
---background=#121212
---foreground=#aeafad
--- }}}
 -- {{{ Styles
 theme.font      = "sans 8"
 
@@ -168,44 +121,12 @@ theme.titlebar_maximized_button_normal_inactive = "/usr/share/awesome/themes/zen
 -- }}}
 -- }}}
 -- BlingBling {{{
-theme.blingbling = {
-    background_color = "#00000000",
-    graph_background_color = widget_background,
-    graph_color = bright_magenta,
-    graph_line_color = magenta,
-    rounded_size = 0.3,        
-    text_color = light_white,
-    font = "Droid Sans Mono",
-    font_size = 9 
-}
+theme.blingbling = {}
 theme.blingbling.tagslist = {}
-theme.blingbling.tagslist.normal ={ background_color = widget_background,--rgb(26,26,26),
-                                    text_background_color = "#00000000", --no color
+theme.blingbling.tagslist.normal = { background_color = "#000000",
+                                    text_background_color = "#ff8fff",
                                     rounded_size = { 0, 0.4,0,0.4 },
-                                    text_color = theme.fg_normal,
-                                    font = "Droid Sans",
-                                    font_size = 7 
+                                    font_size = 7
                                   }
-theme.blingbling.tagslist.focus = { h_margin = 1,
-                                    v_margin = 1,
-                                    background_color = red, 
-                                    text_background_color = widget_background,
-                                    text_color = theme.fg_normal,
-                                    rounded_size = { 0, 0.4,0,0.4 },
-                                    font = "Droid Sans italic",
-                                    font_size = 8
-                                  }
-
-theme.blingbling.tagslist.urgent = theme.blingbling.tagslist.focus
-theme.blingbling.tagslist.occupied = theme.blingbling.tagslist.normal
-
-local cal_common_style = {  h_margin = 0, 
-                            v_margin = 0, 
-                            rounded_size = 0.3, 
-                            background_color = widget_background, 
-                            text_background_color = "#00000000",
-                            text_color = white, 
-                            font ="Droid Sans"
-                          }
-                          -- }}}
+-- }}}
 return theme
