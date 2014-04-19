@@ -15,6 +15,7 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 require("obvious.volume_alsa")
 require("obvious.mem")
+require("obvious.battery")
 -- }}}
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -23,6 +24,7 @@ if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
                      text = awesome.startup_errors })
+    right_layout:add(obvious.battery())
 end
 
 -- Handle runtime errors after startup
@@ -366,12 +368,15 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    -- Custom {{{
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
     -- right_layout:add(cpuwidget)
     right_layout:add(obvious.volume_alsa(0, "Speaker"))
     -- right_layout:add(obvious.mem)
+    right_layout:add(obvious.battery())
     right_layout:add(cpu_graph)
+    -- }}}
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
