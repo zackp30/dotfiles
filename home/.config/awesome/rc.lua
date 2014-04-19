@@ -259,7 +259,6 @@ mytextclock = awful.widget.textclock()
       show_text = true,
       label = "Load: $percent %",
       rounded_size = 0.3,
-      graph_background_color = "#00000033"
       })
     vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
     -- }}}
@@ -340,7 +339,7 @@ for s = 1, screen.count() do
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
     -- mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-    mytaglist[s]=blingbling.tagslist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    mytaglist[s]=blingbling.tagslist(s,  awful.widget.taglist.filter.all, mytaglist.buttons --[[, { normal = {}, focus ={}, urgent={}, occupied={} }--]])
 
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
