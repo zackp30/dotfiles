@@ -15,9 +15,7 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 require("obvious.volume_alsa")
 require("obvious.mem")
-local blingbling = require("blingbling")
-
-
+-- }}}
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -254,6 +252,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mytextclock = awful.widget.textclock()
 -- CPU {{{
   -- Main graph {{{
+  local blingbling = require("blingbling")
   cpu_graph = blingbling.line_graph({ height = 18,
       width = 200,
       show_text = true,
@@ -339,7 +338,7 @@ for s = 1, screen.count() do
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
     -- mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-    mytaglist[s]=blingbling.tagslist(s,  awful.widget.taglist.filter.all, mytaglist.buttons --[[, { normal = {}, focus ={}, urgent={}, occupied={} }--]])
+    mytaglist[s]=blingbling.tagslist(s,  awful.widget.taglist.filter.all, mytaglist.buttons--[[, { normal = {}, focus ={}, urgent={}, occupied={} }--]])
 
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
