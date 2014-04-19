@@ -135,5 +135,9 @@ theme.blingbling.tagslist.focus = { background_color = "#1AB7FF",
                                     text_background_color = "#00000000",
                                     text_color = "#F0F0F0",
                                   }
+theme.blingbling.tagslist.urgent = { background_color = "#1AB7FF",
+                                    text_background_color = "#00000000",
+                                    text_color = "#F0F0F0",
+                                  }
 -- }}}
 return theme

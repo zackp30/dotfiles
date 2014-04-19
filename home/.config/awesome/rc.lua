@@ -572,7 +572,6 @@ root.keys(globalkeys)
 -- }}}
 -- {{{ Rules
 awful.rules.rules = {
-    -- All clients will match this rule.
 { rule = { class = "Conky" },
   properties = {
       floating = true,
@@ -581,6 +580,7 @@ awful.rules.rules = {
       focusable = false,
       size_hints = {"program_position", "program_size"}
   } },
+    -- All clients will match this rule.
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
@@ -596,8 +596,8 @@ awful.rules.rules = {
     { rule = { class = "urxvt-256color" },
       properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "Firefox" },
+      properties = { tag = tags[1][2] } },
 }
 -- }}}
 -- {{{ Signals
