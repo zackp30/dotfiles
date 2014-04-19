@@ -6,9 +6,6 @@
 -- Alternative icon sets and widget icons:
 --  * http://awesome.naquadah.org/wiki/Nice_Icons
 
--- Libs {{{
-local blingbling = require("blingbling")
--- }}}
 -- {{{ Main
 theme = {}
 theme.wallpaper = "/usr/share/awesome/themes/zenburn/zenburn-background.png"
@@ -123,10 +120,10 @@ theme.titlebar_maximized_button_normal_inactive = "/usr/share/awesome/themes/zen
 -- BlingBling {{{
 theme.blingbling = {}
 theme.blingbling.tagslist = {}
-theme.blingbling.tagslist.normal ={ background_color = "#000000",--rgb(26,26,26),
+theme.blingbling.tagslist.normal = { background_color = "#1AB7FF",--rgb(26,26,26),
                                     text_background_color = "#00000000", --no color
                                     rounded_size = { 0, 0.4,0,0.4 },
-                                    text_color = theme.fg_normal,
+                                    text_color = "#F0F0F0",
                                     font = "Droid Sans",
                                     font_size = 7 
                                   }
