@@ -123,10 +123,12 @@ theme.titlebar_maximized_button_normal_inactive = "/usr/share/awesome/themes/zen
 -- BlingBling {{{
 theme.blingbling = {}
 theme.blingbling.tagslist = {}
-theme.blingbling.tagslist.normal = { background_color = "#000000",
-                                    text_background_color = "#ff8fff",
+theme.blingbling.tagslist.normal ={ background_color = "#000000",--rgb(26,26,26),
+                                    text_background_color = "#00000000", --no color
                                     rounded_size = { 0, 0.4,0,0.4 },
-                                    font_size = 7
+                                    text_color = theme.fg_normal,
+                                    font = "Droid Sans",
+                                    font_size = 7 
                                   }
 -- }}}
 return theme
