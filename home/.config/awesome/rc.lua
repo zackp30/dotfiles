@@ -372,7 +372,7 @@ for s = 1, screen.count() do
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
     -- right_layout:add(cpuwidget)
-    right_layout:add(obvious.volume_alsa(0, "Speaker"))
+    if os.getenv("HOSTNAME") == "linux" then right_layout:add(obvious.volume_alsa(0, "Master")) else right_layout:add(obvious.volume_alsa(0, "Speaker")) end
     -- right_layout:add(obvious.mem)
     right_layout:add(obvious.battery())
     right_layout:add(cpu_graph)
@@ -603,6 +603,8 @@ awful.rules.rules = {
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2] } },
+    { rule = { class = "Skype" },
+      properties = { tag = tags[1][4] } },
 }
 -- }}}
 -- {{{ Signals
