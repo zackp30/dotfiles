@@ -372,7 +372,12 @@ for s = 1, screen.count() do
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
     -- right_layout:add(cpuwidget)
-    if os.getenv("HOSTNAME") == "linux" then right_layout:add(obvious.volume_alsa(0, "Master")) else right_layout:add(obvious.volume_alsa(0, "Speaker")) end
+    if os.getenv("HOSTNAME") == "linux" then
+      speaker_name = "Master"
+    else
+      speaker_name = "Speaker"
+    end
+    right_layout:add(obvious.volume_alsa(0, speaker_name))
     -- right_layout:add(obvious.mem)
     right_layout:add(obvious.battery())
     right_layout:add(cpu_graph)
@@ -440,8 +445,8 @@ end
 -- {{{ Key bindings
 hints.init()
 globalkeys = awful.util.table.join(
-    awful.key({ modkey }, ",", obvious.volume_alsa.raise(0, "Speaker", 5)),
-    awful.key({ modkey }, ".", obvious.volume_alsa.lower(0, "Speaker", 5)),
+    awful.key({ modkey }, ",", obvious.volume_alsa.raise(0, speaker_name, 5)),
+    awful.key({ modkey }, ".", obvious.volume_alsa.lower(0, speaker_name, 5)),
     awful.key({modkey, "Shift"}, "x", xrandr),
     awful.key({modkey, "Shift"}, "A", raise_conky, lower_conky),
     awful.key({ modkey }, "j", function () hints.focus() end),
