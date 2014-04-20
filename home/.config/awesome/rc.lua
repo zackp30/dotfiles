@@ -445,12 +445,15 @@ end
 -- {{{ Key bindings
 hints.init()
 globalkeys = awful.util.table.join(
+     -- Custom {{{
     awful.key({ modkey }, ",", obvious.volume_alsa.raise(0, speaker_name, 5)),
     awful.key({ modkey }, ".", obvious.volume_alsa.lower(0, speaker_name, 5)),
+    awful.key({ modkey, "Shift" }, "`", function () awful.util.spawn("lock") end),
     awful.key({modkey, "Shift"}, "x", xrandr),
     awful.key({modkey, "Shift"}, "A", raise_conky, lower_conky),
     awful.key({ modkey }, "j", function () hints.focus() end),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end), -- Spawn the pass dmenu script.
+    -- }}}
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
