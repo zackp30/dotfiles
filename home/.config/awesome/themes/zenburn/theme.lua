@@ -8,7 +8,9 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper = "/usr/share/awesome/themes/zenburn/zenburn-background.png"
+if os.getenv("HOSTNAME") == "raspberrypi" then
+  theme.wallpaper = os.getenv("HOME").."bg/pi.jpg"
+end
 -- }}}
 -- {{{ Styles
 theme.font      = "sans 8"

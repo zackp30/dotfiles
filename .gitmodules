@@ -31,3 +31,6 @@
 [submodule "home/.config/awesome/obvious"]
 	path = home/.config/awesome/obvious
 	url = https://github.com/hoelzro/obvious
+[submodule "home/.config/awesome/vicious"]
+	path = home/.config/awesome/vicious
+	url = http://git.sysphere.org/vicious
