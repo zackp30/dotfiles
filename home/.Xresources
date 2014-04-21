@@ -7,7 +7,7 @@ Xft.hinting:    true
 Xft.rgba:       rgb
 Xft.hintstyle:  hintfull
 
-urxvt.font:  xft:Source Code Pro Black:size=4
+urxvt.font:  xft:Source Code Pro Black:size=8
 /* urxvt.font:  xft:DejaVuSansMono:size=8 */
 /* urxvt.font:  xft:DejaVuSansMono:size=10 */
 
