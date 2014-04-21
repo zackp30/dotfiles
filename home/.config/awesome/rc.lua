@@ -181,7 +181,7 @@ beautiful.init(os.getenv("HOME").."/.config/awesome/themes/zenburn/theme.lua")
 if os.getenv("HOST") == "raspberrypi" then 
   terminal = "urxvt"
 else
-  terminal = "urxvt"
+  terminal = "rxvt-unicode-256color"
 end
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor

@@ -123,4 +123,9 @@ export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
 export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 .  /usr/share/autojump/autojump.sh 
-
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
+fi

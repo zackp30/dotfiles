@@ -47,6 +47,9 @@
       Bundle 'jpalardy/vim-slime'
       Bundle 'tpope/vim-classpath'
     " }}}
+    " Go {{{
+    Bundle 'https://github.com/yosssi/vim-gold'
+    " }}}
   " }}}
   Bundle 'groenewege/vim-less'
   Bundle 'rainbow_parentheses.vim'
