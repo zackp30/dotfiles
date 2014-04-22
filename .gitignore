@@ -1,6 +1,6 @@
 *.pyc
 home/.vim/bundle/
-! Vim/bundle/ZackFileTypes/*
+! home/.vim/bundle/ZFileTypes/ftplugin
 Vim/bundle/.neobundle/
 home/.envirius/
 *.swp
