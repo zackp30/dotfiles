@@ -83,7 +83,6 @@
   Bundle 'tpope/vim-dispatch'
   Bundle 'dyng/ctrlsf.vim'
   Bundle 'edsono/vim-matchit'
-  Bundle 'junegunn/vim-scroll-position'
   Bundle 'naquad/ctrlp-digraphs.vim'
   " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
