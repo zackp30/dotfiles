@@ -261,13 +261,5 @@
 (global-unset-key (kbd "C-x m"))
 
 
-;; replace with [r]eally [q]uit
-(global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
-(global-set-key (kbd "C-x C-c") (bind (message "Thou shall not quit!")))
-(after 'evil
-  (defadvice evil-quit (around advice-for-evil-quit activate)
-    (message "Thou shall not quit!"))
-  (defadvice evil-quit-all (around advice-for-evil-quit-all activate)
-    (message "Thou shall not quit!")))
 
 (provide 'init-bindings)
