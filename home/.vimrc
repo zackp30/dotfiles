@@ -1,5 +1,6 @@
 " NeoBundle {{{
   set rtp+=~/.vim/neobundle.vim/
+  set rtp+=~/.fzf
   call neobundle#rc(expand('~/.vim/bundle/'))
   " Bundles {{{
   " Didn't like it being renamed.
