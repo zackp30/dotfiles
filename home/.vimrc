@@ -7,27 +7,6 @@
   command! -nargs=* Bundle NeoBundle <args>
   command! -nargs=1 BundleFetch NeoBundleFetch <args>
   NeoBundleFetch 'Shougo/neobundle.vim'
-  Bundle 'bling/vim-airline'
-  Bundle 'kien/ctrlp.vim'
-  Bundle 'davidhalter/jedi-vim'
-  Bundle 'Shougo/neocomplete.vim'
-  Bundle 'mbbill/undotree'
-  Bundle 'scrooloose/syntastic'
-  " Bundle 'airblade/vim-gitgutter'
-  Bundle 'bling/vim-bufferline'
-  Bundle 'tomtom/tcomment_vim'
-  Bundle 'Shougo/unite.vim'
-  Bundle 'vim-pandoc/vim-pantondoc'
-  Bundle 'vim-pandoc/vim-pandoc-syntax'
-  Bundle 'osyo-manga/vim-over'
-  Bundle 'Raimondi/delimitMate'
-  Bundle 'szw/vim-dict'
-  Bundle 'kshenoy/vim-signature'
-  Bundle 'mhinz/vim-startify'
-  Bundle 'justinmk/vim-gtfo'
-  Bundle 'rking/ag.vim'
-  Bundle 'wlangstroth/vim-racket'
-  Bundle 'edkolev/tmuxline.vim'
   " Languages {{{
     " Web development {{{
     Bundle 'kchmck/vim-coffee-script'
@@ -50,8 +29,37 @@
     " }}}
     " Go {{{
     Bundle 'https://github.com/yosssi/vim-gold'
+    Bundle 'fatih/vim-go'
+    " }}}
+    " Ruby {{{
+    Bundle 'nelstrom/vim-textobj-rubyblock'
+    Bundle 'vim-ruby/vim-ruby'
+    " }}}
+    " Python {{{
+    Bundle 'davidhalter/jedi-vim'
+    " }}}
+    " Racket {{{
+    Bundle 'wlangstroth/vim-racket'
     " }}}
   " }}}
+  Bundle 'bling/vim-airline'
+  Bundle 'kien/ctrlp.vim'
+  Bundle 'Shougo/neocomplete.vim'
+  Bundle 'mbbill/undotree'
+  Bundle 'scrooloose/syntastic'
+  Bundle 'bling/vim-bufferline'
+  Bundle 'tomtom/tcomment_vim'
+  Bundle 'Shougo/unite.vim'
+  Bundle 'vim-pandoc/vim-pantondoc'
+  Bundle 'vim-pandoc/vim-pandoc-syntax'
+  Bundle 'osyo-manga/vim-over'
+  Bundle 'Raimondi/delimitMate'
+  Bundle 'szw/vim-dict'
+  Bundle 'kshenoy/vim-signature'
+  Bundle 'mhinz/vim-startify'
+  Bundle 'justinmk/vim-gtfo'
+  Bundle 'rking/ag.vim'
+  Bundle 'edkolev/tmuxline.vim'
   Bundle 'groenewege/vim-less'
   Bundle 'rainbow_parentheses.vim'
   Bundle 'Shougo/vimproc', {
@@ -61,7 +69,6 @@
   Bundle 'tpope/vim-surround'
   Bundle 'justinmk/vim-sneak'
   NeoBundle 'ZFileTypes'
-  Bundle 'vim-ruby/vim-ruby'
   Bundle 'Twinside/vim-haskellConceal'
   Bundle 't9md/vim-choosewin'
   Bundle 'Shougo/vimfiler.vim'
@@ -76,7 +83,6 @@
   Bundle 'slim-template/vim-slim'
   Bundle 'ntpeters/vim-better-whitespace'
   Bundle 'tpope/vim-jdaddy'
-  Bundle 'fatih/vim-go'
   Bundle 'gregsexton/gitv'
   Bundle 'nathanaelkane/vim-indent-guides'
   Bundle 'tpope/timl'
@@ -94,7 +100,6 @@
   " }}}
 " }}}
 " Abbreviations {{{
-    "iabbrev @@ me@apertron.net
     iabbrev @cc@ Copyright 2013 Zack Piper.
 " }}}
 " autocmds {{{
