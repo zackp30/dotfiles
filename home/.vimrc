@@ -91,6 +91,9 @@
   Bundle 'dyng/ctrlsf.vim'
   Bundle 'edsono/vim-matchit'
   Bundle 'naquad/ctrlp-digraphs.vim'
+  Bundle 'vim-scripts/DrawIt'
+  Bundle 'dhruvasagar/vim-table-mode'
+  Bundle 'chrisbra/csv.vim'
   " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
     Bundle 'kopischke/unite-spell-suggest'
@@ -115,6 +118,11 @@
         au!
         autocmd Syntax set syntax=on
     augroup END
+    augroup miscfts
+      au!
+      autocmd VimEnter,BufNewFile,BufReadPost *.page set ft=pandoc
+      autocmd VimEnter,BufNewFile,BufReadPost *.plt set ft=gnuplot
+    augroup end
 " }}}
 " Learn Vim script the hard way. {{{
     "nnoremap <silent> <leader>w :match /\v   
@@ -134,7 +142,6 @@
   inoremap <Right> <nop>
   inoremap <Down> <nop>
   inoremap <Up> <nop>
-  inoremap <leader>am <esc><<A
 " }}}
 " nnoremaps {{{
   nnoremap <leader>" bi"<esc>wwa"<esc>

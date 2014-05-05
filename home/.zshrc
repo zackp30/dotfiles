@@ -120,7 +120,7 @@ autoload -Uz compinit
 compinit
 export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
-export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux
+export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin
 .  /usr/share/autojump/autojump.sh 
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
