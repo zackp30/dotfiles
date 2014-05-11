@@ -37,6 +37,9 @@
     " }}}
     " Python {{{
     Bundle 'davidhalter/jedi-vim'
+    " Hy {{{
+    Bundle 'hylang/vim-hy'
+    " }}}
     " }}}
     " Racket {{{
     Bundle 'wlangstroth/vim-racket'
