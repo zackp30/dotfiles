@@ -97,6 +97,7 @@
   Bundle 'vim-scripts/DrawIt'
   Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'chrisbra/csv.vim'
+  Bundle 'majutsushi/tagbar'
   " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
     Bundle 'kopischke/unite-spell-suggest'
