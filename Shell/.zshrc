@@ -66,7 +66,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # }}}
 # Plugins {{{
     . $HOME/.zsh/plugins/bd/bd.zsh
-    . ~/.fresh/build/vendor/zsh-vcs-prompt.sh
+    . ~/.fresh/build/vendor/zsh-vcs-prompt/zshrc.sh
     bindkey -e
     bindkey $'\e' vi-cmd-mode # From https://github.com/hchbaw/auto-fu.zsh/issues/29
     # . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
@@ -90,12 +90,12 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-source ~/.fresh/build/opp.zsh
+source ~/.fresh/build/vendor/opp.zsh
 # }}}
 # Stuff that needs to go last {{{
 source ~/.zsh/plugins/ZPrompt/main.zsh
 source ~/.fresh/build/vendor/zsh-syntax-highlighting.zsh
-source ~/.fresh/build/vendor/zsh-history-substring-search
+source ~/.fresh/build/vendor/zsh-history-substring-search.zsh
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
