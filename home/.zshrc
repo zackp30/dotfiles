@@ -1,7 +1,9 @@
+export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin
 if [ -e "$HOME/.envirius/nv" ] ; then
   . ~/.envirius/nv
 fi
 
+eval "$(pyenv init -)"
 if [ -e ".envirius" ] && [ -f ".envirius" ]; then
   nv on `cat .envirius`
 fi
@@ -120,7 +122,6 @@ autoload -Uz compinit
 compinit
 export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
-export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/
 .  /usr/share/autojump/autojump.sh 
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
@@ -128,6 +129,8 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
   export SSH_AUTH_SOCK
   export SSH_AGENT_PID
 fi
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # fzf {{{
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
