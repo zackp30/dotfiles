@@ -9,6 +9,12 @@
 # See http://freshshell.com/readme for documentation.
 
 fresh freshshell/fresh bin/fresh --bin
-fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/\* --file
-fresh http://git.apertron.net/cgit.cgi/dotfiles Vim  --file=~/.vim/
-fresh zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting.zsh --file=.zsh/plugins/zsh-syntax-highlighting.zsh
+fresh http://git.apertron.net/cgit.cgi/dotfiles Vim --file=~/.vim/
+fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/.vimrc --file
+fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zshrc --file
+fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zsh --file=~/.zsh/
+fresh zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting.zsh --file=vendor/zsh-syntax-highlighting.zsh
+fresh zsh-users/zsh-syntax-highlighting highlighters --file=vendor/highlighters/
+fresh zsh-users/zsh-history-substring-search zsh-history-substring-search.zsh --file=vendor/zsh-history-substring-search.zsh
+fresh hchbaw/opp.zsh opp.zsh --file=vendor/opp.zsh
+fresh yonchu/zsh-vcs-prompt . --file=vendor/zsh-vcs-prompt/
