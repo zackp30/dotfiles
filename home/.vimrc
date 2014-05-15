@@ -97,7 +97,11 @@
   Bundle 'vim-scripts/DrawIt'
   Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'chrisbra/csv.vim'
+  " Code navigation {{{
   Bundle 'majutsushi/tagbar'
+  Bundle 'vim-scripts/gtags.vim'
+  " }}}
+
   " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
     Bundle 'kopischke/unite-spell-suggest'
@@ -214,7 +218,7 @@
       nmap _ <Plug>(choosewin)
     " }}}
     " pt {{{
-    nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+    " nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
     if executable('pt')
       let g:unite_source_grep_command = 'pt'
       let g:unite_source_grep_default_opts = '--nogroup --nocolor'
