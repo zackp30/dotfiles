@@ -1,0 +1,5 @@
+.cache
+elpa
+auto-save-list
+el-get
+*.elc
