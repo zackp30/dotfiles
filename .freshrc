@@ -26,3 +26,8 @@ fresh zsh-users/zsh-syntax-highlighting highlighters --file=vendor/highlighters/
 fresh zsh-users/zsh-history-substring-search zsh-history-substring-search.zsh --file=vendor/zsh-history-substring-search.zsh
 fresh hchbaw/opp.zsh opp.zsh --file=vendor/opp.zsh
 fresh yonchu/zsh-vcs-prompt . --file=vendor/zsh-vcs-prompt/
+
+fresh_after_build() {
+  ln -s $HOME/.fresh/build/vim-eclim $HOME/.fresh/build/eclim 
+}
+
