@@ -18,6 +18,7 @@ fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/colors --file=~/.vim/colors/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/autoload --file=~/.vim/autoload/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/eclim --file=~/.vim/eclim/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/plugin --file=~/.vim/plugin/
+fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/bundle/ZFileTypes --file=~/.vim/bundle/ZFileTypes/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zshrc --file
 fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zsh --file=~/.zsh/
 fresh zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting.zsh --file=vendor/zsh-syntax-highlighting.zsh
