@@ -32,7 +32,6 @@
     Bundle 'fatih/vim-go'
     " }}}
     " Ruby {{{
-    Bundle 'nelstrom/vim-textobj-rubyblock'
     Bundle 'vim-ruby/vim-ruby'
     " }}}
     " Python {{{
@@ -427,5 +426,8 @@
 " }}}
 " TComment {{{
         call tcomment#DefineType('scribble', "@; %s")
+" }}}
+" slimv {{{
+let g:swank_port = 45126
 " }}}
 " }}}
