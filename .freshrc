@@ -22,6 +22,7 @@ fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/bundle/ZFileTypes --file=~/.
 fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zshrc --file
 fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zsh --file=~/.zsh/
 fresh zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting.zsh --file=vendor/zsh-syntax-highlighting.zsh
+fresh zsh-users/zsh-completions . --file=vendor/zsh-completions/
 fresh zsh-users/zsh-syntax-highlighting highlighters --file=vendor/highlighters/
 fresh zsh-users/zsh-history-substring-search zsh-history-substring-search.zsh --file=vendor/zsh-history-substring-search.zsh
 fresh hchbaw/opp.zsh opp.zsh --file=vendor/opp.zsh
