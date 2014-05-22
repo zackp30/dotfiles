@@ -98,7 +98,6 @@
   Bundle 'chrisbra/csv.vim'
   Bundle 'paradigm/SkyBison'
   Bundle 'kovisoft/slimv'
-  Bundle 'FriedSock/smeargle'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   Bundle 'vim-scripts/gtags.vim'
