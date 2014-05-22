@@ -9,6 +9,7 @@
 # See http://freshshell.com/readme for documentation.
 
 fresh freshshell/fresh bin/fresh --bin
+# Vim {{{
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/.vimrc --file
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/after --file=~/.vim/after/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/neobundle.vim --file=~/.vim/neobundle.vim/
@@ -19,6 +20,8 @@ fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/autoload --file=~/.vim/autol
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/eclim --file=~/.vim/eclim/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/plugin --file=~/.vim/plugin/
 fresh http://git.apertron.net/cgit.cgi/dotfiles Vim/bundle/ZFileTypes --file=~/.vim/bundle/ZFileTypes/
+# }}}
+# Shell {{{
 fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zshrc --file
 fresh http://git.apertron.net/cgit.cgi/dotfiles Shell/.zsh --file=~/.zsh/
 fresh zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting.zsh --file=vendor/zsh-syntax-highlighting.zsh
@@ -27,6 +30,16 @@ fresh zsh-users/zsh-syntax-highlighting highlighters --file=vendor/highlighters/
 fresh zsh-users/zsh-history-substring-search zsh-history-substring-search.zsh --file=vendor/zsh-history-substring-search.zsh
 fresh hchbaw/opp.zsh opp.zsh --file=vendor/opp.zsh
 fresh yonchu/zsh-vcs-prompt . --file=vendor/zsh-vcs-prompt/
+# }}}
+# X11 {{{
+fresh YoRyan/awesome-redshift . --file=~/.config/awesome/awesome-redshift/
+fresh zackpete/hints . --file=~/.config/awesome/hints/
+fresh zackp30/obvious . --file=~/.config/awesome/obvious/
+fresh cedlemo/blingbling . --file=~/.config/awesome/blingbling/
+fresh http://git.sysphere.org/vicious . --file=vendor/awesome/vicious/
+fresh http://git.apertron.net/cgit.cgi/dotfiles X11/awesome/rc.lua --file=~/.config/awesome/rc.lua
+fresh http://git.apertron.net/cgit.cgi/dotfiles X11/awesome/themes/zenburn --file=~/.config/awesome/themes/zenburn/
+# }}}
 
 fresh_after_build() {
   ln -s $HOME/.fresh/build/vim-eclim $HOME/.fresh/build/eclim 

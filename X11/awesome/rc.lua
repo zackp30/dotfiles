@@ -4,7 +4,6 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
-require("hints/hints")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
@@ -405,7 +404,6 @@ root.buttons(awful.util.table.join(
 -- }}}
 -- }}}
 -- {{{ Key bindings
-hints.init()
 globalkeys = awful.util.table.join(
      -- Custom {{{
     awful.key({ modkey }, ",", obvious.volume_alsa.raise(0, speaker_name, 5)),
@@ -413,7 +411,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "`", function () awful.util.spawn("lock") end),
     awful.key({modkey, "Shift"}, "x", xrandr),
     awful.key({modkey, "Shift"}, "A", raise_conky, lower_conky),
-    awful.key({ modkey }, "j", function () hints.focus() end),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end), -- Spawn the pass dmenu script.
     -- }}}
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
