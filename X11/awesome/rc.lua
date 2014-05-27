@@ -12,6 +12,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
+local lognotify = require("lognotify")
+
 require("obvious.volume_alsa")
 require("obvious.mem")
 require("obvious.battery")
@@ -30,7 +32,7 @@ end
 do
     local in_error = false
     awesome.connect_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
+        -- Make sure we don`t go into an endless error loop
         if in_error then return end
         in_error = true
 
@@ -40,137 +42,6 @@ do
         in_error = false
     end)
 end
--- }}}
--- xrandr {{{
--- Get active outputs
-local function outputs()
-  local outputs = {}
-  local xrandr = io.popen("xrandr -q")
-  if xrandr then
-    for line in xrandr:lines() do
-      output = line:match("^([%w-]+) connected ")
-      if output then
-        outputs[#outputs + 1] = output
-      end
-    end
-    xrandr:close()
-  end
-
-  return outputs
-end
-
-local function arrange(out)
-  -- We need to enumerate all the way to combinate output. We assume
-  -- we want only an horizontal layout.
-  local choices  = {}
-  local previous = { {} }
-  for i = 1, #out do
-    -- Find all permutation of length `i`: we take the permutation
-    -- of length `i-1` and for each of them, we create new
-    -- permutations by adding each output at the end of it if it is
-    -- not already present.
-    local new = {}
-    for _, p in pairs(previous) do
-      for _, o in pairs(out) do
-        if not awful.util.table.hasitem(p, o) then
-          new[#new + 1] = awful.util.table.join(p, {o})
-        end
-      end
-    end
-    choices = awful.util.table.join(choices, new)
-    previous = new
-  end
-
-  return choices
-end
-
--- Build available choices
-local function menu()
-  local menu = {}
-  local out = outputs()
-  local choices = arrange(out)
-
-  for _, choice in pairs(choices) do
-    local cmd = "xrandr"
-    -- Enabled outputs
-    for i, o in pairs(choice) do
-      cmd = cmd .. " --output " .. o .. " --auto"
-      if i > 1 then
-        cmd = cmd .. " --right-of " .. choice[i-1]
-      end
-    end
-    -- Disabled outputs
-    for _, o in pairs(out) do
-      if not awful.util.table.hasitem(choice, o) then
-        cmd = cmd .. " --output " .. o .. " --off"
-      end
-    end
-
-    local label = ""
-    if #choice == 1 then
-      label = 'Only <span weight="bold">' .. choice[1] .. '</span>'
-    else
-      for i, o in pairs(choice) do
-        if i > 1 then label = label .. " + " end
-        label = label .. '<span weight="bold">' .. o .. '</span>'
-      end
-    end
-
-    menu[#menu + 1] = { label,
-    cmd,
-    "/usr/share/icons/Tango/32x32/devices/display.png"}
-  end
-
-  return menu
-end
-
--- Display xrandr notifications from choices
-local state = { iterator = nil,
-timer = nil,
-cid = nil }
-local function xrandr()
-  -- Stop any previous timer
-  if state.timer then
-    state.timer:stop()
-    state.timer = nil
-  end
-
-  -- Build the list of choices
-  if not state.iterator then
-    state.iterator = awful.util.table.iterate(menu(),
-    function() return true end)
-  end
-
-  -- Select one and display the appropriate notification
-  local next  = state.iterator()
-  local label, action, icon
-  if not next then
-    label, icon = "Keep the current configuration", "/usr/share/icons/Tango/32x32/devices/display.png"
-    state.iterator = nil
-  else
-    label, action, icon = unpack(next)
-  end
-  state.cid = naughty.notify({ text = label,
-  icon = icon,
-  timeout = 4,
-  screen = mouse.screen, -- Important, not all screens may be visible
-  font = "Free Sans 18",
-  replaces_id = state.cid }).id
-
-  -- Setup the timer
-  state.timer = timer { timeout = 4 }
-  state.timer:connect_signal("timeout",
-  function()
-    state.timer:stop()
-    state.timer = nil
-    state.iterator = nil
-    if action then
-      awful.util.spawn(action, false)
-    end
-  end)
-  state.timer:start()
-end
-
 -- }}}
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -229,7 +100,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", "IRC", "Misc" }, s, layouts[1])
+    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", "IRC", "Misc", "Mining" }, s, layouts[1])
 end
 -- }}}
 -- {{{ Menu
@@ -333,7 +204,7 @@ mytasklist.buttons = awful.util.table.join(
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
+    -- Create an imagebox widget which will contains an icon indicating which layout we`re using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
@@ -395,13 +266,13 @@ for s = 1, screen.count() do
     mywibox[s]:set_widget(layout)
 end
 -- }}}
+-- Bindings {{{
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
--- }}}
 -- }}}
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
@@ -413,8 +284,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey, "Shift"}, "A", raise_conky, lower_conky),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end), -- Spawn the pass dmenu script.
     -- }}}
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
+
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
     awful.key({ modkey,           }, "j",
@@ -470,10 +340,16 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey }, "p", function() awful.util.spawn("dmenu_run") end) -- (dmenu2)
 )
 
 clientkeys = awful.util.table.join(
+    awful.key({ modkey }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
+    awful.key({ modkey }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
+    awful.key({ modkey }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
+    awful.key({ modkey }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end),
+    awful.key({ modkey }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end),
+    awful.key({ modkey }, "Right", function () awful.client.moveresize( 20,   0,   0,   0) end),
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
@@ -483,7 +359,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
+            -- minimized, since minimized clients can`t have the focus.
             c.minimized = true
         end),
     awful.key({ modkey,           }, "m",
@@ -542,6 +418,19 @@ clientbuttons = awful.util.table.join(
 -- Set keys
 root.keys(globalkeys)
 -- }}}
+-- }}}
+-- Notifications {{{
+ilog = lognotify{
+   log =  {
+        awesome  = { file = os.getenv("HOME").."/logs/perl.strmon.weechatlog" },
+   -- Delay between checking in seconds. Default: 1
+   interval = 1,
+   -- Time in seconds after which popup expires. Set 0 for no timeout. Default: 0
+   naughty_timeout = 15
+ },
+}
+ilog:start()
+-- }}}
 -- {{{ Rules
 awful.rules.rules = {
 { rule = { class = "Conky" },
@@ -569,7 +458,11 @@ awful.rules.rules = {
       properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[2][2] } },
+    { rule = { class = "Dogecoin-qt" },
+      properties = { tag = tags[1][6] } },
+    { rule = { class = "Quarkcoin-qt" },
+      properties = { tag = tags[1][6] } },
     { rule = { class = "Skype" },
       properties = { tag = tags[1][4] } },
 }

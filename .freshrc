@@ -39,6 +39,8 @@ fresh cedlemo/blingbling . --file=~/.config/awesome/blingbling/
 fresh http://git.sysphere.org/vicious . --file=vendor/awesome/vicious/
 fresh http://git.apertron.net/cgit.cgi/dotfiles X11/awesome/rc.lua --file=~/.config/awesome/rc.lua
 fresh http://git.apertron.net/cgit.cgi/dotfiles X11/awesome/themes/zenburn --file=~/.config/awesome/themes/zenburn/
+fresh https://github.com/Mic92/lognotify.git . --file=~/.config/awesome/lognotify/
+
 # }}}
 
 fresh_after_build() {
