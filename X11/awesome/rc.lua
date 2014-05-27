@@ -12,6 +12,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
+local lognotify = require("lognotify")
+
 require("obvious.volume_alsa")
 require("obvious.mem")
 require("obvious.battery")
@@ -98,7 +100,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", "IRC", "Misc" }, s, layouts[1])
+    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", "IRC", "Misc", "Mining" }, s, layouts[1])
 end
 -- }}}
 -- {{{ Menu
@@ -338,7 +340,7 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey }, "p", function() awful.util.spawn("dmenu_run") end) -- (dmenu2)
 )
 
 clientkeys = awful.util.table.join(
@@ -417,6 +419,18 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 -- }}}
+-- Notifications {{{
+ilog = lognotify{
+   log =  {
+        awesome  = { file = os.getenv("HOME").."/logs/perl.strmon.weechatlog" },
+   -- Delay between checking in seconds. Default: 1
+   interval = 1,
+   -- Time in seconds after which popup expires. Set 0 for no timeout. Default: 0
+   naughty_timeout = 15
+ },
+}
+ilog:start()
+-- }}}
 -- {{{ Rules
 awful.rules.rules = {
 { rule = { class = "Conky" },
@@ -444,7 +458,11 @@ awful.rules.rules = {
       properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[2][2] } },
+    { rule = { class = "Dogecoin-qt" },
+      properties = { tag = tags[1][6] } },
+    { rule = { class = "Quarkcoin-qt" },
+      properties = { tag = tags[1][6] } },
     { rule = { class = "Skype" },
       properties = { tag = tags[1][4] } },
 }
