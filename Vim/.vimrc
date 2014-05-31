@@ -7,6 +7,7 @@
   command! -nargs=* Bundle NeoBundle <args>
   command! -nargs=1 BundleFetch NeoBundleFetch <args>
   NeoBundleFetch 'Shougo/neobundle.vim'
+  autocmd FileType *.rkt NeoBundleDisable slimv
   " Languages {{{
     " Web development {{{
     Bundle 'kchmck/vim-coffee-script'
@@ -97,7 +98,7 @@
   Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'chrisbra/csv.vim'
   Bundle 'paradigm/SkyBison'
-  Bundle 'kovisoft/slimv'
+  " Bundle 'kovisoft/slimv'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   Bundle 'vim-scripts/gtags.vim'
@@ -116,7 +117,6 @@
 " }}}
 " autocmds {{{
 " Both below are from learnvimscriptthehardway.stevelosh.com.
-    augroup email
     " onoremap in@ :execute "normal! /\\(.com\\|.net\\|.tk\\)\r"
     augroup Tmux
     au!
