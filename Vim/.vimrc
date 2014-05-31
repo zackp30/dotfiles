@@ -430,4 +430,11 @@
 " slimv {{{
 let g:swank_port = 45126
 " }}}
+" Rainbow parenthesis {{{
+" I prefer it kept on for all files.
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+" }}}
 " }}}
