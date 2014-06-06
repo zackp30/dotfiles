@@ -34,6 +34,9 @@
     " }}}
     " Ruby {{{
     Bundle 'vim-ruby/vim-ruby'
+    Bundle 'kana/vim-textobj-user'
+    Bundle 'nelstrom/vim-textobj-rubyblock'
+    Bundle 'vim-scripts/rubycomplete.vim'
     " }}}
     " Python {{{
     Bundle 'davidhalter/jedi-vim'
@@ -43,6 +46,9 @@
     " }}}
     " Racket {{{
     Bundle 'wlangstroth/vim-racket'
+    " }}}
+    " RimL {{{
+    Bundle 'luke-gru/vim-riml'
     " }}}
   " }}}
   Bundle 'bling/vim-airline'
@@ -98,6 +104,7 @@
   Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'chrisbra/csv.vim'
   Bundle 'paradigm/SkyBison'
+  Bundle 'wellle/targets.vim'
   " Bundle 'kovisoft/slimv'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
@@ -138,62 +145,47 @@
 " }}}
 " Mappings {{{
   let mapleader = "\<Space>"
-" noremaps {{{
+  " http://www.reddit.com/r/vim/comments/275mng/what_have_you_recently_removed_from_your_vim/chxwtro
+  nnoremap <silent> <Left> :bp<cr>
+  nnoremap <silent> <Right> :bn<cr>
+  nnoremap <silent> <Leader><Left> :tabp<cr>
+  nnoremap <silent> <Leader><Right> :tabn<cr>
   noremap <leader>- <ESC> dd^p
   noremap <leader>_ <ESC> ddkP
   noremap <leader><leader>u :UndotreeToggle<cr>
   noremap <leader>; r,a 
-" }}}
-" inoremaps {{{
   inoremap <leader><c-d> <esc> dd i
   inoremap <leader><c-u> <esc> bvwU<esc>i
   inoremap <Left> <nop>
   inoremap <Right> <nop>
   inoremap <Down> <nop>
   inoremap <Up> <nop>
-" }}}
-" nnoremaps {{{
   nnoremap <leader>" bi"<esc>wwa"<esc>
   nnoremap <leader>' bi'<esc>wwa'<esc>
   nnoremap H ^
   nnoremap L $
-  " Configuration maps {{{
-    nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-    nnoremap <leader>sv :source $MYVIMRC<cr>
-  " "}}}
-  nnoremap <leader>t :Tlist<cr>
+  nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+  nnoremap <leader>sv :source $MYVIMRC<cr>
   nnoremap <silent> <C-l> :nohl<CR><C-l>
   nnoremap <leader>yl Vy
   nnoremap <leader>/ :OverCommandLine<cr>
-  " Tab management {{{
-    nnoremap ]t :tabn<cr>
-    nnoremap [t :tabp<cr>
-  " }}}
-  " Buffer management {{{
-    nnoremap ]b :bn<cr>
-    nnoremap [b :bp<cr>
-  " }}}
-" }}}
-" onoremaps {{{
-    onoremap p i(
-    onoremap il( :<c-u>normal! F)vi(<cr>
-    onoremap nl( :<c-u>normal! f)vi(<cr>
-    onoremap ll( :<c-u>normal! $vi(<cr>
-    onoremap in@ :<c-u>execute "normal! ^/\\a*.\\(com\\\|net\\\|tk\\\|ar\\\)\rBvE"<cr>
-" }}}
-" vnoremaps {{{
-    vnoremap <leader>" <esc>`<<esc>i"<esc>`>i"<esc>
-" }}}
-" cnoremaps {{{
-    " I don't use :ws.
-    cnoremap ws w
-" }}}
+  nnoremap ]t :tabn<cr>
+  nnoremap [t :tabp<cr>
+  nnoremap ]b :bn<cr>
+  nnoremap [b :bp<cr>
+  onoremap p i(
+  onoremap il( :<c-u>normal! F)vi(<cr>
+  onoremap nl( :<c-u>normal! f)vi(<cr>
+  onoremap ll( :<c-u>normal! $vi(<cr>
+  onoremap in@ :<c-u>execute "normal! ^/\\a*.\\(com\\\|net\\\|tk\\\|ar\\\)\rBvE"<cr>
+  vnoremap <leader>" <esc>`<<esc>i"<esc>`>i"<esc>
+  " I don't use :ws.
+  cnoremap ws w
 " Plugs {{{
     " Neosnippet {{{
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
     smap <C-k>     <Plug>(neosnippet_expand_or_jump)
     xmap <C-k>     <Plug>(neosnippet_expand_target)
-
 
     " For snippet_complete marker.
     if has('conceal')
@@ -436,5 +428,12 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+" }}}
+" vim-ruby {{{
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_rails = 1
+" }}}
+" Eclim {{{
+let g:EclimCompletionMethod = "omnifunc"
 " }}}
 " }}}
