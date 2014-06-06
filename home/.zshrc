@@ -1,3 +1,4 @@
+source $HOME/.homesick/repos/homeshick/homeshick.sh
 export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin
 if [ -e "$HOME/.envirius/nv" ] ; then
   . ~/.envirius/nv
