@@ -1,2 +1,4 @@
 .config
+.vim
+.zsh
 bin

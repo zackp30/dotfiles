@@ -91,7 +91,8 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-source ~/.zsh/plugins/vendor/opp.zsh
+source ~/.zsh/plugins/opp.zsh/opp.zsh
+source ~/.zsh/plugins/opp.zsh/opp/*.zsh
 # }}}
 # Stuff that needs to go last {{{
 source ~/.zsh/plugins/ZPrompt/main.zsh
