@@ -12,7 +12,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
-local lognotify = require("lognotify")
 
 require("obvious.volume_alsa")
 require("obvious.mem")
@@ -418,18 +417,6 @@ clientbuttons = awful.util.table.join(
 -- Set keys
 root.keys(globalkeys)
 -- }}}
--- }}}
--- Notifications {{{
-ilog = lognotify{
-   log =  {
-        awesome  = { file = os.getenv("HOME").."/logs/perl.strmon.weechatlog" },
-   -- Delay between checking in seconds. Default: 1
-   interval = 1,
-   -- Time in seconds after which popup expires. Set 0 for no timeout. Default: 0
-   naughty_timeout = 15
- },
-}
-ilog:start()
 -- }}}
 -- {{{ Rules
 awful.rules.rules = {
