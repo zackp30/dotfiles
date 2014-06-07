@@ -34,3 +34,6 @@
 [submodule "home/.config/awesome/vicious"]
 	path = home/.config/awesome/vicious
 	url = http://git.sysphere.org/vicious
+[submodule "home/.zsh/plugins/opp.zsh"]
+	path = home/.zsh/plugins/opp.zsh
+	url = https://github.com/hchbaw/opp.zsh
