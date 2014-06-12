@@ -105,10 +105,9 @@
   Bundle 'chrisbra/csv.vim'
   Bundle 'paradigm/SkyBison'
   Bundle 'wellle/targets.vim'
-  " Bundle 'kovisoft/slimv'
+  Bundle 'airblade/vim-gitgutter'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
-  Bundle 'vim-scripts/gtags.vim'
   " }}}
 
   " Unite {{{
@@ -436,5 +435,8 @@ let g:rubycomplete_rails = 1
 " }}}
 " Eclim {{{
 let g:EclimCompletionMethod = "omnifunc"
+" }}}
+" Tagbar {{{
+nnoremap <Leader><Leader><Leader> <C-w><right><C-w><right><C-w><right><C-w><right>
 " }}}
 " }}}
