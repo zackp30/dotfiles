@@ -235,6 +235,7 @@
   " Tab {{{
       set expandtab
   " }}}
+  set foldmethod=marker
   set number
   set fillchars+=vert:\|
   set backspace=indent,eol,start

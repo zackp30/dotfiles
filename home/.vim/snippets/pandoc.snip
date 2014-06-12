@@ -6,3 +6,22 @@ snippet title
         ---
         ${2:CONTENTS}
 
+snippet beginbox
+alias \boxinit
+        \begin{center} % unfortuently \tikzstyle is not interperated correctly in pandoc - use \begin{...} instead...
+        \tikzstyle{box} = [rectangle, rounded corners, draw = ${1:BORDER COLOUR}!50, fill = ${2:BOX COLOUR}!50]
+        \begin{tikzpicture}
+            \node[box](box) {
+            \begin{minipage}{${3:WIDTH}\textwidth}
+                ${4:TEXT}
+            \end{minipage}
+            };
+        \end{tikzpicture}
+        \end{center}
+
+snippet faketitle
+alias \faketitle
+        \begin{center}{\huge\ul{${4:FAKE TITLE}}}\end{center}
+
+snippet img
+        ![${1:ALT}](http://stuff.zackp30.tk/images/${2:IMAGE})
