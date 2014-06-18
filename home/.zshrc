@@ -14,8 +14,7 @@ setopt prompt_subst
         autoload -U colors && colors
     # }}}
     # Used prompts {{{
-    # OR IT COULD BE SOMEWHERE OVER HERE? :D?
-    #PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m%F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
+    PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m%F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
     # }}}
 # }}}
 # Editor {{{
@@ -95,7 +94,7 @@ source ~/.zsh/plugins/opp.zsh/opp.zsh
 source ~/.zsh/plugins/opp.zsh/opp/*.zsh
 # }}}
 # Stuff that needs to go last {{{
-source ~/.zsh/plugins/ZPrompt/main.zsh
+# source ~/.zsh/plugins/ZPrompt/main.zsh
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey -M vicmd 'k' history-substring-search-up
@@ -103,12 +102,12 @@ bindkey -M vicmd 'j' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 # }}}
-_zprompt_plugin_top_bar_middle=true
-_zprompt_plugin_top_bar_status_cfg='%F{yellow}──%f'
-_zprompt_plugin_top_bar_status_left_cfg="%F{yellow}─%f%F{green}─%f"
-_zprompt_plugin_top_bar_status_right_cfg="%F{yellow}─%f%F{green}─%f"
-_hostname_stuff="$(prompt_expand '%n@%m')"
-_zprompt_plugin_top_bar_status_left_expansion="%F{green}$_hostname_stuff%f"
+# _zprompt_plugin_top_bar_middle=true
+# _zprompt_plugin_top_bar_status_cfg='%F{yellow}──%f'
+# _zprompt_plugin_top_bar_status_left_cfg="%F{yellow}─%f%F{green}─%f"
+# _zprompt_plugin_top_bar_status_right_cfg="%F{yellow}─%f%F{green}─%f"
+# _hostname_stuff="$(prompt_expand '%n@%m')"
+# _zprompt_plugin_top_bar_status_left_expansion="%F{green}$_hostname_stuff%f"
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     fg

@@ -53,7 +53,7 @@
   " }}}
   Bundle 'bling/vim-airline'
   Bundle 'kien/ctrlp.vim'
-  Bundle 'Shougo/neocomplete.vim'
+  " Bundle 'Shougo/neocomplete.vim'
   Bundle 'mbbill/undotree'
   Bundle 'scrooloose/syntastic'
   Bundle 'bling/vim-bufferline'
@@ -105,10 +105,11 @@
   Bundle 'chrisbra/csv.vim'
   Bundle 'paradigm/SkyBison'
   Bundle 'wellle/targets.vim'
-  " Bundle 'kovisoft/slimv'
+  Bundle 'airblade/vim-gitgutter'
+  Bundle 'szw/vim-ctrlspace' " workspace manager
+  Bundle 'vim-scripts/YankRing.vim'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
-  Bundle 'vim-scripts/gtags.vim'
   " }}}
 
   " Unite {{{
@@ -235,6 +236,7 @@
   " Tab {{{
       set expandtab
   " }}}
+  set foldmethod=marker
   set number
   set fillchars+=vert:\|
   set backspace=indent,eol,start
@@ -435,5 +437,13 @@ let g:rubycomplete_rails = 1
 " }}}
 " Eclim {{{
 let g:EclimCompletionMethod = "omnifunc"
+" }}}
+" Tagbar {{{
+nnoremap <Leader><Leader><Leader> <C-w><right><C-w><right><C-w><right><C-w><right>
+" }}}
+" CtrlSpace {{{
+let g:ctrlspace_set_default_mapping = 0
+let g:ctrlspace_unicode_font = 0
+nnoremap <silent> <C-a> :CtrlSpace<CR>
 " }}}
 " }}}
