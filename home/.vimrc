@@ -53,7 +53,7 @@
   " }}}
   Bundle 'bling/vim-airline'
   Bundle 'kien/ctrlp.vim'
-  " Bundle 'Shougo/neocomplete.vim'
+  Bundle 'Shougo/neocomplete.vim'
   Bundle 'mbbill/undotree'
   Bundle 'scrooloose/syntastic'
   Bundle 'bling/vim-bufferline'
@@ -108,6 +108,8 @@
   Bundle 'airblade/vim-gitgutter'
   Bundle 'szw/vim-ctrlspace' " workspace manager
   Bundle 'vim-scripts/YankRing.vim'
+  Bundle 'jistr/vim-nerdtree-tabs'
+  Bundle 'scrooloose/nerdtree'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
@@ -268,6 +270,9 @@
   " Disables the ``echom'' of the current mode, because I have a
   " status line.
   set noshowmode
+
+  " Disable tabline, I use ctrl-space.
+  set showtabline=0
   " Wild menu {{{
     set wildmode=longest,list,full
     set wildmenu
@@ -282,6 +287,7 @@
   filetype plugin on
   set sw=2
   " Spell checking function, not even sure I need this anymore...
+  set spell
   function! Spellchecking()
       set spell
       highlight SpellBad ctermfg=green ctermbg=red
@@ -326,21 +332,33 @@
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red  ctermbg=grey
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
   autocmd VimEnter * :IndentGuidesEnable
+  " Tab bindings {{{
+  function TabopenSpecial()
+    let s:currentBuf = bufname("%")
+    return ":tabnew ".s:currentBuf
+
+
+  endfunction
+  nnoremap <expr> ;T TabopenSpecial()
+  " }}}
 " }}}
 " Plugins {{{
   " vim-airline {{{
     let g:airline_enable_syntastic=1
     let g:airline_enable_branch=1
     let g:airline#extensions#bufferline#enabled = 1
-    let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#eclim#enabled = 1
     let g:airline_enable_branch = 1
     let g:airline_mode_map = {'c': 'C', '^S': 'S-BLOCK', 'R': 'R', 's': 'S', 'V': 'V-L', '^V': 'V-B', 'i': 'I', '__': '------', 'S': 'S -LINE', 'v': 'V', 'n': 'N'}
   " }}}
-  " Neo Complete {{{
+  " NeoComplete {{{
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:acp_enableAtStartup = 0
+    if !exists('g:neocomplcache_force_omni_patterns')
+      let g:neocomplcache_force_omni_patterns = {}
+    endif
+    let g:neocomplcache_force_omni_patterns.java = '\k\.\k*'
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -443,7 +461,10 @@ nnoremap <Leader><Leader><Leader> <C-w><right><C-w><right><C-w><right><C-w><righ
 " }}}
 " CtrlSpace {{{
 let g:ctrlspace_set_default_mapping = 0
-let g:ctrlspace_unicode_font = 0
+" let g:ctrlspace_unicode_font = 0
 nnoremap <silent> <C-a> :CtrlSpace<CR>
+" }}}
+" NERDTree {{{
+let g:nerdtree_tabs_open_on_console_startup = 1
 " }}}
 " }}}
