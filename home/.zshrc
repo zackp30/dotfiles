@@ -1,10 +1,14 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-export PATH=$HOME/bin:$PATH:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin
+export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$PATH
 if [ -e "$HOME/.envirius/nv" ] ; then
   . ~/.envirius/nv
 fi
 
-eval "$(pyenv init -)"
+if [[ "$(which pyenv)" =~ "not found" ]] ; then
+else
+  eval "$(pyenv init -)"
+fi
+
 if [ -e ".envirius" ] && [ -f ".envirius" ]; then
   nv on `cat .envirius`
 fi
@@ -18,7 +22,7 @@ setopt prompt_subst
     # }}}
 # }}}
 # Editor {{{
-    export EDITOR=/usr/local/bin/vim
+    export EDITOR=vim
 # }}}
 # History {{{
     HISTSIZE=5000
@@ -65,12 +69,10 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
     export KEYTIMEOUT=1
 # }}}
 # Plugins {{{
-    . $HOME/.zsh/plugins/bd/bd.zsh
     . ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
     bindkey -e
     bindkey $'\e' vi-cmd-mode # From https://github.com/hchbaw/auto-fu.zsh/issues/29
     # . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
-    . ~/.zsh/plugins/tmuxinator.zsh
     ZSH_VCS_PROMPT_ENABLE_CACHING='true'
     fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
     export rvmsudo_secure_path=1
@@ -123,7 +125,6 @@ autoload -Uz compinit
 compinit
 export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
-.  /usr/share/autojump/autojump.sh 
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
   export GPG_AGENT_INFO
@@ -195,3 +196,5 @@ ftags() {
 }
 # }}}
 source ~/.fzf.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
