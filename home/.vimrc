@@ -7,7 +7,6 @@
   command! -nargs=* Bundle NeoBundle <args>
   command! -nargs=1 BundleFetch NeoBundleFetch <args>
   NeoBundleFetch 'Shougo/neobundle.vim'
-  autocmd FileType *.rkt NeoBundleDisable slimv
   " Languages {{{
     " Web development {{{
     Bundle 'kchmck/vim-coffee-script'
@@ -51,6 +50,7 @@
     Bundle 'luke-gru/vim-riml'
     " }}}
   " }}}
+  Bundle 'SirVer/ultisnips'
   Bundle 'bling/vim-airline'
   Bundle 'kien/ctrlp.vim'
   Bundle 'Shougo/neocomplete.vim'
@@ -74,14 +74,12 @@
   Bundle 'Shougo/vimproc', {
               \ 'build': {
               \ 'unix' : 'make -f make_unix.mak'}, }
-  Bundle 'Shougo/neosnippet.vim'
   Bundle 'tpope/vim-surround'
   Bundle 'justinmk/vim-sneak'
   NeoBundle 'ZFileTypes'
   Bundle 'Twinside/vim-haskellConceal'
   Bundle 't9md/vim-choosewin'
   Bundle 'Shougo/vimfiler.vim'
-  Bundle 'Shougo/neosnippet-snippets'
   Bundle 'tpope/vim-fugitive'
   Bundle 'vim-scripts/SyntaxRange'
   "Bundle 'http://www.vim.org/scripts/download_script.php?src_id=21479', 
@@ -110,6 +108,7 @@
   Bundle 'vim-scripts/YankRing.vim'
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
+  Bundle 'honza/vim-snippets'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
@@ -185,11 +184,6 @@
   " I don't use :ws.
   cnoremap ws w
 " Plugs {{{
-    " Neosnippet {{{
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
     " For snippet_complete marker.
     if has('conceal')
       set conceallevel=2 concealcursor=i
@@ -465,6 +459,10 @@ let g:ctrlspace_set_default_mapping = 0
 nnoremap <silent> <C-a> :CtrlSpace<CR>
 " }}}
 " NERDTree {{{
-let g:nerdtree_tabs_open_on_console_startup = 1
+" let g:nerdtree_tabs_open_on_console_startup = 1
+" }}}
+" Ultisnips {{{
+let g:UltiSnipsExpandTrigger = "<c-k>"
+let g:UltiSnipsSnippetDirectories = ["~/.vim/UltiSnips"]
 " }}}
 " }}}
