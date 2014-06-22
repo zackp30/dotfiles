@@ -5,9 +5,8 @@ Just my dotfiles.
 
 Installation
 ============
-Using [Fresh](http://freshshell.com):
+Using [Homeshick](https://github.com/andsens/homeshick):
 ```bash
-bash -c "`curl -sL get.freshshell.com`" # install fresh.
-wget "https://raw.githubusercontent.com/zackp30/dotfiles/master/.freshrc" -O ~/.freshrc # install my freshrc
-fresh # install dependencies
+git clone https://github.com/andsens/homeshick ~/.homesick/repos/homeshick
+~/.homesick/repos/homeshick/bin/homeshick clone http://github.com/zackp30/dotfiles
 ```
