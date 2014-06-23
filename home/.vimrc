@@ -1,6 +1,8 @@
 " NeoBundle {{{
-  set rtp+=~/.vim/neobundle.vim/
-  set rtp+=~/.fzf
+  if has('vim_starting')
+    set nocompatible
+    set rtp+=~/.vim/neobundle.vim
+  endif
   call neobundle#rc(expand('~/.vim/bundle/'))
   " Bundles {{{
   " Didn't like it being renamed.
@@ -108,17 +110,18 @@
   Bundle 'vim-scripts/YankRing.vim'
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
-  Bundle 'honza/vim-snippets'
+  Bundle 'tpope/vim-projectionist'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
-
   " Unite {{{
     Bundle 'majkinetor/unite-cmdmatch'
     Bundle 'kopischke/unite-spell-suggest'
   " }}
-  NeoBundleCheck
   " }}}
+  filetype plugin indent on
+  NeoBundleCheck
+  syntax on
   " }}}
 " }}}
 " Abbreviations {{{
@@ -131,10 +134,6 @@
     au!
         autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
         autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
-    augroup END
-    augroup syntax
-        au!
-        autocmd Syntax set syntax=on
     augroup END
     augroup miscfts
       au!
@@ -216,10 +215,7 @@
     endif
     " }}}
 " }}}
-" }}}
 " Misc {{{
-  set nocompatible
-  filetype off
   set shell=/bin/sh
   " Colorscheme.
   colorscheme zm5
@@ -227,7 +223,6 @@
   set laststatus=2
   set encoding=utf-8
   set t_Co=256
-  syntax enable
   let g:syntastic_python_checkers=['pylint']
   " Tab {{{
       set expandtab
@@ -277,8 +272,6 @@
   set ic
   " Indentation.
   set autoindent
-  filetype indent on
-  filetype plugin on
   set sw=2
   " Spell checking function, not even sure I need this anymore...
   set spell
@@ -462,7 +455,6 @@ nnoremap <silent> <C-a> :CtrlSpace<CR>
 " let g:nerdtree_tabs_open_on_console_startup = 1
 " }}}
 " Ultisnips {{{
-let g:UltiSnipsExpandTrigger = "<c-k>"
-let g:UltiSnipsSnippetDirectories = ["~/.vim/UltiSnips"]
+let g:UltiSnipsExpandTrigger = "<C-\\>"
 " }}}
 " }}}
