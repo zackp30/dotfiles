@@ -1,4 +1,5 @@
 " NeoBundle {{{
+  let g:UltiSnipsSnippetDirectories = []
   if has('vim_starting')
     set nocompatible
     set rtp+=~/.vim/neobundle.vim
@@ -455,6 +456,7 @@ nnoremap <silent> <C-a> :CtrlSpace<CR>
 " let g:nerdtree_tabs_open_on_console_startup = 1
 " }}}
 " Ultisnips {{{
-let g:UltiSnipsExpandTrigger = "<C-\\>"
+let g:UltiSnipsExpandTrigger = "<C-k>"
+let g:UltiSnipsSnippetDirectories += ['UltiSnips']
 " }}}
 " }}}
