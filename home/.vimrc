@@ -457,6 +457,8 @@ nnoremap <silent> <C-a> :CtrlSpace<CR>
 " }}}
 " Ultisnips {{{
 let g:UltiSnipsExpandTrigger = "<C-k>"
+let g:UltiSnipsJumpForwardTrigger = "<C-k>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-\\>"
 let g:UltiSnipsSnippetDirectories += ['UltiSnips']
 " }}}
 " }}}
