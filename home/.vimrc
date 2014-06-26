@@ -29,6 +29,7 @@
       Bundle 'tpope/vim-fireplace'
       Bundle 'jpalardy/vim-slime'
       Bundle 'tpope/vim-classpath'
+      Bundle 'tpope/vim-leiningen'
     " }}}
     " Go {{{
     Bundle 'https://github.com/yosssi/vim-gold'
@@ -112,6 +113,7 @@
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
   Bundle 'tpope/vim-projectionist'
+  Bundle 'mattn/emmet-vim'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
@@ -148,20 +150,20 @@
 " Mappings {{{
   let mapleader = "\<Space>"
   " http://www.reddit.com/r/vim/comments/275mng/what_have_you_recently_removed_from_your_vim/chxwtro
+
   nnoremap <silent> <Left> :bp<cr>
   nnoremap <silent> <Right> :bn<cr>
   nnoremap <silent> <Leader><Left> :tabp<cr>
   nnoremap <silent> <Leader><Right> :tabn<cr>
-  noremap <leader>- <ESC> dd^p
-  noremap <leader>_ <ESC> ddkP
+
   noremap <leader><leader>u :UndotreeToggle<cr>
+
+  " "." -> ", "
   noremap <leader>; r,a 
+
   inoremap <leader><c-d> <esc> dd i
   inoremap <leader><c-u> <esc> bvwU<esc>i
-  inoremap <Left> <nop>
-  inoremap <Right> <nop>
-  inoremap <Down> <nop>
-  inoremap <Up> <nop>
+
   nnoremap <leader>" bi"<esc>wwa"<esc>
   nnoremap <leader>' bi'<esc>wwa'<esc>
   nnoremap H ^
@@ -169,18 +171,12 @@
   nnoremap <leader>ev :vsplit $MYVIMRC<cr>
   nnoremap <leader>sv :source $MYVIMRC<cr>
   nnoremap <silent> <C-l> :nohl<CR><C-l>
-  nnoremap <leader>yl Vy
   nnoremap <leader>/ :OverCommandLine<cr>
   nnoremap ]t :tabn<cr>
   nnoremap [t :tabp<cr>
   nnoremap ]b :bn<cr>
   nnoremap [b :bp<cr>
   onoremap p i(
-  onoremap il( :<c-u>normal! F)vi(<cr>
-  onoremap nl( :<c-u>normal! f)vi(<cr>
-  onoremap ll( :<c-u>normal! $vi(<cr>
-  onoremap in@ :<c-u>execute "normal! ^/\\a*.\\(com\\\|net\\\|tk\\\|ar\\\)\rBvE"<cr>
-  vnoremap <leader>" <esc>`<<esc>i"<esc>`>i"<esc>
   " I don't use :ws.
   cnoremap ws w
 " Plugs {{{
@@ -275,7 +271,6 @@
   set autoindent
   set sw=2
   " Spell checking function, not even sure I need this anymore...
-  set spell
   function! Spellchecking()
       set spell
       highlight SpellBad ctermfg=green ctermbg=red
@@ -288,7 +283,7 @@
       set list
       "set listchars=trail:◉,tab:->
       "set listchars=trail:◦,tab:>-
-      set listchars=tab:>-
+      set listchars=tab:>-,trail:◉,eol:¶
       autocmd ColorScheme * highlight ExtraWhitespace ctermfg=red guifg=red
       highlight ExtraWhitespace ctermfg=red guifg=red
       match ExtraWhitespace /\s\+$/
@@ -327,7 +322,7 @@
 
 
   endfunction
-  nnoremap <expr> ;T TabopenSpecial()
+  nnoremap <expr> gT TabopenSpecial()
   " }}}
 " }}}
 " Plugins {{{
@@ -460,5 +455,22 @@ let g:UltiSnipsExpandTrigger = "<C-k>"
 let g:UltiSnipsJumpForwardTrigger = "<C-k>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-\\>"
 let g:UltiSnipsSnippetDirectories += ['UltiSnips']
+" }}}
+" clang_complete {{{
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_overwrite_completefunc = 1
+let g:neocomplete#force_omni_input_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.objc =
+      \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+let g:neocomplete#force_omni_input_patterns.objcpp =
+      \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+"let g:clang_use_library = 1
 " }}}
 " }}}
