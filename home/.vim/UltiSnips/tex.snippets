@@ -1,29 +1,40 @@
 snippet initdoc
-alias \initdoc
-        \documentclass{${1:CLASS}}
-        \usepackage{graphicx}
-        \usepackage{tikz}
-        \begin{document}
-        %Copyright 2014 Zack Piper
-        \title{`split(bufname("%"), "\v*[0-9].\.tex")[0]`}
-        \author{Zack Piper}
-        \date{`strftime("%d %b %Y")`}
-        \maketitle
-        \begin{center} \copyright Copyright 2014 Zack Piper \end{center}
-        ${3:DOCUMENT}
-        \end{document}
+\documentclass{${1:CLASS}}
+\usepackage{graphicx}
+\usepackage{tikz}
+\begin{document}
+%Copyright 2014 Zack Piper
+\title{`split(bufname("%"), "\v*[0-9].\.tex")[0]`}
+\author{Zack Piper}
+\date{`strftime("%d %b %Y")`}
+\maketitle
+\begin{center} \copyright Copyright 2014 Zack Piper \end{center}
+${3:DOCUMENT}
+\end{document}
+endsnippet
+
+snippet minitdoc
+\documentclass{${1:CLASS}}
+\usepackage{graphicx}
+\usepackage{tikz}
+\begin{document}
+%Copyright 2014 Zack Piper
+${3:DOCUMENT}
+\end{document}
+endsnippet
 
 snippet beginbox
-alias \boxinit
-        \tikzstyle{box} = [rectangle, rounded corners, draw = ${1:BORDER COLOUR}!50, fill = ${2:BOX COLOUR}!50]
-        \begin{tikzpicture}
-            \node[box](box) {
-            \begin{minipage}{${3:WIDTH}\textwidth}
-                ${4:TEXT}
-            \end{minipage}
-            };
-        \end{tikzpicture}
+\tikzstyle{box} = [rectangle, rounded corners, draw = ${1:BORDER COLOUR}!50, fill = ${2:BOX COLOUR}!50]
+\begin{tikzpicture}
+\node[box](box) {
+  \begin{minipage}{${3:WIDTH}\textwidth}
+  ${4:TEXT}
+  \end{minipage}
+};
+\end{tikzpicture}
+endsnippet
 
 snippet faketitle
 alias \faketitle
-        \begin{center}{\huge\ul{${4:FAKE TITLE}}}\end{center}
+\begin{center}{\huge\ul{${4:FAKE TITLE}}}\end{center}
+endsnippet
