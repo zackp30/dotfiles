@@ -1,6 +1,7 @@
 *.pyc
-Vim/bundle/
-! Vim/bundle/ZFileTypes/ftplugin
-Vim/bundle/.neobundle/
+! home/.vim/bundle/ZFileTypes/ftplugin
+home/.vim/bundle/.neobundle/
+home/.vim/bundle/
 home/.envirius/
 *.swp
+Gemfile.lock
