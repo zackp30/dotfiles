@@ -1,6 +1,0 @@
-image: promptworks/ruby-2.0.0
-
-script:
-    - yum  install -y vim
-    - ./symlink.sh
-    - vim :echo $MYVIMHOME
