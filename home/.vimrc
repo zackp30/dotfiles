@@ -56,7 +56,6 @@
   " }}}
   Bundle 'SirVer/ultisnips'
   Bundle 'bling/vim-airline'
-  Bundle 'kien/ctrlp.vim'
   Bundle 'Shougo/neocomplete.vim'
   Bundle 'mbbill/undotree'
   Bundle 'scrooloose/syntastic'
@@ -99,20 +98,24 @@
   Bundle 'tpope/timl'
   Bundle 'maxmeyer/vim-taskjuggler'
   Bundle 'tpope/vim-dispatch'
+  " Generic finders {{{
   Bundle 'dyng/ctrlsf.vim'
-  Bundle 'edsono/vim-matchit'
+  Bundle 'mileszs/ack.vim'
+  Bundle 'kien/ctrlp.vim'
   Bundle 'naquad/ctrlp-digraphs.vim'
+  Bundle 'szw/vim-ctrlspace' " workspace manager
+  Bundle 'tpope/vim-projectionist' " Allows to specify `alternative files'.
+  Bundle 'paradigm/SkyBison' " command finder
+  " "}}}
+  Bundle 'edsono/vim-matchit'
   Bundle 'vim-scripts/DrawIt'
   Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'chrisbra/csv.vim'
-  Bundle 'paradigm/SkyBison'
   Bundle 'wellle/targets.vim'
   Bundle 'airblade/vim-gitgutter'
-  Bundle 'szw/vim-ctrlspace' " workspace manager
   Bundle 'vim-scripts/YankRing.vim'
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
-  Bundle 'tpope/vim-projectionist'
   Bundle 'mattn/emmet-vim'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
@@ -472,5 +475,8 @@ let g:neocomplete#force_omni_input_patterns.objcpp =
 let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 "let g:clang_use_library = 1
+" }}}
+" Ack.vim {{{
+let g:ackprg = "ag"
 " }}}
 " }}}
