@@ -85,8 +85,6 @@
   Bundle 'Shougo/vimfiler.vim'
   Bundle 'tpope/vim-fugitive'
   Bundle 'vim-scripts/SyntaxRange'
-  "Bundle 'http://www.vim.org/scripts/download_script.php?src_id=21479', 
-              "\ { 'type__filename' : 'nav.vim', 'script_type' : 'plugin'}
   Bundle 'gregsexton/VimCalc'
   Bundle 'hrsh7th/vim-neco-calc'
   Bundle 'wting/rust.vim'
@@ -117,6 +115,8 @@
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
   Bundle 'mattn/emmet-vim'
+  Bundle 'junegunn/limelight.vim'
+  Bundle 'hut8labs/diffscuss', {'rtp': 'diffscuss.vim/'}
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
@@ -159,7 +159,7 @@
   nnoremap <silent> <Leader><Left> :tabp<cr>
   nnoremap <silent> <Leader><Right> :tabn<cr>
 
-  noremap <leader><leader>u :UndotreeToggle<cr>
+  noremap U :UndotreeToggle<cr>
 
   " "." -> ", "
   noremap <leader>; r,a 
@@ -478,5 +478,17 @@ let g:clang_auto_select = 0
 " }}}
 " Ack.vim {{{
 let g:ackprg = "ag"
+" }}}
+" Limelight {{{
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
 " }}}
 " }}}

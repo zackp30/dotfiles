@@ -18,7 +18,7 @@ setopt prompt_subst
         autoload -U colors && colors
     # }}}
     # Used prompts {{{
-    PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m%F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
+    PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
     # }}}
 # }}}
 # Editor {{{
