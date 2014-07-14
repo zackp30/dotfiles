@@ -116,7 +116,7 @@
   Bundle 'scrooloose/nerdtree'
   Bundle 'mattn/emmet-vim'
   Bundle 'junegunn/limelight.vim'
-  Bundle 'hut8labs/diffscuss', {'rtp': 'diffscuss.vim/'}
+  Bundle 'AndrewRadev/switch.vim'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
