@@ -4,14 +4,12 @@ if [ -e "$HOME/.envirius/nv" ] ; then
   . ~/.envirius/nv
 fi
 
+# PyEnv {{{
 if [[ "$(which pyenv)" =~ "not found" ]] ; then
 else
   eval "$(pyenv init -)"
 fi
-
-if [ -e ".envirius" ] && [ -f ".envirius" ]; then
-  nv on `cat .envirius`
-fi
+# }}}
 setopt prompt_subst
 # Prompts {{{
     # Misc {{{
@@ -58,7 +56,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
         export TERM='xterm-256color'
     fi
 
-    alias fig="showfigfonts | less"
 
     insert_sudo () { zle beginning-of-line; zle -U "sudo " }
     zle -N insert-sudo insert_sudo
@@ -198,3 +195,7 @@ ftags() {
 source ~/.fzf.zsh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Aliases {{{
+alias fig="showfigfonts | less"
+alias :q="exit"
+# }}}
