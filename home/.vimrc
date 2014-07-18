@@ -117,6 +117,7 @@
   Bundle 'mattn/emmet-vim'
   Bundle 'junegunn/limelight.vim'
   Bundle 'AndrewRadev/switch.vim'
+  Bundle 'gkz/vim-ls'
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
@@ -160,6 +161,10 @@
   nnoremap <silent> <Leader><Right> :tabn<cr>
 
   noremap U :UndotreeToggle<cr>
+
+  " Switch.vim
+  nnoremap - :Switch<cr>
+
 
   " "." -> ", "
   noremap <leader>; r,a 
@@ -319,7 +324,7 @@
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
   autocmd VimEnter * :IndentGuidesEnable
   " Tab bindings {{{
-  function TabopenSpecial()
+  function! TabopenSpecial()
     let s:currentBuf = bufname("%")
     return ":tabnew ".s:currentBuf
 
