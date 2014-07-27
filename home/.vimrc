@@ -19,7 +19,6 @@
     Bundle 'LaTeX-Box-Team/LaTeX-Box'
     " }}}
     " Haskell {{{
-    Bundle 'lukerandall/haskellmode-vim'
     Bundle 'bitc/vim-hdevtools'
     Bundle 'dag/vim2hs'
     Bundle 'eagletmt/neco-ghc'
