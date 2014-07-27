@@ -1,4 +1,7 @@
 " NeoBundle {{{
+  if filereadable("./.local.vim") " read local vim settings for current project - used for tabwidth, etc.
+    source ./.local.vim
+  endif
   let g:UltiSnipsSnippetDirectories = []
   if has('vim_starting')
     set nocompatible
@@ -53,6 +56,30 @@
     Bundle 'luke-gru/vim-riml'
     " }}}
   " }}}
+  " Generic finders {{{
+  Bundle 'dyng/ctrlsf.vim'
+  Bundle 'mileszs/ack.vim'
+  Bundle 'kien/ctrlp.vim'
+  Bundle 'naquad/ctrlp-digraphs.vim'
+  Bundle 'szw/vim-ctrlspace' " workspace manager
+  Bundle 'tpope/vim-projectionist' " Allows to specify `alternative files'.
+  Bundle 'paradigm/SkyBison' " command finder
+  " "}}}
+  " Misc {{{
+  Bundle 'edsono/vim-matchit'
+  Bundle 'vim-scripts/DrawIt'
+  Bundle 'dhruvasagar/vim-table-mode'
+  Bundle 'chrisbra/csv.vim'
+  Bundle 'wellle/targets.vim'
+  Bundle 'airblade/vim-gitgutter'
+  Bundle 'vim-scripts/YankRing.vim'
+  Bundle 'jistr/vim-nerdtree-tabs'
+  Bundle 'scrooloose/nerdtree'
+  Bundle 'mattn/emmet-vim'
+  Bundle 'junegunn/limelight.vim'
+  Bundle 'AndrewRadev/switch.vim'
+  Bundle 'gkz/vim-ls'
+  Bundle 'tpope/vim-characterize'
   Bundle 'SirVer/ultisnips'
   Bundle 'bling/vim-airline'
   Bundle 'Shougo/neocomplete.vim'
@@ -95,28 +122,10 @@
   Bundle 'tpope/timl'
   Bundle 'maxmeyer/vim-taskjuggler'
   Bundle 'tpope/vim-dispatch'
-  " Generic finders {{{
-  Bundle 'dyng/ctrlsf.vim'
-  Bundle 'mileszs/ack.vim'
-  Bundle 'kien/ctrlp.vim'
-  Bundle 'naquad/ctrlp-digraphs.vim'
-  Bundle 'szw/vim-ctrlspace' " workspace manager
-  Bundle 'tpope/vim-projectionist' " Allows to specify `alternative files'.
-  Bundle 'paradigm/SkyBison' " command finder
-  " "}}}
-  Bundle 'edsono/vim-matchit'
-  Bundle 'vim-scripts/DrawIt'
-  Bundle 'dhruvasagar/vim-table-mode'
-  Bundle 'chrisbra/csv.vim'
-  Bundle 'wellle/targets.vim'
-  Bundle 'airblade/vim-gitgutter'
-  Bundle 'vim-scripts/YankRing.vim'
-  Bundle 'jistr/vim-nerdtree-tabs'
-  Bundle 'scrooloose/nerdtree'
-  Bundle 'mattn/emmet-vim'
-  Bundle 'junegunn/limelight.vim'
-  Bundle 'AndrewRadev/switch.vim'
-  Bundle 'gkz/vim-ls'
+  Bundle 'tpope/vim-speeddating'
+  Bundle 'tpope/vim-tbone'
+  Bundle 'tpope/vim-afterimage'
+  " }}}
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
