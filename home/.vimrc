@@ -461,7 +461,7 @@ nnoremap <Leader><Leader><Leader> <C-w><right><C-w><right><C-w><right><C-w><righ
 " CtrlSpace {{{
 let g:ctrlspace_set_default_mapping = 0
 " let g:ctrlspace_unicode_font = 0
-nnoremap <silent> <C-a> :CtrlSpace<CR>
+nnoremap <silent> <Leader>a :CtrlSpace<CR>
 " }}}
 " NERDTree {{{
 " let g:nerdtree_tabs_open_on_console_startup = 1
