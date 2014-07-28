@@ -1,7 +1,4 @@
 " NeoBundle {{{
-  if filereadable("./.local.vim") " read local vim settings for current project - used for tabwidth, etc.
-    source ./.local.vim
-  endif
   let g:UltiSnipsSnippetDirectories = []
   if has('vim_starting')
     set nocompatible
@@ -505,3 +502,6 @@ let g:limelight_conceal_guifg = '#777777'
 let g:limelight_default_coefficient = 0.7
 " }}}
 " }}}
+if filereadable("./.local.vim") " read local vim settings for current project - used for tabwidth, etc.
+  source ./.local.vim
+endif
