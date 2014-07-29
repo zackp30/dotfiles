@@ -125,6 +125,9 @@
   Bundle 'tpope/vim-speeddating'
   Bundle 'tpope/vim-tbone'
   Bundle 'tpope/vim-afterimage'
+  Bundle 'tpope/vim-rhubarb'
+  Bundle 'editorconfig/editorconfig-vim'
+  Bundle 'godlygeek/tabular'
   " }}}
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
