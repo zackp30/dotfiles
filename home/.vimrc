@@ -96,7 +96,7 @@
   Bundle 'rking/ag.vim'
   Bundle 'edkolev/tmuxline.vim'
   Bundle 'groenewege/vim-less'
-  Bundle 'rainbow_parentheses.vim'
+  Bundle 'luochen1990/rainbow'
   Bundle 'Shougo/vimproc', {
               \ 'build': {
               \ 'unix' : 'make -f make_unix.mak'}, }
@@ -125,6 +125,7 @@
   Bundle 'tpope/vim-rhubarb'
   Bundle 'editorconfig/editorconfig-vim'
   Bundle 'godlygeek/tabular'
+  Bundle 'daisuzu/rainbowcyclone.vim'
   " }}}
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
@@ -186,7 +187,7 @@
   nnoremap L $
   nnoremap <leader>ev :vsplit $MYVIMRC<cr>
   nnoremap <leader>sv :source $MYVIMRC<cr>
-  nnoremap <silent> <C-l> :nohl<CR><C-l>
+  nnoremap <silent> <C-l> :<C-u>RCReset<CR>:nohl<CR><C-l>
   nnoremap <leader>/ :OverCommandLine<cr>
   nnoremap ]t :tabn<cr>
   nnoremap [t :tabp<cr>
@@ -442,11 +443,7 @@
 let g:swank_port = 45126
 " }}}
 " Rainbow parenthesis {{{
-" I prefer it kept on for all files.
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+let g:rainbow_active = 1
 " }}}
 " vim-ruby {{{
 let g:rubycomplete_buffer_loading = 1
@@ -503,5 +500,9 @@ let g:limelight_conceal_guifg = '#777777'
 
 " Default: 0.5
 let g:limelight_default_coefficient = 0.7
+" }}}
+" RainbowCyclone {{{
+nmap g/ <Plug>(rc_search_forward)
+nmap g? <Plug>(rc_search_backward)
 " }}}
 " }}}
