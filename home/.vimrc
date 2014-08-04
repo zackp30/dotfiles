@@ -98,8 +98,8 @@
   Bundle 'groenewege/vim-less'
   Bundle 'luochen1990/rainbow'
   Bundle 'Shougo/vimproc', {
-              \ 'build': {
-              \ 'unix' : 'make -f make_unix.mak'}, }
+        \ 'build': {
+        \ 'unix' : 'make -f make_unix.mak'}, }
   Bundle 'tpope/vim-surround'
   Bundle 'justinmk/vim-sneak'
   NeoBundle 'ZFileTypes'
@@ -126,6 +126,10 @@
   Bundle 'editorconfig/editorconfig-vim'
   Bundle 'godlygeek/tabular'
   Bundle 'daisuzu/rainbowcyclone.vim'
+  Bundle 'JazzCore/ctrlp-cmatcher', {
+        \ 'build': {
+        \ 'unix' : './install.sh'}, }
+  NeoBundleLocal ~/git/vim-plugins/
   " }}}
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
@@ -385,6 +389,7 @@
   " CTRLP {{{
     let g:ctrlp_extensions = []
     let g:ctrlp_extensions += ['undo', 'smarttabs', 'test']
+    let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
   " }}}
   " LaTeX-suite {{{
     let g:tex_flavor='latex'
