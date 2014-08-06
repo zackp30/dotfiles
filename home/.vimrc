@@ -6,6 +6,7 @@
   endif
   call neobundle#rc(expand('~/.vim/bundle/'))
   " Bundles {{{
+  "
   " Didn't like it being renamed.
   command! -nargs=* Bundle NeoBundle <args>
   command! -nargs=1 BundleFetch NeoBundleFetch <args>
@@ -33,6 +34,7 @@
     " Go {{{
     Bundle 'https://github.com/yosssi/vim-gold'
     Bundle 'fatih/vim-go'
+    Bundle 'yosssi/vim-ace'
     " }}}
     " Ruby {{{
     Bundle 'vim-ruby/vim-ruby'
@@ -94,7 +96,6 @@
   Bundle 'mhinz/vim-startify'
   Bundle 'justinmk/vim-gtfo'
   Bundle 'rking/ag.vim'
-  Bundle 'edkolev/tmuxline.vim'
   Bundle 'groenewege/vim-less'
   Bundle 'luochen1990/rainbow'
   Bundle 'Shougo/vimproc', {
@@ -348,6 +349,8 @@
 " }}}
 " Plugins {{{
   " vim-airline {{{
+  let g:airline_powerline_fonts=1
+
     let g:airline_enable_syntastic=1
     let g:airline_enable_branch=1
     let g:airline#extensions#bufferline#enabled = 1
@@ -407,6 +410,7 @@
 " vim-sneak {{{
 " I use S a lot...
     let g:sneak#streak = 1
+    let g:sneak#s_next = 1
 " }}}
 " vim-choosewin {{{
   let g:choosewin_overlay_enable = 1
