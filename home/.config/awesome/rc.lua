@@ -220,18 +220,12 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
-    -- mywibox[s].widgets = {
-    --   {
-    --     mylauncher,
-    --     mytaglist[s],
-    --     mypromptbox[s],
-    --   },
-    --   mylayoutbox[s],
-    --   mytextclock,
-    --   s == 1 and mysystray or nil,
-    --   mytasklist[s],
-    -- }
 
+    if vicious.widgets.os()[4] == "linux.site" then
+      speaker_name = "Master"
+    else
+      speaker_name = "Speaker"
+    end
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
@@ -244,14 +238,7 @@ for s = 1, screen.count() do
     -- Custom {{{
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
-    -- right_layout:add(cpuwidget)
-    if os.getenv("HOST") == "linux" then
-      speaker_name = "Master"
-    else
-      speaker_name = "Speaker"
-    end
     right_layout:add(obvious.volume_alsa(0, speaker_name))
-    -- right_layout:add(obvious.mem)
     right_layout:add(obvious.battery())
     right_layout:add(cpu_graph)
     -- }}}
@@ -419,16 +406,20 @@ root.keys(globalkeys)
 -- }}}
 -- }}}
 -- {{{ Rules
-awful.rules.rules = {
-{ rule = { class = "Conky" },
-  properties = {
-      floating = true,
-      sticky = true,
-      ontop = false,
-      focusable = false,
-      size_hints = {"program_position", "program_size"}
-  } },
-    -- All clients will match this rule.
+function does_monitor_exist(m)
+  if vicious.widgets.os()[4] == 'linux.site' then
+    if tags[m] ~= nil then
+      return m
+    else
+      return 1
+    end
+  else
+    return 1
+  end
+end
+
+awful.rules.rules = { 
+-- All clients will match this rule.
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
@@ -445,7 +436,7 @@ awful.rules.rules = {
       properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
-      properties = { tag = tags[2][2] } },
+    properties = { tag = tags[does_monitor_exist(2)][2] } },
     { rule = { class = "Dogecoin-qt" },
       properties = { tag = tags[1][6] } },
     { rule = { class = "Quarkcoin-qt" },
