@@ -37,3 +37,6 @@
 [submodule "home/.zsh/plugins/opp.zsh"]
 	path = home/.zsh/plugins/opp.zsh
 	url = https://github.com/hchbaw/opp.zsh
+[submodule "home/.config/awesome/luaimap"]
+	path = home/.config/awesome/luaimap
+	url = https://gitorious.org/luaimap/luaimap4.git
