@@ -1,6 +1,7 @@
 ! Colors - also see scripts/xcolor for switching
 ! #include "/home/zack/.xcolours/solarized.xcolours"
 
+URxvt.perl-lib: /ome/zack/urxvt-perls
 ! Fonts
 Xft.antialias:  true
 Xft.hinting:    true
@@ -33,5 +34,4 @@ URxvt*cursorBlink:     true
 URxvt.perl-ext-common: default,keyboard-select,url-select,clipboard
 URxvt.url-select.launcher: firefox
 URxvt.url-select.underline: true
-URxvt.keysym.M-u:      perl:url-select:select_next
-URxvt.keysym.M-shift->:      perl:clipboard:paste
+URxvt.keysym.M-A: perl:keyboard-select:activate
