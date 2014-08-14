@@ -1,5 +1,5 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-export PATH=$HOME/.rbenv:$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
 if [ -e "$HOME/.envirius/nv" ] ; then
   . ~/.envirius/nv
 fi
@@ -55,7 +55,6 @@ setopt interactivecomments
 if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]]; then
   export TERM='xterm-256color'
 fi
-
 
 insert_sudo () { zle beginning-of-line; zle -U "sudo " }
 zle -N insert-sudo insert_sudo
@@ -194,7 +193,6 @@ ftags() {
 # }}}
 source ~/.fzf.zsh
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # Aliases {{{
 alias fig="showfigfonts | less"
 alias :q="exit"
