@@ -1,0 +1,30 @@
+'exception-reporting':
+  'userId': 'd6a6a0eb-61e4-8042-024d-5df028948645'
+'welcome':
+  'showOnStartup': false
+'metrics':
+  'userId': '4cd2409d-c082-4855-8bf5-c0c4263458ad'
+'tree-view': {}
+'core':
+  'themes': [
+    'solarized-dark-ui'
+    'solarized-dark-syntax'
+  ]
+'editor':
+  'showIndentGuide': true
+  'fontSize': 12
+  'showInvisibles': true
+'linter':
+  'showStatusBarWhenCursorIsInErrorRange': true
+  'lintDebug': true
+'linter-coffeelint':
+  'coffeelintExecutablePath': '/usr/bin/'
+'linter-csslint':
+  'csslintExecutablePath': '/usr/bin/'
+'linter-jshint':
+  'jshintExecutablePath': '/usr/bin'
+'autocomplete-plus':
+  'fileBlacklist': '.*'
+'linter-clojure':
+  'javaExecutablePath': '/usr/bin/java'
+  'clojureExecutablePath': '/home/zack/clojure-1.6.0.jar'

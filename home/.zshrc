@@ -1,8 +1,6 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
-if [ -e "$HOME/.envirius/nv" ] ; then
-  . ~/.envirius/nv
-fi
+source ~/.zlogin
 
 # PyEnv {{{
 if [[ "$(which pyenv)" =~ "not found" ]] ; then
@@ -197,3 +195,5 @@ source ~/.fzf.zsh
 alias fig="showfigfonts | less"
 alias :q="exit"
 # }}}
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
