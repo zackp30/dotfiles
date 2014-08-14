@@ -1,5 +1,5 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
 if [ -e "$HOME/.envirius/nv" ] ; then
   . ~/.envirius/nv
 fi
@@ -12,21 +12,21 @@ fi
 # }}}
 setopt prompt_subst
 # Prompts {{{
-    # Misc {{{
-        autoload -U colors && colors
-    # }}}
-    # Used prompts {{{
-    PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
-    # }}}
+# Misc {{{
+autoload -U colors && colors
+# }}}
+# Used prompts {{{
+PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
+# }}}
 # }}}
 # Editor {{{
-    export EDITOR=vim
+export EDITOR=vim
 # }}}
 # History {{{
-    HISTSIZE=5000
-    SAVEHIST=5000
-    HISTFILE=~/.zsh_history
-    setopt histignorealldups sharehistory
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.zsh_history
+setopt histignorealldups sharehistory
 # }}}
 # Completion {{{
 
@@ -51,39 +51,39 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 #zstyle ':completion:*' completer _oldlist _complete
 # }}}
 # Misc {{{
-    setopt interactivecomments
-    if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]]; then
-        export TERM='xterm-256color'
-    fi
+setopt interactivecomments
+if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]]; then
+  export TERM='xterm-256color'
+fi
 
 
-    insert_sudo () { zle beginning-of-line; zle -U "sudo " }
-    zle -N insert-sudo insert_sudo
-    bindkey "^[s" insert-sudo
-    TMOUT=3600
-    bindkey -v
-    mesg n
-    export KEYTIMEOUT=1
+insert_sudo () { zle beginning-of-line; zle -U "sudo " }
+zle -N insert-sudo insert_sudo
+bindkey "^[s" insert-sudo
+TMOUT=3600
+bindkey -v
+mesg n
+export KEYTIMEOUT=1
 # }}}
 # Plugins {{{
-    . ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
-    bindkey -e
-    bindkey $'\e' vi-cmd-mode # From https://github.com/hchbaw/auto-fu.zsh/issues/29
-    # . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
-    ZSH_VCS_PROMPT_ENABLE_CACHING='true'
-    fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
-    export rvmsudo_secure_path=1
+. ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
+bindkey -e
+bindkey $'\e' vi-cmd-mode # From https://github.com/hchbaw/auto-fu.zsh/issues/29
+# . ~/.zsh/plugins/auto-fu.zsh/auto-fu.zsh
+ZSH_VCS_PROMPT_ENABLE_CACHING='true'
+fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
+export rvmsudo_secure_path=1
 
-    #export PAGER=~/bin/vimpager
-    #alias less=$PAGER
-    #alias zless=$PAGER
+#export PAGER=~/bin/vimpager
+#alias less=$PAGER
+#alias zless=$PAGER
 # }}}
 # Vi stuff. {{{
 
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
 function zle-line-init zle-keymap-select {
-  RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
-  zle reset-prompt
+RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
+zle reset-prompt
 }
 
 zle -N zle-line-init
@@ -145,8 +145,8 @@ fe() {
 fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
+    -o -type d -print 2> /dev/null | fzf +m) &&
+    cd "$dir"
 }
 
 # fda - including hidden directories
@@ -169,27 +169,27 @@ fkill() {
 fbr() {
   local branches branch
   branches=$(git branch) &&
-  branch=$(echo "$branches" | fzf +s +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //")
+    branch=$(echo "$branches" | fzf +s +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //")
 }
 
 # fco - checkout git commit
 fco() {
   local commits commit
   commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf +s +m -e) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
+    commit=$(echo "$commits" | fzf +s +m -e) &&
+    git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
 # ftags - search ctags
 ftags() {
   local line
   [ -e tags ] &&
-  line=$(
-    awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-    cut -c1-80 | fzf --nth=1,2
+    line=$(
+  awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
+  cut -c1-80 | fzf --nth=1,2
   ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
-                                      -c "silent tag $(cut -f2 <<< "$line")"
+    -c "silent tag $(cut -f2 <<< "$line")"
 }
 # }}}
 source ~/.fzf.zsh
