@@ -8,14 +8,27 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
-
+local imap = require("imap4")
+-- local async = require('asyncshell') -- https://github.com/alexander-yakushev/awesompd/blob/master/asyncshell.lua
 require("obvious.volume_alsa")
 require("obvious.mem")
 require("obvious.battery")
+-- }}}
+-- Util functions {{{
+function does_monitor_exist(m)
+  if vicious.widgets.os()[4] == 'linux.site' then
+    if screen.count() == 2 then
+      return m
+    else
+      return 1
+    end
+  else
+    return 1
+  end
+end
 -- }}}
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -47,7 +60,7 @@ end
 beautiful.init(os.getenv("HOME").."/.config/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-if os.getenv("HOST") == "raspberrypi" then 
+if os.getenv("HOST") == "raspberrypi" then
   terminal = "urxvt"
 else
   terminal = "urxvt-256color"
@@ -61,6 +74,7 @@ editor_cmd = terminal .. " -e " .. editor
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod1"
+naughty.config.defaults.screen = does_monitor_exist(2)
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -126,31 +140,21 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 -- CPU {{{
-  -- Main graph {{{
-  local blingbling = require("blingbling")
-  cpu_graph = blingbling.line_graph({ height = 18,
-      width = 200,
-      show_text = true,
-      label = "Load: $percent %",
-      rounded_size = 0.3,
+local blingbling = require("blingbling")
+cpu_graph = blingbling.line_graph({ height = 18,
+width = 200,
+show_text = true,
+label = "Load: $percent %",
+rounded_size = 0.3,
       })
-    vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
-    -- }}}
--- Old {{{
--- cpuwidget = awful.widget.graph()
--- cpuwidget:set_width(50)
--- cpuwidget:set_background_color("#494B4F")
---
--- cpuwidget:set_color({ type = "linear", from = { 0, 0 }, to = { 10,0 }, stops = { {0, "#FF5656"}, {0.5, "#88A175"}, 
---                     {1, "#AECF96" }}})
---
--- vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+      vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
 -- }}}
--- Net {{{
--- netwidget = obvious.net.send()
--- }}}
--- Mem {{{
-
+-- Email {{{
+-- function get_email_count()
+--   return async.request('imap imap.gmail.com 993') -- 'imap' is my own utility, will probably open source it soon
+-- end
+-- myemailwidget = wibox.widget.textbox()
+-- myemailwidget:set_text(get_email_count())
 -- }}}
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -241,6 +245,11 @@ for s = 1, screen.count() do
     right_layout:add(obvious.volume_alsa(0, speaker_name))
     right_layout:add(obvious.battery())
     right_layout:add(cpu_graph)
+
+
+
+
+    -- right_layout:add(myemailwidget)
     -- }}}
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -406,19 +415,8 @@ root.keys(globalkeys)
 -- }}}
 -- }}}
 -- {{{ Rules
-function does_monitor_exist(m)
-  if vicious.widgets.os()[4] == 'linux.site' then
-    if tags[m] ~= nil then
-      return m
-    else
-      return 1
-    end
-  else
-    return 1
-  end
-end
 
-awful.rules.rules = { 
+awful.rules.rules = {
 -- All clients will match this rule.
     { rule = { },
       properties = { border_width = beautiful.border_width,
