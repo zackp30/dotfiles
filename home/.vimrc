@@ -54,11 +54,14 @@
     " RimL {{{
     Bundle 'luke-gru/vim-riml'
     " }}}
+    " D {{{
+    Bundle 'Hackerpilot/DCD', {'rtp': 'editors/vim'}
+    " }}}
   " }}}
   " Generic finders {{{
   Bundle 'dyng/ctrlsf.vim'
   Bundle 'mileszs/ack.vim'
-  Bundle 'kien/ctrlp.vim'
+  Bundle 'ctrlpvim/ctrlp.vim'
   Bundle 'naquad/ctrlp-digraphs.vim'
   Bundle 'szw/vim-ctrlspace' " workspace manager
   Bundle 'tpope/vim-projectionist' " Allows to specify `alternative files'.
@@ -513,5 +516,8 @@ let g:limelight_default_coefficient = 0.7
 " RainbowCyclone {{{
 nmap g/ <Plug>(rc_search_forward)
 nmap g? <Plug>(rc_search_backward)
+" }}}
+" DCD {{{
+let g:dcd_importpath = ['/usr/local/dmd/include/d2/']
 " }}}
 " }}}
