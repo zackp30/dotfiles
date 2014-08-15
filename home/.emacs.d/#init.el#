@@ -1,0 +1,26 @@
+(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
+(setq package-enable-at-startup nil)
+
+(defun require-package (package)
+  "Install given PACKAGE."
+  (unless (package-installed-p package)
+    (unless (assoc package package-archive-contents)
+      (package-refresh-contents))
+    (package-install package))) ;; https://github.com/bling/dotemacs
+(package-initialize)
+(require-package 'evil)
+(require-package 'evil-leader)
+(require-package 'evil-numbers)
+(require-package 'evil-visualstar)
+(require-package 'evil-nerd-commenter)
+(require-package 'evil-indent-textobject)
+(require-package 'evil-matchit)
+(require-package 'surround)
+(require-package 'autocomplete)
+
+(evil-mode t)
+(global-surround-mode t)
+(global-evil-leader-mode)
