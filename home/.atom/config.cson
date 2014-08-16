@@ -10,10 +10,14 @@
     'solarized-dark-ui'
     'solarized-dark-syntax'
   ]
+  'disabledPackages': [
+    'background-tips'
+  ]
 'editor':
   'showIndentGuide': true
   'fontSize': 12
   'showInvisibles': true
+  'softWrap': true
 'linter':
   'showStatusBarWhenCursorIsInErrorRange': true
   'lintDebug': true
