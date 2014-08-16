@@ -1,4 +1,7 @@
 ;; A hacked together Emacs config.
+
+
+;; Add repositories for package archives
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -12,6 +15,9 @@
       (package-refresh-contents))
     (package-install package))) ;; https://github.com/bling/dotemacs
 (package-initialize)
+
+;; Install packages.
+
 (require-package 'evil)
 (require-package 'evil-leader)
 (require-package 'evil-numbers)
@@ -29,36 +35,17 @@
 (require-package 'browse-kill-ring)
 (require-package 'emacs-eclim)
 (require-package 'coffee-mode)
-(require 'smartparens-config)
-(projectile-global-mode)
-(require-package 'yasnippet)
-
-(yas-global-mode 1)
-(require 'auto-complete)
-(require 'auto-complete-config)
-
+(require-package 'git-gutter)
+(require-package 'markdown-mode)
+(require-package 'indent-guide)
+(require-package 'rainbow-delimiters)
+(require-package 'helm-projectile)
+(require-package 'smex)
+(require-package 'perspective)
 (require-package 'smart-mode-line)
-(require 'smart-mode-line)
-(sml/setup)
-(sml/apply-theme 'dark)
-(setq ac-auto-show-menu t)
-(setq ac-auto-start t)
-(setq ac-quick-help-delay 0.3)
-(setq ac-quick-help-height 30)
-(setq ac-show-menu-immediately-on-auto-complete t)
-(ac-config-default)
-(evil-mode t)
-(global-surround-mode t)
-(global-evil-leader-mode)
-(load-theme 'solarized-dark)
+(require-package 'yasnippet)
 (require-package 'helm)
-(require 'helm-config)
 (require-package 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(add-hook 'lisp-mode-hook 'hs-minor-mode)
-(add-hook 'haskell-mode-hook 'hs-minor-mode)
-(add-hook 'python-mode-hook 'hs-minor-mode)
-(add-hook 'ruby-mode-hook 'hs-minor-mode)
 
 
 
@@ -77,13 +64,31 @@
  '(mark-even-if-inactive t)
  '(scroll-bar-mode (quote right))
  '(transient-mark-mode 1))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
+
+
+
+
+
+(setq ido-enable-flex-matching t)
+
+(require-package 'ac-ispell)
+
+
+
+
+
+;; Misc requires
+(require 'smartparens-config)
+(require 'indent-guide)
+(require 'ido)
+(require 'ac-emacs-eclim-source)
+(require 'auto-complete)
+(require 'auto-complete-config)
+(require 'smart-mode-line)
+(require 'helm-config)
+
+;; Misc settings
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
 (setq flycheck-highlighting-mode 'symbols)
 (setq flycheck-indication-mode 'left-fringe)
@@ -91,16 +96,66 @@
 (tool-bar-mode -1) ;; disable toolbar
 (scroll-bar-mode -1) ;; disable scrollbar
 (global-linum-mode 1) ;; enable line numbers
+(sml/setup) ;; modeline setup
+(sml/apply-theme 'dark) ;; dark modeline
+(setq ac-auto-show-menu t)
+(setq ac-auto-start t)
+(setq ac-quick-help-delay 0.3)
+(setq ac-quick-help-height 30)
+(setq ac-show-menu-immediately-on-auto-complete t)
+(ac-config-default)
 
-(require-package 'markdown-mode)
+
+(setq ac-sources '(ac-source-yasnippet ac-source-eclim))
+(ac-emacs-eclim-config)
+
+;; Enable markdown-mode for .txt, .markdown, and .md
 (add-to-list 'auto-mode-alist 
-             '("\\.text\\'" . markdown-mode)) 
+             '("\\.txt\\'" . markdown-mode)) 
 (add-to-list 'auto-mode-alist 
              '("\\.markdown\\'" . markdown-mode)) 
 (add-to-list 'auto-mode-alist 
              '("\\.md\\'" . markdown-mode))
 
+;; ALL the modes!
+(ido-mode t)
+(projectile-global-mode)
+(yas-global-mode 1)
+(indent-guide-global-mode)
+(helm-mode 1)
+(global-git-gutter-mode 1)
+(smartparens-global-mode t)
+(evil-mode t) ;; Vim!
+(global-surround-mode t)
+(global-evil-leader-mode)
+(smex-initialize)
+(persp-mode)
 
+
+;; Hooks
+(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'mail-mode-hook 'ac-ispell-ac-setupa)
+(add-hook 'markdown-mode-hook 'ac-ispell-ac-setupa)
+(eval-after-load "auto-complete"
+  '(progn
+     (ac-ispell-setup)))
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'lisp-mode-hook 'hs-minor-mode)
+(add-hook 'haskell-mode-hook 'hs-minor-mode)
+(add-hook 'python-mode-hook 'hs-minor-mode)
+(add-hook 'ruby-mode-hook 'hs-minor-mode)
+
+
+
+
+;; Yay solarized.
+(load-theme 'solarized-dark)
+
+;; Keybindings
+(global-set-key (kbd "C-c h") 'helm-projectile)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (evil-leader/set-key
   "p b" 'projectile-switch-to-buffer
@@ -111,54 +166,3 @@
   "p j" 'projectile-find-tag
   "f" 'ido
 )
-
-
-
-(setq ac-sources '(ac-source-yasnippet ac-source-eclim))
-
-(require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
-(require-package 'helm-projectile)
-
-(global-set-key (kbd "C-c h") 'helm-projectile)
-(require-package 'perspective)
-(persp-mode)
-
-(require-package 'git-gutter)
-
-(require-package 'rainbow-delimiters)
-
-
-(global-git-gutter-mode 1)
-(smartparens-global-mode t)
-
-(require-package 'smex)
-(smex-initialize)
-
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-
-(require-package 'indent-guide)
-(require 'indent-guide)
-(indent-guide-global-mode)
-
-(require 'ido) ;; ido! (wow very descriptive comment...)
-(ido-mode t)
-
-(setq ido-enable-flex-matching t)
-
-(require-package 'ac-ispell)
-
-
-
-(eval-after-load "auto-complete"
-  '(progn
-     (ac-ispell-setup)))
-
-(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
-(add-hook 'mail-mode-hook 'ac-ispell-ac-setupa)
-(add-hook 'markdown-mode-hook 'ac-ispell-ac-setupa)
-(helm-mode 1)
