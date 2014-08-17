@@ -9,3 +9,4 @@ Using [Homeshick](https://github.com/andsens/homeshick):
 git clone https://github.com/andsens/homeshick ~/.homesick/repos/homeshick
 ~/.homesick/repos/homeshick/bin/homeshick clone http://github.com/zackp30/dotfiles
 ```
+
