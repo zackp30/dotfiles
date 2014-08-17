@@ -55,6 +55,7 @@
 
 
 
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -120,6 +121,8 @@
 (setq vc-follow-symlinks t)
 
 
+
+
 (setq ac-sources '(ac-source-yasnippet ac-source-eclim))
 (ac-emacs-eclim-config)
 
@@ -180,12 +183,11 @@
 ;; Yay solarized.
 (load-theme 'solarized-dark)
 
-;; Keybindings
+;; Key bindings
 (global-set-key (kbd "C-c h") 'helm-projectile)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
 
 (evil-leader/set-leader "<SPC>") ;; space is my leader
 (evil-leader/set-key
@@ -198,13 +200,6 @@
   "f" 'ido-find-file
 )
 
-
 (setq list-command-history-max 500)
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
-
-
-
-
-
-
