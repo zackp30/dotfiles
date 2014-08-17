@@ -6,7 +6,6 @@
                          ("org" . "http://orgmode.org/elpa/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
-(setq package-enable-at-startup nil)
 
 (defun require-package (package)
   "Install given PACKAGE."
@@ -46,6 +45,13 @@
 (require-package 'yasnippet)
 (require-package 'helm)
 (require-package 'flycheck)
+(require-package 'haskell-mode)
+(require-package 'ruby-mode)
+(require-package 'clojure-mode)
+(require-package 'cider)
+(require-package 'ac-cider)
+(require-package 'mediawiki)
+(require-package 'lua-mode)
 
 
 
@@ -76,8 +82,6 @@
 
 
 
-
-
 ;; Misc requires
 (require 'smartparens-config)
 (require 'indent-guide)
@@ -87,8 +91,17 @@
 (require 'auto-complete-config)
 (require 'smart-mode-line)
 (require 'helm-config)
+(require 'ruby-mode)
+(require 'ac-cider)
+(require 'tramp)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'cider-mode))
 
 ;; Misc settings
+(evilnc-default-hotkeys)
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
 (setq flycheck-highlighting-mode 'symbols)
 (setq flycheck-indication-mode 'left-fringe)
@@ -104,6 +117,7 @@
 (setq ac-quick-help-height 30)
 (setq ac-show-menu-immediately-on-auto-complete t)
 (ac-config-default)
+(setq vc-follow-symlinks t)
 
 
 (setq ac-sources '(ac-source-yasnippet ac-source-eclim))
@@ -117,6 +131,18 @@
 (add-to-list 'auto-mode-alist 
              '("\\.md\\'" . markdown-mode))
 
+(defun my-evil-modeline-change (default-color)
+  "changes the modeline color when the evil mode changes"
+  (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
+                     ((evil-visual-state-p) '("#330022" . "#ffffff"))
+                     ((evil-normal-state-p) default-color)
+                     (t '("#440000" . "#ffffff")))))
+    (set-face-background 'mode-line (car color))
+    (set-face-foreground 'mode-line (cdr color))))
+
+(lexical-let ((default-color (cons (face-background 'mode-line)
+                                   (face-foreground 'mode-line))))
+  (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 ;; ALL the modes!
 (ido-mode t)
 (projectile-global-mode)
@@ -130,6 +156,7 @@
 (global-evil-leader-mode)
 (smex-initialize)
 (persp-mode)
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 
 ;; Hooks
@@ -140,7 +167,9 @@
   '(progn
      (ac-ispell-setup)))
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(add-hook 'lisp-mode-hook 'hs-minor-mode)
+(add-hook 'prog-mode-hook  'hs-minor-mode)
+(add-hook 'prog-mode-hook  'flyspell-prog-mode)
+(add-hook 'text-mode-hook  'flyspell-mode)
 (add-hook 'haskell-mode-hook 'hs-minor-mode)
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
@@ -157,6 +186,8 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
+
+(evil-leader/set-leader "<SPC>") ;; space is my leader
 (evil-leader/set-key
   "p b" 'projectile-switch-to-buffer
   "p D" 'projectile-dired
@@ -164,5 +195,16 @@
   "p s" 'projectile-switch-project
   "p R" 'projectile-regenerate-tags
   "p j" 'projectile-find-tag
-  "f" 'ido
+  "f" 'ido-find-file
 )
+
+
+(setq list-command-history-max 500)
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+
+
+
+
+
+
