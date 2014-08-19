@@ -52,6 +52,10 @@
 (require-package 'ac-cider)
 (require-package 'mediawiki)
 (require-package 'lua-mode)
+(require-package 'd-mode)
+(require-package 'ac-dcd)
+(require-package 'ghc)
+(require-package 'ghci-completion)
 
 
 
@@ -95,6 +99,7 @@
 (require 'ruby-mode)
 (require 'ac-cider)
 (require 'tramp)
+(require 'ac-dcd)
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
 (add-hook 'cider-mode-hook 'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
@@ -114,15 +119,16 @@
 (sml/apply-theme 'dark) ;; dark modeline
 (setq ac-auto-show-menu t)
 (setq ac-auto-start t)
+(setq ac-delay 0.1)
 (setq ac-quick-help-delay 0.3)
 (setq ac-quick-help-height 30)
 (setq ac-show-menu-immediately-on-auto-complete t)
 (ac-config-default)
 (setq vc-follow-symlinks t)
-
-
-
-
+;; Haskell!
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(autoload 'ghc-init "ghc" nil t)
+(add-hook 'haskell-mode-hook 'ghc-init)
 (setq ac-sources '(ac-source-yasnippet ac-source-eclim))
 (ac-emacs-eclim-config)
 
@@ -133,6 +139,11 @@
              '("\\.markdown\\'" . markdown-mode)) 
 (add-to-list 'auto-mode-alist 
              '("\\.md\\'" . markdown-mode))
+
+(add-to-list 'auto-mode-alist
+             '("\\Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist
+             '("\\Guardfile\\'" . ruby-mode))
 
 (defun my-evil-modeline-change (default-color)
   "changes the modeline color when the evil mode changes"
@@ -146,6 +157,22 @@
 (lexical-let ((default-color (cons (face-background 'mode-line)
                                    (face-foreground 'mode-line))))
   (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+
+
+(add-hook 'd-mode-hook
+
+          '(lambda () "set up ac-dcd"
+             (auto-complete-mode t)
+             (yas-minor-mode-on)
+             (ac-dcd-maybe-start-server)
+             (add-to-list 'ac-sources 'ac-source-dcd))
+
+          (when (featurep 'popwin)
+            (add-to-list 'popwin:special-display-config
+                         `(,ac-dcd-error-buffer-name :noselect t))
+            (add-to-list 'popwin:special-display-config
+                         `(,ac-dcd-document-buffer-name :position right :width 80)))
+          )
 ;; ALL the modes!
 (ido-mode t)
 (projectile-global-mode)
@@ -198,7 +225,7 @@
   "p R" 'projectile-regenerate-tags
   "p j" 'projectile-find-tag
   "f" 'ido-find-file
-)
+  )
 
 (setq list-command-history-max 500)
 (setq-default indent-tabs-mode nil)
