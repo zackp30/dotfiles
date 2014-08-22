@@ -100,6 +100,7 @@
 (require 'ac-cider)
 (require 'tramp)
 (require 'ac-dcd)
+(require 'whitespace)
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
 (add-hook 'cider-mode-hook 'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
@@ -230,3 +231,4 @@
 (setq list-command-history-max 500)
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
+
