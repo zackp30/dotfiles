@@ -426,8 +426,6 @@ awful.rules.rules = {
     { rule = { class = "urxvt-256color" },
       properties = { floating = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    { rule = { class = "Firefox" },
-    properties = { tag = tags[does_monitor_exist(2)][2] } },
     { rule = { class = "Dogecoin-qt" },
       properties = { tag = tags[1][6] } },
     { rule = { class = "Quarkcoin-qt" },
