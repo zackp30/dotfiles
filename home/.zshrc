@@ -1,6 +1,7 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin/:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:$HOME/adt-bundle-linux-x86_64-20140702/sdk/{tools,platform-tools}:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
 source ~/.zlogin
+export ANDROID_HOME=$HOME/adt-bundle-linux-x86_64-20140702/sdk
 
 # PyEnv {{{
 if [[ "$(which pyenv)" =~ "not found" ]] ; then
@@ -204,3 +205,10 @@ if [ -s ~/.nvm/nvm.sh ]; then
 fi
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+function gi() { curl http://www.gitignore.io/api/$@ ;}
+
+
+# BEGIN Ruboto setup
+source ~/.rubotorc
+# END Ruboto setup
+

@@ -232,3 +232,6 @@
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
 
+(require 'undo-tree)
+(setq undo-tree-auto-save-history 1)
+(setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
