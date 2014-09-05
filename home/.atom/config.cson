@@ -17,7 +17,6 @@
   'showIndentGuide': true
   'fontSize': 12
   'showInvisibles': true
-  'softWrap': true
 'linter':
   'showStatusBarWhenCursorIsInErrorRange': true
   'lintDebug': true
