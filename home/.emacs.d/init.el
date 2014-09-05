@@ -56,6 +56,9 @@
 (require-package 'ac-dcd)
 (require-package 'ghc)
 (require-package 'ghci-completion)
+(require-package 'langtool)
+(require 'langtool)
+(setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
 
 
 
@@ -145,6 +148,10 @@
              '("\\Gemfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
              '("\\Guardfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist
+             '("\\Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist
+             '("\\Rakefile\\'" . ruby-mode))
 
 (defun my-evil-modeline-change (default-color)
   "changes the modeline color when the evil mode changes"
