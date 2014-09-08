@@ -28,7 +28,7 @@
 
     if hostname() != "linux.site"
       Bundle 'guns/vim-clojure-static'
-      Bundle 'tpope/vim-fireplace'
+      " Bundle 'tpope/vim-fireplace'
       Bundle 'jpalardy/vim-slime'
       Bundle 'tpope/vim-classpath'
       Bundle 'tpope/vim-leiningen'

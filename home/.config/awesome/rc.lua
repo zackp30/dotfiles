@@ -11,7 +11,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
-local imap = require("imap4")
 -- local async = require('asyncshell') -- https://github.com/alexander-yakushev/awesompd/blob/master/asyncshell.lua
 require("obvious.volume_alsa")
 require("obvious.mem")
