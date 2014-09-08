@@ -1,7 +1,9 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:$HOME/adt-bundle-linux-x86_64-20140702/sdk/{tools,platform-tools}:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:$HOME/android-sdk/{build-tools,extras,platform-tools,tools}:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
 source ~/.zlogin
-export ANDROID_HOME=$HOME/adt-bundle-linux-x86_64-20140702/sdk
+export ANDROID_HOME=$HOME/android-sdk
+export GRADLE_HOME=$HOME/gradle-1.10
+export PATH=$GRADLE_HOME/bin:$PATH
 
 # PyEnv {{{
 if [[ "$(which pyenv)" =~ "not found" ]] ; then
