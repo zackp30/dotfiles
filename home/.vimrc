@@ -71,17 +71,18 @@
   Bundle 'paradigm/SkyBison' " command finder
   " "}}}
   " Misc {{{
+  Bundle 'mhinz/vim-blockify'
   Bundle 'edsono/vim-matchit'
   Bundle 'vim-scripts/DrawIt'
   Bundle 'dhruvasagar/vim-table-mode'
   Bundle 'chrisbra/csv.vim'
   Bundle 'wellle/targets.vim'
-  Bundle 'airblade/vim-gitgutter'
+  Bundle 'mhinz/vim-signify'
   Bundle 'vim-scripts/YankRing.vim'
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
   Bundle 'mattn/emmet-vim'
-  Bundle 'junegunn/limelight.vim'
+  " Bundle 'junegunn/limelight.vim'
   Bundle 'AndrewRadev/switch.vim'
   Bundle 'gkz/vim-ls'
   Bundle 'tpope/vim-characterize'
@@ -92,7 +93,7 @@
   Bundle 'scrooloose/syntastic'
   Bundle 'bling/vim-bufferline'
   Bundle 'tomtom/tcomment_vim'
-  Bundle 'Shougo/unite.vim'
+  " Bundle 'Shougo/unite.vim'
   Bundle 'vim-pandoc/vim-pandoc'
   Bundle 'vim-pandoc/vim-pandoc-syntax'
   Bundle 'osyo-manga/vim-over'
@@ -141,10 +142,6 @@
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
-  " Unite {{{
-    Bundle 'majkinetor/unite-cmdmatch'
-    Bundle 'kopischke/unite-spell-suggest'
-  " }}
   " }}}
   filetype plugin indent on
   NeoBundleCheck
@@ -166,6 +163,7 @@
       au!
       autocmd VimEnter,BufNewFile,BufReadPost *.page set ft=pandoc
       autocmd VimEnter,BufNewFile,BufReadPost *.plt set ft=gnuplot
+      autocmd VimEnter,BufNewFile,BufReadPost *.gradle set ft=groovy
     augroup end
 " }}}
 " Learn Vim script the hard way. {{{
@@ -173,6 +171,7 @@
 " }}}
 " Mappings {{{
   let mapleader = "\<Space>"
+  let maplocalleader = "¬"
   " http://www.reddit.com/r/vim/comments/275mng/what_have_you_recently_removed_from_your_vim/chxwtro
 
   nnoremap <silent> <Left> :bp<cr>
@@ -272,8 +271,9 @@
                   \]
   " }}}
   set maxfuncdepth=9001
-  augroup scribble
+  augroup fts
       autocmd BufRead,BufNewFile *.scrbl set filetype=scribble
+      autocmd BufRead,BufNewFile *.cson set filetype=coffee
   augroup END
   " Change default binding for YankRing (<c-p) because of CtrlP.
   let g:yankring_replace_n_pkey="<C-H>"
