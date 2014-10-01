@@ -214,3 +214,6 @@ function gi() { curl http://www.gitignore.io/api/$@ ;}
 source ~/.rubotorc
 # END Ruboto setup
 
+
+alias ..='cd ..'
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
