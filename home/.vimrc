@@ -60,6 +60,9 @@
     " D {{{
     Bundle 'Hackerpilot/DCD', {'rtp': 'editors/vim'}
     " }}}
+    " Io {{{
+    Bundle 'vim-scripts/Io-programming-language-syntax'
+    " }}}
   " }}}
   " Generic finders {{{
   Bundle 'dyng/ctrlsf.vim'
@@ -274,6 +277,7 @@
   augroup fts
       autocmd BufRead,BufNewFile *.scrbl set filetype=scribble
       autocmd BufRead,BufNewFile *.cson set filetype=coffee
+      autocmd BufRead,BufNewFile *.io set filetype=io
   augroup END
   " Change default binding for YankRing (<c-p) because of CtrlP.
   let g:yankring_replace_n_pkey="<C-H>"
