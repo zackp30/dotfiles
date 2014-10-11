@@ -74,7 +74,7 @@
   Bundle 'paradigm/SkyBison' " command finder
   " "}}}
   " Misc {{{
-  Bundle 'mhinz/vim-blockify'
+  Bundle 'justinmk/vim-blockify'
   Bundle 'edsono/vim-matchit'
   Bundle 'vim-scripts/DrawIt'
   Bundle 'dhruvasagar/vim-table-mode'
@@ -85,7 +85,6 @@
   Bundle 'jistr/vim-nerdtree-tabs'
   Bundle 'scrooloose/nerdtree'
   Bundle 'mattn/emmet-vim'
-  " Bundle 'junegunn/limelight.vim'
   Bundle 'AndrewRadev/switch.vim'
   Bundle 'gkz/vim-ls'
   Bundle 'tpope/vim-characterize'
@@ -96,7 +95,6 @@
   Bundle 'scrooloose/syntastic'
   Bundle 'bling/vim-bufferline'
   Bundle 'tomtom/tcomment_vim'
-  " Bundle 'Shougo/unite.vim'
   Bundle 'vim-pandoc/vim-pandoc'
   Bundle 'vim-pandoc/vim-pandoc-syntax'
   Bundle 'osyo-manga/vim-over'
@@ -140,6 +138,7 @@
   Bundle 'JazzCore/ctrlp-cmatcher', {
         \ 'build': {
         \ 'unix' : './install.sh'}, }
+  Bundle 'mustache/vim-mustache-handlebars'
   NeoBundleLocal ~/git/vim-plugins/
   " }}}
   " Code navigation {{{
@@ -149,7 +148,6 @@
   filetype plugin indent on
   NeoBundleCheck
   syntax on
-  " }}}
 " }}}
 " Abbreviations {{{
     iabbrev @cc@ Copyright 2013 Zack Piper.
@@ -174,7 +172,7 @@
 " }}}
 " Mappings {{{
   let mapleader = "\<Space>"
-  let maplocalleader = "¬"
+  let maplocalleader = "!"
   " http://www.reddit.com/r/vim/comments/275mng/what_have_you_recently_removed_from_your_vim/chxwtro
 
   nnoremap <silent> <Left> :bp<cr>
@@ -243,6 +241,7 @@
     " }}}
 " }}}
 " Misc {{{
+  set wildignore+=*/node_modules/*
   set shell=/bin/sh
   " Colorscheme.
   colorscheme zm5
@@ -521,8 +520,8 @@ let g:limelight_conceal_guifg = '#777777'
 let g:limelight_default_coefficient = 0.7
 " }}}
 " RainbowCyclone {{{
-nmap g/ <Plug>(rc_search_forward)
-nmap g? <Plug>(rc_search_backward)
+nmap gz/ <Plug>(rc_search_forward)
+nmap gz? <Plug>(rc_search_backward)
 " }}}
 " DCD {{{
 let g:dcd_importpath = ['/usr/local/dmd/include/d2/']

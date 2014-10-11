@@ -57,6 +57,7 @@
 (require-package 'ghc)
 (require-package 'ghci-completion)
 (require-package 'langtool)
+(require-package 'slim-mode)
 (require 'langtool)
 (setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
 
@@ -94,7 +95,6 @@
 (require 'smartparens-config)
 (require 'indent-guide)
 (require 'ido)
-(require 'ac-emacs-eclim-source)
 (require 'auto-complete)
 (require 'auto-complete-config)
 (require 'smart-mode-line)
@@ -133,8 +133,6 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (autoload 'ghc-init "ghc" nil t)
 (add-hook 'haskell-mode-hook 'ghc-init)
-(setq ac-sources '(ac-source-yasnippet ac-source-eclim))
-(ac-emacs-eclim-config)
 
 ;; Enable markdown-mode for .txt, .markdown, and .md
 (add-to-list 'auto-mode-alist 
