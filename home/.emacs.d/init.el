@@ -24,6 +24,7 @@
 (require-package 'evil-nerd-commenter)
 (require-package 'evil-indent-textobject)
 (require-package 'evil-matchit)
+(require-package 'password-store)
 (require-package 'icicles)
 (require-package 'color-theme-solarized)
 (require-package 'surround)
@@ -51,7 +52,6 @@
 (require-package 'clojure-mode)
 (require-package 'cider)
 (require-package 'ac-cider)
-(require-package 'mediawiki)
 (require-package 'lua-mode)
 (require-package 'ctags)
 (require-package 'd-mode)
@@ -63,10 +63,6 @@
 (require-package 'io-mode)
 (require 'langtool)
 (setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
-
-
-
-
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -88,14 +84,13 @@
 
 (require-package 'ac-ispell)
 
-
-
 ;; Misc require
 (require 'icicles)
 (require 'smartparens-config)
 (require 'indent-guide)
 (require 'ido)
 (require 'auto-complete)
+(require 'password-store)
 (require 'ctags)
 (require 'ac-dcd)
 (require 'auto-complete-config)
