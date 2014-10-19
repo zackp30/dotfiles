@@ -180,6 +180,9 @@
                                    (face-foreground 'mode-line))))
              (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(require 'gl-conf-mode)
+(add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" . gl-conf-mode))
 
 ;; ALL the modes!
 (ido-mode t)
