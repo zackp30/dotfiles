@@ -24,10 +24,12 @@
 (require-package 'evil-nerd-commenter)
 (require-package 'evil-indent-textobject)
 (require-package 'evil-matchit)
+(require-package 'icicles)
 (require-package 'color-theme-solarized)
 (require-package 'surround)
 (require-package 'auto-complete)
 (require-package 'magit)
+(require-package 'ac-dcd)
 (require-package 'undo-tree)
 (require-package 'projectile)
 (require-package 'smartparens)
@@ -39,7 +41,6 @@
 (require-package 'indent-guide)
 (require-package 'rainbow-delimiters)
 (require-package 'helm-projectile)
-(require-package 'smex)
 (require-package 'perspective)
 (require-package 'smart-mode-line)
 (require-package 'yasnippet)
@@ -52,33 +53,36 @@
 (require-package 'ac-cider)
 (require-package 'mediawiki)
 (require-package 'lua-mode)
+(require-package 'ctags)
 (require-package 'd-mode)
-(require-package 'ac-dcd)
+(require-package 'ac-emmet)
 (require-package 'ghc)
 (require-package 'ghci-completion)
 (require-package 'langtool)
 (require-package 'slim-mode)
+(require-package 'io-mode)
 (require 'langtool)
 (setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
 
 
 
 
+
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ac-ispell-fuzzy-limit 1)
- '(ac-ispell-requires 1)
- '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
- '(delete-selection-mode nil)
- '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
- '(eclim-executable "~/eclipse/eclipse/eclim")
- '(inhibit-startup-screen t)
- '(mark-even-if-inactive t)
- '(scroll-bar-mode (quote right))
- '(transient-mark-mode 1))
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(ac-ispell-fuzzy-limit 1)
+  '(ac-ispell-requires 1)
+  '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+  '(delete-selection-mode nil)
+  '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
+  '(eclim-executable "~/eclipse/eclipse/eclim")
+  '(inhibit-startup-screen t)
+  '(mark-even-if-inactive t)
+  '(scroll-bar-mode (quote right))
+  '(transient-mark-mode 1))
 
 
 
@@ -91,24 +95,33 @@
 
 
 
-;; Misc requires
+;; Misc require
+(require 'icicles)
 (require 'smartparens-config)
 (require 'indent-guide)
 (require 'ido)
 (require 'auto-complete)
+(require 'ctags)
+(require 'ac-dcd)
 (require 'auto-complete-config)
 (require 'smart-mode-line)
 (require 'helm-config)
 (require 'ruby-mode)
 (require 'ac-cider)
+(require 'ac-emmet)
+(require 'emmet-mode)
+(require 'io-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
+(add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
+(add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (require 'tramp)
-(require 'ac-dcd)
 (require 'whitespace)
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
 (add-hook 'cider-mode-hook 'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-mode))
+                 '(add-to-list 'ac-modes 'cider-mode))
 
 ;; Misc settings
 (evilnc-default-hotkeys)
@@ -128,6 +141,7 @@
 (setq ac-quick-help-height 30)
 (setq ac-show-menu-immediately-on-auto-complete t)
 (ac-config-default)
+(setq ctags-command "/usr/bin/ctags-exuberant -e -R ")
 (setq vc-follow-symlinks t)
 ;; Haskell!
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
@@ -146,10 +160,12 @@
              '("\\Gemfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
              '("\\Guardfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\Gemfile\\'" . ruby-mode))
+
 (add-to-list 'auto-mode-alist
              '("\\Rakefile\\'" . ruby-mode))
+
+(add-hook 'd-mode-hook 'ac-dcd-setup)
+
 
 (defun my-evil-modeline-change (default-color)
   "changes the modeline color when the evil mode changes"
@@ -162,23 +178,9 @@
 
 (lexical-let ((default-color (cons (face-background 'mode-line)
                                    (face-foreground 'mode-line))))
-  (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+             (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
 
-(add-hook 'd-mode-hook
-
-          '(lambda () "set up ac-dcd"
-             (auto-complete-mode t)
-             (yas-minor-mode-on)
-             (ac-dcd-maybe-start-server)
-             (add-to-list 'ac-sources 'ac-source-dcd))
-
-          (when (featurep 'popwin)
-            (add-to-list 'popwin:special-display-config
-                         `(,ac-dcd-error-buffer-name :noselect t))
-            (add-to-list 'popwin:special-display-config
-                         `(,ac-dcd-document-buffer-name :position right :width 80)))
-          )
 ;; ALL the modes!
 (ido-mode t)
 (projectile-global-mode)
@@ -190,18 +192,18 @@
 (evil-mode t) ;; Vim!
 (global-surround-mode t)
 (global-evil-leader-mode)
-(smex-initialize)
 (persp-mode)
 (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
+(ac-flyspell-workaround)
 
 ;; Hooks
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
-(add-hook 'mail-mode-hook 'ac-ispell-ac-setupa)
-(add-hook 'markdown-mode-hook 'ac-ispell-ac-setupa)
+(add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
 (eval-after-load "auto-complete"
-  '(progn
-     (ac-ispell-setup)))
+                 '(progn
+                    (ac-ispell-setup)))
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'prog-mode-hook  'hs-minor-mode)
 (add-hook 'prog-mode-hook  'flyspell-prog-mode)
@@ -218,8 +220,6 @@
 
 ;; Key bindings
 (global-set-key (kbd "C-c h") 'helm-projectile)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (evil-leader/set-leader "<SPC>") ;; space is my leader
@@ -230,13 +230,20 @@
   "p s" 'projectile-switch-project
   "p R" 'projectile-regenerate-tags
   "p j" 'projectile-find-tag
+  "g t r" 'ctags-create-or-update-tags-table
   "f" 'ido-find-file
   )
 
+
+
 (setq list-command-history-max 500)
 (setq-default indent-tabs-mode nil)
-(setq tab-width 4)
 
 (require 'undo-tree)
+
+(setq-default tab-width 2)
 (setq undo-tree-auto-save-history 1)
 (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
+
+(provide 'init)
+;;; init.el ends here
