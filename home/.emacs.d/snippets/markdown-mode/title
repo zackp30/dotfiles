@@ -1,0 +1,11 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: title
+# key: title
+# binding: direct-keybinding
+# --
+
+---
+title: `(file-name-base buffer-file-name)`
+date: `(shell-command "date")`
+author: Zack Piper
+---

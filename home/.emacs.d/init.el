@@ -84,11 +84,6 @@
   '(scroll-bar-mode (quote right))
   '(transient-mark-mode 1))
 
-
-
-
-
-
 (setq ido-enable-flex-matching t)
 
 (require-package 'ac-ispell)
@@ -187,6 +182,12 @@
 ;; ALL the modes!
 (ido-mode t)
 (projectile-global-mode)
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(eval-after-load "evil"
+'(define-key evil-insert-state-map (kbd "C-k") 'yas-expand)
+)
+
 (yas-global-mode 1)
 (indent-guide-global-mode)
 (helm-mode 1)
