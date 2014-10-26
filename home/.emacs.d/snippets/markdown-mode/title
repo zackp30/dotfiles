@@ -6,6 +6,6 @@
 
 ---
 title: `(file-name-base buffer-file-name)`
-date: `(shell-command "date")`
+date: `(shell-command-to-string "date")`
 author: Zack Piper
 ---

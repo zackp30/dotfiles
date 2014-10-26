@@ -1,8 +1,12 @@
 ;; A hacked together Emacs config.
 
+;;; Code:
+
+(when (not (string= system-name "xieshaij"))
+    (setq url-proxy-services '(("http" . "localhost:8123"))))
 
 ;; Add repositories for package archives
-(setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
@@ -30,6 +34,7 @@
 (require-package 'surround)
 (require-package 'auto-complete)
 (require-package 'magit)
+(require-package 'table)
 (require-package 'ac-dcd)
 (require-package 'undo-tree)
 (require-package 'projectile)
@@ -243,6 +248,12 @@
 (setq-default tab-width 2)
 (setq undo-tree-auto-save-history 1)
 (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
+(setq ispell-alternate-dictionary "british")
+
+;; Haskell unicode symbols! (from the Haskell wiki)
+
+(setq haskell-font-lock-symbols t)
+
 
 (provide 'init)
 ;;; init.el ends here
