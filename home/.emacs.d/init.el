@@ -37,6 +37,11 @@
 (require-package 'table)
 (require-package 'ac-dcd)
 (require-package 'undo-tree)
+(require-package 'ac-haskell-process)
+(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'haskell-interactive-mode))
 (require-package 'projectile)
 (require-package 'smartparens)
 (require-package 'browse-kill-ring)
