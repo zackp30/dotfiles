@@ -29,6 +29,7 @@
 (require-package 'evil-indent-textobject)
 (require-package 'evil-matchit)
 (require-package 'password-store)
+(require-package 'scss-mode)
 (require-package 'icicles)
 (require-package 'color-theme-solarized)
 (require-package 'surround)
@@ -36,6 +37,10 @@
 (require-package 'magit)
 (require-package 'table)
 (require-package 'ac-dcd)
+(require-package 'mediawiki)
+(require 'mediawiki)
+(require-package 'php-mode)
+(require-package 'racket-mode)
 (require-package 'undo-tree)
 (require-package 'ac-haskell-process)
 (add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
@@ -75,20 +80,26 @@
 (setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(ac-ispell-fuzzy-limit 1)
-  '(ac-ispell-requires 1)
-  '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
-  '(delete-selection-mode nil)
-  '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
-  '(eclim-executable "~/eclipse/eclipse/eclim")
-  '(inhibit-startup-screen t)
-  '(mark-even-if-inactive t)
-  '(scroll-bar-mode (quote right))
-  '(transient-mark-mode 1))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ac-ispell-fuzzy-limit 1)
+ '(ac-ispell-requires 1)
+ '(custom-safe-themes
+   (quote
+    ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+ '(delete-selection-mode nil)
+ '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
+ '(eclim-executable "~/eclipse/eclipse/eclim")
+ '(inhibit-startup-screen t)
+ '(mark-even-if-inactive t)
+ '(mediawiki-site-alist
+   (quote
+    (("http://wiki.apertron.net" "http://wiki.apertron.net/" "zackp30" nil "Main Page")
+     ("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page"))))
+ '(scroll-bar-mode (quote right))
+ '(transient-mark-mode 1))
 
 (setq ido-enable-flex-matching t)
 
@@ -155,6 +166,9 @@
              '("\\.markdown\\'" . markdown-mode)) 
 (add-to-list 'auto-mode-alist 
              '("\\.md\\'" . markdown-mode))
+
+(add-to-list 'auto-mode-alist 
+             '("\\.mw\\'" . mediawiki-mode))
 
 (add-to-list 'auto-mode-alist
              '("\\Gemfile\\'" . ruby-mode))
@@ -258,7 +272,17 @@
 ;; Haskell unicode symbols! (from the Haskell wiki)
 
 (setq haskell-font-lock-symbols t)
+(autoload 'scss-mode "scss-mode")
+
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+(setq scss-compile-at-save nil)
 
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -125,8 +125,6 @@ export GOPATH=$HOME/gostuff
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
   export GPG_AGENT_INFO
-  export SSH_AUTH_SOCK
-  export SSH_AGENT_PID
 fi
 GPG_TTY=$(tty)
 export GPG_TTY
@@ -219,3 +217,7 @@ source ~/.rubotorc
 alias ..='cd ..'
 alias cab='cabal install'
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+
+mt_load_mods() {
+    for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> ~/.minetest/worlds/world/world.mt
+}
