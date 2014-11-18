@@ -21,7 +21,7 @@ PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vc
 # }}}
 # }}}
 # Editor {{{
-export EDITOR=emacs
+export EDITOR=vim
 # }}}
 # History {{{
 HISTSIZE=5000

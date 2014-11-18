@@ -89,7 +89,9 @@
   Bundle 'gkz/vim-ls'
   Bundle 'tpope/vim-characterize'
   Bundle 'SirVer/ultisnips'
-  Bundle 'bling/vim-airline'
+  python from powerline.vim import setup as powerline_setup
+  python powerline_setup()
+  python del powerline_setup
   Bundle 'Shougo/neocomplete.vim'
   Bundle 'mbbill/undotree'
   Bundle 'scrooloose/syntastic'
