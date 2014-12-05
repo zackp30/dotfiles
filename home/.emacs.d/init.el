@@ -30,6 +30,7 @@
 (require-package 'evil-matchit)
 (require-package 'password-store)
 (require-package 'scss-mode)
+(require-package 'pophint)
 (require-package 'icicles)
 (require-package 'color-theme-solarized)
 (require-package 'surround)
@@ -57,11 +58,16 @@
 (require-package 'indent-guide)
 (require-package 'rainbow-delimiters)
 (require-package 'helm-projectile)
+(require-package 'git-messenger)
 (require-package 'perspective)
 (require-package 'smart-mode-line)
 (require-package 'yasnippet)
 (require-package 'helm)
 (require-package 'flycheck)
+(require-package 'guide-key)
+(require 'guide-key)
+(guide-key-mode 1) 
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
 (require-package 'haskell-mode)
 (require-package 'ruby-mode)
 (require-package 'clojure-mode)
@@ -105,7 +111,9 @@
 
 (require-package 'ac-ispell)
 
-;; Misc require
+;; Misc requires
+(require 'pophint)
+(define-key global-map (kbd "C-'") 'pophint:do-flexibly)
 (require 'icicles)
 (require 'smartparens-config)
 (require 'indent-guide)
@@ -134,6 +142,7 @@
 (eval-after-load "auto-complete"
                  '(add-to-list 'ac-modes 'cider-mode))
 
+
 ;; Misc settings
 (evilnc-default-hotkeys)
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
@@ -154,6 +163,7 @@
 (ac-config-default)
 (setq ctags-command "/usr/bin/ctags-exuberant -e -R ")
 (setq vc-follow-symlinks t)
+(global-set-key (kbd "C-x v p") 'git-messenger:popup-message)
 ;; Haskell!
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (autoload 'ghc-init "ghc" nil t)
@@ -215,7 +225,6 @@
 (evil-mode t) ;; Vim!
 (global-surround-mode t)
 (global-evil-leader-mode)
-(persp-mode)
 (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 (ac-flyspell-workaround)
@@ -267,7 +276,6 @@
 (setq-default tab-width 2)
 (setq undo-tree-auto-save-history 1)
 (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
-(setq ispell-alternate-dictionary "british")
 
 ;; Haskell unicode symbols! (from the Haskell wiki)
 
