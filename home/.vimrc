@@ -63,6 +63,8 @@
     " Io {{{
     Bundle 'vim-scripts/Io-programming-language-syntax'
     " }}}
+    " Todo {{{
+    Bundle 'freitass/todo.txt-vim'
   " }}}
   " Generic finders {{{
   Bundle 'dyng/ctrlsf.vim'
@@ -146,6 +148,7 @@
   " Code navigation {{{
   Bundle 'majutsushi/tagbar'
   " }}}
+  Bundle 'chikamichi/mediawiki.vim'
   " }}}
   filetype plugin indent on
   NeoBundleCheck
@@ -167,6 +170,8 @@
       autocmd VimEnter,BufNewFile,BufReadPost *.page set ft=pandoc
       autocmd VimEnter,BufNewFile,BufReadPost *.plt set ft=gnuplot
       autocmd VimEnter,BufNewFile,BufReadPost *.gradle set ft=groovy
+      autocmd VimEnter,BufNewFile,BufReadPost *.mw set ft=mediawiki
+      autocmd VimEnter,BufNewFile,BufReadPost *.nix set ft=nix
     augroup end
 " }}}
 " Learn Vim script the hard way. {{{
@@ -529,3 +534,4 @@ nmap gz? <Plug>(rc_search_backward)
 let g:dcd_importpath = ['/usr/local/dmd/include/d2/']
 " }}}
 " }}}
+set nospell
