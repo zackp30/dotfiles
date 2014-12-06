@@ -1,10 +1,8 @@
+;;; Commentary:
+
 ;; A hacked together Emacs config.
 
 ;;; Code:
-
-
-(when (not (string= system-name "xieshaij"))
-    (setq url-proxy-services '(("http" . "localhost:8123"))))
 
 ;; Add repositories for package archives
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
@@ -21,7 +19,7 @@
 (package-initialize)
 
 ;; Install packages.
-
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (require-package 'evil)
 (require-package 'evil-leader)
 (require-package 'evil-numbers)
@@ -32,8 +30,11 @@
 (require-package 'password-store)
 (require-package 'scss-mode)
 (require-package 'pophint)
+(require-package 'rainbow-identifiers)
+(require-package 'dired-rainbow)
+(require-package 'rainbow-blocks)
 (require-package 'icicles)
-(require-package 'color-theme-solarized)
+(require-package 'zenburn-theme)
 (require-package 'surround)
 (require-package 'auto-complete)
 (require-package 'highlight-numbers)
@@ -111,9 +112,9 @@
 
 (setq ido-enable-flex-matching t)
 
-(require-package 'ac-ispell)
 
 ;; Misc requires
+(require 'ac-ispell)
 (require 'pophint)
 (define-key global-map (kbd "C-'") 'pophint:do-flexibly)
 (require 'icicles)
@@ -206,9 +207,9 @@
                                    (face-foreground 'mode-line))))
              (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'gl-conf-mode)
-(add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" . gl-conf-mode))
+(add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
+				gl-conf-mode))
 
 ;; ALL the modes!
 (ido-mode t)
@@ -249,8 +250,8 @@
 
 
 
-;; Yay solarized.
-(load-theme 'solarized-dark)
+;; Yay zenburn.
+(load-theme 'zenburn t)
 
 ;; Key bindings
 ;;(global-set-key (kbd "C-TAB") )
@@ -293,7 +294,13 @@
 
 (add-hook 'text-mode-hook (lambda () (add-hook 'after-save-hook 'langtool-check)))
 
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
+(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+
+(evil-define-key 'normal prog-mode-map (kbd "U") 'undo-tree-visualize)
+(evil-define-key 'normal text-mode-map (kbd "U") 'undo-tree-visualize)
 
 (provide 'init)
 ;;; init.el ends here
-
