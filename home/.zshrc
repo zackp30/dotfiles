@@ -1,5 +1,21 @@
 source $HOME/.homesick/repos/homeshick/homeshick.sh
-export PATH=$HOME/bin:$GOROOT/bin:$GOPATH/bin:$HOME/android-sdk/{build-tools,extras,platform-tools,tools}:/usr/local/dmd/bin:/usr/local/texlive/2013/bin/x86_64-linux:$HOME/.cabal/bin:/usr/local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$PATH
+export PATH=$PATH:/home/zack/.rvm/gems/ruby-2.1.2/bin
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/android-sdk/build-tools
+export PATH=$PATH:$HOME/android-sdk/extras
+export PATH=$PATH:$HOME/android-sdk/platform-tools
+export PATH=$PATH:$HOME/android-sdk/tools
+export PATH=$PATH:/usr/local/dmd/bin
+export PATH=$PATH:/usr/local/texlive/2013/bin/x86_64-linux
+export PATH=$PATH:$HOME/.cabal/bin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:$HOME/.pyenv/bin
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:PATH=$PATH
+export PATH=$PATH:$HOME/.tex/bin/x86_64-linux
+export PATH=$PATH:$HOME/pypy/bin
 source ~/.zlogin
 export ANDROID_HOME=$HOME/android-sdk
 export GRADLE_HOME=$HOME/gradle-1.10
@@ -17,11 +33,10 @@ setopt prompt_subst
 autoload -U colors && colors
 # }}}
 # Used prompts {{{
-PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
 # }}}
 # }}}
 # Editor {{{
-export EDITOR=vim
+export EDITOR=emacs
 # }}}
 # History {{{
 HISTSIZE=5000
@@ -197,22 +212,17 @@ alias fig="showfigfonts | less"
 alias :q="exit"
 # }}}
 
-
 # NVM
 if [ -s ~/.nvm/nvm.sh ]; then
 	NVM_DIR=~/.nvm
 	source ~/.nvm/nvm.sh
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 function gi() { curl -L -s https://www.gitignore.io/api/$@ }
-
-
 
 # BEGIN Ruboto setup
 source ~/.rubotorc
 # END Ruboto setup
-
 
 alias ..='cd ..'
 alias cab='cabal install'
@@ -221,3 +231,15 @@ alias cab='cabal install'
 mt_load_mods() {
     for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> ~/.minetest/worlds/world/world.mt
 }
+
+export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
+
+. $HOME/powerline/powerline/bindings/zsh/powerline.zsh
+PS1=$PS1$(vcs_super_info)
+
+alias pull='git pull'
+. /usr/local/etc/profile.d/nix.sh
+export NIX_REMOTE=daemon
+
+alias dict="LD_LIBRARY_PATH=/usr/local/lib64 dict" # ¯\_(ツ)_/¯
+alias e="emacsclient -c"
