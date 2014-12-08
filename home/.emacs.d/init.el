@@ -4,6 +4,7 @@
 
 ;;; Code:
 
+
 ;; Add repositories for package archives
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
@@ -28,6 +29,7 @@
 (require-package 'editorconfig)
 (require-package 'evil-indent-textobject)
 (require-package 'evil-matchit)
+(require-package 'hl-anything)
 (require-package 'password-store)
 (require-package 'scss-mode)
 (require-package 'pophint)
@@ -111,6 +113,7 @@
     (("http://wiki.apertron.net" "http://wiki.apertron.net/" "zackp30" nil "Main Page")
      ("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page"))))
  '(scroll-bar-mode (quote right))
+ '(socks-server (quote ("Default server" "localhost" 9001 5)))
  '(transient-mark-mode 1))
 
 (setq ido-enable-flex-matching t)
@@ -240,6 +243,11 @@
 
 (ac-flyspell-workaround)
 
+(require 'org)
+(define-key global-map (kbd "C-c l") 'org-store-link)
+(define-key global-map (kbd "C-c a") 'org-agenda)
+(setq org-log-done t)
+
 ;; Hooks
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
 (add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
@@ -300,7 +308,7 @@
 (require 'langtool)
 (setq langtool-language-tool-jar "~/LanguageTool-2.6/languagetool-commandline.jar")
 
-(add-hook 'text-mode-hook (lambda () (add-hook 'after-save-hook 'langtool-check)))
+(add-hook 'markdown-mode-hook (lambda () (add-hook 'after-save-hook 'langtool-check)))
 
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -320,5 +328,15 @@
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
+(require 'hl-anything)
+(hl-highlight-mode 1)
+(hl-paren-mode)
+
 (provide 'init)
 ;;; init.el ends here
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
