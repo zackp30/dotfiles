@@ -234,8 +234,13 @@ mt_load_mods() {
 
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
-. $HOME/powerline/powerline/bindings/zsh/powerline.zsh
-PS1=$PS1$(vcs_super_info)
+
+if [[ -a $(which powerline-render) ]] ; then
+    . $HOME/powerline/powerline/bindings/zsh/powerline.zsh
+    PS1=$PS1$(vcs_super_info)
+else
+    PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
+fi
 
 alias pull='git pull'
 . /usr/local/etc/profile.d/nix.sh
