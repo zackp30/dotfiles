@@ -43,6 +43,7 @@
 (require-package 'surround)
 (require-package 'auto-complete)
 (require-package 'highlight-numbers)
+(require-package 'todotxt)
 (require-package 'magit)
 (require-package 'table)
 (require-package 'ac-dcd)
@@ -133,6 +134,7 @@
 (require 'password-store)
 (require 'ctags)
 (require 'mediawiki)
+(require 'todotxt)
 (require 'ac-dcd)
 (require 'auto-complete-config)
 (require 'smart-mode-line)
@@ -353,5 +355,6 @@
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 (global-set-key (kbd "C-c -") 'decrement-number-at-point)
 
+(add-to-list 'auto-mode-alist '("\\todo.txt\\'" . todotxt-mode))
 (provide 'init)
 ;;; init.el ends here
