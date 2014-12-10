@@ -48,6 +48,7 @@
 (require-package 'table)
 (require-package 'ac-dcd)
 (require-package 'mediawiki)
+(require-package 'notmuch)
 (require-package 'php-mode)
 (require-package 'racket-mode)
 (require-package 'undo-tree)
