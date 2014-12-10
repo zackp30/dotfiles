@@ -69,8 +69,7 @@ export TMOUT=3600
 bindkey -v
 mesg n
 export KEYTIMEOUT=1
-. ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
-bindkey -e
+source ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
 ZSH_VCS_PROMPT_ENABLE_CACHING='true'
 fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
 export rvmsudo_secure_path=1
@@ -181,15 +180,61 @@ mt_load_mods() {
     for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> ~/.minetest/worlds/world/world.mt
 }
 
+# BEGIN p_rompt
+_p_color_date=cyan
+_p_color_pwd=cyan
+_p_color_pwd_fg=red
+_p_color_user=white
+_p_color_user_fg=black
+_p_color_host=white
+_p_color_host_fg=black
+
+
+
+p_module_privsymbol() {
+    if [[ $(print -P "%#") == "#" ]] ; then
+        _p_color_user_privsymbol=red
+    else
+        _p_color_user_privsymbol=blue
+    fi
+    echo "%F{$_p_color_user_privsymbol}%#%f"
+}
+
+p_module_host() {
+    echo "%F{$_p_color_host_fg}%K{$_p_color_host}%m%k%f"
+}
+
+p_module_user() {
+       echo "%F{$_p_color_user_fg}%K{$_p_color_user}%n%F{red}⍟%f%k%f"
+}
+
+p_module_pwd() {
+    echo "%F{$_p_color_pwd_fg}%K{$_p_color_pwd}%~%k%f"
+}
+
+p_module_time() {
+    local _date="$(date +%H:%M:%S)"
+    echo "%F{$_p_color_date}$_date%f"
+}
+
+p_load() {
+    export PS1=$(p_module_pwd)" "
+    export PS1=$PS1$(p_module_time)" "
+    export PS1=$PS1$(p_module_user)
+    export PS1=$PS1$(p_module_host)" "
+    export PS1=$PS1$(p_module_privsymbol)" "
+    export PS1=$PS1$'\n'
+    export PS1=$PS1"➤➤➤ "
+}
+
+p_load
+
+# END p_rompt
+
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
+# PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
 
-if [[ -a $(which powerline-render) ]] ; then
-    . $HOME/powerline/powerline/bindings/zsh/powerline.zsh
-    PS1=$PS1$(vcs_super_info)
-else
-    PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
-fi
 
 export NIX_REMOTE=daemon
 
