@@ -122,6 +122,7 @@
 
 ;; Misc requires
 (require 'ac-ispell)
+(require 'notmuch)
 (require 'pophint)
 (define-key global-map (kbd "C-'") 'pophint:do-flexibly)
 (require 'icicles)
