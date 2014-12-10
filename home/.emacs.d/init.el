@@ -82,7 +82,6 @@
 (require-package 'ruby-mode)
 (require-package 'clojure-mode)
 (require-package 'cider)
-(require-package 'cider-nrepl)
 (require-package 'ac-cider)
 (require-package 'lua-mode)
 (require-package 'ctags)
