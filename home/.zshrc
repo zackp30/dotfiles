@@ -243,3 +243,4 @@ alias dict="LD_LIBRARY_PATH=/usr/local/lib64 dict" # ¯\_(ツ)_/¯
 alias e="emacsclient -c"
 alias ..='cd ..'
 alias cab='cabal install'
+alias :q='exit'
