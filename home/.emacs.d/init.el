@@ -288,7 +288,7 @@
   "p j" 'projectile-find-tag
   "g t r" 'ctags-create-or-update-tags-table
   "f" 'ido-find-file
-  )
+  ";" 'replace-with-comma)
 
 
 
@@ -358,5 +358,12 @@
 (global-set-key (kbd "C-c -") 'decrement-number-at-point)
 
 (add-to-list 'auto-mode-alist '("\\todo.txt\\'" . todotxt-mode))
+
+(defun replace-with-comma ()
+  (interactive)
+  (delete-forward-char 1)
+  (insert ",")
+  (evil-append 1))
+
 (provide 'init)
 ;;; init.el ends here
