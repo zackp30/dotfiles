@@ -33,6 +33,7 @@
 (require-package 'password-store)
 (require-package 'scss-mode)
 (require-package 'pophint)
+(require-package 'ag)
 (require-package 'rainbow-identifiers)
 (require-package 'dired-rainbow)
 (require-package 'dired-subtree)
@@ -48,6 +49,7 @@
 (require-package 'table)
 (require-package 'ac-dcd)
 (require-package 'mediawiki)
+(require-package 'wgrep-ag)
 (require-package 'notmuch)
 (require-package 'php-mode)
 (require-package 'racket-mode)
@@ -85,6 +87,7 @@
 (require-package 'ac-cider)
 (require-package 'lua-mode)
 (require-package 'ctags)
+(require-package 'ace-jump-mode)
 (require-package 'd-mode)
 (require-package 'ac-emmet)
 (require-package 'web-mode)
@@ -146,6 +149,7 @@
 (require 'ac-emmet)
 (require 'emmet-mode)
 (require 'io-mode)
+
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
 (add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
@@ -235,6 +239,8 @@
 '(define-key evil-insert-state-map (kbd "C-k") 'yas-expand)
 )
 
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
 (yas-global-mode 1)
 (indent-guide-global-mode)
 (helm-mode 1)
@@ -312,8 +318,6 @@
 (require 'langtool)
 (setq langtool-language-tool-jar "~/LanguageTool-2.6/languagetool-commandline.jar")
 
-(add-hook 'markdown-mode-hook (lambda () (add-hook 'after-save-hook 'langtool-check)))
-
 (hl-paren-mode)
 
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
@@ -364,6 +368,10 @@
   (delete-forward-char 1)
   (insert ",")
   (evil-append 1))
+
+(require 'ag)
+
+(define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
 
 (provide 'init)
 ;;; init.el ends here
