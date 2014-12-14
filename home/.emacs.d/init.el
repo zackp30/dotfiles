@@ -149,6 +149,9 @@
 (require 'ac-emmet)
 (require 'emmet-mode)
 (require 'io-mode)
+(require 'evil-snipe)
+
+(global-evil-snipe-mode)
 
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
@@ -190,6 +193,8 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (add-hook 'dired 'dired-k)
 (define-key dired-mode-map (kbd "C-f") 'dired-k)
+
+(setq evil-snipe-scope 'visible)
 
 ;; Enable markdown-mode for .txt, .markdown, and .md
 (add-to-list 'auto-mode-alist 
@@ -236,8 +241,7 @@
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (eval-after-load "evil"
-'(define-key evil-insert-state-map (kbd "C-k") 'yas-expand)
-)
+'(define-key evil-insert-state-map (kbd "C-k") 'yas-expand))
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
@@ -318,7 +322,6 @@
 (require 'langtool)
 (setq langtool-language-tool-jar "~/LanguageTool-2.6/languagetool-commandline.jar")
 
-(hl-paren-mode)
 
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -338,11 +341,9 @@
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-(require 'hl-anything)
-(hl-highlight-mode 1)
-(hl-paren-mode)
 
 ;; Misc functions
+
 
 (defun increment-number-at-point ()
   (interactive)
@@ -370,6 +371,9 @@
   (evil-append 1))
 
 (require 'ag)
+
+(require 'hl-anything)
+(hl-paren-mode 1)
 
 (define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
 

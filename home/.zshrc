@@ -181,6 +181,8 @@ mt_load_mods() {
 }
 
 # BEGIN p_rompt
+
+# Colors
 _p_color_date=cyan
 _p_color_pwd=cyan
 _p_color_pwd_fg=red
@@ -213,8 +215,7 @@ p_module_pwd() {
 }
 
 p_module_time() {
-    local _date="$(date +%H:%M:%S)"
-    echo "%F{$_p_color_date}$_date%f"
+    echo '%F{$_p_color_date}%D{%H:%M:%S}%f'
 }
 
 p_load() {
@@ -223,6 +224,7 @@ p_load() {
     export PS1=$PS1$(p_module_user)
     export PS1=$PS1$(p_module_host)" "
     export PS1=$PS1$(p_module_privsymbol)" "
+    export PS1=$PS1'$(vcs_super_info)'
     export PS1=$PS1$'\n'
     export PS1=$PS1"➤➤➤ "
 }
