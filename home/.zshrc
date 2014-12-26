@@ -12,9 +12,10 @@ export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.pyenv/bin
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:PATH=$PATH
+export PATH=$PATH:$HOME/build/pi/thing/bin
 export PATH=$PATH:$HOME/.tex/bin/x86_64-linux
 export PATH=$PATH:$HOME/pypy/bin
+source ~/.nvm/nvm.sh
 export ANDROID_HOME=$HOME/android-sdk
 export GRADLE_HOME=$HOME/gradle-1.10
 export PATH=$GRADLE_HOME/bin:$PATH

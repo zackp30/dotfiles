@@ -21,81 +21,82 @@
 
 ;; Install packages.
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(require-package 'evil)
-(require-package 'evil-leader)
-(require-package 'evil-numbers)
-(require-package 'evil-visualstar)
-(require-package 'evil-nerd-commenter)
-(require-package 'editorconfig)
-(require-package 'evil-indent-textobject)
-(require-package 'evil-matchit)
-(require-package 'hl-anything)
-(require-package 'password-store)
-(require-package 'scss-mode)
-(require-package 'pophint)
-(require-package 'ag)
-(require-package 'rainbow-identifiers)
-(require-package 'dired-rainbow)
-(require-package 'dired-subtree)
-(require-package 'dired-k)
-(require-package 'rainbow-blocks)
-(require-package 'icicles)
-(require-package 'zenburn-theme)
-(require-package 'surround)
-(require-package 'auto-complete)
-(require-package 'highlight-numbers)
-(require-package 'todotxt)
-(require-package 'magit)
-(require-package 'table)
-(require-package 'ac-dcd)
-(require-package 'mediawiki)
-(require-package 'wgrep-ag)
-(require-package 'notmuch)
-(require-package 'php-mode)
-(require-package 'racket-mode)
-(require-package 'undo-tree)
-(require-package 'ac-haskell-process)
-(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
-(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'haskell-interactive-mode))
-(require-package 'projectile)
-(require-package 'smartparens)
-(require-package 'browse-kill-ring)
-(require-package 'emacs-eclim)
-(require-package 'coffee-mode)
-(require-package 'git-gutter)
-(require-package 'markdown-mode)
-(require-package 'indent-guide)
-(require-package 'rainbow-delimiters)
-(require-package 'php-mode)
-(require-package 'helm-projectile)
-(require-package 'perspective)
-(require-package 'smart-mode-line)
-(require-package 'langtool)
-(require-package 'yasnippet)
-(require-package 'helm)
-(require-package 'flycheck)
-(require-package 'guide-key)
-(require 'guide-key)
-(guide-key-mode 1) 
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
-(require-package 'haskell-mode)
-(require-package 'ruby-mode)
-(require-package 'clojure-mode)
-(require-package 'cider)
-(require-package 'ac-cider)
-(require-package 'lua-mode)
-(require-package 'ctags)
-(require-package 'ace-jump-mode)
-(require-package 'd-mode)
-(require-package 'ac-emmet)
-(require-package 'web-mode)
-(require-package 'ghc)
-(require-package 'ghci-completion)
-(require-package 'langtool)
-(require-package 'slim-mode)
-(require-package 'io-mode)
+(defvar pkgs '(evil
+               evil-leader
+               evil-numbers
+               evil-visualstar
+               evil-nerd-commenter
+               editorconfig
+               evil-indent-textobject
+               evil-matchit
+               hl-anything
+               password-store
+               scss-mode
+               pophint
+               ag
+               rainbow-identifiers
+               dired-rainbow
+               dired-subtree
+               dired-k
+               rainbow-blocks
+               icicles
+               flycheck-rust
+               rust-mode
+               zenburn-theme
+               surround
+               auto-complete
+               highlight-numbers
+               todotxt
+               magit
+               table
+               ac-dcd
+               mediawiki
+               wgrep-ag
+               notmuch
+               php-mode
+               racket-mode
+               undo-tree
+               ac-haskell-process
+               projectile
+               smartparens
+               browse-kill-ring
+               emacs-eclim
+               coffee-mode
+               git-gutter
+               markdown-mode
+               indent-guide
+               rainbow-delimiters
+               php-mode
+               helm-projectile
+               perspective
+               smart-mode-line
+               langtool
+               yasnippet
+               helm
+               flycheck
+               guide-key
+               haskell-mode
+               ruby-mode
+               clojure-mode
+               cider
+               ac-cider
+               lua-mode
+               ctags
+               ace-jump-mode
+               d-mode
+               ac-emmet
+               web-mode
+               ghc
+               ghci-completion
+               cmake-mode
+               julia-mode
+               langtool
+               slim-mode
+               io-mode))
+
+(require 'cl)
+(loop for pkg in pkgs do
+      (require-package pkg))
 (require 'langtool)
 (setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
 
@@ -149,9 +150,8 @@
 (require 'ac-emmet)
 (require 'emmet-mode)
 (require 'io-mode)
-(require 'evil-snipe)
 
-(global-evil-snipe-mode)
+(require 'cmake-mode)
 
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
@@ -163,7 +163,7 @@
 (add-hook 'cider-mode-hook 'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (eval-after-load "auto-complete"
-                 '(add-to-list 'ac-modes 'cider-mode))
+  '(add-to-list 'ac-modes 'cider-mode))
 
 
 ;; Misc settings
@@ -194,11 +194,12 @@
 (add-hook 'dired 'dired-k)
 (define-key dired-mode-map (kbd "C-f") 'dired-k)
 
-(setq evil-snipe-scope 'visible)
 
 ;; Enable markdown-mode for .txt, .markdown, and .md
 (add-to-list 'auto-mode-alist 
              '("\\.txt\\'" . markdown-mode)) 
+(add-to-list 'auto-mode-alist 
+             '("CMakeLists.txt" . cmake-mode)) 
 (add-to-list 'auto-mode-alist 
              '("\\.markdown\\'" . markdown-mode)) 
 (add-to-list 'auto-mode-alist 
@@ -229,11 +230,11 @@
 
 (lexical-let ((default-color (cons (face-background 'mode-line)
                                    (face-foreground 'mode-line))))
-             (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+  (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
 (require 'gl-conf-mode)
 (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
-				gl-conf-mode))
+                                gl-conf-mode))
 
 ;; ALL the modes!
 (ido-mode t)
@@ -241,7 +242,7 @@
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (eval-after-load "evil"
-'(define-key evil-insert-state-map (kbd "C-k") 'yas-expand))
+  '(define-key evil-insert-state-map (kbd "C-k") 'yas-expand))
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
@@ -267,8 +268,8 @@
 (add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
 (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
 (eval-after-load "auto-complete"
-                 '(progn
-                    (ac-ispell-setup)))
+  '(progn
+     (ac-ispell-setup)))
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'prog-mode-hook  'hs-minor-mode)
 (add-hook 'prog-mode-hook  'flyspell-prog-mode)
@@ -377,5 +378,9 @@
 
 (define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
 
+(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'haskell-interactive-mode))
 (provide 'init)
 ;;; init.el ends here
