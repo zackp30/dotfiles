@@ -173,6 +173,7 @@
 (setq flycheck-indication-mode 'left-fringe)
 (menu-bar-mode -1) ;; disabe menubar
 (tool-bar-mode -1) ;; disable toolbar
+(setq org-mobile-directory "/home/zack/orgstuff/")
 (scroll-bar-mode -1) ;; disable scrollbar
 (global-linum-mode 1) ;; enable line numbers
 (sml/setup) ;; modeline setup
