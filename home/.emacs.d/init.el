@@ -1,4 +1,4 @@
-;;; Commentary:
+;; Commentary:
 
 ;; A hacked together Emacs config.
 
@@ -29,64 +29,60 @@
                editorconfig
                evil-indent-textobject
                evil-matchit
-               hl-anything
-               password-store
-               scss-mode
+               scss-mode ;; mode for the Sass language
                pophint
-               ag
-               rainbow-identifiers
+               ag ;; the silver searcher
+               rainbow-identifiers ;; rainbows!
                dired-rainbow
                dired-subtree
                dired-k
-               rainbow-blocks
-               icicles
-               flycheck-rust
-               rust-mode
-               zenburn-theme
-               surround
-               auto-complete
-               highlight-numbers
-               todotxt
-               magit
-               table
-               ac-dcd
-               mediawiki
-               wgrep-ag
-               notmuch
-               php-mode
-               racket-mode
-               undo-tree
-               ac-haskell-process
-               projectile
-               smartparens
-               browse-kill-ring
-               emacs-eclim
-               coffee-mode
-               git-gutter
-               markdown-mode
-               indent-guide
-               rainbow-delimiters
-               php-mode
-               helm-projectile
-               perspective
-               smart-mode-line
-               langtool
-               yasnippet
-               helm
-               flycheck
-               guide-key
-               haskell-mode
-               ruby-mode
-               clojure-mode
-               cider
-               ac-cider
-               lua-mode
+               rainbow-blocks ;; omg more rainbows
+               icicles 
+               flycheck-rust ;; flycheck for the Rust language
+               rust-mode ;; mode for the Rust language
+               zenburn-theme ;; Zenburn theme
+               surround ;; Delete surrounding characters (`()', `[]', etc.).
+               auto-complete ;; autocompletion
+               highlight-numbers ;; rainbowify numbers
+               todotxt ;; Mode for the todo.txt markup
+               magit ;; git integration
+               table ;; tables!
+               ac-dcd ;; D Completion Daemon source for autocomplete
+               mediawiki ;; mediawiki client
+               wgrep-ag ;; writable grep, but for ag
+               notmuch ;; notmuch MUA integration
+               racket-mode ;; mode for the Racket 
+               undo-tree ;; vim-like undo tree
+               ac-haskell-process ;; autocomplete for the Haskell language
+               projectile ;; project management
+               smartparens ;; automatically insert parenthesis
+               browse-kill-ring ;; menu for the killring
+               emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+               coffee-mode ;; mode for the CoffeeScript language
+               git-gutter ;; Git status in left fringe
+               markdown-mode ;; mode for the Markdown markup
+               indent-guide ;; a "ruler" for indentation
+               rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
+               php-mode ;; mode for the PHP language
+               helm-projectile ;; projectile integration for helm
+               perspective ;; basically tabs
+               smart-mode-line ;; a nice mode line
+               langtool ;; Language linting
+               yasnippet ;; snippets
+               helm ;; menus for ALL the things
+               flycheck ;; on the fly syntax checking
+               haskell-mode ;; mode for Haskell
+               ruby-mode ;; mode for the Ruby language
+               clojure-mode ;; mode for the Clojure language
+               cider ;; REPL for Clojure
+               ac-cider ;; autocomplete for CIDER
+               lua-mode ;; mode for the Lua language
                ctags
-               ace-jump-mode
-               d-mode
-               ac-emmet
+               ace-jump-mode ;; easymotion
+               d-mode ;; mode for the D language
+               ac-emmet ;; a mode for efficient production of HTML and XML
                web-mode
-               ghc
+               ghc 
                ghci-completion
                cmake-mode
                julia-mode
@@ -118,11 +114,11 @@
    (quote
     (("http://wiki.apertron.net" "http://wiki.apertron.net/" "zackp30" nil "Main Page")
      ("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page"))))
- '(scroll-bar-mode (quote right))
  '(socks-server (quote ("Default server" "localhost" 9001 5)))
  '(transient-mark-mode 1))
 
 (setq ido-enable-flex-matching t)
+
 
 
 ;; Misc requires
