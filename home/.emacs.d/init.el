@@ -33,11 +33,7 @@
                pophint
                ag ;; the silver searcher
                rainbow-identifiers ;; rainbows!
-               dired-rainbow
-               dired-subtree
-               dired-k
                rainbow-blocks ;; omg more rainbows
-               icicles 
                flycheck-rust ;; flycheck for the Rust language
                rust-mode ;; mode for the Rust language
                zenburn-theme ;; Zenburn theme
@@ -81,7 +77,6 @@
                ace-jump-mode ;; easymotion
                d-mode ;; mode for the D language
                ac-emmet ;; a mode for efficient production of HTML and XML
-	       icicles
                web-mode
                ghc 
                ghci-completion
@@ -127,7 +122,6 @@
 (require 'notmuch)
 (require 'pophint)
 (define-key global-map (kbd "C-'") 'pophint:do-flexibly)
-(require 'icicles)
 (require 'smartparens-config)
 (require 'htmlize)
 (require 'indent-guide)
@@ -189,8 +183,6 @@
 (autoload 'ghc-init "ghc" nil t)
 (add-hook 'haskell-mode-hook 'ghc-init)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'dired 'dired-k)
-(define-key dired-mode-map (kbd "C-f") 'dired-k)
 
 
 ;; Enable markdown-mode for .txt, .markdown, and .md
