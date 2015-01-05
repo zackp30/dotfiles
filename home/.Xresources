@@ -17,6 +17,7 @@ URxvt.jumpScroll: true
 URxvt.skipScroll: true
 URxvt.saveLines:  64000
 URxvt.visualBell: false
+URxvt*urgentOnBell: true
 
 URxvt.depth:       24
 URxvt.buffered:    true
