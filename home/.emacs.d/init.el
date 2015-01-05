@@ -81,6 +81,7 @@
                ace-jump-mode ;; easymotion
                d-mode ;; mode for the D language
                ac-emmet ;; a mode for efficient production of HTML and XML
+	       icicles
                web-mode
                ghc 
                ghci-completion
