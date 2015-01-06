@@ -362,8 +362,6 @@
 
 (require 'ag)
 
-(require 'hl-anything)
-(hl-paren-mode 1)
 
 (define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
 
