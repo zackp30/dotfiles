@@ -128,7 +128,6 @@
 (require 'editorconfig)
 (require 'ido)
 (require 'auto-complete)
-(require 'password-store)
 (require 'ctags)
 (require 'mediawiki)
 (require 'todotxt)
