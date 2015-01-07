@@ -184,26 +184,23 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 
+(defun a-mode (ext mode)
+  (add-to-list 'auto-mode-alist
+               (cons
+                (format "\\%s\\'" ext)
+                (intern (concat mode "-mode")))))
+
 ;; Enable markdown-mode for .txt, .markdown, and .md
 (add-to-list 'auto-mode-alist 
-             '("\\.txt\\'" . markdown-mode)) 
-(add-to-list 'auto-mode-alist 
              '("CMakeLists.txt" . cmake-mode)) 
-(add-to-list 'auto-mode-alist 
-             '("\\.markdown\\'" . markdown-mode)) 
-(add-to-list 'auto-mode-alist 
-             '("\\.md\\'" . markdown-mode))
 
-(add-to-list 'auto-mode-alist 
-             '("\\.mw\\'" . mediawiki-mode))
-
-(add-to-list 'auto-mode-alist
-             '("\\Gemfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\Guardfile\\'" . ruby-mode))
-
-(add-to-list 'auto-mode-alist
-             '("\\Rakefile\\'" . ruby-mode))
+(a-mode ".txt" "markdown")
+(a-mode ".md" "markdown")
+(a-mode ".markdown" "markdown")
+(a-mode ".mw" "mediawiki")
+(a-mode "Gemfile" "ruby")
+(a-mode "Guardfile" "ruby")
+(a-mode "Rakefile" "ruby")
 
 (add-hook 'd-mode-hook 'ac-dcd-setup)
 
@@ -306,7 +303,7 @@
 (setq haskell-font-lock-symbols t)
 (autoload 'scss-mode "scss-mode")
 
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+(a-mode ".scss" "scss")
 (setq scss-compile-at-save nil)
 
 (require 'langtool)
@@ -321,15 +318,16 @@
 (evil-define-key 'normal prog-mode-map (kbd "U") 'undo-tree-visualize)
 (evil-define-key 'normal text-mode-map (kbd "U") 'undo-tree-visualize)
 (require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+(a-mode ".phtml" "web")
+(a-mode ".tpl\\.php" "web")
+(a-mode ".[agj]sp" "web")
+(a-mode ".as[cp]x" "web")
+(a-mode ".erb" "web")
+(a-mode ".mustache" "web")
+(a-mode ".djhtml" "web")
+(a-mode ".ejs" "web")
+(a-mode ".html?" "web")
 
 
 ;; Misc functions
@@ -352,7 +350,7 @@
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 (global-set-key (kbd "C-c -") 'decrement-number-at-point)
 
-(add-to-list 'auto-mode-alist '("\\todo.txt\\'" . todotxt-mode))
+(a-mode "todo.txt" "todotxt")
 
 (defun replace-with-comma ()
   (interactive)
