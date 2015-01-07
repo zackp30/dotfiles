@@ -77,20 +77,17 @@
                ace-jump-mode ;; easymotion
                d-mode ;; mode for the D language
                ac-emmet ;; a mode for efficient production of HTML and XML
-               web-mode
+               web-mode ;; mode for web stuff
                ghc 
                ghci-completion
-               cmake-mode
-               julia-mode
-               langtool
-               slim-mode
+               cmake-mode ;; mode for the CMake language
+               julia-mode ;; mode for the Julia language
+               slim-mode ;; mode for the Slim templating language
                io-mode))
 
 (require 'cl)
 (loop for pkg in pkgs do
       (require-package pkg))
-(require 'langtool)
-(setq langtool-language-tool-jar "/home/zack/LanguageTool-2.6/languagetool-commandline.jar")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
