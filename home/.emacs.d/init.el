@@ -182,6 +182,7 @@
 
 
 (defun a-mode (ext mode)
+  "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
   (add-to-list 'auto-mode-alist
                (cons
                 (format "\\%s\\'" ext)
