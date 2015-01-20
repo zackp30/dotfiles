@@ -1,7 +1,5 @@
-;; Commentary:
-
+;;; Commentary:
 ;; A hacked together Emacs config.
-
 ;;; Code:
 
 
@@ -51,6 +49,7 @@
                undo-tree ;; vim-like undo tree
                ac-haskell-process ;; autocomplete for the Haskell language
                projectile ;; project management
+               jedi ;; python auto-completion
                smartparens ;; automatically insert parenthesis
                browse-kill-ring ;; menu for the killring
                emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
@@ -64,6 +63,7 @@
                perspective ;; basically tabs
                smart-mode-line ;; a nice mode line
                langtool ;; Language linting
+               wanderlust ;; email
                yasnippet ;; snippets
                helm ;; menus for ALL the things
                flycheck ;; on the fly syntax checking
@@ -188,11 +188,12 @@
                 (format "\\%s\\'" ext)
                 (intern (concat mode "-mode")))))
 
-;; Enable markdown-mode for .txt, .markdown, and .md
 (add-to-list 'auto-mode-alist 
              '("CMakeLists.txt" . cmake-mode)) 
 
-(a-mode ".txt" "markdown")
+(autoload 'wl "wl" "Wanderlust" t)
+(add-to-list 'auto-mode-alist 
+             '(".wl" . emacs-lisp-mode)) 
 (a-mode ".md" "markdown")
 (a-mode ".markdown" "markdown")
 (a-mode ".mw" "mediawiki")
@@ -242,6 +243,11 @@
 
 (ac-flyspell-workaround)
 
+(require 'wl)
+
+;; Disable evil in wanderlust
+(evil-set-initial-state 'wl-folder-mode 'emacs)
+
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
@@ -262,6 +268,10 @@
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
 
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
+(global-auto-complete-mode t)
 
 
 
