@@ -85,6 +85,8 @@
                cmake-mode ;; mode for the CMake language
                julia-mode ;; mode for the Julia language
                slim-mode ;; mode for the Slim templating language
+               slime
+               ac-slime
                io-mode))
 
 (require 'cl)
@@ -186,8 +188,8 @@
   (nth (random* (length lst)) lst))
 
 (defun random-color ()
-    "Get a random color."
-    (get-rnd-list '("blue" "red" "yellow" "pink")))
+  "Get a random color."
+  (get-rnd-list '("blue" "red" "yellow" "pink")))
 
 (defun a-mode (ext mode)
   "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
@@ -251,6 +253,7 @@
 
 (ac-flyspell-workaround)
 
+(setq ac-fuzzy-enable 1)
 
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -278,6 +281,13 @@
 (global-auto-complete-mode t)
 
 
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'slime-repl-mode))
+
+(setq slime-contribs '(slime-fancy))
+(setq inferior-lisp-program "sbcl")
 
 ;; Yay zenburn.
 (load-theme 'zenburn t)
