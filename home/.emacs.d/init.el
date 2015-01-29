@@ -47,10 +47,12 @@
                notmuch ;; notmuch MUA integration
                racket-mode ;; mode for the Racket 
                undo-tree ;; vim-like undo tree
+               hydra ;; micro-states!
                ac-haskell-process ;; autocomplete for the Haskell language
                projectile ;; project management
                jedi ;; python auto-completion
                smartparens ;; automatically insert parenthesis
+               helm-swoop
                browse-kill-ring ;; menu for the killring
                emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                coffee-mode ;; mode for the CoffeeScript language
@@ -160,7 +162,6 @@
 (setq flycheck-indication-mode 'left-fringe)
 (menu-bar-mode -1) ;; disabe menubar
 (tool-bar-mode -1) ;; disable toolbar
-(setq org-mobile-directory "/home/zack/orgstuff/")
 (scroll-bar-mode -1) ;; disable scrollbar
 (global-linum-mode 1) ;; enable line numbers
 (sml/setup) ;; modeline setup
@@ -174,12 +175,19 @@
 (ac-config-default)
 (setq ctags-command "/usr/bin/ctags-exuberant -e -R ")
 (setq vc-follow-symlinks t)
-(global-set-key (kbd "C-x v p") 'git-messenger:popup-message)
+
 ;; Haskell!
 (autoload 'ghc-init "ghc" nil t)
 (add-hook 'haskell-mode-hook 'ghc-init)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
+(defun get-rnd-list (lst)
+  "Get a random item from a list."
+  (nth (random* (length lst)) lst))
+
+(defun random-color ()
+    "Get a random color."
+    (get-rnd-list '("blue" "red" "yellow" "pink")))
 
 (defun a-mode (ext mode)
   "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
@@ -243,10 +251,6 @@
 
 (ac-flyspell-workaround)
 
-(require 'wl)
-
-;; Disable evil in wanderlust
-(evil-set-initial-state 'wl-folder-mode 'emacs)
 
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -338,6 +342,7 @@
 (a-mode ".html?" "web")
 
 
+
 ;; Misc functions
 
 
@@ -375,5 +380,12 @@
 (add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'haskell-interactive-mode))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(linum ((t (:background "brightblack" :foreground "#9FC59F")))))
+
 (provide 'init)
 ;;; init.el ends here
