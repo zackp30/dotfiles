@@ -53,6 +53,8 @@
                jedi ;; python auto-completion
                smartparens ;; automatically insert parenthesis
                helm-swoop
+               ein
+               bookmark+
                browse-kill-ring ;; menu for the killring
                emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                coffee-mode ;; mode for the CoffeeScript language
@@ -64,7 +66,6 @@
                helm-projectile ;; projectile integration for helm
                perspective ;; basically tabs
                smart-mode-line ;; a nice mode line
-               langtool ;; Language linting
                wanderlust ;; email
                yasnippet ;; snippets
                helm ;; menus for ALL the things
@@ -76,6 +77,7 @@
                ac-cider ;; autocomplete for CIDER
                lua-mode ;; mode for the Lua language
                ctags
+               ac-cider
                ace-jump-mode ;; easymotion
                d-mode ;; mode for the D language
                ac-emmet ;; a mode for efficient production of HTML and XML
@@ -86,6 +88,7 @@
                julia-mode ;; mode for the Julia language
                slim-mode ;; mode for the Slim templating language
                slime
+               lispy
                ac-slime
                io-mode))
 
@@ -127,10 +130,12 @@
 (require 'htmlize)
 (require 'indent-guide)
 (require 'editorconfig)
+(require 'bookmark+)
 (require 'ido)
 (require 'auto-complete)
 (require 'ctags)
 (require 'mediawiki)
+(require 'ac-cider)
 (require 'todotxt)
 (require 'ac-dcd)
 (require 'auto-complete-config)
@@ -214,6 +219,7 @@
 (add-hook 'd-mode-hook 'ac-dcd-setup)
 
 
+
 (defun my-evil-modeline-change (default-color)
   "changes the modeline color when the evil mode changes"
   (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
@@ -252,8 +258,16 @@
 (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 (ac-flyspell-workaround)
-
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+          (add-to-list 'ac-modes 'cider-repl-mode)))
 (setq ac-fuzzy-enable 1)
+
+(add-hook 'lisp-mode-hook 'lispy-mode)
 
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -296,6 +310,7 @@
 ;;(global-set-key (kbd "C-TAB") )
 (global-set-key (kbd "C-c h") 'helm-projectile)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(global-set-key (kbd "C-c r") 'random-commit-message)
 
 (evil-leader/set-leader "<SPC>") ;; space is my leader
 (evil-leader/set-key
@@ -321,16 +336,11 @@
 (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
 
 ;; Haskell unicode symbols! (from the Haskell wiki)
-
 (setq haskell-font-lock-symbols t)
 (autoload 'scss-mode "scss-mode")
 
 (a-mode ".scss" "scss")
 (setq scss-compile-at-save nil)
-
-(require 'langtool)
-(setq langtool-language-tool-jar "~/LanguageTool-2.6/languagetool-commandline.jar")
-
 
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -397,5 +407,10 @@
  ;; If there is more than one, they won't work right.
  '(linum ((t (:background "brightblack" :foreground "#9FC59F")))))
 
+(defun random-commit-message ()
+  (interactive)
+  (insert (get-rnd-list '("¯\\_(ツ)_/¯"
+                          "I need to think of better commit messages."
+                          "blah"))))
 (provide 'init)
 ;;; init.el ends here
