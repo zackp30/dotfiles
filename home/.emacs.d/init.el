@@ -1,8 +1,6 @@
 ;;; Commentary:
 ;; A hacked together Emacs config.
 ;;; Code:
-
-
 ;; Add repositories for package archives
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
@@ -119,8 +117,6 @@
 
 (setq ido-enable-flex-matching t)
 
-
-
 ;; Misc requires
 (require 'ac-ispell)
 (require 'notmuch)
@@ -146,7 +142,6 @@
 (require 'ac-emmet)
 (require 'emmet-mode)
 (require 'io-mode)
-
 (require 'cmake-mode)
 
 (add-hook 'sgml-mode-hook 'emmet-mode)
@@ -160,7 +155,6 @@
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-mode))
-
 
 ;; Misc settings
 (evilnc-default-hotkeys)
@@ -217,8 +211,6 @@
 (a-mode "Rakefile" "ruby")
 
 (add-hook 'd-mode-hook 'ac-dcd-setup)
-
-
 
 (defun my-evil-modeline-change (default-color)
   "changes the modeline color when the evil mode changes"
@@ -361,11 +353,7 @@
 (a-mode ".ejs" "web")
 (a-mode ".html?" "web")
 
-
-
 ;; Misc functions
-
-
 (defun increment-number-at-point ()
   (interactive)
   (skip-chars-backward "0123456789")
@@ -392,8 +380,6 @@
   (evil-append 1))
 
 (require 'ag)
-
-
 (define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
 
 (add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
