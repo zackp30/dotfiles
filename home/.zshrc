@@ -15,9 +15,12 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/build/pi/.build/arm-unknown-eabi/buildtools/bin
 export PATH=$PATH:$HOME/.tex/bin/x86_64-linux
 export PATH=$PATH:$HOME/pypy/bin
+export PATH=$PATH:$HOME/Nim/bin
+export PATH=$PATH:$HOME/.nimble/bin
 source ~/.nvm/nvm.sh
 export ANDROID_HOME=$HOME/android-sdk
 export ANDROID_SDK=$HOME/android-sdk
+export PATH=$PATH:$HOME/.nimble/bin
 export ANDROID_NDK=$HOME/android-ndk
 export GRADLE_HOME=$HOME/gradle-1.10
 export PATH=$GRADLE_HOME/bin:$PATH
@@ -249,3 +252,5 @@ alias e="emacsclient -c"
 alias ..='cd ..'
 alias cab='cabal install'
 alias :q='exit'
+export LFS=$HOME/figosbuild
+
