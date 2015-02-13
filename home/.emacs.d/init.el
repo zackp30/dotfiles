@@ -6,6 +6,8 @@
                          ("org" . "http://orgmode.org/elpa/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
+(if (file-exists-p "~/.local.el")
+    (load "~/.local.el"))
 
 (defun require-package (package)
   "Install given PACKAGE."
@@ -61,6 +63,8 @@
                indent-guide ;; a "ruler" for indentation
                rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
                php-mode ;; mode for the PHP language
+               nim-mode
+               ac-nim
                helm-projectile ;; projectile integration for helm
                perspective ;; basically tabs
                smart-mode-line ;; a nice mode line
@@ -77,6 +81,7 @@
                ctags
                ac-cider
                ace-jump-mode ;; easymotion
+               ace-window
                d-mode ;; mode for the D language
                ac-emmet ;; a mode for efficient production of HTML and XML
                web-mode ;; mode for web stuff
@@ -100,6 +105,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-ispell-fuzzy-limit 1)
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-safe-themes
    (quote
     ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
@@ -144,8 +150,10 @@
 (require 'io-mode)
 (require 'cmake-mode)
 
+(add-hook 'web-mode-hook 'emmet-mode)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
+(add-hook 'web-mode-hook 'ac-emmet-html-setup)
 (add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
 (add-hook 'css-mode-hook 'ac-emmet-css-setup)
 (require 'tramp)
@@ -197,6 +205,7 @@
                 (format "\\%s\\'" ext)
                 (intern (concat mode "-mode")))))
 
+
 (add-to-list 'auto-mode-alist 
              '("CMakeLists.txt" . cmake-mode)) 
 
@@ -211,6 +220,7 @@
 (a-mode "Rakefile" "ruby")
 
 (add-hook 'd-mode-hook 'ac-dcd-setup)
+
 
 (defun my-evil-modeline-change (default-color)
   "changes the modeline color when the evil mode changes"
@@ -253,6 +263,7 @@
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
 (add-hook 'cider-mode-hook 'ac-cider-setup)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load 'nim-mode '(add-hook 'nim-mode-hook 'ac-nim-enable))
 (eval-after-load "auto-complete"
   '(progn
      (add-to-list 'ac-modes 'cider-mode)
@@ -338,9 +349,9 @@
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-
-(evil-define-key 'normal prog-mode-map (kbd "U") 'undo-tree-visualize)
-(evil-define-key 'normal text-mode-map (kbd "U") 'undo-tree-visualize)
+(evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
+(evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
+(evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
 (require 'web-mode)
 
 (a-mode ".phtml" "web")
@@ -371,7 +382,9 @@
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 (global-set-key (kbd "C-c -") 'decrement-number-at-point)
 
-(a-mode "todo.txt" "todotxt")
+(require 'saveplace)
+(setq-default save-place t)
+
 
 (defun replace-with-comma ()
   (interactive)
@@ -398,5 +411,16 @@
   (insert (get-rnd-list '("¯\\_(ツ)_/¯"
                           "I need to think of better commit messages."
                           "blah"))))
+
+(defun test ()
+  (message "hi"))
+
+
+(define-key evil-normal-state-map (kbd "C-w w")
+  (defhydra hydra-window-manipulation ()
+    "window manipulation"
+    ("h" test "test")
+    ("q" nil "cancel")))
+
 (provide 'init)
 ;;; init.el ends here
