@@ -1,5 +1,6 @@
 export PATH=$PATH:/home/zack/.rvm/gems/ruby-2.1.2/bin
 export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/git-annex.linux
 export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/android-sdk/build-tools
@@ -183,7 +184,7 @@ function gi() { curl -L -s https://www.gitignore.io/api/$@ }
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
 mt_load_mods() {
-    for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> ~/.minetest/worlds/world/world.mt
+    for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> $1
 }
 
 # BEGIN p_rompt
