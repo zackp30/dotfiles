@@ -412,15 +412,17 @@
                           "I need to think of better commit messages."
                           "blah"))))
 
-(defun test ()
-  (message "hi"))
+;; (defun test ()
+;;   (interactive)
+;; ;
+                                        ;   (window-)
 
 
-(define-key evil-normal-state-map (kbd "C-w w")
-  (defhydra hydra-window-manipulation ()
-    "window manipulation"
-    ("h" test "test")
-    ("q" nil "cancel")))
+;; (define-key evil-normal-state-map (kbd "C-w w")
+;;   (defhydra hydra-window-manipulation ()
+;;     "window manipulation"
+;;     ("h" test "test")
+;;     ("q" nil "cancel")))
 
 (provide 'init)
 ;;; init.el ends here
