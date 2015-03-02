@@ -1,3 +1,4 @@
+
 export PATH=$PATH:/home/zack/.rvm/gems/ruby-2.1.2/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/git-annex.linux
@@ -66,7 +67,7 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 setopt interactivecomments
-if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]]; then
+if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]] && [[ "TERM" != "dumb"  ]]; then
     export TERM='xterm-256color'
 fi
 
@@ -255,3 +256,6 @@ alias cab='cabal install'
 alias :q='exit'
 export LFS=$HOME/figosbuild
 
+
+
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
