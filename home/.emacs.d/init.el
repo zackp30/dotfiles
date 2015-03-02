@@ -76,6 +76,7 @@
                wanderlust ;; email
                yasnippet ;; snippets
                evil-snipe
+               mmm-mode
                helm ;; menus for ALL the things
                flycheck ;; on the fly syntax checking
                haskell-mode ;; mode for Haskell
@@ -141,6 +142,7 @@
 (require 'indent-guide)
 (require 'editorconfig)
 (require 'bookmark+)
+(require 'bitbake)
 (require 'ido)
 (require 'auto-complete)
 (require 'ctags)
