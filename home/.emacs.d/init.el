@@ -86,6 +86,8 @@
                ac-cider ;; autocomplete for CIDER
                lua-mode ;; mode for the Lua language
                ctags
+               ledger-mode
+               flycheck-ledger
                ac-cider
                ace-jump-mode ;; easymotion
                ace-window
@@ -101,7 +103,9 @@
                lispy
                dired-toggle-sudo
                dired-rainbow
+               gnuplot-mode
                dired+
+               sourcegraph
                ac-slime
                io-mode))
 
@@ -117,7 +121,7 @@
  '(bmkp-last-as-first-bookmark-file "/home/zack/.emacs.d/bookmarks")
  '(custom-safe-themes
    (quote
-    ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(delete-selection-mode nil)
  '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
  '(eclim-executable "~/eclipse/eclipse/eclim")
@@ -228,6 +232,7 @@
 (a-mode "Gemfile" "ruby")
 (a-mode "Guardfile" "ruby")
 (a-mode "Rakefile" "ruby")
+(a-mode ".ledger" "ledger")
 
 (add-hook 'd-mode-hook 'ac-dcd-setup)
 
@@ -423,6 +428,7 @@
                           "blah"))))
 
 (workgroups-mode 1)
+(setq evil-snipe-auto-disable-substitute nil)
 (global-evil-snipe-mode 1)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -430,6 +436,13 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (desktop-save-mode 1)
+
+(sourcegraph-mode 1)
+
+(eval-after-load 'flycheck '(require 'flycheck-ledger))
+
+(evil-define-key 'normal evil-snipe-mode-map "zA" 'evil-snipe-f)
+
 
 (provide 'init)
 ;;; init.el ends here
