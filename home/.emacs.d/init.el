@@ -100,7 +100,6 @@
                julia-mode ;; mode for the Julia language
                slim-mode ;; mode for the Slim templating language
                slime
-               lispy
                dired-toggle-sudo
                dired-rainbow
                gnuplot-mode
@@ -284,8 +283,6 @@
      (add-to-list 'ac-modes 'cider-mode)
           (add-to-list 'ac-modes 'cider-repl-mode)))
 (setq ac-fuzzy-enable 1)
-
-(add-hook 'lisp-mode-hook 'lispy-mode)
 
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
