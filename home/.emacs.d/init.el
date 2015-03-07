@@ -284,8 +284,6 @@
      (add-to-list 'ac-modes 'cider-mode)
           (add-to-list 'ac-modes 'cider-repl-mode)))
 (setq ac-fuzzy-enable 1)
-
-
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
