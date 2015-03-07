@@ -74,6 +74,7 @@
                perspective ;; basically tabs
                smart-mode-line ;; a nice mode line
                wanderlust ;; email
+               sx
                yasnippet ;; snippets
                evil-snipe
                mmm-mode
@@ -100,7 +101,6 @@
                julia-mode ;; mode for the Julia language
                slim-mode ;; mode for the Slim templating language
                slime
-               lispy
                dired-toggle-sudo
                dired-rainbow
                gnuplot-mode
@@ -285,7 +285,6 @@
           (add-to-list 'ac-modes 'cider-repl-mode)))
 (setq ac-fuzzy-enable 1)
 
-(add-hook 'lisp-mode-hook 'lispy-mode)
 
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -427,15 +426,12 @@
                           "I need to think of better commit messages."
                           "blah"))))
 
-(workgroups-mode 1)
 (setq evil-snipe-auto-disable-substitute nil)
 (global-evil-snipe-mode 1)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-(desktop-save-mode 1)
 
 (sourcegraph-mode 1)
 
