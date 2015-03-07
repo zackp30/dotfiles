@@ -58,15 +58,15 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init(os.getenv("HOME").."/.config/awesome/themes/zenburn/theme.lua")
 
+-- This is used later as the default terminal and editor to run.
 if os.getenv("HOST") == "raspberrypi" then
   terminal = "urxvt"
+elseif os.getenv("HOST") == "linux-nyit" then
+   
 else
   terminal = "urxvt-256color"
 end
-if os.getenv("HOST") == "linux-nyit" then
-   awful.util.spawn("xrandr --output VGA-1 --right-of HDMI-1 --output HDMI-1 --mode 1680x1050")
-end
-editor = os.getenv("EDITOR") or "emacs"
+editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
