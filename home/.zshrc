@@ -1,54 +1,23 @@
-export PATH=$HOME/.nix-profile/bin:$PATH
 export PATH=$HOME/bin:$PATH
-export PATH=$PATH:/home/zack/.rvm/gems/ruby-2.1.2/bin
-export PATH=$PATH:$HOME/git-annex.linux
-export PATH=$PATH:$GOROOT/bin
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$HOME/android-sdk/build-tools
-export PATH=$PATH:$HOME/android-sdk/extras
-export PATH=$PATH:$HOME/android-sdk/platform-tools
-export PATH=$PATH:$HOME/android-sdk/tools
-export PATH=$PATH:/usr/local/dmd/bin
-export PATH=$PATH:/usr/local/texlive/2013/bin/x86_64-linux
-export PATH=$PATH:$HOME/.cabal/bin
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$HOME/.pyenv/bin
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/build/pi/.build/arm-unknown-eabi/buildtools/bin
-export PATH=$PATH:$HOME/.tex/bin/x86_64-linux
-export PATH=$PATH:$HOME/pypy/bin
-export PATH=$PATH:$HOME/Nim/bin
-export PATH=$PATH:$HOME/.nimble/bin
-export PATH=$PATH:$HOME/haxe
-export HAXE_STD_PATH=$HOME/haxe/std:.
-export HAXE_HOME=$HOME/haxe
-source ~/.nvm/nvm.sh
-export ANDROID_HOME=$HOME/android-sdk
-export ANDROID_SDK=$HOME/android-sdk
-export PATH=$PATH:$HOME/.nimble/bin
-export ANDROID_NDK=$HOME/android-ndk
-export GRADLE_HOME=$HOME/gradle-1.10
-export PATH=$GRADLE_HOME/bin:$PATH
-export NEKOPATH=/usr/lib/neko
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/neko 
-source ~/.zlogin
-source ~/.zsh/plugins/opp.zsh/opp.zsh
-source ~/.zsh/plugins/opp.zsh/opp/*.zsh
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source $HOME/.homesick/repos/homeshick/homeshick.sh
-source ~/.rubotorc
-source ~/.fzf.zsh
 
-if [[ "$(which pyenv)" =~ "not found" ]] ; then
-else
+source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
+source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
+source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exists ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source_if_exists $HOME/.homesick/repos/homeshick/homeshick.sh
+source_if_exists ~/.rubotorc
+source_if_exists ~/.fzf.zsh
+
+if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
     eval "$(pyenv init -)"
 fi
 setopt prompt_subst
 autoload -U colors && colors
 export EDITOR=emacs
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=99999999
+SAVEHIST=99999999
 HISTFILE=~/.zsh_history
 setopt histignorealldups sharehistory
 
@@ -81,7 +50,7 @@ export TMOUT=3600
 bindkey -v
 mesg n
 export KEYTIMEOUT=1
-source ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
+source_if_exists ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
 ZSH_VCS_PROMPT_ENABLE_CACHING='true'
 fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
 export rvmsudo_secure_path=1
@@ -118,8 +87,6 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
     . "${HOME}/.gpg-agent-info"
     export GPG_AGENT_INFO
 fi
-GPG_TTY=$(tty)
-export GPG_TTY
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
@@ -247,25 +214,15 @@ p_load
 
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
-# PS1='%F{red}%K{cyan}%n%K{green}%F{black}@%F{red}%K{blue}%m %F{yellow}%~%F %b$(vcs_super_info)%b %F{black}%K{cyan}%#%f%k '
-
-
-source /usr/local/etc/profile.d/nix.sh
-export NIX_REMOTE=daemon
-
 alias pull='git pull'
 alias dict="LD_LIBRARY_PATH=/usr/local/lib64 dict" # ¯\_(ツ)_/¯
 alias e="emacsclient -c"
 alias ..='cd ..'
 alias cab='cabal install'
 alias :q='exit'
-export LFS=$HOME/figosbuild
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' # for TRAMP
 
-
-export DEVKITPRO=/home/zack/devkitPro
-export DEVKITARM=/home/zack/devkitPro/devkitARM
-
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
+source_if_exists ~/.locals.sh
 
 
 task
