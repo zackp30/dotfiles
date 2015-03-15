@@ -33,6 +33,7 @@
                pophint
                ag ;; the silver searcher
                workgroups2
+               auto-complete-clang
                rainbow-identifiers ;; rainbows!
                rainbow-blocks ;; omg more rainbows
                flycheck-rust ;; flycheck for the Rust language
@@ -105,6 +106,7 @@
                dired-rainbow
                gnuplot-mode
                dired+
+               spinner
                sourcegraph
                ac-slime
                io-mode))
@@ -125,16 +127,21 @@
  '(delete-selection-mode nil)
  '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
  '(eclim-executable "~/eclipse/eclipse/eclim")
+ '(global-hl-line-mode t)
+ '(global-hl-line-sticky-flag t)
+ '(indent-guide-char "│")
  '(inhibit-startup-screen t)
  '(mark-even-if-inactive t)
  '(mediawiki-site-alist
    (quote
     (("http://wiki.apertron.net" "http://wiki.apertron.net/" "zackp30" nil "Main Page")
      ("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page"))))
+ '(sml/full-mode-string " ...")
+ '(sml/show-client t)
+ '(sml/theme (quote dark))
  '(socks-server (quote ("Default server" "localhost" 9001 5)))
  '(transient-mark-mode 1))
 
-(setq ido-enable-flex-matching t)
 
 ;; Misc requires
 (require 'ac-ispell)
@@ -147,7 +154,6 @@
 (require 'editorconfig)
 (require 'bookmark+)
 (require 'bitbake)
-(require 'ido)
 (require 'auto-complete)
 (require 'ctags)
 (require 'mediawiki)
@@ -233,6 +239,8 @@
 (a-mode "Guardfile" "ruby")
 (a-mode "Rakefile" "ruby")
 (a-mode ".ledger" "ledger")
+(add-to-list 'auto-mode-alist
+             '("mutt-" . mail-mode))
 
 (add-hook 'd-mode-hook 'ac-dcd-setup)
 
@@ -255,7 +263,6 @@
                                 gl-conf-mode))
 
 ;; ALL the modes!
-(ido-mode t)
 (projectile-global-mode)
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
@@ -336,7 +343,6 @@
   "p R" 'projectile-regenerate-tags
   "p j" 'projectile-find-tag
   "g t r" 'ctags-create-or-update-tags-table
-  "f" 'ido-find-file
   ";" 'replace-with-comma)
 
 
@@ -416,7 +422,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(linum ((t (:background "brightblack" :foreground "#9FC59F")))))
+ '(hl-line ((t (:background "color-239"))))
+ '(linum ((t (:background "brightblack" :foreground "#9FC59F"))))
+ '(sml/prefix ((t (:inherit sml/global :foreground "#bf6000")))))
 
 (defun random-commit-message ()
   (interactive)
@@ -436,7 +444,28 @@
 (eval-after-load 'flycheck '(require 'flycheck-ledger))
 
 (evil-define-key 'normal evil-snipe-mode-map "zA" 'evil-snipe-f)
+(evil-define-key 'normal evil-snipe-mode-map "]S" 'flyspell-goto-next-error)
 
+(defun testthing ()
+  (when (file-exists-p (format "%s#%s#"
+                               (file-name-directory (buffer-file-name (current-buffer)))
+                               (file-name-nondirectory (buffer-file-name (current-buffer)))))
+    t))
+
+
+(add-hook 'mail-mode-hook 'auto-fill-mode)
+
+(defun foo-wl ()
+  (when evil-mode (evil-change-state 'emacs)))
+
+(add-hook 'wl-hook 'foo-wl)
+(add-hook 'wl-folder-mode-hook 'foo-wl)
+(add-hook 'wl-summary-mode-hook 'foo-wl)
+(add-hook 'wl-message-mode-hook 'foo-wl)
+(add-hook 'mime-view-mode-hook 'foo-wl)
+
+(add-to-list 'load-path (expand-file-name "~/haxe-mode/"))
+(require 'haxe-mode)
 
 (provide 'init)
 ;;; init.el ends here
