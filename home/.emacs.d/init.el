@@ -464,8 +464,13 @@
 (add-hook 'wl-message-mode-hook 'foo-wl)
 (add-hook 'mime-view-mode-hook 'foo-wl)
 
-(add-to-list 'load-path (expand-file-name "~/haxe-mode/"))
-(require 'haxe-mode)
+(require 'zone)
+(zone-when-idle 120)
+
+(setq helm-display-header-line nil)
+(set-face-attribute 'helm-source-header nil :height 0.1)
+
+(helm-autoresize-mode 1)
 
 (provide 'init)
 ;;; init.el ends here
