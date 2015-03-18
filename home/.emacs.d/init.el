@@ -44,6 +44,9 @@
                highlight-numbers ;; rainbowify numbers
                todotxt ;; Mode for the todo.txt markup
                magit ;; git integration
+               magit-gh-pulls
+               magit-gitflow
+               magit-tramp
                table ;; tables!
                smex
                ac-dcd ;; D Completion Daemon source for autocomplete
@@ -471,6 +474,10 @@
 (set-face-attribute 'helm-source-header nil :height 0.1)
 
 (helm-autoresize-mode 1)
+
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 (provide 'init)
 ;;; init.el ends here

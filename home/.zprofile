@@ -17,3 +17,4 @@ if [ $(detect_command gpg) ]; then
     fi
 fi
 
+
