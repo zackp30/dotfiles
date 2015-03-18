@@ -2,6 +2,7 @@ export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 
+export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
 source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
 source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -212,7 +213,6 @@ p_load
 
 # END p_rompt
 
-export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
 alias pull='git pull'
 alias dict="LD_LIBRARY_PATH=/usr/local/lib64 dict" # ¯\_(ツ)_/¯
