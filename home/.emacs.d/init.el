@@ -448,6 +448,7 @@
 
 (evil-define-key 'normal evil-snipe-mode-map "zA" 'evil-snipe-f)
 (evil-define-key 'normal evil-snipe-mode-map "]S" 'flyspell-goto-next-error)
+(define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
 
 (defun testthing ()
   (when (file-exists-p (format "%s#%s#"
