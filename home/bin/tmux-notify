@@ -1,13 +1,17 @@
 #!/bin/bash
+sleep_for=5
+
+if [ $2 ]; then
+    sleep_for=$2
+fi
 
 current_pane="$(tmux display-message -p '#D')"
 
-command="$1 ; sleep $2"
+command="$1 ; sleep $sleep_for"
 
 tmux split-window -t $current_pane "$command"
 
 pid="$(tmux display-message -p '#{pane_pid}')"
 tmux select-pane -t $current_pane # because of the lack of `-d` flag used in `split-window`, we should switch back.
-sleep $2
-
+sleep $sleep_for
 kill -9 $pid
