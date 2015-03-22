@@ -480,5 +480,11 @@
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
+(defun insert-shell-command (command)
+  (interactive "scommand: ")
+  (insert (shell-command-to-string command)))
+
+(define-key global-map (kbd "C-c C-g") 'insert-shell-command)
+
 (provide 'init)
 ;;; init.el ends here
