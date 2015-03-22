@@ -1,0 +1,10 @@
+#!/bin/bash
+PATH=$PATH:$HOME/bin:$HOME/.fzf/bin
+unicode_file=$HOME/unicode.txt
+the_tmp_file=$(mktemp)
+current_pane="$(tmux display-message -p '#D')"
+
+tmux split-window -t $current_pane "charsel $unicode_file $the_tmp_file"
+inotifywait -e close_write $the_tmp_file > /dev/null
+
+tmux send-keys -t $current_pane $(cat $the_tmp_file)
