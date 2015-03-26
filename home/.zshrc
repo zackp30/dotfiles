@@ -1,6 +1,23 @@
 export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
+function detect_command() {
+    command -v $1 >/dev/null 2>&1 || return 1
+    return 0
+}
+
+function source_if_exists() {
+    [ ! -e "$1" ] || source "$1"
+}
+
+if [ $(detect_command gpg) ]; then
+    if [ -f "${HOME}/.gpg-agent-info" ]; then
+        . "${HOME}/.gpg-agent-info"
+        export GPG_AGENT_INFO
+    else
+        gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+    fi
+fi
 
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
@@ -9,7 +26,6 @@ source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
 source_if_exists ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source_if_exists $HOME/.homesick/repos/homeshick/homeshick.sh
 source_if_exists ~/.rubotorc
-source_if_exists ~/.fzf.zsh
 
 if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
     eval "$(pyenv init -)"
@@ -226,3 +242,5 @@ source_if_exists ~/.locals.sh
 
 
 task
+
+source_if_exists ~/.fzf.zsh
