@@ -21,98 +21,100 @@
 (require 'cl)
 ;; Install packages.
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(defvar pkgs '(evil
-               evil-leader
-               evil-numbers
-               evil-visualstar
-               evil-nerd-commenter
-               editorconfig
-               evil-indent-textobject
-               evil-matchit
-               scss-mode ;; mode for the Sass language
-               pophint
-               ag ;; the silver searcher
-               workgroups2
-               auto-complete-clang
-               rainbow-identifiers ;; rainbows!
-               rainbow-blocks ;; omg more rainbows
-               flycheck-rust ;; flycheck for the Rust language
-               rust-mode ;; mode for the Rust language
-               zenburn-theme ;; Zenburn theme
-               surround ;; Delete surrounding characters (`()', `[]', etc.).
-               auto-complete ;; autocompletion
-               highlight-numbers ;; rainbowify numbers
-               todotxt ;; Mode for the todo.txt markup
-               magit ;; git integration
-               magit-gh-pulls
-               magit-gitflow
-               magit-tramp
-               table ;; tables!
-               smex
-               ac-dcd ;; D Completion Daemon source for autocomplete
-               mediawiki ;; mediawiki client
-               wgrep-ag ;; writable grep, but for ag
-               notmuch ;; notmuch MUA integration
-               racket-mode ;; mode for the Racket 
-               undo-tree ;; vim-like undo tree
-               hydra ;; micro-states!
-               hy-mode
-               ac-haskell-process ;; autocomplete for the Haskell language
-               projectile ;; project management
-               jedi ;; python auto-completion
-               smartparens ;; automatically insert parenthesis
-               helm-swoop
-               ein
-               bookmark+
-               browse-kill-ring ;; menu for the killring
-               emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
-               coffee-mode ;; mode for the CoffeeScript language
-               git-gutter ;; Git status in left fringe
-               markdown-mode ;; mode for the Markdown markup
-               indent-guide ;; a "ruler" for indentation
-               rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
-               php-mode ;; mode for the PHP language
-               nim-mode
-               ac-nim
-               helm-projectile ;; projectile integration for helm
-               perspective ;; basically tabs
-               smart-mode-line ;; a nice mode line
-               wanderlust ;; email
-               sx
-               yasnippet ;; snippets
-               evil-snipe
-               mmm-mode
-               helm ;; menus for ALL the things
-               flycheck ;; on the fly syntax checking
-               haskell-mode ;; mode for Haskell
-               ruby-mode ;; mode for the Ruby language
-               clojure-mode ;; mode for the Clojure language
-               cider ;; REPL for Clojure
-               ac-cider ;; autocomplete for CIDER
-               lua-mode ;; mode for the Lua language
-               ctags
-               ledger-mode
-               flycheck-ledger
-               ac-cider
-               ace-jump-mode ;; easymotion
-               ace-window
-               d-mode ;; mode for the D language
-               ac-emmet ;; a mode for efficient production of HTML and XML
-               web-mode ;; mode for web stuff
-               ghc 
-               ghci-completion
-               cmake-mode ;; mode for the CMake language
-               julia-mode ;; mode for the Julia language
-               slim-mode ;; mode for the Slim templating language
-               slime
-               dired-toggle-sudo
-               dired-rainbow
-               gnuplot-mode
-               dired+
-               spinner
-               sourcegraph
-               ac-slime
-               io-mode))
+(defvar pkgs '(use-package
+                evil
+                evil-leader
+                evil-numbers
+                evil-visualstar
+                evil-nerd-commenter
+                editorconfig
+                evil-indent-textobject
+                evil-matchit
+                scss-mode ;; mode for the Sass language
+                pophint
+                ag ;; the silver searcher
+                workgroups2
+                auto-complete-clang
+                rainbow-identifiers ;; rainbows!
+                rainbow-blocks ;; omg more rainbows
+                flycheck-rust ;; flycheck for the Rust language
+                rust-mode ;; mode for the Rust language
+                zenburn-theme ;; Zenburn theme
+                surround ;; Delete surrounding characters (`()', `[]', etc.).
+                auto-complete ;; autocompletion
+                highlight-numbers ;; rainbowify numbers
+                todotxt ;; Mode for the todo.txt markup
+                magit ;; git integration
+                magit-gh-pulls
+                magit-gitflow
+                magit-tramp
+                table ;; tables!
+                smex
+                ac-dcd ;; D Completion Daemon source for autocomplete
+                mediawiki ;; mediawiki client
+                wgrep-ag ;; writable grep, but for ag
+                racket-mode ;; mode for the Racket 
+                undo-tree ;; vim-like undo tree
+                hydra ;; micro-states!
+                hy-mode
+                ac-haskell-process ;; autocomplete for the Haskell language
+                projectile ;; project management
+                jedi ;; python auto-completion
+                smartparens ;; automatically insert parenthesis
+                helm-swoop
+                ein
+                bookmark+
+                browse-kill-ring ;; menu for the killring
+                emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+                coffee-mode ;; mode for the CoffeeScript language
+                git-gutter ;; Git status in left fringe
+                markdown-mode ;; mode for the Markdown markup
+                indent-guide ;; a "ruler" for indentation
+                rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
+                php-mode ;; mode for the PHP language
+                nim-mode
+                ac-nim
+                helm-projectile ;; projectile integration for helm
+                perspective ;; basically tabs
+                smart-mode-line ;; a nice mode line
+                wanderlust ;; email
+                sx
+                yasnippet ;; snippets
+                evil-snipe
+                mmm-mode
+                helm ;; menus for ALL the things
+                flycheck ;; on the fly syntax checking
+                haskell-mode ;; mode for Haskell
+                ruby-mode ;; mode for the Ruby language
+                clojure-mode ;; mode for the Clojure language
+                cider ;; REPL for Clojure
+                ac-cider ;; autocomplete for CIDER
+                lua-mode ;; mode for the Lua language
+                ctags
+                ledger-mode
+                flycheck-ledger
+                ac-cider
+                ace-jump-mode ;; easymotion
+                ace-window
+                d-mode ;; mode for the D language
+                ac-emmet ;; a mode for efficient production of HTML and XML
+                web-mode ;; mode for web stuff
+                ghc 
+                ghci-completion
+                cmake-mode ;; mode for the CMake language
+                julia-mode ;; mode for the Julia language
+                slim-mode ;; mode for the Slim templating language
+                slime
+                dired-toggle-sudo
+                dired-rainbow
+                gnuplot-mode
+                dired+
+                spinner
+                sourcegraph
+                ac-slime
+                go-mode
+                io-mode))
+(require 'use-package)
 
 (loop for pkg in pkgs do
       (require-package pkg))
@@ -147,51 +149,62 @@
 
 
 ;; Misc requires
-(require 'ac-ispell)
-(require 'notmuch)
-(require 'pophint)
-(define-key global-map (kbd "C-'") 'pophint:do-flexibly)
-(require 'smartparens-config)
 (require 'htmlize)
-(require 'indent-guide)
-(require 'editorconfig)
-(require 'bookmark+)
-(require 'bitbake)
-(require 'auto-complete)
-(require 'ctags)
-(require 'mediawiki)
-(require 'ac-cider)
-(require 'todotxt)
-(require 'ac-dcd)
-(require 'auto-complete-config)
-(require 'smart-mode-line)
-(require 'helm-config)
-(require 'ruby-mode)
-(require 'ac-cider)
-(require 'ac-emmet)
-(require 'emmet-mode)
-(require 'io-mode)
-(require 'cmake-mode)
-
-(add-hook 'web-mode-hook 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook 'emmet-mode)
-(add-hook 'web-mode-hook 'ac-emmet-html-setup)
-(add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
-(add-hook 'css-mode-hook 'ac-emmet-css-setup)
+(use-package ac-ispell)
+(use-package pophint
+  :bind ("C-'" . pophint:do-flexibly))
+(use-package indent-guide)
+(use-package editorconfig)
+(use-package bookmark+)
+(use-package bitbake)
+(use-package auto-complete)
+(use-package mediawiki)
+(use-package todotxt)
+(use-package ac-dcd)
+(use-package smart-mode-line)
+(use-package helm-config)
+(use-package ruby-mode)
+(use-package auto-complete
+  :config
+  (global-auto-complete-mode t)
+  (add-to-list 'ac-modes 'cider-mode))
+(use-package evil-nerd-commenter
+  :init
+  (evilnc-default-hotkeys))
+(use-package ac-emmet
+  :init
+  (add-hook 'web-mode-hook 'ac-emmet-html-setup)
+  (add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
+  (add-hook 'css-mode-hook 'ac-emmet-css-setup))
+(use-package emmet-mode
+  :init
+  (add-hook 'web-mode-hook 'emmet-mode)
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook 'emmet-mode))
+(use-package io-mode)
+(use-package cmake-mode
+  :init
+  (add-to-list 'auto-mode-alist 
+               '("CMakeLists.txt" . cmake-mode)) )
+(use-package cider
+  :init
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (use-package ac-cider
+    :init
+    (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+    (add-hook 'cider-mode-hook 'ac-cider-setup)
+    (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+    (add-hook 'cider-mode-hook 'ac-cider-setup)
+    (add-hook 'cider-repl-mode-hook 'ac-cider-setup)))
+(use-package flycheck
+  :init
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq flycheck-highlighting-mode 'symbols)
+  (setq flycheck-indication-mode 'left-fringe))
 (require 'tramp)
 (require 'whitespace)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-mode))
 
 ;; Misc settings
-(evilnc-default-hotkeys)
-(setq flycheck-check-syntax-automatically '(save mode-enabled))
-(setq flycheck-highlighting-mode 'symbols)
-(setq flycheck-indication-mode 'left-fringe)
 (menu-bar-mode -1) ;; disabe menubar
 (tool-bar-mode -1) ;; disable toolbar
 (scroll-bar-mode -1) ;; disable scrollbar
@@ -205,6 +218,7 @@
 (setq ac-quick-help-height 30)
 (setq ac-show-menu-immediately-on-auto-complete t)
 (ac-config-default)
+(require 'ctags)
 (setq ctags-command "/usr/bin/ctags-exuberant -e -R ")
 (setq vc-follow-symlinks t)
 
@@ -229,8 +243,6 @@
                 (intern (concat mode "-mode")))))
 
 
-(add-to-list 'auto-mode-alist 
-             '("CMakeLists.txt" . cmake-mode)) 
 
 (autoload 'wl "wl" "Wanderlust" t)
 (add-to-list 'auto-mode-alist 
@@ -282,17 +294,13 @@
 (evil-mode t) ;; Vim!
 (global-surround-mode t)
 (global-evil-leader-mode)
-(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
 (ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (eval-after-load 'nim-mode '(add-hook 'nim-mode-hook 'ac-nim-enable))
 (eval-after-load "auto-complete"
   '(progn
      (add-to-list 'ac-modes 'cider-mode)
-          (add-to-list 'ac-modes 'cider-repl-mode)))
+     (add-to-list 'ac-modes 'cider-repl-mode)))
 (setq ac-fuzzy-enable 1)
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -317,7 +325,6 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
-(global-auto-complete-mode t)
 
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
@@ -468,8 +475,6 @@
 (add-hook 'wl-message-mode-hook 'foo-wl)
 (add-hook 'mime-view-mode-hook 'foo-wl)
 
-(require 'zone)
-(zone-when-idle 120)
 
 (setq helm-display-header-line nil)
 (set-face-attribute 'helm-source-header nil :height 0.1)
@@ -485,6 +490,21 @@
   (insert (shell-command-to-string command)))
 
 (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq delete-old-versions -1)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
 
 (provide 'init)
 ;;; init.el ends here
