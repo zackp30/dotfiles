@@ -58,8 +58,8 @@
                 hydra ;; micro-states!
                 hy-mode
                 company
+                company-anaconda
                 projectile ;; project management
-                jedi ;; python auto-completion
                 smartparens ;; automatically insert parenthesis
                 helm-swoop
                 ein
@@ -109,10 +109,12 @@
                 sourcegraph
                 go-mode
                 io-mode))
-(require 'use-package)
+
+
 
 (loop for pkg in pkgs do
       (require-package pkg))
+(require 'use-package)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -147,9 +149,6 @@
 (use-package pophint
   :bind ("C-'" . pophint:do-flexibly))
 (use-package indent-guide)
-(use-package company
-  :config
-  (push 'company-robe company-backends))
 (use-package editorconfig)
 (use-package bookmark+)
 (use-package bitbake)
@@ -161,7 +160,7 @@
 (use-package todotxt)
 (defun activate-company-ispell ()
   "Activate the company ispell backend. Used for hooks."
-  (push 'company-ispell company-backends))
+  (add-to-list 'company-backends 'company-ispell))
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode)
@@ -169,10 +168,14 @@
   (setq company-minimum-prefix-length 1)
   (make-variable-buffer-local 'company-backends)
   (add-hook 'markdown-mode-hook 'activate-company-ispell))
-(use-package jedi
+(use-package company-robe
   :config
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t))
+  (add-to-list 'company-backends 'company-robe))
+(use-package company-anaconda
+  :config
+  (add-hook 'python-mode-hook (lambda ()
+                                (anaconda-mode)
+                                (add-to-list 'company-backends 'company-anaconda))))
 (use-package projectile
   :config
   (projectile-global-mode))
@@ -182,7 +185,7 @@
   :config
   (sml/setup) ;; modeline setup
   (sml/apply-theme 'dark)) ;; dark modeline
-  
+
 
 (use-package smex
   :bind ("M-x" . smex)
@@ -308,6 +311,8 @@
 (add-hook 'haskell-mode-hook 'hs-minor-mode)
 (add-hook 'python-mode-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
+(add-hook 'ruby-mode-hook 'robe-mode)
+(setq python-shell-interpreter "python3") ;; I use Python 3
 
 
 
@@ -479,6 +484,7 @@
       '(kill-ring
         search-ring
         regexp-search-ring))
+
 
 
 (provide 'init)
