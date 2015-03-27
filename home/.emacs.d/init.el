@@ -35,6 +35,7 @@
                 ag ;; the silver searcher
                 workgroups2
                 auto-complete-clang
+                robe
                 rainbow-identifiers ;; rainbows!
                 rainbow-blocks ;; omg more rainbows
                 flycheck-rust ;; flycheck for the Rust language
@@ -50,14 +51,13 @@
                 magit-tramp
                 table ;; tables!
                 smex
-                ac-dcd ;; D Completion Daemon source for autocomplete
                 mediawiki ;; mediawiki client
                 wgrep-ag ;; writable grep, but for ag
                 racket-mode ;; mode for the Racket 
                 undo-tree ;; vim-like undo tree
                 hydra ;; micro-states!
                 hy-mode
-                ac-haskell-process ;; autocomplete for the Haskell language
+                company
                 projectile ;; project management
                 jedi ;; python auto-completion
                 smartparens ;; automatically insert parenthesis
@@ -73,7 +73,6 @@
                 rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
                 php-mode ;; mode for the PHP language
                 nim-mode
-                ac-nim
                 helm-projectile ;; projectile integration for helm
                 perspective ;; basically tabs
                 smart-mode-line ;; a nice mode line
@@ -88,16 +87,13 @@
                 ruby-mode ;; mode for the Ruby language
                 clojure-mode ;; mode for the Clojure language
                 cider ;; REPL for Clojure
-                ac-cider ;; autocomplete for CIDER
                 lua-mode ;; mode for the Lua language
                 ctags
                 ledger-mode
                 flycheck-ledger
-                ac-cider
                 ace-jump-mode ;; easymotion
                 ace-window
                 d-mode ;; mode for the D language
-                ac-emmet ;; a mode for efficient production of HTML and XML
                 web-mode ;; mode for web stuff
                 ghc 
                 ghci-completion
@@ -111,7 +107,6 @@
                 dired+
                 spinner
                 sourcegraph
-                ac-slime
                 go-mode
                 io-mode))
 (require 'use-package)
@@ -124,7 +119,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-fuzzy-limit 1)
  '(bmkp-last-as-first-bookmark-file "/home/zack/.emacs.d/bookmarks")
  '(custom-safe-themes
    (quote
@@ -150,10 +144,12 @@
 
 ;; Misc requires
 (require 'htmlize)
-(use-package ac-ispell)
 (use-package pophint
   :bind ("C-'" . pophint:do-flexibly))
 (use-package indent-guide)
+(use-package company
+  :config
+  (push 'company-robe company-backends))
 (use-package editorconfig)
 (use-package bookmark+)
 (use-package bitbake)
@@ -161,17 +157,18 @@
   :config
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil))
-(use-package auto-complete
-  :config  
-  (ac-config-default)
-  (setq ac-auto-show-menu t)
-  (setq ac-auto-start t)
-  (setq ac-delay 0.1)
-  (setq ac-quick-help-delay 0.3)
-  (setq ac-quick-help-height 30)
-  (setq ac-show-menu-immediately-on-auto-complete t))
 (use-package mediawiki)
 (use-package todotxt)
+(defun activate-company-ispell ()
+  "Activate the company ispell backend. Used for hooks."
+  (push 'company-ispell company-backends))
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-idle-delay 0.1)
+  (setq company-minimum-prefix-length 1)
+  (make-variable-buffer-local 'company-backends)
+  (add-hook 'markdown-mode-hook 'activate-company-ispell))
 (use-package jedi
   :config
   (add-hook 'python-mode-hook 'jedi:setup)
@@ -179,15 +176,13 @@
 (use-package projectile
   :config
   (projectile-global-mode))
-(use-package ac-dcd
-  :config
-  (add-hook 'd-mode-hook 'ac-dcd-setup))
+
+
 (use-package smart-mode-line
   :config
   (sml/setup) ;; modeline setup
-  (sml/apply-theme 'dark) ;; dark modeline)
-  (use-package helm-config)
-  (use-package ruby-mode))
+  (sml/apply-theme 'dark)) ;; dark modeline
+  
 
 (use-package smex
   :bind ("M-x" . smex)
@@ -196,10 +191,6 @@
   :config
   (add-hook 'haskell-mode-hook 'ghc-init)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
-(use-package auto-complete
-  :config
-  (global-auto-complete-mode t)
-  (add-to-list 'ac-modes 'cider-mode))
 (use-package evil
   :config
   (evil-mode 1)
@@ -209,11 +200,6 @@
   (use-package evil-nerd-commenter
     :config
     (evilnc-default-hotkeys)))
-(use-package ac-emmet
-  :init
-  (add-hook 'web-mode-hook 'ac-emmet-html-setup)
-  (add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
-  (add-hook 'css-mode-hook 'ac-emmet-css-setup))
 (use-package emmet-mode
   :init
   (add-hook 'web-mode-hook 'emmet-mode)
@@ -226,14 +212,7 @@
                '("CMakeLists.txt" . cmake-mode)) )
 (use-package cider
   :config
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  (use-package ac-cider
-    :config
-    (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-    (add-hook 'cider-mode-hook 'ac-cider-setup)
-    (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-    (add-hook 'cider-mode-hook 'ac-cider-setup)
-    (add-hook 'cider-repl-mode-hook 'ac-cider-setup)))
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
 (use-package flycheck
   :init
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
@@ -310,32 +289,18 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 (yas-global-mode 1)
-(indent-guide-global-mode)
+(indent-guide-global-mode 1)
 (helm-mode 1)
 (global-git-gutter-mode 1)
 (smartparens-global-mode t)
 (global-surround-mode t)
 (global-evil-leader-mode)
 
-(ac-flyspell-workaround)
-(eval-after-load 'nim-mode '(add-hook 'nim-mode-hook 'ac-nim-enable))
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
-(setq ac-fuzzy-enable 1)
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 (setq org-log-done t)
 
-;; Hooks
-(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
-(add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
-(add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
-(eval-after-load "auto-complete"
-  '(progn
-     (ac-ispell-setup)))
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'prog-mode-hook  'hs-minor-mode)
 (add-hook 'prog-mode-hook  'flyspell-prog-mode)
@@ -349,8 +314,6 @@
 
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'slime-repl-mode))
 
 (setq slime-contribs '(slime-fancy))
 (setq inferior-lisp-program "sbcl")
@@ -440,10 +403,6 @@
 (require 'ag)
 (define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
 
-(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
-(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'haskell-interactive-mode))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -520,6 +479,7 @@
       '(kill-ring
         search-ring
         regexp-search-ring))
+
 
 (provide 'init)
 ;;; init.el ends here
