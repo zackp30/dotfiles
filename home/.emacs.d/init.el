@@ -180,7 +180,6 @@
   :config
   (projectile-global-mode))
 
-
 (use-package smart-mode-line
   :config
   (sml/setup) ;; modeline setup
@@ -486,6 +485,8 @@
         regexp-search-ring))
 
 
+
+(eldoc-mode 1)
 
 (provide 'init)
 ;;; init.el ends here
