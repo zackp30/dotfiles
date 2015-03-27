@@ -166,6 +166,8 @@
   (add-hook 'after-init-hook 'global-company-mode)
   (setq company-idle-delay 0.1)
   (setq company-minimum-prefix-length 1)
+  (unbind-key (kbd "C-w") company-active-map)
+  (define-key company-active-map (kbd "C-u") 'company-show-location)
   (make-variable-buffer-local 'company-backends)
   (add-hook 'markdown-mode-hook 'activate-company-ispell))
 (use-package company-robe
@@ -486,7 +488,7 @@
 
 
 
-(eldoc-mode 1)
+(add-hook 'python-mode-hook 'eldoc-mode)
 
 (provide 'init)
 ;;; init.el ends here
