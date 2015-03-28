@@ -51,6 +51,7 @@
                 magit-tramp
                 table ;; tables!
                 smex
+                ibuffer-vc
                 mediawiki ;; mediawiki client
                 wgrep-ag ;; writable grep, but for ag
                 racket-mode ;; mode for the Racket 
@@ -149,6 +150,25 @@
 (use-package pophint
   :bind ("C-'" . pophint:do-flexibly))
 (use-package indent-guide)
+(use-package ibuffer-vc
+  :bind ("C-x C-b" . ibuffer)
+  :init
+  (require 'ibuffer-vc)
+  :config
+  (setq ibuffer-formats
+        '((mark modified read-only vc-status-mini " "
+                (name 18 18 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                (vc-status 16 16 :left)
+                " "
+                filename-and-process)))
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-vc-set-filter-groups-by-vc-root))))
 (use-package editorconfig)
 (use-package bookmark+)
 (use-package bitbake)
@@ -485,8 +505,6 @@
       '(kill-ring
         search-ring
         regexp-search-ring))
-
-
 
 (add-hook 'python-mode-hook 'eldoc-mode)
 
