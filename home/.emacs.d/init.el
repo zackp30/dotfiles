@@ -65,6 +65,7 @@
                 helm-swoop
                 ein
                 bookmark+
+                helm-ag
                 browse-kill-ring ;; menu for the killring
                 emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                 coffee-mode ;; mode for the CoffeeScript language
