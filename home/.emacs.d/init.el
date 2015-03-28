@@ -508,5 +508,7 @@
 
 (add-hook 'python-mode-hook 'eldoc-mode)
 
+(winner-mode 1)
+
 (provide 'init)
 ;;; init.el ends here
