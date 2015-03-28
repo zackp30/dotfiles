@@ -61,6 +61,7 @@
                 hy-mode
                 company
                 company-anaconda
+                company-ghc
                 projectile ;; project management
                 smartparens ;; automatically insert parenthesis
                 helm-swoop
@@ -152,6 +153,10 @@
 (use-package pophint
   :bind ("C-'" . pophint:do-flexibly))
 (use-package indent-guide)
+(use-package company-ghc
+  :config
+  (add-to-list 'company-backends 'company-ghc))
+
 (use-package ibuffer-vc
   :bind ("C-x C-b" . ibuffer)
   :init
