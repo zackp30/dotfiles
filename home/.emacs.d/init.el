@@ -40,6 +40,7 @@
                 rainbow-blocks ;; omg more rainbows
                 flycheck-rust ;; flycheck for the Rust language
                 rust-mode ;; mode for the Rust language
+                slime-company
                 zenburn-theme ;; Zenburn theme
                 surround ;; Delete surrounding characters (`()', `[]', etc.).
                 auto-complete ;; autocompletion
@@ -191,6 +192,9 @@
   (define-key company-active-map (kbd "C-u") 'company-show-location)
   (make-variable-buffer-local 'company-backends)
   (add-hook 'markdown-mode-hook 'activate-company-ispell))
+(use-package slime
+	     :config
+	     (slime-setup '(slime-company)))
 (use-package company-robe
   :config
   (add-to-list 'company-backends 'company-robe))
@@ -336,11 +340,6 @@
 (add-hook 'ruby-mode-hook 'robe-mode)
 (setq python-shell-interpreter "python3") ;; I use Python 3
 
-
-
-
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
-(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
 (setq slime-contribs '(slime-fancy))
 (setq inferior-lisp-program "sbcl")
