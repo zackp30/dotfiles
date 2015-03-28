@@ -36,7 +36,6 @@
                 workgroups2
                 auto-complete-clang
                 robe
-                company-ghc
                 rainbow-identifiers ;; rainbows!
                 rainbow-blocks ;; omg more rainbows
                 flycheck-rust ;; flycheck for the Rust language
@@ -195,8 +194,9 @@
   (add-to-list 'company-backends 'company-robe))
 (use-package company-anaconda
   :config
-  (add-to-list 'company-backends 'company-anaconda)
-  (add-hook 'python-mode-hook 'anaconda-mode))
+  (add-hook 'python-mode-hook (lambda ()
+                                (anaconda-mode)
+                                (add-to-list 'company-backends 'company-anaconda))))
 (use-package projectile
   :config
   (projectile-global-mode))
@@ -214,9 +214,6 @@
   :config
   (add-hook 'haskell-mode-hook 'ghc-init)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
-(use-package company-ghc
-  :config
-  (add-to-list 'company-backends 'company-ghc))
 (use-package evil
   :config
   (evil-mode 1)
