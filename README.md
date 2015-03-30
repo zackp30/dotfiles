@@ -11,5 +11,3 @@ Using [Homeshick](https://github.com/andsens/homeshick):
 git clone https://github.com/andsens/homeshick ~/.homesick/repos/homeshick
 ~/.homesick/repos/homeshick/bin/homeshick clone http://github.com/zackp30/dotfiles
 ```
-
-![](http://p.apertron.net/piwik.php?idsite=2amp;rec=1)
