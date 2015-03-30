@@ -255,6 +255,8 @@
 (require 'tramp)
 (require 'whitespace)
 
+(column-number-mode 1)
+
 (menu-bar-mode -1) ;; disabe menubar
 (tool-bar-mode -1) ;; disable toolbar
 (scroll-bar-mode -1) ;; disable scrollbar
