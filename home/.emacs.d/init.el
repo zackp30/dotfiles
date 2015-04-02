@@ -30,6 +30,11 @@
                 editorconfig
                 evil-indent-textobject
                 evil-matchit
+                etags-select
+                git-commit-mode
+                git-rebase-mode
+                gitconfig-mode
+                gitignore-mode
                 scss-mode ;; mode for the Sass language
                 pophint
                 ag ;; the silver searcher
@@ -132,6 +137,7 @@
  '(delete-selection-mode nil)
  '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
  '(eclim-executable "~/eclipse/eclipse/eclim")
+ '(evilnc-hotkey-comment-operator "gco")
  '(global-hl-line-mode t)
  '(global-hl-line-sticky-flag t)
  '(indent-guide-char "│")
@@ -233,7 +239,13 @@
   (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
   (use-package evil-nerd-commenter
     :config
-    (evilnc-default-hotkeys)))
+       (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
+       (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
+       (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
+       (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
+       (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
+       (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
+       (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
 (use-package emmet-mode
   :init
   (add-hook 'web-mode-hook 'emmet-mode)
@@ -349,7 +361,7 @@
 
 
 (setq slime-contribs '(slime-fancy))
-(setq inferior-lisp-program "sbcl")
+(setq inferior-lisp-program "clisp")
 
 ;; Yay zenburn.
 (load-theme 'zenburn t)
