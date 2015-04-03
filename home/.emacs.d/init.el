@@ -147,6 +147,7 @@
    (quote
     (("http://wiki.apertron.net" "http://wiki.apertron.net/" "zackp30" nil "Main Page")
      ("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page"))))
+ '(safe-local-variable-values (quote ((auto-fill-mode) (auto-fill-mode . 1))))
  '(sml/full-mode-string " ...")
  '(sml/show-client t)
  '(sml/theme (quote dark))
@@ -528,6 +529,8 @@
 (add-hook 'python-mode-hook 'eldoc-mode)
 
 (winner-mode 1)
+
+(setq magit-auto-revert-mode nil)
 
 (provide 'init)
 ;;; init.el ends here
