@@ -43,6 +43,7 @@
                 robe
                 rainbow-identifiers ;; rainbows!
                 rainbow-blocks ;; omg more rainbows
+                yaml-mode
                 flycheck-rust ;; flycheck for the Rust language
                 rust-mode ;; mode for the Rust language
                 slime-company
@@ -531,6 +532,9 @@
 (winner-mode 1)
 
 (setq magit-auto-revert-mode nil)
+(setq magit-last-seen-setup-instructions "1.4.0")
+
+(show-paren-mode 1)
 
 (provide 'init)
 ;;; init.el ends here
