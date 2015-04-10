@@ -337,6 +337,7 @@
   '(define-key evil-insert-state-map (kbd "C-k") 'yas-expand))
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-c w") 'ace-window)
 
 (yas-global-mode 1)
 (indent-guide-global-mode 1)
