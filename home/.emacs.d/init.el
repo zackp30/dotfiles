@@ -58,6 +58,7 @@
                 magit-tramp
                 table ;; tables!
                 smex
+                emmet-mode
                 ibuffer-vc
                 mediawiki ;; mediawiki client
                 wgrep-ag ;; writable grep, but for ag
@@ -81,7 +82,6 @@
                 markdown-mode ;; mode for the Markdown markup
                 indent-guide ;; a "ruler" for indentation
                 rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
-                php-mode ;; mode for the PHP language
                 nim-mode
                 helm-projectile ;; projectile integration for helm
                 perspective ;; basically tabs
@@ -125,6 +125,12 @@
 (loop for pkg in pkgs do
       (require-package pkg))
 (require 'use-package)
+(defun a-mode (ext mode)
+  "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
+  (add-to-list 'auto-mode-alist
+               (cons
+                (format "\\%s\\'" ext)
+                (intern (concat mode "-mode")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -187,6 +193,18 @@
 (use-package editorconfig)
 (use-package bookmark+)
 (use-package bitbake)
+(use-package web-mode
+  :init
+  (a-mode ".phtml" "web")
+  (a-mode ".tpl\\.php" "web")
+  (a-mode ".[agj]sp" "web")
+  (a-mode ".as[cp]x" "web")
+  (a-mode ".erb" "web")
+  (a-mode ".mustache" "web")
+  (a-mode ".djhtml" "web")
+  (a-mode ".ejs" "web")
+  (a-mode ".html?" "web")
+  (a-mode "php" "web"))
 (use-package yasnippet
   :config
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
@@ -206,8 +224,8 @@
   (make-variable-buffer-local 'company-backends)
   (add-hook 'markdown-mode-hook 'activate-company-ispell))
 (use-package slime
-	     :config
-	     (slime-setup '(slime-company)))
+  :config
+  (slime-setup '(slime-company)))
 (use-package company-robe
   :config
   (add-to-list 'company-backends 'company-robe))
@@ -241,18 +259,21 @@
   (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
   (use-package evil-nerd-commenter
     :config
-       (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
-       (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
-       (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
-       (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
-       (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
-       (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
-       (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
+    (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
+    (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
+    (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
+    (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
+    (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
+    (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
+    (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
+
+(defun turn-on-emmet-mode ()
+  (emmet-mode 1))
 (use-package emmet-mode
-  :init
-  (add-hook 'web-mode-hook 'emmet-mode)
-  (add-hook 'sgml-mode-hook 'emmet-mode)
-  (add-hook 'css-mode-hook 'emmet-mode))
+  :config
+  (add-hook 'web-mode-hook 'turn-on-emmet-mode)
+  (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
+  (add-hook 'css-mode-hook 'turn-on-emmet-mode))
 (use-package io-mode)
 (use-package cmake-mode
   :init
@@ -290,12 +311,6 @@
   "Get a random color."
   (get-rnd-list '("blue" "red" "yellow" "pink")))
 
-(defun a-mode (ext mode)
-  "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
-  (add-to-list 'auto-mode-alist
-               (cons
-                (format "\\%s\\'" ext)
-                (intern (concat mode "-mode")))))
 
 
 
@@ -353,12 +368,8 @@
 (setq org-log-done t)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(add-hook 'prog-mode-hook  'hs-minor-mode)
 (add-hook 'prog-mode-hook  'flyspell-prog-mode)
 (add-hook 'text-mode-hook  'flyspell-mode)
-(add-hook 'haskell-mode-hook 'hs-minor-mode)
-(add-hook 'python-mode-hook 'hs-minor-mode)
-(add-hook 'ruby-mode-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'robe-mode)
 (setq python-shell-interpreter "python3") ;; I use Python 3
 
@@ -408,17 +419,8 @@
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(require 'web-mode)
 
-(a-mode ".phtml" "web")
-(a-mode ".tpl\\.php" "web")
-(a-mode ".[agj]sp" "web")
-(a-mode ".as[cp]x" "web")
-(a-mode ".erb" "web")
-(a-mode ".mustache" "web")
-(a-mode ".djhtml" "web")
-(a-mode ".ejs" "web")
-(a-mode ".html?" "web")
+
 
 ;; Misc functions
 (defun increment-number-at-point ()
