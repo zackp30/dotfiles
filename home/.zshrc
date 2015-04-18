@@ -32,7 +32,7 @@ if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
 fi
 setopt prompt_subst
 autoload -U colors && colors
-export EDITOR=emacs
+export EDITOR=e
 HISTSIZE=99999999
 SAVEHIST=99999999
 HISTFILE=~/.zsh_history
