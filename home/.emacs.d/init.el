@@ -87,7 +87,6 @@
                 perspective ;; basically tabs
                 smart-mode-line ;; a nice mode line
                 wanderlust ;; email
-                sx
                 yasnippet ;; snippets
                 evil-snipe
                 mmm-mode
@@ -223,9 +222,6 @@
   (define-key company-active-map (kbd "C-u") 'company-show-location)
   (make-variable-buffer-local 'company-backends)
   (add-hook 'markdown-mode-hook 'activate-company-ispell))
-(use-package slime
-  :config
-  (slime-setup '(slime-company)))
 (use-package company-robe
   :config
   (add-to-list 'company-backends 'company-robe))
@@ -266,7 +262,17 @@
     (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
     (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
     (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
+(require 'slime-autoloads)
 
+(use-package slime
+  :config
+  (add-hook 'slime-repl-mode-hook
+            (lambda ()
+              (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+              (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
+              (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+              (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
+  (slime-setup '(slime-fancy slime-repl slime-company)))
 (defun turn-on-emmet-mode ()
   (emmet-mode 1))
 (use-package emmet-mode
@@ -325,7 +331,7 @@
 (a-mode "Rakefile" "ruby")
 (a-mode ".ledger" "ledger")
 (add-to-list 'auto-mode-alist
-             '("mutt-" . mail-mode))
+             '("mutt-" . mail-mode)) ;; mutt temporary files
 
 
 
@@ -375,7 +381,7 @@
 
 
 (setq slime-contribs '(slime-fancy))
-(setq inferior-lisp-program "clisp")
+(setq inferior-lisp-program "ecl")
 
 ;; Yay zenburn.
 (load-theme 'zenburn t)
