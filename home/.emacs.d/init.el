@@ -268,6 +268,7 @@
   :config
   (add-hook 'slime-repl-mode-hook
             (lambda ()
+              ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
               (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
               (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
               (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
