@@ -382,7 +382,7 @@
 
 
 (setq slime-contribs '(slime-fancy))
-(setq inferior-lisp-program "ecl")
+(setq inferior-lisp-program "clisp")
 
 ;; Yay zenburn.
 (load-theme 'zenburn t)
