@@ -170,7 +170,6 @@ alias fig="showfigfonts | less"
 function gi() { curl -L -s https://www.gitignore.io/api/$@ }
 
 
-[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 
 mt_load_mods() {
     for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> $1

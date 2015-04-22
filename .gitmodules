@@ -40,3 +40,9 @@
 [submodule "home/.config/awesome/luaimap"]
 	path = home/.config/awesome/luaimap
 	url = https://gitorious.org/luaimap/luaimap4.git
+[submodule "home/.tmux/tmux-pain-control"]
+	path = home/.tmux/tmux-pain-control
+	url = https://github.com/tmux-plugins/tmux-pain-control
+[submodule "home/.tmux/tmux-copycat"]
+	path = home/.tmux/tmux-copycat
+	url = https://github.com/tmux-plugins/tmux-copycat
