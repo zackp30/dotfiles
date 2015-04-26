@@ -79,6 +79,7 @@
                 emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                 coffee-mode ;; mode for the CoffeeScript language
                 git-gutter ;; Git status in left fringe
+                svg-mode-line-themes
                 markdown-mode ;; mode for the Markdown markup
                 indent-guide ;; a "ruler" for indentation
                 rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
@@ -117,6 +118,7 @@
                 spinner
                 sourcegraph
                 go-mode
+                elixir-mode
                 io-mode))
 
 
@@ -206,6 +208,8 @@
   (a-mode "php" "web"))
 (use-package yasnippet
   :config
+  (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
+  (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil))
 (use-package mediawiki)
@@ -356,7 +360,7 @@
 
 ;; ALL the modes!
 (eval-after-load "evil"
-  '(define-key evil-insert-state-map (kbd "C-k") 'yas-expand))
+  '(define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map (kbd "C-c w") 'ace-window)
@@ -545,6 +549,8 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (show-paren-mode 1)
+(when (eq window-system 'X)
+    (require 'ocodo-svg-mode-line))
 
 (provide 'init)
 ;;; init.el ends here

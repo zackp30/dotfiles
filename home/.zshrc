@@ -237,6 +237,8 @@ alias cab='cabal install'
 alias :q='exit'
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' # for TRAMP
 
+[[ $DISPLAY == ":0" ]] && unset TMUX
+
 source_if_exists ~/.locals.sh
 
 
