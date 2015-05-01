@@ -159,7 +159,6 @@
  '(sml/full-mode-string " ...")
  '(sml/show-client t)
  '(sml/theme (quote dark))
- '(socks-server (quote ("Default server" "localhost" 9001 5)))
  '(transient-mark-mode 1))
 
 
@@ -551,6 +550,8 @@
 (show-paren-mode 1)
 (when (eq window-system 'X)
     (require 'ocodo-svg-mode-line))
+
+(mouse-avoidance-mode 'banish)
 
 (provide 'init)
 ;;; init.el ends here
