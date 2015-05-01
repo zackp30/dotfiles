@@ -114,7 +114,7 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", "IRC", "Misc", "Mining" }, s, layouts[1])
+    tags[s] = awful.tag({ "Main", "WWW", "Minecraft", }, s, layouts[1])
 end
 -- }}}
 -- {{{ Menu
@@ -418,19 +418,6 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    { rule = { class = "urxvt-256color" },
-      properties = { floating = false } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    { rule = { class = "Dogecoin-qt" },
-      properties = { tag = tags[1][6] } },
-    { rule = { class = "Quarkcoin-qt" },
-      properties = { tag = tags[1][6] } },
     { rule = { class = "Skype" },
       properties = { tag = tags[1][4] } },
 }
