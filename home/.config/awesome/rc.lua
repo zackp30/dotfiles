@@ -277,7 +277,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, ".", obvious.volume_alsa.lower(0, speaker_name, 5)),
     awful.key({ modkey, "Shift" }, "`", function () awful.util.spawn("lock") end),
     awful.key({modkey, "Shift"}, "x", xrandr),
-    awful.key({modkey, "Shift"}, "A", raise_conky, lower_conky),
     awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end), -- Spawn the pass dmenu script.
     -- }}}
 
