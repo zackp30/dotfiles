@@ -36,9 +36,9 @@
                 gitconfig-mode
                 gitignore-mode
                 scss-mode ;; mode for the Sass language
-                pophint
                 ag ;; the silver searcher
                 workgroups2
+                gist
                 auto-complete-clang
                 robe
                 rainbow-identifiers ;; rainbows!
@@ -70,7 +70,6 @@
                 company-anaconda
                 company-ghc
                 projectile ;; project management
-                smartparens ;; automatically insert parenthesis
                 helm-swoop
                 ein
                 bookmark+
@@ -102,8 +101,12 @@
                 ledger-mode
                 flycheck-ledger
                 ace-jump-mode ;; easymotion
+                ace-flyspell ;; ace-jump-mode for flyspell
+                ace-jump-helm-line
                 ace-window
                 d-mode ;; mode for the D language
+                js2-mode
+                company-tern
                 web-mode ;; mode for web stuff
                 ghc 
                 ghci-completion
@@ -116,12 +119,9 @@
                 gnuplot-mode
                 dired+
                 spinner
-                sourcegraph
                 go-mode
                 elixir-mode
                 io-mode))
-
-
 
 (loop for pkg in pkgs do
       (require-package pkg))
@@ -132,6 +132,7 @@
                (cons
                 (format "\\%s\\'" ext)
                 (intern (concat mode "-mode")))))
+(setq-default flycheck-emacs-lisp-load-path 'inherit)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -161,15 +162,13 @@
  '(sml/theme (quote dark))
  '(transient-mark-mode 1))
 
-
 ;; Misc requires
 (require 'htmlize)
-(use-package pophint
-  :bind ("C-'" . pophint:do-flexibly))
 (use-package indent-guide)
 (use-package company-ghc
   :config
-  (add-to-list 'company-backends 'company-ghc))
+  (add-hook 'haskell-mode-hook (lambda ()
+                                 (add-to-list 'company-backends 'company-ghc))))
 
 (use-package ibuffer-vc
   :bind ("C-x C-b" . ibuffer)
@@ -204,7 +203,19 @@
   (a-mode ".djhtml" "web")
   (a-mode ".ejs" "web")
   (a-mode ".html?" "web")
-  (a-mode "php" "web"))
+  (a-mode ".php" "web"))
+(use-package js2-mode
+  :init
+  (a-mode ".js" "js2")
+  (add-hook 'js2-mode-hook (lambda ()
+                             (tern-mode t)
+                             (add-to-list 'company-backends 'company-tern))))
+(use-package ace-flyspell
+  :config
+  (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
+(use-package ace-jump-helm-line
+  :config
+  (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
 (use-package yasnippet
   :config
   (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
@@ -236,13 +247,10 @@
 (use-package projectile
   :config
   (projectile-global-mode))
-
 (use-package smart-mode-line
   :config
   (sml/setup) ;; modeline setup
   (sml/apply-theme 'dark)) ;; dark modeline
-
-
 (use-package smex
   :bind ("M-x" . smex)
   :bind ("M-X" . smex-major-mode-commands))
@@ -266,7 +274,6 @@
     (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
     (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
 (require 'slime-autoloads)
-
 (use-package slime
   :config
   (add-hook 'slime-repl-mode-hook
@@ -321,9 +328,6 @@
   "Get a random color."
   (get-rnd-list '("blue" "red" "yellow" "pink")))
 
-
-
-
 (autoload 'wl "wl" "Wanderlust" t)
 (add-to-list 'auto-mode-alist 
              '(".wl" . emacs-lisp-mode)) 
@@ -336,8 +340,6 @@
 (a-mode ".ledger" "ledger")
 (add-to-list 'auto-mode-alist
              '("mutt-" . mail-mode)) ;; mutt temporary files
-
-
 
 ;; From Bling
 (defun my-evil-modeline-change (default-color)
@@ -368,9 +370,9 @@
 (indent-guide-global-mode 1)
 (helm-mode 1)
 (global-git-gutter-mode 1)
-(smartparens-global-mode t)
 (global-surround-mode t)
 (global-evil-leader-mode)
+(electric-pair-mode 1)
 
 (require 'org)
 (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -407,8 +409,6 @@
   "g t r" 'ctags-create-or-update-tags-table
   ";" 'replace-with-comma)
 
-
-
 (setq list-command-history-max 500)
 (setq-default indent-tabs-mode nil)
 
@@ -429,9 +429,6 @@
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-
-
-
 ;; Misc functions
 (defun increment-number-at-point ()
   (interactive)
@@ -439,6 +436,11 @@
   (or (looking-at "[0123456789]+")
       (error "No number at point"))
   (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+(add-to-list 'imenu-generic-expression
+             '("Used Packages"
+               "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+
 
 (defun decrement-number-at-point ()
   (interactive)
@@ -483,32 +485,19 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-(sourcegraph-mode 1)
-
 (eval-after-load 'flycheck '(require 'flycheck-ledger))
 
 (evil-define-key 'normal evil-snipe-mode-map "zA" 'evil-snipe-f)
 (evil-define-key 'normal evil-snipe-mode-map "]S" 'flyspell-goto-next-error)
 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
 
-(defun testthing ()
-  (when (file-exists-p (format "%s#%s#"
-                               (file-name-directory (buffer-file-name (current-buffer)))
-                               (file-name-nondirectory (buffer-file-name (current-buffer)))))
-    t))
-
-
 (add-hook 'mail-mode-hook 'auto-fill-mode)
-
-(defun foo-wl ()
-  (when evil-mode (evil-change-state 'emacs)))
 
 (add-hook 'wl-hook 'foo-wl)
 (add-hook 'wl-folder-mode-hook 'foo-wl)
 (add-hook 'wl-summary-mode-hook 'foo-wl)
 (add-hook 'wl-message-mode-hook 'foo-wl)
 (add-hook 'mime-view-mode-hook 'foo-wl)
-
 
 (setq helm-display-header-line nil)
 (set-face-attribute 'helm-source-header nil :height 0.1)
@@ -546,12 +535,15 @@
 
 (setq magit-auto-revert-mode nil)
 (setq magit-last-seen-setup-instructions "1.4.0")
-
+(electric-indent-mode 1)
 (show-paren-mode 1)
-(when (eq window-system 'X)
-    (require 'ocodo-svg-mode-line))
 
 (mouse-avoidance-mode 'banish)
+(when (eq window-system 'X)
+  (require 'ocodo-svg-mode-line))
+
+(require 'paste-mode)
+(define-key global-map (kbd "C-c C-p") 'paste-mode)
 
 (provide 'init)
 ;;; init.el ends here

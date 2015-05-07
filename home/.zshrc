@@ -10,13 +10,11 @@ function source_if_exists() {
     [ ! -e "$1" ] || source "$1"
 }
 
-if [ $(detect_command gpg) ]; then
-    if [ -f "${HOME}/.gpg-agent-info" ]; then
-        . "${HOME}/.gpg-agent-info"
-        export GPG_AGENT_INFO
-    else
-        gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
-    fi
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+    . "${HOME}/.gpg-agent-info"
+    export GPG_AGENT_INFO
+else
+    gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
 fi
 
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
@@ -100,10 +98,10 @@ autoload -Uz compinit
 compinit
 export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-    . "${HOME}/.gpg-agent-info"
-    export GPG_AGENT_INFO
-fi
+# if [ -f "${HOME}/.gpg-agent-info" ]; then
+#     . "${HOME}/.gpg-agent-info"
+#     export GPG_AGENT_INFO
+# fi
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
