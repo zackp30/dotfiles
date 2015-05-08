@@ -219,7 +219,7 @@ p_load() {
     export PS1=$PS1$(p_module_privsymbol)" "
     export PS1=$PS1'$(vcs_super_info)'
     export PS1=$PS1$'\n'
-    export PS1=$PS1"➤➤➤ "
+    export PS1=$PS1"$ "
 }
 
 p_load
