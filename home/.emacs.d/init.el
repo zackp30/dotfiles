@@ -37,6 +37,7 @@
                 scss-mode ;; mode for the Sass language
                 ag ;; the silver searcher
                 workgroups2
+                edit-server ;; used by Edit With Emacs
                 gist
                 auto-complete-clang
                 robe
@@ -272,6 +273,10 @@
     (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
     (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
     (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
+(use-package edit-server
+  :config
+  (when (string= (system-name) "linux-nyit.site") ;; home PC
+    (edit-server-start)))
 (require 'slime-autoloads)
 (use-package slime
   :config
@@ -541,9 +546,6 @@
 (when (eq window-system 'X)
   (require 'ocodo-svg-mode-line))
 
-(when (eq (system-name) "linux-nyit.site") ;; home PC
-  (require 'edit-server)
-  (edit-server-start))
 
 (provide 'init)
 ;;; init.el ends here
