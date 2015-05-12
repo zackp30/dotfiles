@@ -5,7 +5,7 @@
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")))
+                         ("gnu" . "https://elpa.gnu.org/packages/")))
 (if (file-exists-p "~/.local.el")
     (load "~/.local.el"))
 
@@ -32,7 +32,6 @@
                 evil-matchit
                 etags-select
                 git-commit-mode
-                git-rebase-mode
                 gitconfig-mode
                 gitignore-mode
                 scss-mode ;; mode for the Sass language
@@ -542,8 +541,6 @@
 (when (eq window-system 'X)
   (require 'ocodo-svg-mode-line))
 
-(require 'paste-mode)
-(define-key global-map (kbd "C-c C-p") 'paste-mode)
 
 (provide 'init)
 ;;; init.el ends here
