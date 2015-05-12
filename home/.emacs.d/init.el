@@ -541,6 +541,9 @@
 (when (eq window-system 'X)
   (require 'ocodo-svg-mode-line))
 
+(when (eq (system-name) "linux-nyit.site") ;; home PC
+  (require 'edit-server)
+  (edit-server-start))
 
 (provide 'init)
 ;;; init.el ends here
