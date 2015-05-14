@@ -89,6 +89,7 @@
                 yasnippet ;; snippets
                 evil-snipe
                 mmm-mode
+                ggtags
                 helm ;; menus for ALL the things
                 flycheck ;; on the fly syntax checking
                 haskell-mode ;; mode for Haskell
@@ -163,12 +164,27 @@
 
 ;; Misc requires
 (require 'htmlize)
-(use-package indent-guide)
+(use-package indent-guide
+  (indent-guide-global-mode 1))
 (use-package company-ghc
   :config
   (add-hook 'haskell-mode-hook (lambda ()
                                  (add-to-list 'company-backends 'company-ghc))))
-
+(use-package helm-projectile
+  :config
+  (global-set-key (kbd "C-c h") 'helm-projectile))
+(use-package surround
+  :config
+  (global-surround-mode 1))
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode 1))
+(use-package ace-jump
+  :config
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+(use-package ace-window
+  :config
+  (define-key global-map (kbd "C-c w") 'ace-window))
 (use-package ibuffer-vc
   :bind ("C-x C-b" . ibuffer)
   :init
@@ -217,10 +233,12 @@
   (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
 (use-package yasnippet
   :config
+  (yas-global-mode 1)
   (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
   (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
-  (define-key yas-minor-mode-map (kbd "TAB") nil))
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
 (use-package mediawiki)
 (use-package todotxt)
 (defun activate-company-ispell ()
@@ -255,8 +273,13 @@
   :bind ("M-X" . smex-major-mode-commands))
 (use-package haskell-mode
   :config
+  (setq haskell-font-lock-symbols t)
   (add-hook 'haskell-mode-hook 'ghc-init)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+(use-package helm
+  :config
+  (helm-mode 1)
+  (helm-autoresize-mode 1))
 (use-package evil
   :config
   (evil-mode 1)
@@ -354,23 +377,11 @@
                                    (face-foreground 'mode-line))))
   (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
-(require 'gl-conf-mode)
-(add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
-                                gl-conf-mode))
+(use-package gl-conf-mode
+  :config
+  (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
+                                  gl-conf-mode)))
 
-;; ALL the modes!
-(eval-after-load "evil"
-  '(define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
-
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-c w") 'ace-window)
-
-(yas-global-mode 1)
-(indent-guide-global-mode 1)
-(helm-mode 1)
-(global-git-gutter-mode 1)
-(global-surround-mode t)
-(global-evil-leader-mode)
 (electric-pair-mode 1)
 
 (require 'org)
@@ -393,40 +404,46 @@
 
 ;; Key bindings
 ;;(global-set-key (kbd "C-TAB") )
-(global-set-key (kbd "C-c h") 'helm-projectile)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 (global-set-key (kbd "C-c r") 'random-commit-message)
 
-(evil-leader/set-leader "<SPC>") ;; space is my leader
-(evil-leader/set-key
-  "p b" 'projectile-switch-to-buffer
-  "p D" 'projectile-dired
-  "p d" 'projectile-find-dir
-  "p s" 'projectile-switch-project
-  "p R" 'projectile-regenerate-tags
-  "p j" 'projectile-find-tag
-  "g t r" 'ctags-create-or-update-tags-table
-  ";" 'replace-with-comma)
+(use-package evil-leader
+  :config
+  (evil-leader/set-leader "<SPC>") ;; space is my leader
+  (global-evil-leader-mode 1)
+  (evil-leader/set-key
+    "p b" 'projectile-switch-to-buffer
+    "p D" 'projectile-dired
+    "p d" 'projectile-find-dir
+    "p s" 'projectile-switch-project
+    "p R" 'projectile-regenerate-tags
+    "p j" 'projectile-find-tag
+    "g t r" 'ctags-create-or-update-tags-table))
 
 (setq list-command-history-max 500)
 (setq-default indent-tabs-mode nil)
 
-(require 'undo-tree)
+(use-package undo-tree
+  :config
+  (setq undo-tree-auto-save-history 1)
+  (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/")))))
 
 (setq-default tab-width 2)
-(setq undo-tree-auto-save-history 1)
-(setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
 
-;; Haskell unicode symbols! (from the Haskell wiki)
-(setq haskell-font-lock-symbols t)
-(autoload 'scss-mode "scss-mode")
+(use-package scss-mode
+  :config
+  (setq scss-compile-at-save nil)
+  (a-mode ".scss" "scss"))
 
-(a-mode ".scss" "scss")
-(setq scss-compile-at-save nil)
-
-(add-hook 'prog-mode-hook 'highlight-numbers-mode)
-(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(use-package highlight-numbers-mode
+  :config
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+(use-package rainbow-identifiers-mode
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
+(use-package rainbow-delimiters-mode
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; Misc functions
 (defun increment-number-at-point ()
@@ -454,15 +471,9 @@
 (require 'saveplace)
 (setq-default save-place t)
 
-
-(defun replace-with-comma ()
-  (interactive)
-  (delete-forward-char 1)
-  (insert ",")
-  (evil-append 1))
-
-(require 'ag)
-(define-key ag-mode-map (kbd "k") nil) ;; stop conflicts with evil
+(use-package ag
+  :config
+  (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -491,6 +502,8 @@
 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)
 
 (add-hook 'mail-mode-hook 'auto-fill-mode)
+(defun foo-wl ()
+  (when evil-mode (evil-change-state 'emacs)))
 
 (add-hook 'wl-hook 'foo-wl)
 (add-hook 'wl-folder-mode-hook 'foo-wl)
@@ -501,11 +514,15 @@
 (setq helm-display-header-line nil)
 (set-face-attribute 'helm-source-header nil :height 0.1)
 
-(helm-autoresize-mode 1)
+(use-package magit
+  :config
+  (setq magit-auto-revert-mode nil)
+  (setq magit-last-seen-setup-instructions "1.4.0")
 
-(require 'magit-gitflow)
-(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+  (use-package magit-gitflow
+    :config
+    (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
 
 (defun insert-shell-command (command)
   (interactive "scommand: ")
@@ -530,17 +547,13 @@
 
 (add-hook 'python-mode-hook 'eldoc-mode)
 
-(winner-mode 1)
 
-(setq magit-auto-revert-mode nil)
-(setq magit-last-seen-setup-instructions "1.4.0")
 (electric-indent-mode 1)
 (show-paren-mode 1)
 
 (mouse-avoidance-mode 'banish)
 (when (eq window-system 'X)
   (require 'ocodo-svg-mode-line))
-
 
 (provide 'init)
 ;;; init.el ends here
