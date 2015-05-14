@@ -166,6 +166,7 @@
 ;; Misc requires
 (require 'htmlize)
 (use-package indent-guide
+  :config
   (indent-guide-global-mode 1))
 (use-package company-ghc
   :config
