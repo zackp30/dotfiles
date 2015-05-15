@@ -17,6 +17,45 @@ else
     gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
 fi
 
+# From the ZSH wiki
+# create a zkbd compatible hash;
+# to add other keys to this hash, see: man 5 terminfo
+typeset -A key
+
+key[Home]=${terminfo[khome]}
+key[End]=${terminfo[kend]}
+key[Insert]=${terminfo[kich1]}
+key[Delete]=${terminfo[kdch1]}
+key[Up]=${terminfo[kcuu1]}
+key[Down]=${terminfo[kcud1]}
+key[Left]=${terminfo[kcub1]}
+key[Right]=${terminfo[kcuf1]}
+key[PageUp]=${terminfo[kpp]}
+key[PageDown]=${terminfo[knp]}
+
+# setup key accordingly
+[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
+[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
+[[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
+[[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
+[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
+[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
+[[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
+[[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
+
+# Finally, make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+function zle-line-init () {
+    echoti smkx
+}
+function zle-line-finish () {
+    echoti rmkx
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+
+
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
 source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
@@ -35,6 +74,9 @@ HISTSIZE=99999999
 SAVEHIST=99999999
 HISTFILE=~/.zsh_history
 setopt histignorealldups sharehistory
+
+[[ -s /home/zack/.autojump/etc/profile.d/autojump.sh ]] && source /home/zack/.autojump/etc/profile.d/autojump.sh
+
 
 autoload -Uz compinit
 compinit
@@ -60,9 +102,9 @@ if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$
 fi
 
 zle -N insert-sudo insert_sudo
-bindkey "^[s" insert-sudo
 export TMOUT=3600
 bindkey -v
+bindkey -s '^O' '^qcd\n'
 mesg n
 export KEYTIMEOUT=1
 source_if_exists ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
@@ -142,6 +184,15 @@ fbr() {
     branches=$(git branch) &&
         branch=$(echo "$branches" | fzf +s +m) &&
         git checkout $(echo "$branch" | sed "s/.* //")
+}
+
+# fstage - stage uncommited file
+
+fstage() {
+    local files
+    files="$(git status --porcelain)"
+    to_stage=$(echo $files | fzf +m | rev | cut -d' ' -f1| rev)
+    for i in to_stage; do git add $to_stage; done
 }
 
 # fco - checkout git commit
