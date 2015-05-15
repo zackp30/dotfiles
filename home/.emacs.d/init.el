@@ -181,7 +181,7 @@
 (use-package git-gutter
   :config
   (global-git-gutter-mode 1))
-(use-package ace-jump
+(use-package ace-jump-mode
   :config
   (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
 (use-package ace-window
@@ -230,6 +230,9 @@
 (use-package ace-flyspell
   :config
   (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
+(use-package ggtags
+  :config
+  (add-hook 'prog-mode-hook 'ggtags-mode))
 (use-package ace-jump-helm-line
   :config
   (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))

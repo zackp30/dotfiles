@@ -291,6 +291,8 @@ alias :q='exit'
 source_if_exists ~/.locals.sh
 
 
+alias gcem="git commit -am '' --allow-empty-message"
+alias grmv="git remote -v"
 task
 
 source_if_exists ~/.fzf.zsh
