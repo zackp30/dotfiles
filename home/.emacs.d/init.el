@@ -395,7 +395,7 @@
 (define-key global-map (kbd "C-c a") 'org-agenda)
 (setq org-log-done t)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'prog-mode-hook  'flyspell-prog-mode)
 (add-hook 'text-mode-hook  'flyspell-mode)
 (add-hook 'ruby-mode-hook 'robe-mode)
@@ -441,13 +441,13 @@
   (setq scss-compile-at-save nil)
   (a-mode ".scss" "scss"))
 
-(use-package highlight-numbers-mode
+(use-package highlight-numbers
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
-(use-package rainbow-identifiers-mode
+(use-package rainbow-identifiers
   :config
   (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
-(use-package rainbow-delimiters-mode
+(use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
