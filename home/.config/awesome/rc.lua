@@ -183,44 +183,44 @@ for s = 1, screen.count() do
    -- mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
    mytaglist[s]=blingbling.tagslist(s,  awful.widget.taglist.filter.all, mytaglist.buttons--[[, { normal = {}, focus ={}, urgent={}, occupied={} }--]])
 
-   -- Create a tasklist widget
-   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+                                    -- Create a tasklist widget
+                                    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
-   -- Create the wibox
-   mywibox[s] = awful.wibox({ position = "top", screen = s })
+                                    -- Create the wibox
+                                    mywibox[s] = awful.wibox({ position = "top", screen = s })
 
-   if vicious.widgets.os()[4] == "linux-nyit.site" then
-      speaker_name = "Master"
-   else
-      speaker_name = "Speaker"
-   end
-   -- Widgets that are aligned to the left
-   local left_layout = wibox.layout.fixed.horizontal()
-   left_layout:add(mylauncher)
-   left_layout:add(mytaglist[s])
-   left_layout:add(mypromptbox[s])
+                                    if vicious.widgets.os()[4] == "linux-nyit.site" then
+                                       speaker_name = "Master"
+                                    else
+                                       speaker_name = "Speaker"
+                                    end
+                                    -- Widgets that are aligned to the left
+                                    local left_layout = wibox.layout.fixed.horizontal()
+                                    left_layout:add(mylauncher)
+                                    left_layout:add(mytaglist[s])
+                                    left_layout:add(mypromptbox[s])
 
-   -- Widgets that are aligned to the right
-   local right_layout = wibox.layout.fixed.horizontal()
-   if s == 1 then right_layout:add(wibox.widget.systray()) end
-   right_layout:add(mytextclock)
-   right_layout:add(mylayoutbox[s])
-   right_layout:add(obvious.volume_alsa(0, speaker_name))
-   right_layout:add(obvious.battery())
-   right_layout:add(cpu_graph)
-
-
+                                    -- Widgets that are aligned to the right
+                                    local right_layout = wibox.layout.fixed.horizontal()
+                                    if s == 1 then right_layout:add(wibox.widget.systray()) end
+                                    right_layout:add(mytextclock)
+                                    right_layout:add(mylayoutbox[s])
+                                    right_layout:add(obvious.volume_alsa(0, speaker_name))
+                                    right_layout:add(obvious.battery())
+                                    right_layout:add(cpu_graph)
 
 
-   -- right_layout:add(myemailwidget)
 
-   -- Now bring it all together (with the tasklist in the middle)
-   local layout = wibox.layout.align.horizontal()
-   layout:set_left(left_layout)
-   layout:set_middle(mytasklist[s])
-   layout:set_right(right_layout)
 
-   mywibox[s]:set_widget(layout)
+                                    -- right_layout:add(myemailwidget)
+
+                                    -- Now bring it all together (with the tasklist in the middle)
+                                    local layout = wibox.layout.align.horizontal()
+                                    layout:set_left(left_layout)
+                                    layout:set_middle(mytasklist[s])
+                                    layout:set_right(right_layout)
+
+                                    mywibox[s]:set_widget(layout)
 end
 root.buttons(awful.util.table.join(
                 awful.button({ }, 3, function () mymainmenu:toggle() end),
