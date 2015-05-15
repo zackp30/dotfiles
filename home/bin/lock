@@ -1,7 +1,7 @@
 #/usr/bin/sh
 # Screen lock.
-# Requires scrot, ImageMagikc and i3lock.
+# Requires maim, ImageMagick and i3lock.
 tmp="$(mktemp -d)"
-scrot $tmp/i.png
+maim $tmp/i.png
 convert $tmp/i.png -blur 50 $tmp/blur.png
 i3lock -i $tmp/blur.png
