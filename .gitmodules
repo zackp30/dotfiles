@@ -46,3 +46,6 @@
 [submodule "home/.tmux/tmux-copycat"]
 	path = home/.tmux/tmux-copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
+[submodule "home/.urxvt/urxvt-perls"]
+	path = home/.urxvt/urxvt-perls
+	url = https://github.com/muennich/urxvt-perls

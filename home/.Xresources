@@ -1,7 +1,11 @@
 ! Colors - also see scripts/xcolor for switching
 ! #include "/home/zack/.xcolours/solarized.xcolours"
 
-URxvt.perl-lib: /ome/zack/urxvt-perls
+URxvt.perl-lib: ~/.urxvt/urxvt-perls/
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
 ! Fonts
 Xft.antialias:  true
 Xft.hinting:    true
@@ -9,8 +13,6 @@ Xft.rgba:       rgb
 Xft.hintstyle:  hintfull
 
 urxvt.font:  xft:Source Code Pro Black:size=8
-/* urxvt.font:  xft:DejaVuSansMono:size=8 */
-/* urxvt.font:  xft:DejaVuSansMono:size=10 */
 
 URxvt.scrollBar:  false
 URxvt.jumpScroll: true
@@ -32,7 +34,6 @@ URxvt.urgentOnBell:    true
 
 URxvt*cursorBlink:     true
 
-URxvt.perl-ext-common: default,keyboard-select,url-select,clipboard
 URxvt.url-select.launcher: firefox
 URxvt.url-select.underline: true
 URxvt.keysym.M-A: perl:keyboard-select:activate
