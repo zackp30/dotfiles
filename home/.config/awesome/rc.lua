@@ -55,6 +55,10 @@ terminal = "urxvt-256color"
 if os.getenv("HOST") == "linux-nyit" then
    awful.util.spawn("xrandr --output VGA-1 --right-of HDMI-1 --output HDMI-1 --mode 1680x1050")
 end
+if os.getenv("HOST") == "xieshaij" then
+   awful.util.spawn("xvfbsetupz")
+end
+awful.util.spawn("copyq") -- clipboard manager
 editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -232,6 +236,7 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey }, ",", function() obvious.volume_alsa.raise(0, speaker_name, 5) end),
    awful.key({ modkey }, "s", function() awful.util.spawn("rofi -show window") end),
    awful.key({ modkey, "Shift" }, "`", function () awful.util.spawn("lock") end),
+   awful.key({ modkey, }, "¬", function () awful.util.spawn("lock") end),
    awful.key({modkey, "Shift"}, "x", xrandr),
    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end), -- Spawn the pass dmenu script.
 
