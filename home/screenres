@@ -1,0 +1,4 @@
+#!/bin/bash
+if [[ $REMOTE_HOSTNAME == "mlaptop" ]]; then
+    echo "1440x900"
+fi
