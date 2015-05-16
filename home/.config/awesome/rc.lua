@@ -14,6 +14,8 @@ local vicious = require("vicious")
 require("obvious.volume_alsa")
 require("obvious.mem")
 require("obvious.battery")
+local rodentbane = require("rodentbane")
+rodentbane.start()
 function does_monitor_exist(m)
    if vicious.widgets.os()[4] == 'linux.site' then
       if screen.count() == 2 then
