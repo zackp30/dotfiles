@@ -49,3 +49,6 @@
 [submodule "home/.urxvt/urxvt-perls"]
 	path = home/.urxvt/urxvt-perls
 	url = https://github.com/muennich/urxvt-perls
+[submodule "home/.config/awesome/rodentbane"]
+	path = home/.config/awesome/rodentbane
+	url = https://github.com/zackp30/rodentbane
