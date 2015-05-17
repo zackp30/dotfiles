@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     </head>
     <body>
         <script>
+         var registerCallback = function (widget, fn) {
+             var obj = 'widget_' + widget
+             if (typeof window[obj] === 'undefined') {
+                 return false
+             }
+             window[obj].onDataChanged = fn
+         }
          registerCallback('datetime', function(date, time) {
              console.log(date,time);
          })
