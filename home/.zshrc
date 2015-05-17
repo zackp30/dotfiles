@@ -189,10 +189,10 @@ fbr() {
 # fstage - stage uncommited file
 
 fstage() {
-    local files
+    local files to_stage
     files="$(git status --porcelain)"
-    to_stage=$(echo $files | fzf +m | rev | cut -d' ' -f1| rev)
-    for i in to_stage; do git add $to_stage; done
+    to_stage=$(echo $files | fzf -m | rev | cut -d' ' -f1 | rev)
+    git add $(echo $to_stage | tr '\n' ' ')
 }
 
 # fco - checkout git commit
