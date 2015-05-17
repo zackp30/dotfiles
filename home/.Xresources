@@ -3,7 +3,7 @@
 
 URxvt.perl-lib: ~/.urxvt/urxvt-perls/
 URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: browser
+URxvt.url-launcher: lbrowser
 URxvt.matcher.button: 1
 
 ! Fonts
