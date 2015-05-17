@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $HOST == "xieshaij" ]]; then
+    echo "chrome"
+else
+    echo "firefox"
+fi
