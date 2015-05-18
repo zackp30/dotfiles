@@ -12,7 +12,7 @@ Xft.hinting:    true
 Xft.rgba:       rgb
 Xft.hintstyle:  hintfull
 
-urxvt.font:  xft:Source Code Pro Black:size=8
+urxvt.font:  xft:AUDIMRG_:size=8
 
 URxvt.scrollBar:  false
 URxvt.jumpScroll: true
