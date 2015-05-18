@@ -12,7 +12,7 @@ if os.getenv("HOSTNAME") == "raspberrypi" then
   theme.wallpaper = os.getenv("HOME").."/bg/pi.jpg"
 else
   -- theme.wallpaper = os.getenv("HOME").."/.config/awesome/themes/zenburn/fig.png"
-  theme.wallpaper = os.getenv("HOME").."/.config/awesome/themes/zenburn/pattern.jpg"
+  theme.wallpaper = os.getenv("HOME").."/.config/awesome/themes/zenburn/gnu.png"
 
 end
 -- }}}
