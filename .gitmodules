@@ -49,3 +49,6 @@
 [submodule "home/.urxvt/urxvt-perls"]
 	path = home/.urxvt/urxvt-perls
 	url = https://github.com/muennich/urxvt-perls
+[submodule "home/.config/awesome/alttab"]
+	path = home/.config/awesome/alttab
+	url = https://github.com/jorenheit/awesome_alttab
