@@ -11,7 +11,6 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
 local alttab = require('alttab')
--- local async = require('asyncshell') -- https://github.com/alexander-yakushev/awesompd/blob/master/asyncshell.lua
 require("obvious.volume_alsa")
 require("obvious.mem")
 require("obvious.battery")
@@ -239,8 +238,8 @@ root.buttons(awful.util.table.join(
                 awful.button({ }, 5, awful.tag.viewprev)
 ))
 globalkeys = awful.util.table.join(
-   awful.key({ modkey }, ",", function() alttab.switch(1) end),
-   awful.key({ modkey, "Shift "}, ",", function() alttab.switch(-1) end),
+   awful.key({ modkey }, "g", function() alttab.switch(1, "Alt_L", "g", "g") end),
+   awful.key({ modkey, "Control" }, "g", function() alttab.switch(-1, "Alt_L", "g", "g") end),
    awful.key({ modkey }, "s", function() awful.util.spawn("rofi -show window") end),
    awful.key({ modkey, "Shift" }, "`", function () awful.util.spawn("lock") end),
    awful.key({ modkey, }, "¬", function () awful.util.spawn("lock") end),
