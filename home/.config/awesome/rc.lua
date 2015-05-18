@@ -183,10 +183,10 @@ for s = 1, screen.count() do
    -- We need one layoutbox per screen.
    mylayoutbox[s] = awful.widget.layoutbox(s)
    mylayoutbox[s]:buttons(awful.util.table.join(
-                             awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                             awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                             awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                             awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+                             awful.button({ }, 1, function () awful.layout.inc(1, s, layouts) end),
+                             awful.button({ }, 3, function () awful.layout.inc(-1, s, layouts) end),
+                             awful.button({ }, 4, function () awful.layout.inc(1, s, layouts) end),
+                             awful.button({ }, 5, function () awful.layout.inc(-1, s, layouts) end)))
    -- Create a taglist widget
    -- mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
    mytaglist[s]=blingbling.tagslist(s,  awful.widget.taglist.filter.all, mytaglist.buttons)
@@ -285,13 +285,11 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol(1)         end),
    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-   awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts, 1) end),
-   awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+   awful.key({ modkey,           }, ";", function () awful.layout.inc(1, s, layouts) end),
+   awful.key({ modkey, "Shift"   }, ";", function () awful.layout.inc(1, s, layouts) end),
 
    awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
-
-   -- Menubar
    awful.key({ modkey }, "p", function() awful.util.spawn("rofi -show run") end) -- (dmenu2)
 )
 
@@ -378,8 +376,6 @@ awful.rules.rules = {
                     focus = awful.client.focus.filter,
                     keys = clientkeys,
                     buttons = clientbuttons } },
-   { rule = { class = "Skype" },
-     properties = { tag = tags[1][4] } },
 }
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
