@@ -33,6 +33,7 @@
                 etags-select
                 git-commit-mode
                 gitconfig-mode
+                git-timemachine
                 gitignore-mode
                 scss-mode ;; mode for the Sass language
                 ag ;; the silver searcher
