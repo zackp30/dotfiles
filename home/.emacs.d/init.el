@@ -572,7 +572,9 @@
       evil-visual-state-cursor '((bar . 5) "red")
       evil-normal-state-cursor '((hollow . 5) "white"))
 
-
+(setq initial-scratch-message
+      (format ";; Emacs was started at %s"
+              (format-time-string "%Y-%m-%dT%T")))
 
 
 (provide 'init)
