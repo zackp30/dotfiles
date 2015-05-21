@@ -79,7 +79,7 @@
                 emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                 coffee-mode ;; mode for the CoffeeScript language
                 git-gutter ;; Git status in left fringe
-                svg-mode-line-themes
+                material-theme
                 markdown-mode ;; mode for the Markdown markup
                 indent-guide ;; a "ruler" for indentation
                 rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
@@ -108,6 +108,7 @@
                 ace-window
                 d-mode ;; mode for the D language
                 js2-mode
+                ocodo-svg-modelines
                 company-tern
                 web-mode ;; mode for web stuff
                 ghc 
@@ -141,10 +142,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "/home/zack/.emacs.d/bookmarks")
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(delete-selection-mode nil)
  '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
  '(eclim-executable "~/eclipse/eclipse/eclim")
@@ -162,7 +159,11 @@
  '(sml/full-mode-string " ...")
  '(sml/show-client t)
  '(sml/theme (quote dark))
- '(transient-mark-mode 1))
+ '(transient-mark-mode 1)
+
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))
 
 ;; Misc requires
 (require 'htmlize)
@@ -210,6 +211,11 @@
 (use-package editorconfig)
 (use-package bookmark+)
 (use-package bitbake)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ruby . t)))
+(setq org-src-fontify-natively t)
+
 (use-package web-mode
   :init
   (a-mode ".phtml" "web")
@@ -258,7 +264,8 @@
   (unbind-key (kbd "C-w") company-active-map)
   (define-key company-active-map (kbd "C-u") 'company-show-location)
   (make-variable-buffer-local 'company-backends)
-  (add-hook 'markdown-mode-hook 'activate-company-ispell))
+  (add-hook 'markdown-mode-hook 'activate-company-ispell)
+  (add-hook 'org-mode-hook 'activate-company-ispell))
 (use-package company-robe
   :config
   (add-to-list 'company-backends 'company-robe))
@@ -409,8 +416,8 @@
 (setq slime-contribs '(slime-fancy))
 (setq inferior-lisp-program "clisp")
 
-;; Yay zenburn.
-(load-theme 'zenburn t)
+;; Yay material design.
+(load-theme 'material t)
 
 ;; Key bindings
 ;;(global-set-key (kbd "C-TAB") )
@@ -490,9 +497,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hl-line ((t (:background "color-239"))))
- '(linum ((t (:background "brightblack" :foreground "#9FC59F"))))
- '(sml/prefix ((t (:inherit sml/global :foreground "#bf6000")))))
+ )
 
 (defun random-commit-message ()
   (interactive)
@@ -562,8 +567,13 @@
 (show-paren-mode 1)
 
 (mouse-avoidance-mode 'banish)
-(when (eq window-system 'X)
-  (require 'ocodo-svg-mode-line))
+
+(setq evil-insert-state-cursor '((bar . 2) "blue")
+      evil-visual-state-cursor '((bar . 5) "red")
+      evil-normal-state-cursor '((hollow . 5) "white"))
+
+
+
 
 (provide 'init)
 ;;; init.el ends here

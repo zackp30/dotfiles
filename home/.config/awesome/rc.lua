@@ -376,6 +376,15 @@ awful.rules.rules = {
                     focus = awful.client.focus.filter,
                     keys = clientkeys,
                     buttons = clientbuttons } },
+   { rule = { instance = "cairo-dock" },
+     properties = {
+        floating = true,
+        ontop = true, 
+        focus = false
+     } 
+   }, 
+   { rule = { class = "sel" },
+     properties = { floating = true }}
 }
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)

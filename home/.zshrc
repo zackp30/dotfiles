@@ -102,7 +102,6 @@ if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$
 fi
 
 zle -N insert-sudo insert_sudo
-export TMOUT=3600
 bindkey -v
 bindkey -s '^O' '^qcd\n'
 mesg n
@@ -287,6 +286,8 @@ alias :q='exit'
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' # for TRAMP
 
 [[ $DISPLAY == ":2" ]] && unset TMUX
+
+[[ $TMUX ]] && export TMOUT=3600
 
 source_if_exists ~/.locals.sh
 
