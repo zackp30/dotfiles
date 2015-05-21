@@ -3,6 +3,8 @@ if [[ $REMOTE_HOSTNAME == "mlaptop" ]]; then
     echo "1440x900"
 elif [[ $REMOTE_HOSTNAME == "house_pc" ]]; then
     echo "1280x1024"
+elif [[ $REMOTE_HOSTNAME == "maths_laptop" ]]; then
+    echo "1280x800"
 elif [[ $REMOTE_HOSTNAME == "house_laptop" ]]; then
     echo "1366x768"
 fi

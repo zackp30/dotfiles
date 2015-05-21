@@ -12,10 +12,16 @@
              }
              window[obj].onDataChanged = fn
          }
-         registerCallback('datetime', function(date, time) {
-             console.log(date,time);
-         })
         </script>
-        
+
+        <div id="hi">
+            osttuff
+            things
+        </div>
+        <script>
+         $(document).ready(function() {
+             $('#hi').html('test');
+         });
+        </script>
     </body>
 </html
