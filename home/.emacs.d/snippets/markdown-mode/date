@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: date
+# key: date
+# binding: direct-keybinding
+# --
+`(replace-regexp-in-string "\n$" "" (shell-command-to-string "date"))`
