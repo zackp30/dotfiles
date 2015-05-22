@@ -285,9 +285,6 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol(1)         end),
    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-   awful.key({ modkey,           }, ";", function () awful.layout.inc(1, s, layouts) end),
-   awful.key({ modkey, "Shift"   }, ";", function () awful.layout.inc(1, s, layouts) end),
-
    awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
    awful.key({ modkey }, "p", function() awful.util.spawn("rofi -show run") end) -- (dmenu2)
