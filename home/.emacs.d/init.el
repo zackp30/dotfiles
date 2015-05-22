@@ -40,7 +40,6 @@
                 workgroups2
                 edit-server ;; used by Edit With Emacs
                 gist
-                auto-complete-clang
                 robe
                 rainbow-identifiers ;; rainbows!
                 rainbow-blocks ;; omg more rainbows
@@ -50,30 +49,29 @@
                 slime-company
                 zenburn-theme ;; Zenburn theme
                 surround ;; Delete surrounding characters (`()', `[]', etc.).
-                auto-complete ;; autocompletion
                 highlight-numbers ;; rainbowify numbers
                 todotxt ;; Mode for the todo.txt markup
                 magit ;; git integration
-                magit-gh-pulls
-                magit-gitflow
-                magit-tramp
+                magit-gh-pulls ;; see GitHub pull requests in Magit
+                magit-gitflow ;; Magit interface for git-flow
+                magit-tramp ;; TRAMP integration for Magit
                 table ;; tables!
-                smex
-                emmet-mode
-                ibuffer-vc
+                smex ;; fancy
+                emmet-mode ;; http://emmet.io implementation for Emacs
+                ibuffer-vc ;; ibuffer integration for vc.el
                 mediawiki ;; mediawiki client
                 wgrep-ag ;; writable grep, but for ag
                 racket-mode ;; mode for the Racket 
                 undo-tree ;; vim-like undo tree
                 hydra ;; micro-states!
-                hy-mode
-                company
-                company-anaconda
-                company-ghc
+                hy-mode ;; hy mode
+                company ;; auto completion
+                company-anaconda ;; Python completion for company
+                company-ghc ;; Haskell completion for company
                 projectile ;; project management
-                helm-swoop
-                ein
-                bookmark+
+                helm-swoop ;; grep-like tool for Helm
+                ein ;; iPython Notebook for Emacs
+                bookmark+ ;; 
                 helm-ag
                 browse-kill-ring ;; menu for the killring
                 emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
@@ -182,7 +180,8 @@
   (global-surround-mode 1))
 (use-package git-gutter
   :config
-  (global-git-gutter-mode 1))
+  (global-git-gutter-mode 1)
+  (git-gutter:linum-setup))
 (use-package ace-jump-mode
   :config
   (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
