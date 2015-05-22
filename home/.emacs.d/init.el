@@ -65,6 +65,7 @@
                 undo-tree ;; vim-like undo tree
                 elscreen ;; basically tabs for Emacs
                 hydra ;; micro-states!
+                define-word
                 hy-mode ;; hy mode
                 company ;; auto completion
                 company-anaconda ;; Python completion for company
@@ -91,6 +92,7 @@
                 evil-snipe
                 mmm-mode
                 ggtags
+                ws-butler
                 helm ;; menus for ALL the things
                 flycheck ;; on the fly syntax checking
                 haskell-mode ;; mode for Haskell
@@ -261,6 +263,9 @@
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
 (use-package mediawiki)
+(use-package ws-butler
+  :config
+  (add-hook 'prog-mode-hook 'ws-butler-mode))
 (use-package todotxt)
 (defun activate-company-ispell ()
   "Activate the company ispell backend. Used for hooks."
@@ -453,7 +458,8 @@
 (use-package undo-tree
   :config
   (setq undo-tree-auto-save-history 1)
-  (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/")))))
+  (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
+  (setq undo-tree-visualizer-diff t))
 
 (setq-default tab-width 2)
 
@@ -571,6 +577,7 @@
         regexp-search-ring))
 
 (add-hook 'python-mode-hook 'eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
 
 (electric-indent-mode 1)
@@ -588,6 +595,7 @@
 
 
 
+(run-with-idle-timer 2 t (lambda () (define-word-at-point)))
 
 (provide 'init)
 ;;; init.el ends here
