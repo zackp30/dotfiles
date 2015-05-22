@@ -65,7 +65,6 @@
                 undo-tree ;; vim-like undo tree
                 elscreen ;; basically tabs for Emacs
                 hydra ;; micro-states!
-                define-word
                 hy-mode ;; hy mode
                 company ;; auto completion
                 company-anaconda ;; Python completion for company
@@ -190,6 +189,14 @@
   :config
   (global-git-gutter-mode 1)
   (git-gutter:linum-setup))
+(use-package mmm-mode
+  :config
+  (mmm-add-classes
+   '((markdown-latex
+      :submode latex-mode
+      :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
+      :back "\\\\end")))
+  (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex))
 (use-package ace-jump-mode
   :config
   (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
@@ -576,8 +583,8 @@
         search-ring
         regexp-search-ring))
 
-(add-hook 'python-mode-hook 'eldoc-mode)
-(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+(add-hook 'python-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 
 
 (electric-indent-mode 1)
@@ -595,7 +602,7 @@
 
 
 
-(run-with-idle-timer 2 t (lambda () (define-word-at-point)))
+(mmm-mode 1)
 
 (provide 'init)
 ;;; init.el ends here
