@@ -1,6 +1,6 @@
 #!/bin/bash
 
 export DISPLAY=:2
-xrandr --newmode "$(screenres)_60.00" 106.47 1440 1520 1672 1904 900 901 904 932 -HSync +Vsync
+xrandr --newmode $(cvt $(screenres | sed 's/x/ /') | sed 's/^Modeline//' | sed 's/\"//g' | awk 'NR==2')
 xrandr --addmode screen $(screenres)_60.00
 xrandr --output screen --mode $(screenres)_60.00
