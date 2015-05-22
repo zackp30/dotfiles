@@ -63,6 +63,7 @@
                 wgrep-ag ;; writable grep, but for ag
                 racket-mode ;; mode for the Racket 
                 undo-tree ;; vim-like undo tree
+                elscreen ;; basically tabs for Emacs
                 hydra ;; micro-states!
                 hy-mode ;; hy mode
                 company ;; auto completion
@@ -178,6 +179,11 @@
 (use-package surround
   :config
   (global-surround-mode 1))
+(use-package elscreen
+  :config
+  (define-key evil-normal-state-map (kbd "] t") 'elscreen-next)
+  (define-key evil-normal-state-map (kbd "[ t") 'elscreen-previous)
+  (define-key evil-normal-state-map (kbd "{ t") 'elscreen-create))
 (use-package git-gutter
   :config
   (global-git-gutter-mode 1)
@@ -212,8 +218,12 @@
 (use-package bitbake)
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((ruby . t)))
+ '((ruby . t)
+   (dot . t)
+   (gnuplot . t)
+   (org . t)))
 (setq org-src-fontify-natively t)
+(setq org-startup-with-inline-images t)
 
 (use-package web-mode
   :init
@@ -404,6 +414,7 @@
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 (setq org-log-done t)
+(setq org-directory "~/org")
 
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'prog-mode-hook  'flyspell-prog-mode)
@@ -574,6 +585,8 @@
 (setq initial-scratch-message
       (format ";; Emacs was started at %s"
               (format-time-string "%Y-%m-%dT%T")))
+
+
 
 
 (provide 'init)
