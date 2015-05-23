@@ -63,7 +63,6 @@
                 wgrep-ag ;; writable grep, but for ag
                 racket-mode ;; mode for the Racket 
                 undo-tree ;; vim-like undo tree
-                elscreen ;; basically tabs for Emacs
                 hydra ;; micro-states!
                 hy-mode ;; hy mode
                 company ;; auto completion
@@ -180,11 +179,6 @@
 (use-package surround
   :config
   (global-surround-mode 1))
-(use-package elscreen
-  :config
-  (define-key evil-normal-state-map (kbd "] t") 'elscreen-next)
-  (define-key evil-normal-state-map (kbd "[ t") 'elscreen-previous)
-  (define-key evil-normal-state-map (kbd "{ t") 'elscreen-create))
 (use-package git-gutter
   :config
   (global-git-gutter-mode 1)
