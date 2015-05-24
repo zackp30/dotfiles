@@ -191,6 +191,7 @@
       :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
       :back "\\\\end")))
   (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex))
+
 (use-package ace-jump-mode
   :config
   (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
@@ -258,6 +259,7 @@
 (use-package yasnippet
   :config
   (yas-global-mode 1)
+  (a-mode ".snip" "snippet")
   (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
   (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
@@ -596,7 +598,7 @@
 
 
 
-(mmm-mode 1)
+(setq mmm-global-mode 'maybe)
 
 (provide 'init)
 ;;; init.el ends here
