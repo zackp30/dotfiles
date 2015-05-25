@@ -195,7 +195,7 @@
       :back "\\\\end")
      (markdown-erb
       :submode ruby-mode
-      :front "<%="
+      :front "<%"
       :back "%>")))
   (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
   (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
