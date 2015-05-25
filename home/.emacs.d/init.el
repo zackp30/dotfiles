@@ -192,8 +192,13 @@
    '((markdown-latex
       :submode latex-mode
       :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
-      :back "\\\\end")))
-  (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex))
+      :back "\\\\end")
+     (markdown-erb
+      :submode ruby-mode
+      :front "<%="
+      :back "%>")))
+  (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
+  (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
 
 (use-package ace-jump-mode
   :config
@@ -387,6 +392,7 @@
              '(".wl" . emacs-lisp-mode)) 
 (a-mode ".md" "markdown")
 (a-mode ".markdown" "markdown")
+(a-mode ".mderb" "markdown")
 (a-mode ".mw" "mediawiki")
 (a-mode "Gemfile" "ruby")
 (a-mode "Guardfile" "ruby")
