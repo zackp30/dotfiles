@@ -273,9 +273,6 @@
   :config
   (add-hook 'prog-mode-hook 'ws-butler-mode))
 (use-package todotxt)
-(defun activate-company-ispell ()
-  "Activate the company ispell backend. Used for hooks."
-  (add-to-list 'company-backends 'company-ispell))
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode)
@@ -283,9 +280,7 @@
   (setq company-minimum-prefix-length 1)
   (unbind-key (kbd "C-w") company-active-map)
   (define-key company-active-map (kbd "C-u") 'company-show-location)
-  (make-variable-buffer-local 'company-backends)
-  (add-hook 'markdown-mode-hook 'activate-company-ispell)
-  (add-hook 'org-mode-hook 'activate-company-ispell))
+  (make-variable-buffer-local 'company-backends))
 (use-package company-robe
   :config
   (add-to-list 'company-backends 'company-robe))
