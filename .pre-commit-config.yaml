@@ -2,7 +2,3 @@
   sha: 2dda8367897e80bb27d0c52bcbc8759f8119dfe3
   hooks:
       - id: trailing-whitespace
-- repo: /home/zack/hooks
-  sha: experimental
-  hooks:
-      - id: languagetool
