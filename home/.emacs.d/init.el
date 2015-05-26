@@ -137,36 +137,6 @@
                 (intern (concat mode "-mode")))))
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
- '(delete-selection-mode nil)
- '(eclim-eclipse-dirs (quote ("~/eclipse/eclipse")))
- '(eclim-executable "~/eclipse/eclipse/eclim")
- '(evilnc-hotkey-comment-operator "gco")
- '(global-hl-line-mode t)
- '(global-hl-line-sticky-flag t)
- '(indent-guide-char "│")
- '(inhibit-startup-screen t)
- '(mark-even-if-inactive t)
- '(mediawiki-site-alist
-   (quote
-    (("http://wiki.apertron.net" "http://wiki.apertron.net/" "zackp30" nil "Main Page")
-     ("Wikipedia" "http://en.wikipedia.org/w/" "username" "password" "Main Page"))))
- '(package-selected-packages
-   (quote
-    (zenburn-theme yasnippet yaml-mode ws-butler workgroups2 wgrep-ag web-mode wanderlust use-package todotxt tabbar sx surround spinner smex smart-mode-line slime-company slim-mode scss-mode rust-mode robe rainbow-identifiers rainbow-delimiters rainbow-blocks racket-mode perspective ocodo-svg-modelines nim-mode mmm-mode mediawiki material-theme magit-tramp magit-gitflow magit-gh-pulls lua-mode ledger-mode julia-mode js2-mode io-mode indent-guide ibuffer-vc hydra hy-mode highlight-numbers helm-swoop helm-projectile helm-ag haskell-mode go-mode gnuplot-mode gitignore-mode gitconfig-mode git-timemachine git-gutter gist ghci-completion ggtags flycheck-rust flycheck-ledger evil-visualstar evil-tabs evil-snipe evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-indent-textobject etags-select emmet-mode emacs-eclim elixir-mode ein editorconfig edit-server dired-toggle-sudo dired-rainbow dired+ define-word d-mode ctags company-tern company-ghc company-anaconda coffee-mode cmake-mode cider browse-kill-ring bookmark+ auto-complete-clang ag ace-window ace-jump-helm-line ace-flyspell)))
- '(safe-local-variable-values (quote ((auto-fill-mode) (auto-fill-mode . 1))))
- '(sml/full-mode-string " ...")
- '(sml/show-client t)
- '(sml/theme (quote dark))
- '(transient-mark-mode 1))
-
 ;; Misc requires
 (require 'htmlize)
 (use-package indent-guide
@@ -304,6 +274,7 @@
 (use-package smex
   :bind ("M-x" . smex)
   :bind ("M-X" . smex-major-mode-commands))
+
 (use-package haskell-mode
   :config
   (setq haskell-font-lock-symbols t)
@@ -606,3 +577,11 @@
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))

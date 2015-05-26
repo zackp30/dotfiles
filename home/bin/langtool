@@ -1,5 +1,5 @@
 #!/bin/bash
 
-language_tool_dir="$HOME/LanguageTool-2.9"
+language_tool_dir="$HOME/LanguageTool"
 
 java -jar $language_tool_dir/languagetool-commandline.jar $@
