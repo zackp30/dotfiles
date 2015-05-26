@@ -28,8 +28,8 @@ def test_file_type(file_end):
         elif file_end == 'jpg' or file_end == 'png' or file_end == 'gif':
                return 'eog'
         else: return 'leafpad'
-        
-        
+
+
 
 def recursion(path, count):
         likels = os.listdir(path)
@@ -55,7 +55,7 @@ def recursion(path, count):
                                depth_into_string = depth_into_string + 1
                         newstuff = newstuff + '{[====[' + directories[:12] + ']====], [====[' + test_file_type(type_of_file) + " '" + path + directories + "']====] },\n"
         newstuff = newstuff + "{'open here', " "'nautilus ' .. [====['" + path  + "']====]}\n }\n\n"
-        
+
 
 #recursive call to search directories inside current path
         count = othercount
@@ -64,7 +64,7 @@ def recursion(path, count):
                         newstuff = recursion(path + directories + '/', count) + newstuff
                         count = count + 1
         return newstuff
-#call to run program 
+#call to run program
 #also specifies starting directory
-                  
+
 filetosave.write('module("myplacesmenu")\n\nmyplacesmenu = {}\n' + recursion(path, 1) + '\npassed = myplacesmenu[1]\nfunction myplacesmenu() return passed end')
