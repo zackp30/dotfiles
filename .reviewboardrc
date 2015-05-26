@@ -1,3 +1,0 @@
-REVIEWBOARD_URL = "http://r.apertron.net"
-REPOSITORY = "Dotfiles"
-BRANCH = "master"
