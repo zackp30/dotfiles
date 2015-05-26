@@ -60,6 +60,7 @@
                 emmet-mode ;; http://emmet.io implementation for Emacs
                 ibuffer-vc ;; ibuffer integration for vc.el
                 mediawiki ;; mediawiki client
+                wgrep
                 wgrep-ag ;; writable grep, but for ag
                 racket-mode ;; mode for the Racket 
                 undo-tree ;; vim-like undo tree
@@ -135,6 +136,24 @@
                (cons
                 (format "\\%s\\'" ext)
                 (intern (concat mode "-mode")))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(package-selected-packages
+   (quote
+    (io-mode elixir-mode go-mode spinner dired+ gnuplot-mode dired-rainbow dired-toggle-sudo slim-mode julia-mode cmake-mode ghci-completion web-mode company-tern ocodo-svg-modelines js2-mode d-mode ace-window ace-jump-helm-line ace-flyspell ace-jump-mode flycheck-ledger ledger-mode ctags lua-mode cider clojure-mode sx ws-butler ggtags mmm-mode evil-snipe yasnippet wanderlust smart-mode-line perspective helm-projectile nim-mode rainbow-delimiters indent-guide markdown-mode material-theme git-gutter coffee-mode emacs-eclim browse-kill-ring helm-ag bookmark+ ein helm-swoop projectile company-ghc company-anaconda hy-mode hydra racket-mode wgrep-ag wgrep mediawiki ibuffer-vc emmet-mode smex magit-tramp magit-gitflow magit-gh-pulls magit todotxt highlight-numbers surround zenburn-theme slime-company rust-mode flycheck-rust yaml-mode rainbow-blocks rainbow-identifiers robe gist edit-server workgroups2 ag scss-mode gitignore-mode git-timemachine gitconfig-mode git-commit-mode etags-select evil-matchit evil-indent-textobject editorconfig evil-nerd-commenter evil-visualstar evil-numbers evil-leader evil use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 
 ;; Misc requires
@@ -269,8 +288,8 @@
   (projectile-global-mode))
 (use-package smart-mode-line
   :config
-  (sml/setup) ;; modeline setup
-  (sml/apply-theme 'dark)) ;; dark modeline
+(setq sml/theme 'dark)
+  (sml/setup)) ;; modeline setup
 (use-package smex
   :bind ("M-x" . smex)
   :bind ("M-X" . smex-major-mode-commands))
@@ -486,12 +505,6 @@
   :config
   (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (defun random-commit-message ()
   (interactive)
@@ -574,14 +587,5 @@
 (setq package-menu-async nil)
 
 (setq mmm-global-mode 'maybe)
-
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))
