@@ -666,6 +666,6 @@ couldn't figure things out (ex: syntax errors)."
 (provide 'init)
 ;;; init.el ends here
 ;; Local Variables:
-;; eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+;; eval: (add-hook 'after-save-hook (lambda () (when (fboundp 'org-babel-tangle) org-babel-tangle)) nil t)
 ;; End:
 #+end_src

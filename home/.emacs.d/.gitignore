@@ -32,3 +32,4 @@ tramp
 /auto/
 
 # I use a literate `init.el'.
+init.el
