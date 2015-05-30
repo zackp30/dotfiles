@@ -158,43 +158,137 @@
 
 ;; Misc requires
 (require 'htmlize)
-(use-package indent-guide
+
+(defun turn-on-emmet-mode ()
+  (emmet-mode 1))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ruby . t)
+   (dot . t)
+   (gnuplot . t)
+   (org . t)))
+
+(require 'slime-autoloads)
+
+(setq org-src-fontify-natively t)
+
+(setq org-startup-with-inline-images t)
+
+(use-package ace-flyspell
   :config
-  (indent-guide-global-mode 1))
-(use-package company-ghc
+  (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
+
+(use-package ace-jump-helm-line
   :config
-  (add-hook 'haskell-mode-hook (lambda ()
-                                 (add-to-list 'company-backends 'company-ghc))))
-(use-package helm-projectile
-  :config
-  (global-set-key (kbd "C-c h") 'helm-projectile))
-(use-package surround
-  :config
-  (global-surround-mode 1))
-(use-package git-gutter
-  :config
-  (global-git-gutter-mode 1)
-  (git-gutter:linum-setup))
-(use-package mmm-mode
-  :config
-  (mmm-add-classes
-   '((markdown-latex
-      :submode latex-mode
-      :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
-      :back "\\\\end")
-     (markdown-erb
-      :submode ruby-mode
-      :front "<%"
-      :back "%>")))
-  (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
-  (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
+  (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
+
 
 (use-package ace-jump-mode
   :config
   (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+
 (use-package ace-window
   :config
   (define-key global-map (kbd "C-c w") 'ace-window))
+
+(use-package bitbake)
+
+(use-package bookmark+)
+
+(use-package cider
+  :config
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
+
+(use-package cmake-mode
+  :init
+  (add-to-list 'auto-mode-alist
+               '("CMakeLists.txt" . cmake-mode)) )
+
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-idle-delay 0.1)
+  (setq company-minimum-prefix-length 1)
+  (unbind-key (kbd "C-w") company-active-map)
+  (define-key company-active-map (kbd "C-u") 'company-show-location)
+  (make-variable-buffer-local 'company-backends))
+
+(use-package company-anaconda
+  :config
+  (add-hook 'python-mode-hook (lambda ()
+                                (anaconda-mode)
+                                (add-to-list 'company-backends 'company-anaconda))))
+
+(use-package company-ghc
+  :config
+  (add-hook 'haskell-mode-hook (lambda ()
+                                 (add-to-list 'company-backends 'company-ghc))))
+
+(use-package company-robe
+  :config
+  (add-to-list 'company-backends 'company-robe))
+
+(use-package edit-server
+  :config
+  (when (string= (system-name) "linux-nyit.site") ;; home PC
+    (edit-server-start)))
+
+(use-package editorconfig)
+
+(use-package emmet-mode
+  :config
+  (add-hook 'web-mode-hook 'turn-on-emmet-mode)
+  (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
+  (add-hook 'css-mode-hook 'turn-on-emmet-mode))
+
+(use-package evil
+  :config
+  (evil-mode 1)
+  (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
+  (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
+  (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
+  (use-package evil-nerd-commenter
+    :config
+    (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
+    (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
+    (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
+    (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
+    (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
+    (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
+    (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
+
+(use-package flycheck
+  :init
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq flycheck-highlighting-mode 'symbols)
+  (setq flycheck-indication-mode 'left-fringe))
+
+(use-package ggtags
+  :config
+  (add-hook 'prog-mode-hook 'ggtags-mode))
+
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode 1)
+  (git-gutter:linum-setup))
+
+
+(use-package haskell-mode
+  :config
+  (setq haskell-font-lock-symbols t)
+  (add-hook 'haskell-mode-hook 'ghc-init)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+
+(use-package helm
+  :config
+  (helm-mode 1)
+  (helm-autoresize-mode 1))
+
+(use-package helm-projectile
+  :config
+  (global-set-key (kbd "C-c h") 'helm-projectile))
+
 (use-package ibuffer-vc
   :bind ("C-x C-b" . ibuffer)
   :init
@@ -214,17 +308,65 @@
   (add-hook 'ibuffer-hook
             (lambda ()
               (ibuffer-vc-set-filter-groups-by-vc-root))))
-(use-package editorconfig)
-(use-package bookmark+)
-(use-package bitbake)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ruby . t)
-   (dot . t)
-   (gnuplot . t)
-   (org . t)))
-(setq org-src-fontify-natively t)
-(setq org-startup-with-inline-images t)
+(use-package indent-guide
+  :config
+  (indent-guide-global-mode 1))
+
+(use-package io-mode)
+
+(use-package js2-mode
+  :init
+  (a-mode ".js" "js2")
+  (add-hook 'js2-mode-hook (lambda ()
+                             (tern-mode t)
+                             (add-to-list 'company-backends 'company-tern))))
+
+(use-package mediawiki)
+
+(use-package mmm-mode
+  :config
+  (mmm-add-classes
+   '((markdown-latex
+      :submode latex-mode
+      :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
+      :back "\\\\end")
+     (markdown-erb
+      :submode ruby-mode
+      :front "<%"
+      :back "%>")))
+  (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
+  (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
+
+(use-package projectile
+  :config
+  (projectile-global-mode))
+
+(use-package slime
+  :config
+  (add-hook 'slime-repl-mode-hook
+            (lambda ()
+              ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
+              (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+              (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
+              (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+              (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
+  (slime-setup '(slime-fancy slime-repl slime-company)))
+
+(use-package smart-mode-line
+  :config
+(setq sml/theme 'dark)
+  (sml/setup))
+ ;; modeline setup
+(use-package smex
+  :bind ("M-x" . smex)
+  :bind ("M-X" . smex-major-mode-commands))
+
+(use-package surround
+  :config
+  (global-surround-mode 1))
+
+(use-package todotxt)
+
 
 (use-package web-mode
   :init
@@ -238,21 +380,11 @@
   (a-mode ".ejs" "web")
   (a-mode ".html?" "web")
   (a-mode ".php" "web"))
-(use-package js2-mode
-  :init
-  (a-mode ".js" "js2")
-  (add-hook 'js2-mode-hook (lambda ()
-                             (tern-mode t)
-                             (add-to-list 'company-backends 'company-tern))))
-(use-package ace-flyspell
+
+(use-package ws-butler
   :config
-  (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
-(use-package ggtags
-  :config
-  (add-hook 'prog-mode-hook 'ggtags-mode))
-(use-package ace-jump-helm-line
-  :config
-  (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
+  (add-hook 'prog-mode-hook 'ws-butler-mode))
+
 (use-package yasnippet
   :config
   (yas-global-mode 1)
@@ -261,99 +393,7 @@
   (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
-  (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
-(use-package mediawiki)
-(use-package ws-butler
-  :config
-  (add-hook 'prog-mode-hook 'ws-butler-mode))
-(use-package todotxt)
-(use-package company
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-idle-delay 0.1)
-  (setq company-minimum-prefix-length 1)
-  (unbind-key (kbd "C-w") company-active-map)
-  (define-key company-active-map (kbd "C-u") 'company-show-location)
-  (make-variable-buffer-local 'company-backends))
-(use-package company-robe
-  :config
-  (add-to-list 'company-backends 'company-robe))
-(use-package company-anaconda
-  :config
-  (add-hook 'python-mode-hook (lambda ()
-                                (anaconda-mode)
-                                (add-to-list 'company-backends 'company-anaconda))))
-(use-package projectile
-  :config
-  (projectile-global-mode))
-(use-package smart-mode-line
-  :config
-(setq sml/theme 'dark)
-  (sml/setup)) ;; modeline setup
-(use-package smex
-  :bind ("M-x" . smex)
-  :bind ("M-X" . smex-major-mode-commands))
-
-(use-package haskell-mode
-  :config
-  (setq haskell-font-lock-symbols t)
-  (add-hook 'haskell-mode-hook 'ghc-init)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
-(use-package helm
-  :config
-  (helm-mode 1)
-  (helm-autoresize-mode 1))
-(use-package evil
-  :config
-  (evil-mode 1)
-  (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
-  (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
-  (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
-  (use-package evil-nerd-commenter
-    :config
-    (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
-    (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
-    (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
-    (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
-    (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
-    (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
-    (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
-(use-package edit-server
-  :config
-  (when (string= (system-name) "linux-nyit.site") ;; home PC
-    (edit-server-start)))
-(require 'slime-autoloads)
-(use-package slime
-  :config
-  (add-hook 'slime-repl-mode-hook
-            (lambda ()
-              ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
-              (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
-              (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
-              (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
-              (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
-  (slime-setup '(slime-fancy slime-repl slime-company)))
-(defun turn-on-emmet-mode ()
-  (emmet-mode 1))
-(use-package emmet-mode
-  :config
-  (add-hook 'web-mode-hook 'turn-on-emmet-mode)
-  (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
-  (add-hook 'css-mode-hook 'turn-on-emmet-mode))
-(use-package io-mode)
-(use-package cmake-mode
-  :init
-  (add-to-list 'auto-mode-alist 
-               '("CMakeLists.txt" . cmake-mode)) )
-(use-package cider
-  :config
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
-(use-package flycheck
-  :init
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (setq flycheck-highlighting-mode 'symbols)
-  (setq flycheck-indication-mode 'left-fringe))
-(require 'tramp)
+  (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))(require 'tramp)
 (require 'whitespace)
 
 (column-number-mode 1)
@@ -464,7 +504,6 @@
   :config
   (setq scss-compile-at-save nil)
   (a-mode ".scss" "scss"))
-
 (use-package highlight-numbers
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
@@ -585,6 +624,31 @@
               (format-time-string "%Y-%m-%dT%T")))
 
 (setq package-menu-async nil)
+(defun my/sort-sexps-in-region (beg end)
+  "Can be handy for sorting out duplicates.
+Sorts the sexps from BEG to END. Leaves the point at where it
+couldn't figure things out (ex: syntax errors)."
+  (interactive "r")
+  (let ((input (buffer-substring beg end))
+        list last-point form result)
+    (save-restriction
+      (save-excursion
+        (narrow-to-region beg end)
+        (goto-char (point-min))
+        (setq last-point (point-min))
+        (setq form t)
+        (while (and form (not (eobp)))
+          (setq form (ignore-errors (read (current-buffer))))
+          (when form
+            (add-to-list
+             'list
+             (cons
+              (prin1-to-string form)
+              (buffer-substring last-point (point))))
+            (setq last-point (point))))
+        (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
+        (delete-region (point-min) (point))
+        (insert (mapconcat 'cdr list "\n"))))))
 
 (setq mmm-global-mode 'maybe)
 (provide 'init)
