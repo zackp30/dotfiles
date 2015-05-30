@@ -31,3 +31,5 @@ tramp
 # AUCTeX auto folder
 /auto/
 
+
+config.el

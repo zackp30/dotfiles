@@ -1,381 +1,290 @@
 * Commentary
-Such commentary, wow.
+  Such commentary, wow.
 
-#+begin_src emacs-lisp :tangle yes
-;;; Commentary:
-;; A hacked together Emacs config.
-;;; Code:
-;; Add repositories for package archives
-#+end_src
+  #+begin_src emacs-lisp :tangle yes
+    ;;; Commentary:
+    ;; A hacked together Emacs config.
+    ;;; Code:
+    ;; Add repositories for package archives
+  #+end_src
 
 
 * Package archives
   
-I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
+  I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
 
-#+begin_src emacs-lisp :tangle yes
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")
-                        ("org" . "http://orgmode.org/elpa/")
-                        ("marmalade" . "http://marmalade-repo.org/packages/")
-                        ("gnu" . "https://elpa.gnu.org/packages/")))
-#+end_src
+  #+begin_src emacs-lisp :tangle yes
+    (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+                             ("org" . "http://orgmode.org/elpa/")
+                             ("marmalade" . "http://marmalade-repo.org/packages/")
+                             ("gnu" . "https://elpa.gnu.org/packages/")))
+    (package-initialize)
+  #+end_src
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-(if (file-exists-p "~/.local.el")
-    (load "~/.local.el"))
-#+END_SRC
+* Local files
+
+  I sometimes have a file called `local.el' which contains functions which have passwords (ERC), this is not checked into version control for obvious reasons.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (if (file-exists-p "~/.local.el")
+        (load "~/.local.el"))
+  #+END_SRC
 
 * `require-package'
 
-A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
+  A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
   
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun require-package (package)
+      "Install given PACKAGE."
+      (unless (package-installed-p package)
+        (unless (assoc package package-archive-contents)
+          (package-refresh-contents))
+        (package-install package)))
+
+
+  #+END_SRC
+  
+* List of packages
+
+  This (huge) list contains each package I use, at the end each is passed to `require-package' to download and install.
+  
+  #+BEGIN_SRC emacs-lisp :tangle yes
+
+    (require 'cl)
+    ;; Install packages.
+    (add-to-list 'load-path "~/.emacs.d/lisp")
+    (defvar pkgs '(use-package
+                    ace-flyspell ;; ace-jump-mode for flyspell
+                    ace-jump-helm-line
+                    ace-jump-mode ;; easymotion
+                    ace-window
+                    ag ;; the silver searcher
+                    bookmark+ ;; 
+                    browse-kill-ring ;; menu for the killring
+                    cider ;; REPL for Clojure
+                    clojure-mode ;; mode for the Clojure language
+                    cmake-mode ;; mode for the CMake language
+                    coffee-mode ;; mode for the CoffeeScript language
+                    company ;; auto completion
+                    company-anaconda ;; Python completion for company
+                    company-ghc ;; Haskell completion for company
+                    company-tern
+                    ctags
+                    d-mode ;; mode for the D language
+                    dired+
+                    dired-rainbow
+                    dired-toggle-sudo
+                    edit-server ;; used by Edit With Emacs
+                    editorconfig
+                    ein ;; iPython Notebook for Emacs
+                    elixir-mode
+                    emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+                    emmet-mode ;; http://emmet.io implementation for Emacs
+                    etags-select
+                    evil
+                    evil-indent-textobject
+                    evil-leader
+                    evil-matchit
+                    evil-nerd-commenter
+                    evil-numbers
+                    evil-snipe
+                    evil-visualstar
+                    flycheck ;; on the fly syntax checking
+                    flycheck-ledger
+                    flycheck-rust ;; flycheck for the Rust language
+                    ggtags
+                    ghc 
+                    ghci-completion
+                    gist
+                    git-commit-mode
+                    git-gutter ;; Git status in left fringe
+                    git-timemachine
+                    gitconfig-mode
+                    gitignore-mode
+                    gnuplot-mode
+                    go-mode
+                    haskell-mode ;; mode for Haskell
+                    helm ;; menus for ALL the things
+                    helm-ag
+                    helm-projectile ;; projectile integration for helm
+                    helm-swoop ;; grep-like tool for Helm
+                    highlight-numbers ;; rainbowify numbers
+                    hy-mode ;; hy mode
+                    hydra ;; micro-states!
+                    ibuffer-vc ;; ibuffer integration for vc.el
+                    indent-guide ;; a "ruler" for indentation
+                    io-mode
+                    js2-mode
+                    julia-mode ;; mode for the Julia language
+                    ledger-mode
+                    lentic
+                    lua-mode ;; mode for the Lua language
+                    magit ;; git integration
+                    magit-gh-pulls ;; see GitHub pull requests in Magit
+                    magit-gitflow ;; Magit interface for git-flow
+                    magit-tramp ;; TRAMP integration for Magit
+                    markdown-mode ;; mode for the Markdown markup
+                    material-theme
+                    mediawiki ;; mediawiki client
+                    mmm-mode
+                    nim-mode
+                    ocodo-svg-modelines
+                    perspective ;; basically tabs
+                    projectile ;; project management
+                    racket-mode ;; mode for the Racket 
+                    rainbow-blocks ;; omg more rainbows
+                    rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
+                    rainbow-identifiers ;; rainbows!
+                    ruby-mode ;; mode for the Ruby language
+                    rust-mode ;; mode for the Rust language
+                    scss-mode ;; mode for the Sass language
+                    slim-mode ;; mode for the Slim templating language
+                    slime
+                    slime-company
+                    smart-mode-line ;; a nice mode line
+                    smex ;; fancy
+                    spinner
+                    surround ;; Delete surrounding characters (`()', `[]', etc.).
+                    sx
+                    table ;; tables!
+                    todotxt ;; Mode for the todo.txt markup
+                    undo-tree ;; vim-like undo tree
+                    wanderlust ;; email
+                    web-mode ;; mode for web stuff
+                    wgrep
+                    wgrep-ag ;; writable grep, but for ag
+                    workgroups2
+                    ws-butler
+                    yaml-mode
+                    yasnippet ;; snippets
+                    zenburn-theme ;; Zenburn theme
+                    ))
+
+    (loop for pkg in pkgs do
+          (require-package pkg))
+
+  #+END_SRC
+
+* use-package  
+  use-package (https://github.com/jwiegley/use-package) handles loading of packages, allowing a neatly organized configuration.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'use-package)
+  #+END_SRC
+
+* a-mode
+
+  `a-mode' is (if I remember correctly) my first Emacs Lisp function, quite simple really, all it does is act as a wrapper for `auto-mode-alist', shortening the overall use of it from:
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (add-to-list 'auto-mode-alist "\\.markdown\\" 'markdown-mode)
+  #+END_SRC
+
+  to:
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (a-mode "markdown" "markdown-mode")
+  #+END_SRC
+
+  which I prefer
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun a-mode (ext mode)
+      "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
+      (add-to-list 'auto-mode-alist
+                   (cons
+                    (format "\\%s\\'" ext)
+                    (intern (concat mode "-mode")))))
+  #+END_SRC
+
+* Safe themes
+
+  I find it kinda silly how Emacs asks to load themes which "can contain code", I mean, shouldn't it do this for every single package downloaded from ELPA/MELPA/etc? Obviously not, so why should it do it for themes? It seems redundant.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (custom-set-variables
+     ;; custom-set-variables was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(custom-safe-themes
+       (quote
+        ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))
+  #+END_SRC
+
+* Org mode
+** Babel
+
+   Load the Babel languages that I use, and also use nifty embedded highlighting (syntax within syntax)).
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq org-src-fontify-natively t)
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((ruby . t)
+        (gnuplot . t)
+        (org . t)))
+   #+END_SRC
+   
+** Misc. settings
+
+Miscellaneous setting that don't go anywhere else.  
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq org-startup-with-inline-images t)
+  #+END_SRC
+
+** Indentation
+
+   
+   Enables indentation for the language when in a SRC block.
+   
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq org-src-tab-acts-natively t)
+   #+END_SRC
+
+* Flycheck
+
+  Flycheck is the "modern equivalent of flymake", think of it as [[https://github.com/scrooloose/syntastic][Syntastic]] but for Emacs.
+
+  It adds:
+
+  - Markers in the fringe where syntax errors/style errors/warnings occur.
+  - Adds an underline exactly where the error occurs. Fantastic when using a spell checker.
+    
 #+BEGIN_SRC emacs-lisp :tangle yes
-(defun require-package (package)
-  "Install given PACKAGE."
-  (unless (package-installed-p package)
-    (unless (assoc package package-archive-contents)
-    (package-refresh-contents))
-    (package-install package)))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-
-  (package-initialize)
-
-  (require 'cl)
-  ;; Install packages.
-  (add-to-list 'load-path "~/.emacs.d/lisp")
-  (defvar pkgs '(use-package
-                  ace-flyspell ;; ace-jump-mode for flyspell
-                  ace-jump-helm-line
-                  ace-jump-mode ;; easymotion
-                  ace-window
-                  ag ;; the silver searcher
-                  bookmark+ ;; 
-                  browse-kill-ring ;; menu for the killring
-                  cider ;; REPL for Clojure
-                  clojure-mode ;; mode for the Clojure language
-                  cmake-mode ;; mode for the CMake language
-                  coffee-mode ;; mode for the CoffeeScript language
-                  company ;; auto completion
-                  company-anaconda ;; Python completion for company
-                  company-ghc ;; Haskell completion for company
-                  company-tern
-                  ctags
-                  d-mode ;; mode for the D language
-                  dired+
-                  dired-rainbow
-                  dired-toggle-sudo
-                  edit-server ;; used by Edit With Emacs
-                  editorconfig
-                  ein ;; iPython Notebook for Emacs
-                  elixir-mode
-                  emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
-                  emmet-mode ;; http://emmet.io implementation for Emacs
-                  etags-select
-                  evil
-                  evil-indent-textobject
-                  evil-leader
-                  evil-matchit
-                  evil-nerd-commenter
-                  evil-numbers
-                  evil-snipe
-                  evil-visualstar
-                  flycheck ;; on the fly syntax checking
-                  flycheck-ledger
-                  flycheck-rust ;; flycheck for the Rust language
-                  ggtags
-                  ghc 
-                  ghci-completion
-                  gist
-                  git-commit-mode
-                  git-gutter ;; Git status in left fringe
-                  git-timemachine
-                  gitconfig-mode
-                  gitignore-mode
-                  gnuplot-mode
-                  go-mode
-                  haskell-mode ;; mode for Haskell
-                  helm ;; menus for ALL the things
-                  helm-ag
-                  helm-projectile ;; projectile integration for helm
-                  helm-swoop ;; grep-like tool for Helm
-                  highlight-numbers ;; rainbowify numbers
-                  hy-mode ;; hy mode
-                  hydra ;; micro-states!
-                  ibuffer-vc ;; ibuffer integration for vc.el
-                  indent-guide ;; a "ruler" for indentation
-                  io-mode
-                  js2-mode
-                  julia-mode ;; mode for the Julia language
-                  ledger-mode
-                  lentic
-                  lua-mode ;; mode for the Lua language
-                  magit ;; git integration
-                  magit-gh-pulls ;; see GitHub pull requests in Magit
-                  magit-gitflow ;; Magit interface for git-flow
-                  magit-tramp ;; TRAMP integration for Magit
-                  markdown-mode ;; mode for the Markdown markup
-                  material-theme
-                  mediawiki ;; mediawiki client
-                  mmm-mode
-                  nim-mode
-                  ocodo-svg-modelines
-                  perspective ;; basically tabs
-                  projectile ;; project management
-                  racket-mode ;; mode for the Racket 
-                  rainbow-blocks ;; omg more rainbows
-                  rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
-                  rainbow-identifiers ;; rainbows!
-                  robe
-                  ruby-mode ;; mode for the Ruby language
-                  rust-mode ;; mode for the Rust language
-                  scss-mode ;; mode for the Sass language
-                  slim-mode ;; mode for the Slim templating language
-                  slime
-                  slime-company
-                  smart-mode-line ;; a nice mode line
-                  smex ;; fancy
-                  spinner
-                  surround ;; Delete surrounding characters (`()', `[]', etc.).
-                  sx
-                  table ;; tables!
-                  todotxt ;; Mode for the todo.txt markup
-                  undo-tree ;; vim-like undo tree
-                  wanderlust ;; email
-                  web-mode ;; mode for web stuff
-                  wgrep
-                  wgrep-ag ;; writable grep, but for ag
-                  workgroups2
-                  ws-butler
-                  yaml-mode
-                  yasnippet ;; snippets
-                  zenburn-theme ;; Zenburn theme
-  ))
-
-  (loop for pkg in pkgs do
-        (require-package pkg))
-  (require 'use-package)
-  (defun a-mode (ext mode)
-    "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
-    (add-to-list 'auto-mode-alist
-                 (cons
-                  (format "\\%s\\'" ext)
-                  (intern (concat mode "-mode")))))
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(custom-safe-themes
-     (quote
-      ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
-   '(package-selected-packages
-     (quote
-      (io-mode elixir-mode go-mode spinner dired+ gnuplot-mode dired-rainbow dired-toggle-sudo slim-mode julia-mode cmake-mode ghci-completion web-mode company-tern ocodo-svg-modelines js2-mode d-mode ace-window ace-jump-helm-line ace-flyspell ace-jump-mode flycheck-ledger ledger-mode ctags lua-mode cider clojure-mode sx ws-butler ggtags mmm-mode evil-snipe yasnippet wanderlust smart-mode-line perspective helm-projectile nim-mode rainbow-delimiters indent-guide markdown-mode material-theme git-gutter coffee-mode emacs-eclim browse-kill-ring helm-ag bookmark+ ein helm-swoop projectile company-ghc company-anaconda hy-mode hydra racket-mode wgrep-ag wgrep mediawiki ibuffer-vc emmet-mode smex magit-tramp magit-gitflow magit-gh-pulls magit todotxt highlight-numbers surround zenburn-theme slime-company rust-mode flycheck-rust yaml-mode rainbow-blocks rainbow-identifiers robe gist edit-server workgroups2 ag scss-mode gitignore-mode git-timemachine gitconfig-mode git-commit-mode etags-select evil-matchit evil-indent-textobject editorconfig evil-nerd-commenter evil-visualstar evil-numbers evil-leader evil use-package)))
-   '(safe-local-variable-values
-     (quote
-      ((eval add-hook
-             (quote after-save-hook)
-             (lambda nil
-               (org-babel-tangle))
-             nil t)))))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-
-  (setq org-src-tab-acts-natively t)
-  (setq-default flycheck-emacs-lisp-load-path 'inherit)
-
-  ;; Misc requires
-  (require 'htmlize)
-
-  (defun turn-on-emmet-mode ()
-    (emmet-mode 1))
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((ruby . t)
-     (dot . t)
-     (gnuplot . t)
-     (org . t)))
-
-  (require 'slime-autoloads)
-
-  (setq org-src-fontify-natively t)
-
-  (setq org-startup-with-inline-images t)
-
-  (use-package ace-flyspell
-    :config
-    (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
-
-  (use-package ace-jump-helm-line
-    :config
-    (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
-
-
-  (use-package ace-jump-mode
-    :config
-    (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
-
-  (use-package ace-window
-    :config
-    (define-key global-map (kbd "C-c w") 'ace-window))
-
-  (use-package bitbake)
-
-  (use-package bookmark+)
-
-  (use-package cider
-    :config
-    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
-
-  (use-package cmake-mode
-  :init
-    (add-to-list 'auto-mode-alist
-                 '("CMakeLists.txt" . cmake-mode)) )
-
-  (use-package company
-    :config
-    (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-idle-delay 0.1)
-    (setq company-minimum-prefix-length 1)
-    (unbind-key (kbd "C-w") company-active-map)
-    (define-key company-active-map (kbd "C-u") 'company-show-location)
-    (make-variable-buffer-local 'company-backends))
-
-  (use-package company-anaconda
-    :config
-    (add-hook 'python-mode-hook (lambda ()
-                                  (anaconda-mode)
-                                  (add-to-list 'company-backends 'company-anaconda))))
-
-  (use-package company-ghc
-    :config
-    (add-hook 'haskell-mode-hook (lambda ()
-                                   (add-to-list 'company-backends 'company-ghc))))
-
-  (use-package company-robe
-    :config
-    (add-to-list 'company-backends 'company-robe))
-
-  (use-package edit-server
-    :config
-    (when (string= (system-name) "linux-nyit.site") ;; home PC
-      (edit-server-start)))
-
-  (use-package editorconfig)
-
-  (use-package emmet-mode
-    :config
-    (add-hook 'web-mode-hook 'turn-on-emmet-mode)
-    (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
-    (add-hook 'css-mode-hook 'turn-on-emmet-mode))
-
-  (use-package evil
-    :config
-    (evil-mode 1)
-    (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
-    (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
-    (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
-    (use-package evil-nerd-commenter
-      :config
-      (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
-      (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
-      (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
-      (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
-      (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
-      (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
-      (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line)))
-
   (use-package flycheck
     :init
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (setq flycheck-check-syntax-automatically '(save mode-enabled)) ;; check when the file is written, or a new mode is enabled.
     (setq flycheck-highlighting-mode 'symbols)
-    (setq flycheck-indication-mode 'left-fringe))
-
-  (use-package ggtags
-    :config
-    (add-hook 'prog-mode-hook 'ggtags-mode))
-
-  (use-package git-gutter
-    :config
-    (global-git-gutter-mode 1)
-    (git-gutter:linum-setup))
+    (setq flycheck-indication-mode 'left-fringe)) ;; indicate syntax errors/warnings in the left-fringe.
+#+END_SRC
 
 
-  (use-package haskell-mode
-    :config
-    (setq haskell-font-lock-symbols t)
-    (add-hook 'haskell-mode-hook 'ghc-init)
-    (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+** Load-path inheritance
 
-  (use-package helm
-    :config
-    (helm-mode 1)
-    (helm-autoresize-mode 1))
+   This makes sure that when requiring a file that's within my `load-path' when editing Emacs Lisp code that Flycheck uses my load-path instead of an internal one.
 
-  (use-package helm-projectile
-    :config
-    (global-set-key (kbd "C-c h") 'helm-projectile))
-
-  (use-package ibuffer-vc
-    :bind ("C-x C-b" . ibuffer)
-    :init
-    (require 'ibuffer-vc)
-    :config
-    (setq ibuffer-formats
-          '((mark modified read-only vc-status-mini " "
-                  (name 18 18 :left :elide)
-                  " "
-                  (size 9 -1 :right)
-                  " "
-                  (mode 16 16 :left :elide)
-                  " "
-                  (vc-status 16 16 :left)
-                  " "
-                  filename-and-process)))
-    (add-hook 'ibuffer-hook
-              (lambda ()
-                (ibuffer-vc-set-filter-groups-by-vc-root))))
-  (use-package indent-guide
-    :config
-    (indent-guide-global-mode 1))
-
-  (use-package io-mode)
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq-default flycheck-emacs-lisp-load-path 'inherit)
+   #+END_SRC
 
 
-  (use-package js2-mode
-    :init
-    (a-mode ".js" "js2")
-    (add-hook 'js2-mode-hook (lambda ()
-                               (tern-mode t)
-                               (add-to-list 'company-backends 'company-tern))))
+* SLIME
+  
+SLIME (Superior Lisp Interaction Mode for Emacs) turns Emacs into an excellent IDE for Common Lisp.
 
-  (use-package mediawiki)
+The following makes sure that I can still use the SLIME REPL history when on-the-go with my physical keyboard and phone.
 
-  (use-package mmm-mode
-    :config
-    (mmm-add-classes
-     '((markdown-latex
-        :submode latex-mode
-        :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
-        :back "\\\\end")
-       (markdown-erb
-        :submode ruby-mode
-        :front "<%"
-        :back "%>")))
-    (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
-    (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
+`slime-setup' is also loads:
 
-  (use-package projectile
-    :config
-    (projectile-global-mode))
+- slime-fancy: makes SLIME spiffy with history, and other stuff.
+- slime-repl: the core of SLIME
+- slime-company: auto-completion in the REPL when using SLIME.
 
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'slime-autoloads)
   (use-package slime
     :config
     (add-hook 'slime-repl-mode-hook
@@ -386,49 +295,319 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
                 (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
                 (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
     (slime-setup '(slime-fancy slime-repl slime-company)))
+#+END_SRC
+
+
+* Emmet
+
+[[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".
+
+** =turn-on-emmet-mode=
+
+Tiny function to use instead of =(lambda [...])= to DRY the code.
+ 
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun turn-on-emmet-mode ()
+    (emmet-mode 1))
+#+END_SRC
+
+For =(web|sgml|css)-mode=, turn on emmet-mode.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package emmet-mode
+    :config
+    (add-hook 'web-mode-hook 'turn-on-emmet-mode)
+    (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
+    (add-hook 'css-mode-hook 'turn-on-emmet-mode))
+#+END_SRC
+
+
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+
+
+* ace-jump
+
+=ace-jump= is like VIM's [[https://github.com/Lokaltog/vim-easymotion][EasyMotion]] but for Emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package ace-jump-mode
+  :config
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+  #+END_SRC
+
+** Flyspell
+   
+=ace-flyspell= navigating to incorrect spelling of words using =ace-jump=, I bind it to =C-c .
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package ace-flyspell
+  :config
+  (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
+#+END_SRC
+
+
+** Helm
+   
+=ace-jump-helm-line= allows jumping to a Helm completion entry using =ace-jump=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package ace-jump-helm-line
+  :config
+  (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
+#+END_SRC
+
+
+** Windows
+
+=ace-window= allows jumping to a window using =ace-jump=
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package ace-window
+    :config
+    (define-key global-map (kbd "C-c w") 'ace-window))
+#+END_SRC
+
+
+* Cider
+
+I like Clojure, so CIDER is a must for me.
+
+The following enables Eldoc for use with CIDER.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package cider
+    :config
+    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
+#+END_SRC
+
+* CMake
+
+CMake is a great alternative to autotools/automake. I use it for any C/C++ project I work on.
+
+The following makes =CMakeLists.txt= use =cmake-mode=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package cmake-mode
+    :init
+    (add-to-list 'auto-mode-alist
+                 '("CMakeLists.txt" . cmake-mode)) )
+#+END_SRC
+
+* Auto completion
+
+=Company= is a fantastic alternative to =auto-complete=.
+
+The following:
+
+- Enables it globally.
+- Makes the completion window popup almost instantly.
+- Makes the completion window popup even if I type a single character.
+- Unbinds `C-w` when within the completion window to prevent a conflict with =evil-mode=.
+- Rebind the previously unbound =company-show-location= to =C-u=.
+- And finally makes =company-backends= local.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package company
+    :config
+    (add-hook 'after-init-hook 'global-company-mode) ;; enable company-mode globally
+    (setq company-idle-delay 0.1)
+    (setq company-minimum-prefix-length 1)
+    (unbind-key (kbd "C-w") company-active-map)
+    (define-key company-active-map (kbd "C-u") 'company-show-location)
+    (make-variable-buffer-local 'company-backends))
+#+END_SRC
+
+** Anaconda
+
+Allows for auto-completion with Python and Company.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package company-anaconda
+    :config
+    (add-hook 'python-mode-hook (lambda ()
+                                  (anaconda-mode)
+                                  (add-to-list 'company-backends 'company-anaconda))))
+#+END_SRC
+
+
+** Haskell
+
+Utilize =ghc= to autocomplete using Company.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package company-ghc
+    :config
+    (add-hook 'haskell-mode-hook (lambda ()
+                                   (add-to-list 'company-backends 'company-ghc))))
+#+END_SRC
+
+
+* edit-server
+
+The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package edit-server
+    :config
+    (when (string= (system-name) "linux-nyit.site") ;; home PC
+      (edit-server-start)))
+#+END_SRC
+
+
+* EVIL
+
+EVIL is VIM within Emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package evil
+    :config
+    (evil-mode 1)
+    (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
+    (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
+    (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize))
+#+END_SRC
+
+* NERD-commenter
+
+VIM's NERD-commenter but for Emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package evil-nerd-commenter
+    :config
+    (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
+    (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
+    (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
+    (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
+    (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
+    (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
+    (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+
+
+  (use-package ggtags
+  :config
+  (add-hook 'prog-mode-hook 'ggtags-mode))
+
+  (use-package git-gutter
+  :config
+  (global-git-gutter-mode 1)
+  (git-gutter:linum-setup))
+
+
+  (use-package haskell-mode
+  :config
+  (setq haskell-font-lock-symbols t)
+  (add-hook 'haskell-mode-hook 'ghc-init)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+
+  (use-package helm
+  :config
+  (helm-mode 1)
+  (helm-autoresize-mode 1))
+
+  (use-package helm-projectile
+  :config
+  (global-set-key (kbd "C-c h") 'helm-projectile))
+
+  (use-package ibuffer-vc
+  :bind ("C-x C-b" . ibuffer)
+  :init
+  (require 'ibuffer-vc)
+  :config
+  (setq ibuffer-formats
+  '((mark modified read-only vc-status-mini " "
+  (name 18 18 :left :elide)
+  " "
+  (size 9 -1 :right)
+  " "
+  (mode 16 16 :left :elide)
+  " "
+  (vc-status 16 16 :left)
+  " "
+  filename-and-process)))
+  (add-hook 'ibuffer-hook
+  (lambda ()
+  (ibuffer-vc-set-filter-groups-by-vc-root))))
+  (use-package indent-guide
+  :config
+  (indent-guide-global-mode 1))
+
+  (use-package io-mode)
+
+
+  (use-package js2-mode
+  :init
+  (a-mode ".js" "js2")
+  (add-hook 'js2-mode-hook (lambda ()
+  (tern-mode t)
+  (add-to-list 'company-backends 'company-tern))))
+
+  (use-package mediawiki)
+
+  (use-package mmm-mode
+  :config
+  (mmm-add-classes
+  '((markdown-latex
+  :submode latex-mode
+  :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
+  :back "\\\\end")
+  (markdown-erb
+  :submode ruby-mode
+  :front "<%"
+  :back "%>")))
+  (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
+  (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
+
+  (use-package projectile
+  :config
+  (projectile-global-mode))
+
 
   (use-package smart-mode-line
-    :config
+  :config
   (setq sml/theme 'dark)
-    (sml/setup))
-   ;; modeline setup
+  (sml/setup))
+  ;; modeline setup
   (use-package smex
-    :bind ("M-x" . smex)
-    :bind ("M-X" . smex-major-mode-commands))
+  :bind ("M-x" . smex)
+  :bind ("M-X" . smex-major-mode-commands))
 
   (use-package surround
-    :config
-    (global-surround-mode 1))
+  :config
+  (global-surround-mode 1))
 
   (use-package todotxt)
 
 
   (use-package web-mode
-    :init
-    (a-mode ".phtml" "web")
-    (a-mode ".tpl\\.php" "web")
-    (a-mode ".[agj]sp" "web")
-    (a-mode ".as[cp]x" "web")
-    (a-mode ".erb" "web")
-    (a-mode ".mustache" "web")
-    (a-mode ".djhtml" "web")
-    (a-mode ".ejs" "web")
-    (a-mode ".html?" "web")
-    (a-mode ".php" "web"))
+  :init
+  (a-mode ".phtml" "web")
+  (a-mode ".tpl\\.php" "web")
+  (a-mode ".[agj]sp" "web")
+  (a-mode ".as[cp]x" "web")
+  (a-mode ".erb" "web")
+  (a-mode ".mustache" "web")
+  (a-mode ".djhtml" "web")
+  (a-mode ".ejs" "web")
+  (a-mode ".html?" "web")
+  (a-mode ".php" "web"))
 
   (use-package ws-butler
-    :config
-    (add-hook 'prog-mode-hook 'ws-butler-mode))
+  :config
+  (add-hook 'prog-mode-hook 'ws-butler-mode))
 
   (use-package yasnippet
-    :config
-    (yas-global-mode 1)
-    (a-mode ".snip" "snippet")
-    (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
-    (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
-    (define-key yas-minor-mode-map (kbd "<tab>") nil)
-    (define-key yas-minor-mode-map (kbd "TAB") nil)
-    (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))(require 'tramp)
+  :config
+  (yas-global-mode 1)
+  (a-mode ".snip" "snippet")
+  (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
+  (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))(require 'tramp)
   (require 'whitespace)
 
   (column-number-mode 1)
@@ -445,16 +624,16 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (autoload 'ghc-init "ghc" nil t)
 
   (defun get-rnd-list (lst)
-    "Get a random item from a list."
-    (nth (random* (length lst)) lst))
+  "Get a random item from a list."
+  (nth (random* (length lst)) lst))
 
   (defun random-color ()
-    "Get a random color."
-    (get-rnd-list '("blue" "red" "yellow" "pink")))
+  "Get a random color."
+  (get-rnd-list '("blue" "red" "yellow" "pink")))
 
   (autoload 'wl "wl" "Wanderlust" t)
   (add-to-list 'auto-mode-alist 
-               '(".wl" . emacs-lisp-mode)) 
+  '(".wl" . emacs-lisp-mode)) 
   (a-mode ".md" "markdown")
   (a-mode ".markdown" "markdown")
   (a-mode ".mderb" "markdown")
@@ -464,26 +643,26 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (a-mode "Rakefile" "ruby")
   (a-mode ".ledger" "ledger")
   (add-to-list 'auto-mode-alist
-               '("mutt-" . mail-mode)) ;; mutt temporary files
+  '("mutt-" . mail-mode)) ;; mutt temporary files
 
   ;; From Bling
   (defun my-evil-modeline-change (default-color)
-    "changes the modeline color when the evil mode changes"
-    (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
-                       ((evil-visual-state-p) '("#330022" . "#ffffff"))
-                       ((evil-normal-state-p) default-color)
-                       (t '("#440000" . "#ffffff")))))
-      (set-face-background 'mode-line (car color))
-      (set-face-foreground 'mode-line (cdr color))))
+  "changes the modeline color when the evil mode changes"
+  (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
+  ((evil-visual-state-p) '("#330022" . "#ffffff"))
+  ((evil-normal-state-p) default-color)
+  (t '("#440000" . "#ffffff")))))
+  (set-face-background 'mode-line (car color))
+  (set-face-foreground 'mode-line (cdr color))))
 
   (lexical-let ((default-color (cons (face-background 'mode-line)
-                                     (face-foreground 'mode-line))))
-    (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+  (face-foreground 'mode-line))))
+  (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
   (use-package gl-conf-mode
-    :config
-    (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
-                                    gl-conf-mode)))
+  :config
+  (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
+  gl-conf-mode)))
 
   (electric-pair-mode 1)
 
@@ -496,7 +675,6 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (add-hook 'after-init-hook 'global-flycheck-mode)
   (add-hook 'prog-mode-hook  'flyspell-prog-mode)
   (add-hook 'text-mode-hook  'flyspell-mode)
-  (add-hook 'ruby-mode-hook 'robe-mode)
   (setq python-shell-interpreter "python3") ;; I use Python 3
 
 
@@ -512,62 +690,62 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (global-set-key (kbd "C-c r") 'random-commit-message)
 
   (use-package evil-leader
-    :config
-    (evil-leader/set-leader "<SPC>") ;; space is my leader
-    (global-evil-leader-mode 1)
-    (evil-leader/set-key
-      "p b" 'projectile-switch-to-buffer
-      "p D" 'projectile-dired
-      "p d" 'projectile-find-dir
-      "p s" 'projectile-switch-project
-      "p R" 'projectile-regenerate-tags
-      "p j" 'projectile-find-tag
-      "g t r" 'ctags-create-or-update-tags-table))
+  :config
+  (evil-leader/set-leader "<SPC>") ;; space is my leader
+  (global-evil-leader-mode 1)
+  (evil-leader/set-key
+  "p b" 'projectile-switch-to-buffer
+  "p D" 'projectile-dired
+  "p d" 'projectile-find-dir
+  "p s" 'projectile-switch-project
+  "p R" 'projectile-regenerate-tags
+  "p j" 'projectile-find-tag
+  "g t r" 'ctags-create-or-update-tags-table))
 
   (setq list-command-history-max 500)
   (setq-default indent-tabs-mode nil)
 
   (use-package undo-tree
-    :config
-    (setq undo-tree-auto-save-history 1)
-    (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
-    (setq undo-tree-visualizer-diff t))
+  :config
+  (setq undo-tree-auto-save-history 1)
+  (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
+  (setq undo-tree-visualizer-diff t))
 
   (setq-default tab-width 2)
 
   (use-package scss-mode
-    :config
-    (setq scss-compile-at-save nil)
-    (a-mode ".scss" "scss"))
+  :config
+  (setq scss-compile-at-save nil)
+  (a-mode ".scss" "scss"))
   (use-package highlight-numbers
-    :config
-    (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+  :config
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
   (use-package rainbow-identifiers
-    :config
-    (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
   (use-package rainbow-delimiters
-    :config
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
   ;; Misc functions
   (defun increment-number-at-point ()
-    (interactive)
-    (skip-chars-backward "0123456789")
-    (or (looking-at "[0123456789]+")
-        (error "No number at point"))
-    (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+  (interactive)
+  (skip-chars-backward "0123456789")
+  (or (looking-at "[0123456789]+")
+  (error "No number at point"))
+  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
 
   (add-to-list 'imenu-generic-expression
-               '("Used Packages"
-                 "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+  '("Used Packages"
+  "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
 
 
   (defun decrement-number-at-point ()
-    (interactive)
-    (skip-chars-backward "0123456789")
-    (or (looking-at "[0123456789]+")
-        (error "No number at point"))
-    (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
+  (interactive)
+  (skip-chars-backward "0123456789")
+  (or (looking-at "[0123456789]+")
+  (error "No number at point"))
+  (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
 
   (global-set-key (kbd "C-c +") 'increment-number-at-point)
   (global-set-key (kbd "C-c -") 'decrement-number-at-point)
@@ -576,15 +754,15 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (setq-default save-place t)
 
   (use-package ag
-    :config
-    (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
+  :config
+  (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
 
 
   (defun random-commit-message ()
-    (interactive)
-    (insert (get-rnd-list '("¯\\_(ツ)_/¯"
-                            "I need to think of better commit messages."
-                            "blah"))))
+  (interactive)
+  (insert (get-rnd-list '("¯\\_(ツ)_/¯"
+  "I need to think of better commit messages."
+  "blah"))))
 
   (setq evil-snipe-auto-disable-substitute nil)
   (global-evil-snipe-mode 1)
@@ -599,7 +777,7 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
 
   (add-hook 'mail-mode-hook 'auto-fill-mode)
   (defun foo-wl ()
-    (when evil-mode (evil-change-state 'emacs)))
+  (when evil-mode (evil-change-state 'emacs)))
 
   (add-hook 'wl-hook 'foo-wl)
   (add-hook 'wl-folder-mode-hook 'foo-wl)
@@ -611,18 +789,18 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (set-face-attribute 'helm-source-header nil :height 0.1)
 
   (use-package magit
-    :config
-    (setq magit-auto-revert-mode nil)
-    (setq magit-last-seen-setup-instructions "1.4.0")
+  :config
+  (setq magit-auto-revert-mode nil)
+  (setq magit-last-seen-setup-instructions "1.4.0")
 
-    (use-package magit-gitflow
-      :config
-      (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-      (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
+  (use-package magit-gitflow
+  :config
+  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
 
   (defun insert-shell-command (command)
-    (interactive "scommand: ")
-    (insert (shell-command-to-string command)))
+  (interactive "scommand: ")
+  (insert (shell-command-to-string command)))
 
   (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
 
@@ -637,9 +815,9 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (setq history-delete-duplicates t)
   (setq savehist-save-minibuffer-history 1)
   (setq savehist-additional-variables
-        '(kill-ring
-          search-ring
-          regexp-search-ring))
+  '(kill-ring
+  search-ring
+  regexp-search-ring))
 
   (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
@@ -651,39 +829,39 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
   (mouse-avoidance-mode 'banish)
 
   (setq evil-insert-state-cursor '((bar . 2) "blue")
-        evil-visual-state-cursor '((bar . 5) "red")
-        evil-normal-state-cursor '((hollow . 5) "white"))
+  evil-visual-state-cursor '((bar . 5) "red")
+  evil-normal-state-cursor '((hollow . 5) "white"))
 
   (setq initial-scratch-message
-        (format ";; Emacs was started at %s"
-                (format-time-string "%Y-%m-%dT%T")))
+  (format ";; Emacs was started at %s"
+  (format-time-string "%Y-%m-%dT%T")))
 
   (setq package-menu-async nil)
   (defun my/sort-sexps-in-region (beg end)
-    "Can be handy for sorting out duplicates.
+  "Can be handy for sorting out duplicates.
   Sorts the sexps from BEG to END. Leaves the point at where it
   couldn't figure things out (ex: syntax errors)."
-    (interactive "r")
-    (let ((input (buffer-substring beg end))
-          list last-point form result)
-      (save-restriction
-        (save-excursion
-          (narrow-to-region beg end)
-          (goto-char (point-min))
-          (setq last-point (point-min))
-          (setq form t)
-          (while (and form (not (eobp)))
-            (setq form (ignore-errors (read (current-buffer))))
-            (when form
-              (add-to-list
-               'list
-               (cons
-                (prin1-to-string form)
-                (buffer-substring last-point (point))))
-              (setq last-point (point))))
-          (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
-          (delete-region (point-min) (point))
-          (insert (mapconcat 'cdr list "\n"))))))
+  (interactive "r")
+  (let ((input (buffer-substring beg end))
+  list last-point form result)
+  (save-restriction
+  (save-excursion
+  (narrow-to-region beg end)
+  (goto-char (point-min))
+  (setq last-point (point-min))
+  (setq form t)
+  (while (and form (not (eobp)))
+  (setq form (ignore-errors (read (current-buffer))))
+  (when form
+  (add-to-list
+  'list
+  (cons
+  (prin1-to-string form)
+  (buffer-substring last-point (point))))
+  (setq last-point (point))))
+  (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
+  (delete-region (point-min) (point))
+  (insert (mapconcat 'cdr list "\n"))))))
 
   (setq mmm-global-mode 'maybe)
   (provide 'init)
