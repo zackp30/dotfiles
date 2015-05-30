@@ -292,7 +292,6 @@ For =(web|sgml|css)-mode=, turn on emmet-mode.
     (add-hook 'css-mode-hook 'turn-on-emmet-mode))
 #+END_SRC
 
-
 * ace-jump
 
 =ace-jump= is like VIM's [[https://github.com/Lokaltog/vim-easymotion][EasyMotion]] but for Emacs.
@@ -420,7 +419,16 @@ EVIL is VIM within Emacs.
     (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize))
 #+END_SRC
 
-* NERD-commenter
+** Text-object delmiiters
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package surround
+     :config
+     (global-surround-mode 1))
+#+END_SRC
+
+
+** NERD-commenter
 
 VIM's NERD-commenter but for Emacs.
 
@@ -435,6 +443,36 @@ VIM's NERD-commenter but for Emacs.
     (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
     (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line))
 #+END_SRC
+
+** Modeline color changing
+
+I found this in Bling's dotemacs.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun my-evil-modeline-change (default-color)
+  "changes the modeline color when the evil mode changes"
+  (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
+  ((evil-visual-state-p) '("#330022" . "#ffffff"))
+  ((evil-normal-state-p) default-color)
+  (t '("#440000" . "#ffffff")))))
+  (set-face-background 'mode-line (car color))
+  (set-face-foreground 'mode-line (cdr color))))
+
+  (lexical-let ((default-color (cons (face-background 'mode-line)
+  (face-foreground 'mode-line))))
+  (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+#+END_SRC
+
+** Cursor changing
+
+Ugly, but oh well.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (setq evil-insert-state-cursor '((bar . 2) "blue")
+    evil-visual-state-cursor '((bar . 5) "red")
+    evil-normal-state-cursor '((hollow . 5) "white"))
+#+END_SRC
+
 
 * GNU Global
 
@@ -577,42 +615,71 @@ Integrate ibuffer and vc.el.
               (ibuffer-vc-set-filter-groups-by-vc-root))))
 #+END_SRC
 
+* indent-guide
 
+Indent-guide adds a fancy line to indicate the current indentation position.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
   (use-package indent-guide
   :config
-  (indent-guide-global-mode 1))
+  (indent-guide-global-mode 1)) ;; enable globally
+#+END_SRC
 
-    (use-package mmm-mode
+* Multiple-Major-Modes
+
+This package is *fantastic* for things that embed other languages.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package mmm-mode
     :config
     (mmm-add-classes
-    '((markdown-latex
-    :submode latex-mode
-    :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
-    :back "\\\\end")
-    (markdown-erb
-    :submode ruby-mode
-    :front "<%"
-    :back "%>")))
+     '((markdown-latex
+        :submode latex-mode
+        :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
+        :back "\\\\end")
+       (markdown-erb
+        :submode ruby-mode
+        :front "<%"
+        :back "%>")))
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
     (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
 
-    (use-package projectile
+#+END_SRC
+
+* Projectile
+
+Projectile is great for handling large projects.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package projectile
     :config
     (projectile-global-mode))
+#+END_SRC
+
+* Smart-Mode-Line
+
+I have yet to get around to making my own mode-line, but Smart-Mode-Line is great, so I don't see why I need to, other than for fun of course.
 
 
-    (use-package smart-mode-line
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package smart-mode-line
     :config
     (setq sml/theme 'dark)
     (sml/setup))
-    ;; modeline setup
-    (use-package smex
+#+END_SRC
+
+* smex
+
+Fancy =M-x=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package smex
     :bind ("M-x" . smex)
     :bind ("M-X" . smex-major-mode-commands))
+#+END_SRC
 
-    (use-package surround
-    :config
-    (global-surround-mode 1))
+
+
 
     (use-package todotxt)
 
@@ -642,7 +709,8 @@ Integrate ibuffer and vc.el.
     (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
     (define-key yas-minor-mode-map (kbd "<tab>") nil)
     (define-key yas-minor-mode-map (kbd "TAB") nil)
-    (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))(require 'tramp)
+    (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
+    (require 'tramp)
     (require 'whitespace)
 
     (column-number-mode 1)
@@ -680,19 +748,6 @@ Integrate ibuffer and vc.el.
     (add-to-list 'auto-mode-alist
     '("mutt-" . mail-mode)) ;; mutt temporary files
 
-    ;; From Bling
-    (defun my-evil-modeline-change (default-color)
-    "changes the modeline color when the evil mode changes"
-    (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
-    ((evil-visual-state-p) '("#330022" . "#ffffff"))
-    ((evil-normal-state-p) default-color)
-    (t '("#440000" . "#ffffff")))))
-    (set-face-background 'mode-line (car color))
-    (set-face-foreground 'mode-line (cdr color))))
-
-    (lexical-let ((default-color (cons (face-background 'mode-line)
-    (face-foreground 'mode-line))))
-    (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
 
     (use-package gl-conf-mode
     :config
@@ -863,9 +918,6 @@ Integrate ibuffer and vc.el.
 
     (mouse-avoidance-mode 'banish)
 
-    (setq evil-insert-state-cursor '((bar . 2) "blue")
-    evil-visual-state-cursor '((bar . 5) "red")
-    evil-normal-state-cursor '((hollow . 5) "white"))
 
     (setq initial-scratch-message
     (format ";; Emacs was started at %s"
