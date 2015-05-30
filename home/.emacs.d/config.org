@@ -680,6 +680,14 @@ js2-mode is a great alternative to the standard js-mode.
 #+END_SRC
 
 
+** GDScript
+   
+Godot's scripting language.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(require 'gdscript-mode)
+#+END_SRC
+
 
 * Helm
 #+BEGIN_SRC emacs-lisp :tangle yes
