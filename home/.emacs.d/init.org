@@ -1,3 +1,6 @@
+* Config
+
+#+begin_src emacs-lisp :tangle yes
 ;;; Commentary:
 ;; A hacked together Emacs config.
 ;;; Code:
@@ -22,110 +25,112 @@
 ;; Install packages.
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (defvar pkgs '(use-package
-                evil
-                evil-leader
-                evil-numbers
-                evil-visualstar
-                evil-nerd-commenter
-                editorconfig
-                evil-indent-textobject
-                evil-matchit
-                etags-select
-                git-commit-mode
-                gitconfig-mode
-                git-timemachine
-                gitignore-mode
-                scss-mode ;; mode for the Sass language
+                ace-flyspell ;; ace-jump-mode for flyspell
+                ace-jump-helm-line
+                ace-jump-mode ;; easymotion
+                ace-window
                 ag ;; the silver searcher
-                workgroups2
+                bookmark+ ;; 
+                browse-kill-ring ;; menu for the killring
+                cider ;; REPL for Clojure
+                clojure-mode ;; mode for the Clojure language
+                cmake-mode ;; mode for the CMake language
+                coffee-mode ;; mode for the CoffeeScript language
+                company ;; auto completion
+                company-anaconda ;; Python completion for company
+                company-ghc ;; Haskell completion for company
+                company-tern
+                ctags
+                d-mode ;; mode for the D language
+                dired+
+                dired-rainbow
+                dired-toggle-sudo
                 edit-server ;; used by Edit With Emacs
-                gist
-                robe
-                rainbow-identifiers ;; rainbows!
-                rainbow-blocks ;; omg more rainbows
-                yaml-mode
+                editorconfig
+                ein ;; iPython Notebook for Emacs
+                elixir-mode
+                emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+                emmet-mode ;; http://emmet.io implementation for Emacs
+                etags-select
+                evil
+                evil-indent-textobject
+                evil-leader
+                evil-matchit
+                evil-nerd-commenter
+                evil-numbers
+                evil-snipe
+                evil-visualstar
+                flycheck ;; on the fly syntax checking
+                flycheck-ledger
                 flycheck-rust ;; flycheck for the Rust language
-                rust-mode ;; mode for the Rust language
-                slime-company
-                zenburn-theme ;; Zenburn theme
-                surround ;; Delete surrounding characters (`()', `[]', etc.).
+                ggtags
+                ghc 
+                ghci-completion
+                gist
+                git-commit-mode
+                git-gutter ;; Git status in left fringe
+                git-timemachine
+                gitconfig-mode
+                gitignore-mode
+                gnuplot-mode
+                go-mode
+                haskell-mode ;; mode for Haskell
+                helm ;; menus for ALL the things
+                helm-ag
+                helm-projectile ;; projectile integration for helm
+                helm-swoop ;; grep-like tool for Helm
                 highlight-numbers ;; rainbowify numbers
-                todotxt ;; Mode for the todo.txt markup
+                hy-mode ;; hy mode
+                hydra ;; micro-states!
+                ibuffer-vc ;; ibuffer integration for vc.el
+                indent-guide ;; a "ruler" for indentation
+                io-mode
+                js2-mode
+                julia-mode ;; mode for the Julia language
+                ledger-mode
+                lentic
+                lua-mode ;; mode for the Lua language
                 magit ;; git integration
                 magit-gh-pulls ;; see GitHub pull requests in Magit
                 magit-gitflow ;; Magit interface for git-flow
                 magit-tramp ;; TRAMP integration for Magit
-                table ;; tables!
-                smex ;; fancy
-                emmet-mode ;; http://emmet.io implementation for Emacs
-                ibuffer-vc ;; ibuffer integration for vc.el
-                mediawiki ;; mediawiki client
-                wgrep
-                wgrep-ag ;; writable grep, but for ag
-                racket-mode ;; mode for the Racket 
-                undo-tree ;; vim-like undo tree
-                hydra ;; micro-states!
-                hy-mode ;; hy mode
-                company ;; auto completion
-                company-anaconda ;; Python completion for company
-                company-ghc ;; Haskell completion for company
-                projectile ;; project management
-                helm-swoop ;; grep-like tool for Helm
-                ein ;; iPython Notebook for Emacs
-                bookmark+ ;; 
-                helm-ag
-                browse-kill-ring ;; menu for the killring
-                emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
-                coffee-mode ;; mode for the CoffeeScript language
-                git-gutter ;; Git status in left fringe
-                material-theme
                 markdown-mode ;; mode for the Markdown markup
-                indent-guide ;; a "ruler" for indentation
-                rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
-                nim-mode
-                helm-projectile ;; projectile integration for helm
-                perspective ;; basically tabs
-                smart-mode-line ;; a nice mode line
-                wanderlust ;; email
-                yasnippet ;; snippets
-                evil-snipe
+                material-theme
+                mediawiki ;; mediawiki client
                 mmm-mode
-                ggtags
-                ws-butler
-                sx
-                helm ;; menus for ALL the things
-                flycheck ;; on the fly syntax checking
-                haskell-mode ;; mode for Haskell
-                ruby-mode ;; mode for the Ruby language
-                clojure-mode ;; mode for the Clojure language
-                cider ;; REPL for Clojure
-                lua-mode ;; mode for the Lua language
-                ctags
-                ledger-mode
-                flycheck-ledger
-                ace-jump-mode ;; easymotion
-                ace-flyspell ;; ace-jump-mode for flyspell
-                ace-jump-helm-line
-                ace-window
-                d-mode ;; mode for the D language
-                js2-mode
+                nim-mode
                 ocodo-svg-modelines
-                company-tern
-                web-mode ;; mode for web stuff
-                ghc 
-                ghci-completion
-                cmake-mode ;; mode for the CMake language
-                julia-mode ;; mode for the Julia language
+                perspective ;; basically tabs
+                projectile ;; project management
+                racket-mode ;; mode for the Racket 
+                rainbow-blocks ;; omg more rainbows
+                rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
+                rainbow-identifiers ;; rainbows!
+                robe
+                ruby-mode ;; mode for the Ruby language
+                rust-mode ;; mode for the Rust language
+                scss-mode ;; mode for the Sass language
                 slim-mode ;; mode for the Slim templating language
                 slime
-                dired-toggle-sudo
-                dired-rainbow
-                gnuplot-mode
-                dired+
+                slime-company
+                smart-mode-line ;; a nice mode line
+                smex ;; fancy
                 spinner
-                go-mode
-                elixir-mode
-                io-mode))
+                surround ;; Delete surrounding characters (`()', `[]', etc.).
+                sx
+                table ;; tables!
+                todotxt ;; Mode for the todo.txt markup
+                undo-tree ;; vim-like undo tree
+                wanderlust ;; email
+                web-mode ;; mode for web stuff
+                wgrep
+                wgrep-ag ;; writable grep, but for ag
+                workgroups2
+                ws-butler
+                yaml-mode
+                yasnippet ;; snippets
+                zenburn-theme ;; Zenburn theme
+))
 
 (loop for pkg in pkgs do
       (require-package pkg))
@@ -146,7 +151,14 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (io-mode elixir-mode go-mode spinner dired+ gnuplot-mode dired-rainbow dired-toggle-sudo slim-mode julia-mode cmake-mode ghci-completion web-mode company-tern ocodo-svg-modelines js2-mode d-mode ace-window ace-jump-helm-line ace-flyspell ace-jump-mode flycheck-ledger ledger-mode ctags lua-mode cider clojure-mode sx ws-butler ggtags mmm-mode evil-snipe yasnippet wanderlust smart-mode-line perspective helm-projectile nim-mode rainbow-delimiters indent-guide markdown-mode material-theme git-gutter coffee-mode emacs-eclim browse-kill-ring helm-ag bookmark+ ein helm-swoop projectile company-ghc company-anaconda hy-mode hydra racket-mode wgrep-ag wgrep mediawiki ibuffer-vc emmet-mode smex magit-tramp magit-gitflow magit-gh-pulls magit todotxt highlight-numbers surround zenburn-theme slime-company rust-mode flycheck-rust yaml-mode rainbow-blocks rainbow-identifiers robe gist edit-server workgroups2 ag scss-mode gitignore-mode git-timemachine gitconfig-mode git-commit-mode etags-select evil-matchit evil-indent-textobject editorconfig evil-nerd-commenter evil-visualstar evil-numbers evil-leader evil use-package))))
+    (io-mode elixir-mode go-mode spinner dired+ gnuplot-mode dired-rainbow dired-toggle-sudo slim-mode julia-mode cmake-mode ghci-completion web-mode company-tern ocodo-svg-modelines js2-mode d-mode ace-window ace-jump-helm-line ace-flyspell ace-jump-mode flycheck-ledger ledger-mode ctags lua-mode cider clojure-mode sx ws-butler ggtags mmm-mode evil-snipe yasnippet wanderlust smart-mode-line perspective helm-projectile nim-mode rainbow-delimiters indent-guide markdown-mode material-theme git-gutter coffee-mode emacs-eclim browse-kill-ring helm-ag bookmark+ ein helm-swoop projectile company-ghc company-anaconda hy-mode hydra racket-mode wgrep-ag wgrep mediawiki ibuffer-vc emmet-mode smex magit-tramp magit-gitflow magit-gh-pulls magit todotxt highlight-numbers surround zenburn-theme slime-company rust-mode flycheck-rust yaml-mode rainbow-blocks rainbow-identifiers robe gist edit-server workgroups2 ag scss-mode gitignore-mode git-timemachine gitconfig-mode git-commit-mode etags-select evil-matchit evil-indent-textobject editorconfig evil-nerd-commenter evil-visualstar evil-numbers evil-leader evil use-package)))
+ '(safe-local-variable-values
+   (quote
+    ((eval add-hook
+           (quote after-save-hook)
+           (lambda nil
+             (org-babel-tangle))
+           nil t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -653,3 +665,7 @@ couldn't figure things out (ex: syntax errors)."
 (setq mmm-global-mode 'maybe)
 (provide 'init)
 ;;; init.el ends here
+;; Local Variables:
+;; eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+;; End:
+#+end_src

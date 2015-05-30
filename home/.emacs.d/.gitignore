@@ -31,3 +31,4 @@ tramp
 # AUCTeX auto folder
 /auto/
 
+# I use a literate `init.el'.
