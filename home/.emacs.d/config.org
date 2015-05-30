@@ -2,7 +2,6 @@
 Such commentary, wow.
 
 #+begin_src emacs-lisp :tangle yes
-#+begin_src emacs-lisp :tangle yes
 ;;; Commentary:
 ;; A hacked together Emacs config.
 ;;; Code:
@@ -30,7 +29,7 @@ I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
 
 A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
   
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 (defun require-package (package)
   "Install given PACKAGE."
   (unless (package-installed-p package)
@@ -39,7 +38,7 @@ A utility function (borrowed from Bling's (https://github.com/bling)) configurat
     (package-install package)))
 #+END_SRC
 
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 
   (package-initialize)
 
