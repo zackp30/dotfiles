@@ -87,7 +87,6 @@
                     evil-matchit
                     evil-nerd-commenter
                     evil-numbers
-                    evil-snipe
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
                     flycheck-ledger
@@ -476,18 +475,6 @@ EVIL is VIM within Emacs.
     (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize))
 #+END_SRC
 
-** Snipe
-
-TODO: Learn to use this properly
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package evil-snipe
-    :config
-    (setq evil-snipe-auto-disable-substitute nil)
-    (global-evil-snipe-mode 1)
-    (evil-define-key 'normal evil-snipe-mode-map "zA" 'evil-snipe-f)
-    (evil-define-key 'normal evil-snipe-mode-map "]S" 'flyspell-goto-next-error))
-#+END_SRC
 ** Text-object delimiters
 
 #+BEGIN_SRC emacs-lisp :tangle yes
