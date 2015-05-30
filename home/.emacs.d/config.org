@@ -220,7 +220,8 @@
   (define-key global-map (kbd "C-c a") 'org-agenda)
   (setq org-log-done t)
   (setq org-directory "~/org") ;; where I store the documents
-    (define-key evil-normal-state-map (kbd "TAB") 'org-cycle) ;; readd TAB back to normal mode in EVIL
+  (add-hook 'after-init-hook (lambda () 
+    (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
 #+END_SRC
 
 ** Babel
@@ -375,7 +376,7 @@ Magit for gitflow.
   (use-package magit-gitflow
     :config
 
-    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
+    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
 #+END_SRC
 
 ** GitHub pulls
@@ -973,7 +974,7 @@ From Sacha Chua.
     (interactive "r")
     (let ((input (buffer-substring beg end))
           list last-point form result)
-          (save-restriction
+      (save-restriction
   (save-excursion
   (narrow-to-region beg end)
   (goto-char (point-min))
