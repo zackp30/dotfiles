@@ -340,8 +340,10 @@ For =(web|sgml|css)-mode=, turn on emmet-mode.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package ace-jump-helm-line
-  :config
-  (define-key helm-map (kbd "C-@") 'ace-jump-helm-line))
+    :bind ("C-@" . ace-jump-helm-line)
+    :config
+    (setq helm-display-header-line nil)
+    (set-face-attribute 'helm-source-header nil :height 0.1))
 #+END_SRC
 
 
@@ -353,6 +355,37 @@ For =(web|sgml|css)-mode=, turn on emmet-mode.
   (use-package ace-window
     :config
     (define-key global-map (kbd "C-c w") 'ace-window))
+#+END_SRC
+
+* Magit
+Magit is fantastic!
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package magit
+    :config
+    (setq magit-auto-revert-mode nil)
+    (setq magit-last-seen-setup-instructions "1.4.0"))
+#+END_SRC
+
+** Gitflow
+
+Magit for gitflow.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package magit-gitflow
+    :config
+
+    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
+#+END_SRC
+
+** GitHub pulls
+
+See GitHub pull requests in Magit.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package magit-gh-pulls
+    :config
+    (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 #+END_SRC
 
 * CMake
@@ -723,6 +756,7 @@ This package is *fantastic* for things that embed other languages.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package mmm-mode
     :config
+    (setq mmm-global-mode 'maybe)
     (mmm-add-classes
      '((markdown-latex
         :submode latex-mode
@@ -904,10 +938,59 @@ Useful for navigating around my config.
   (a-mode "Guardfile" "ruby")
   (a-mode "Rakefile" "ruby")
   (a-mode ".ledger" "ledger")
+  (electric-indent-mode 1) ;; automatically indent on RET or others
+  (show-paren-mode 1) ;; highlight matching parens
+  (mouse-avoidance-mode 'banish) ;; be gone cursor!
+  (setq initial-scratch-message ;; I know it's a scratch buffer by now!
+  (format ";; Emacs was started at %s"
+  (format-time-string "%Y-%m-%dT%T")))
+  (setq package-menu-async nil) ;; disable this, I hate it when I press "U" just when I run `list-packages' to result in it claiming there's no updates avaialble so I have to run it again.
+#+END_SRC
+
+** Backups
+
+I don't commit on every change I make, that'd be silly, so put numbered backups in here to not pollute commit history.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+    (setq delete-old-versions -1)
+    (setq version-control t)
+    (setq vc-make-backup-files t)
+    (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
 
 * Utility functions
 
+* Sort sexps
+
+From Sacha Chua.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defun my/sort-sexps-in-region (beg end)
+    "Can be handy for sorting out duplicates.
+  Sorts the sexps from BEG to END. Leaves the point at where it
+  couldn't figure things out (ex: syntax errors)."
+    (interactive "r")
+    (let ((input (buffer-substring beg end))
+          list last-point form result)
+          (save-restriction
+  (save-excursion
+  (narrow-to-region beg end)
+  (goto-char (point-min))
+  (setq last-point (point-min))
+  (setq form t)
+  (while (and form (not (eobp)))
+  (setq form (ignore-errors (read (current-buffer))))
+  (when form
+  (add-to-list 'list
+  (cons
+  (prin1-to-string form)
+  (buffer-substring last-point (point))))
+  (setq last-point (point))))
+  (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
+  (delete-region (point-min) (point))
+  (insert (mapconcat 'cdr list "\n"))))))
+#+END_SRC
 ** Get a random item from a list
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -924,7 +1007,7 @@ Useful for navigating around my config.
         (get-rnd-list '("blue" "red" "yellow" "pink")))
 #+END_SRC
 
-* Increment the number at point, like VIM's =C-a=
+** Increment the number at point, like VIM's =C-a=
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun increment-number-at-point ()
@@ -936,7 +1019,7 @@ Useful for navigating around my config.
   (global-set-key (kbd "C-c +") 'increment-number-at-point)
 #+END_SRC
 
-* Decrement the number at point, like VIM's =C-x=
+** Decrement the number at point, like VIM's =C-x=
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defun decrement-number-at-point ()
@@ -950,12 +1033,42 @@ Useful for navigating around my config.
 
 #+END_SRC
 
+* Insert shell command
+
+Insert the output of a shell command into the buffer at cursor's position.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (defun insert-shell-command (command)
+    (interactive "scommand: ")
+    (insert (shell-command-to-string command)))
+
+    (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
+#+END_SRC
 
 
 * History
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq list-command-history-max 500) ;; save an insane amount of previously-used commands
+  (setq list-command-history-max 500) ;; save an insane amount of previously-used commands
+  (setq savehist-file "~/.emacs.d/savehist")
+  (savehist-mode 1)
+  (setq history-length t)
+  (setq history-delete-duplicates t)
+  (setq savehist-save-minibuffer-history 1)
+  (setq savehist-additional-variables
+        '(kill-ring
+          search-ring
+          regexp-search-ring))
+#+END_SRC
+
+
+
+
+* Eldoc
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 
 
@@ -966,87 +1079,9 @@ Useful for navigating around my config.
 
 
 
+* The end
 
-
-
-
-
-    (setq helm-display-header-line nil)
-    (set-face-attribute 'helm-source-header nil :height 0.1)
-
-    (use-package magit
-    :config
-    (setq magit-auto-revert-mode nil)
-    (setq magit-last-seen-setup-instructions "1.4.0")
-
-    (use-package magit-gitflow
-    :config
-    (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
-
-    (defun insert-shell-command (command)
-    (interactive "scommand: ")
-    (insert (shell-command-to-string command)))
-
-    (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
-
-    (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-    (setq delete-old-versions -1)
-    (setq version-control t)
-    (setq vc-make-backup-files t)
-    (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
-    (setq savehist-file "~/.emacs.d/savehist")
-    (savehist-mode 1)
-    (setq history-length t)
-    (setq history-delete-duplicates t)
-    (setq savehist-save-minibuffer-history 1)
-    (setq savehist-additional-variables
-    '(kill-ring
-    search-ring
-    regexp-search-ring))
-
-    (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
-    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-
-
-    (electric-indent-mode 1)
-    (show-paren-mode 1)
-
-    (mouse-avoidance-mode 'banish)
-
-
-    (setq initial-scratch-message
-    (format ";; Emacs was started at %s"
-    (format-time-string "%Y-%m-%dT%T")))
-
-    (setq package-menu-async nil)
-    (defun my/sort-sexps-in-region (beg end)
-    "Can be handy for sorting out duplicates.
-    Sorts the sexps from BEG to END. Leaves the point at where it
-    couldn't figure things out (ex: syntax errors)."
-    (interactive "r")
-    (let ((input (buffer-substring beg end))
-    list last-point form result)
-    (save-restriction
-    (save-excursion
-    (narrow-to-region beg end)
-    (goto-char (point-min))
-    (setq last-point (point-min))
-    (setq form t)
-    (while (and form (not (eobp)))
-    (setq form (ignore-errors (read (current-buffer))))
-    (when form
-    (add-to-list
-    'list
-    (cons
-    (prin1-to-string form)
-    (buffer-substring last-point (point))))
-    (setq last-point (point))))
-    (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
-    (delete-region (point-min) (point))
-    (insert (mapconcat 'cdr list "\n"))))))
-
-    (setq mmm-global-mode 'maybe)
-    (provide 'init)
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (provide 'init) ;; that's a wrap folks!
     ;;; init.el ends here
-
+#+END_SRC
