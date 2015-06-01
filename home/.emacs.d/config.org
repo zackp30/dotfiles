@@ -688,6 +688,14 @@ Godot's scripting language.
 (require 'gdscript-mode)
 #+END_SRC
 
+Also enable rainbow things for GDScript.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(add-hook 'gdscript-mode-hook 'rainbow-identifiers-mode)
+(add-hook 'gdscript-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+
+
 
 * Helm
 #+BEGIN_SRC emacs-lisp :tangle yes
