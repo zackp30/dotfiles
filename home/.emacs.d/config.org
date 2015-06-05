@@ -1082,13 +1082,6 @@ Insert the output of a shell command into the buffer at cursor's position.
   (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
-
-
-
-
-
-
-
 * The end
 
 #+BEGIN_SRC emacs-lisp :tangle yes
