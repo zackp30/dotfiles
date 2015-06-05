@@ -40,8 +40,6 @@
         (unless (assoc package package-archive-contents)
           (package-refresh-contents))
         (package-install package)))
-
-
   #+END_SRC
   
 * List of packages
@@ -567,14 +565,39 @@ Git-gutter displays a git diff in the left fringe of the current buffer.
     (git-gutter:linum-setup)) ;; work with linum-mode.
 #+END_SRC
 
-* Helm-swoop
+* Helm
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package helm
+    :config
+    (helm-mode 1)
+    (helm-autoresize-mode 1))
+#+END_SRC
+** Projectile
+Integrate Projectile and Helm.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package helm-projectile
+    :config
+    (global-set-key (kbd "C-c h") 'helm-projectile))
+#+END_SRC
+
+** Helm-M-x
+
+Helm's version of M-x.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(define-key global-map (kbd "M-x") 'helm-M-x)
+#+END_SRC
+
+** Helm-swoop
 
 Alternative to I-search.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-
+  (use-package helm-swoop
+    :config
+    (define-key isearch-mode-map (kbd "M-a") 'helm-swoop-from-isearch))
 #+END_SRC
-
 
 * Languages
 ** SCSS
@@ -705,23 +728,6 @@ Also enable rainbow things for GDScript.
 #+END_SRC
 
 
-
-* Helm
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package helm
-    :config
-    (helm-mode 1)
-    (helm-autoresize-mode 1))
-#+END_SRC
-** Projectile
-Integrate Projectile and Helm.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package helm-projectile
-    :config
-    (global-set-key (kbd "C-c h") 'helm-projectile))
-#+END_SRC
-
 * ibuffer
 
 ibuffer is an enhanced version of the standard =buffer-menu=.
@@ -809,13 +815,15 @@ I have yet to get around to making my own mode-line, but Smart-Mode-Line is grea
 
 * smex
 
+Disabled because of an (apparent) bug in Emacs.
+
 Fancy =M-x=.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package smex
-    :bind ("M-x" . smex)
-    :bind ("M-x" . execute-extended-command) ;; in case smex breaks
-    :bind ("M-X" . smex-major-mode-commands))
+  ;; (use-package smex
+  ;;   :bind ("M-x" . smex)
+  ;;   :bind ("M-x" . execute-extended-command) ;; in case smex breaks
+  ;;   :bind ("M-X" . smex-major-mode-commands))
 #+END_SRC
 
 * Ag
@@ -828,7 +836,6 @@ Ag is a super-fast alternative to grep.
     (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
 #+END_SRC
 
-
 * ws-butler
 
 Used to remove whitespace.
@@ -838,7 +845,6 @@ Used to remove whitespace.
     :config
     (add-hook 'prog-mode-hook 'ws-butler-mode))
 #+END_SRC
-
 
 * YASnippet
 
@@ -888,7 +894,6 @@ Not used much, but might switch to Wanderlust one day.
   (add-hook 'mime-view-mode-hook 'foo-wl)
 #+END_SRC
 
-
 * undotree
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -898,7 +903,6 @@ Not used much, but might switch to Wanderlust one day.
     (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
     (setq undo-tree-visualizer-diff t))
 #+END_SRC
-
 
 * Rainbows
 
@@ -925,8 +929,6 @@ Useful for navigating around my config.
   '("Used Packages"
     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
 #+END_SRC
-
-
 
 * Misc
 
@@ -1058,7 +1060,6 @@ Insert the output of a shell command into the buffer at cursor's position.
     (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
 #+END_SRC
 
-
 * History
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1075,16 +1076,12 @@ Insert the output of a shell command into the buffer at cursor's position.
 #+END_SRC
 
 
-
-
 * Eldoc
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
-
-
 
 
 
