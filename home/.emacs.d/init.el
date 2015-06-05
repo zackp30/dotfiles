@@ -5,6 +5,7 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(setq vc-follow-symlinks t)
 (require 'ob-tangle)
 (org-babel-load-file "~/.emacs.d/config.org")
 (custom-set-faces

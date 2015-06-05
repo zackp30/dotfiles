@@ -567,6 +567,15 @@ Git-gutter displays a git diff in the left fringe of the current buffer.
     (git-gutter:linum-setup)) ;; work with linum-mode.
 #+END_SRC
 
+* Helm-swoop
+
+Alternative to I-search.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+
+#+END_SRC
+
+
 * Languages
 ** SCSS
 
