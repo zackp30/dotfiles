@@ -586,7 +586,7 @@ Integrate Projectile and Helm.
 Helm's version of M-x.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-(define-key global-map (kbd "M-x") 'helm-M-x)
+;; (define-key global-map (kbd "M-x") 'helm-M-x)
 #+END_SRC
 
 ** Helm-swoop
@@ -784,9 +784,28 @@ This package is *fantastic* for things that embed other languages.
        (markdown-erb
         :submode ruby-mode
         :front "<%"
-        :back "%>")))
+        :back "%>")
+       (markdown-clojure
+        :submode clojure-mode
+        :front "```clojure"
+        :back "```")
+       (markdown-ruby
+        :submode ruby-mode
+        :front "```ruby"
+        :back "```")
+       (markdown-haskell
+        :submode haskell-mode
+        :front "```haskell"
+        :back "```")
+       (markdown-lisp
+        :submode lisp-mode
+        :front "```lisp"
+        :back "```")))
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
-    (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb))
+    (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
+    (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-clojure)
+    (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-ruby)
+    (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-haskell))
   (a-mode ".mderb" "markdown")
 
 #+END_SRC
@@ -820,10 +839,10 @@ Disabled because of an (apparent) bug in Emacs.
 Fancy =M-x=.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  ;; (use-package smex
-  ;;   :bind ("M-x" . smex)
-  ;;   :bind ("M-x" . execute-extended-command) ;; in case smex breaks
-  ;;   :bind ("M-X" . smex-major-mode-commands))
+  (use-package smex
+    :bind ("M-x" . smex)
+    :bind ("M-x" . execute-extended-command) ;; in case smex breaks
+    :bind ("M-X" . smex-major-mode-commands))
 #+END_SRC
 
 * Ag
