@@ -59,6 +59,7 @@ source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
 source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
 source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source_if_exists ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source_if_exists ~/.zsh/plugins/zsh-autosuggestions/autosuggestions.zsh
 source_if_exists $HOME/.homesick/repos/homeshick/homeshick.sh
 
 if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
@@ -110,7 +111,12 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 
+function zle-line-init-autosuggest {
+    zle autosuggest-start
+}
+
 zle -N zle-line-init
+zle -N zle-line-init-autosuggest
 zle -N zle-keymap-select
 
 bindkey -M vicmd 'k' history-substring-search-up

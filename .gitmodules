@@ -52,3 +52,6 @@
 [submodule "home/.config/awesome/alttab"]
 	path = home/.config/awesome/alttab
 	url = https://github.com/jorenheit/awesome_alttab
+[submodule "home/.zsh/plugins/zsh-autosuggestions"]
+	path = home/.zsh/plugins/zsh-autosuggestions
+	url = https://github.com/tarruda/zsh-autosuggestions
