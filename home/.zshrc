@@ -107,18 +107,16 @@ export rvmsudo_secure_path=1
 
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
 function zle-line-init zle-keymap-select {
+    zle autosuggest-start
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
     zle reset-prompt
 }
 
-function zle-line-init-autosuggest {
-    zle autosuggest-start
-}
 
 zle -N zle-line-init
-zle -N zle-line-init-autosuggest
 zle -N zle-keymap-select
-
+AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=8'
+AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
