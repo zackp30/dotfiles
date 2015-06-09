@@ -97,10 +97,8 @@ if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$
     export TERM='xterm-256color'
 fi
 
-zle -N insert-sudo insert_sudo
 bindkey -v
 bindkey -s '^O' '^qcd\n'
-mesg n
 export KEYTIMEOUT=1
 source_if_exists ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
 ZSH_VCS_PROMPT_ENABLE_CACHING='true'
