@@ -798,13 +798,14 @@ This package is *fantastic* for things that embed other languages.
         :front "```haskell"
         :back "```")
        (markdown-lisp
-        :submode lisp-mode
-        :front "```lisp"
+        :submode common-lisp-mode
+        :front "```commonlisp"
         :back "```")))
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
     (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-clojure)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-ruby)
+    (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-lisp)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-haskell))
   (a-mode ".mderb" "markdown")
 

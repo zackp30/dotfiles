@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$PATH # weird how this isn't a default...
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 function detect_command() {
@@ -55,14 +55,11 @@ function zle-line-finish () {
 zle -N zle-line-init
 zle -N zle-line-finish
 
-
-export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
 source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
 source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source_if_exists ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source_if_exists $HOME/.homesick/repos/homeshick/homeshick.sh
-source_if_exists ~/.rubotorc
 
 if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
     eval "$(pyenv init -)"
@@ -76,7 +73,6 @@ HISTFILE=~/.zsh_history
 setopt histignorealldups sharehistory
 
 [[ -s /home/zack/.autojump/etc/profile.d/autojump.sh ]] && source /home/zack/.autojump/etc/profile.d/autojump.sh
-
 
 autoload -Uz compinit
 compinit
@@ -217,13 +213,9 @@ alias fig="showfigfonts | less"
 
 function gi() { curl -L -s https://www.gitignore.io/api/$@ }
 
-
-
 mt_load_mods() {
     for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> $1
 }
-
-# BEGIN p_rompt
 
 # Colors
 _p_color_date=cyan
@@ -233,8 +225,6 @@ _p_color_user=white
 _p_color_user_fg=black
 _p_color_host=white
 _p_color_host_fg=black
-
-
 
 p_module_privsymbol() {
     if [[ $(print -P "%#") == "#" ]] ; then
@@ -274,23 +264,23 @@ p_load() {
 
 p_load
 
-# END p_rompt
-
-
 alias pull='git pull'
-alias dict="LD_LIBRARY_PATH=/usr/local/lib64 dict" # ¯\_(ツ)_/¯
-alias e="emacsclient -c"
 alias ..='cd ..'
 alias cab='cabal install'
 alias :q='exit'
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' # for TRAMP
+
+# `$TERM' is set to "dumb" when using TRAMP to connect to the host, my custom prompt
+# doesn't work well with TRAMP (i.e: makes TRAMP wait forever for a prompt), so simply
+# set `PS1' to a very simple prompt.
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
 [[ $DISPLAY == ":2" ]] && unset TMUX
 
+# When in tmux I leave some panes to idle, but when I'm not in tmux I don't need `$TMOUT'
+# especially when forwarding ports, so determine if within `TMUX' and set `TMOUT'.
 [[ $TMUX ]] && export TMOUT=3600
 
-source_if_exists ~/.locals.sh
-
+source_if_exists ~/.locals.sh # host specific things *not* to be checked into version control.
 
 alias gcem="git commit -am '' --allow-empty-message"
 alias grmv="git remote -v"
@@ -298,3 +288,5 @@ alias grmv="git remote -v"
 task
 
 source_if_exists ~/.fzf.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
