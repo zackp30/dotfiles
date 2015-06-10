@@ -139,7 +139,6 @@
                     slime
                     slime-company
                     smart-mode-line ;; a nice mode line
-                    smex ;; fancy
                     spinner
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
                     sx
@@ -586,7 +585,7 @@ Integrate Projectile and Helm.
 Helm's version of M-x.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-;; (define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "M-x") 'helm-M-x)
 #+END_SRC
 
 ** Helm-swoop
@@ -831,19 +830,6 @@ I have yet to get around to making my own mode-line, but Smart-Mode-Line is grea
     :config
     (setq sml/theme 'dark)
     (sml/setup))
-#+END_SRC
-
-* smex
-
-Disabled because of an (apparent) bug in Emacs.
-
-Fancy =M-x=.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package smex
-    :bind ("M-x" . smex)
-    :bind ("M-x" . execute-extended-command) ;; in case smex breaks
-    :bind ("M-X" . smex-major-mode-commands))
 #+END_SRC
 
 * Ag
