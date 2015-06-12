@@ -799,9 +799,14 @@ This package is *fantastic* for things that embed other languages.
        (markdown-lisp
         :submode common-lisp-mode
         :front "```commonlisp"
-        :back "```")))
+        :back "```")
+       (shell-json
+        :submode javascript-mode
+        :front "<<JSON"
+        :back "JSON")))
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
     (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
+    (mmm-add-mode-ext-class 'shell-mode nil 'shell-json)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-clojure)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-ruby)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-lisp)
