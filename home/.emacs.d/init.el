@@ -13,7 +13,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(evil-ex-substitute-matches ((t (:background "dark orange" :box (:line-width 2 :color "dark orange" :style released-button) :overline t :underline t :slant normal)))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
