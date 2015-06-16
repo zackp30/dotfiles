@@ -385,19 +385,6 @@ See GitHub pull requests in Magit.
     (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 #+END_SRC
 
-* CMake
-
-CMake is a great alternative to autotools/automake. I use it for any C/C++ project I work on.
-
-The following makes =CMakeLists.txt= use =cmake-mode=.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package cmake-mode
-    :init
-    (add-to-list 'auto-mode-alist
-                 '("CMakeLists.txt" . cmake-mode)) )
-#+END_SRC
-
 * Auto completion
 
 =Company= is a fantastic alternative to =auto-complete=.
@@ -595,7 +582,7 @@ Alternative to I-search.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package helm-swoop
     :config
-    (define-key isearch-mode-map (kbd "M-a") 'helm-swoop-from-isearch))
+    (define-key global-map (kbd "C-c C-a C-c") 'helm-swoop))
 #+END_SRC
 
 * Languages
@@ -726,6 +713,18 @@ Also enable rainbow things for GDScript.
 (add-hook 'gdscript-mode-hook 'rainbow-delimiters-mode)
 #+END_SRC
 
+** CMake
+
+CMake is a great alternative to autotools/automake. I use it for any C/C++ project I work on.
+
+The following makes =CMakeLists.txt= use =cmake-mode=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package cmake-mode
+    :init
+    (add-to-list 'auto-mode-alist
+                 '("CMakeLists.txt" . cmake-mode)) )
+#+END_SRC
 
 * ibuffer
 
@@ -806,7 +805,7 @@ This package is *fantastic* for things that embed other languages.
         :back "JSON")))
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
     (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
-    (mmm-add-mode-ext-class 'shell-mode nil 'shell-json)
+    (mmm-add-mode-ext-class 'shell-mode "\\.sh\\'" 'shell-json)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-clojure)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-ruby)
     (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-lisp)
@@ -1085,7 +1084,6 @@ Insert the output of a shell command into the buffer at cursor's position.
           search-ring
           regexp-search-ring))
 #+END_SRC
-
 
 * Eldoc
 
