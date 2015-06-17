@@ -14,7 +14,11 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
     . "${HOME}/.gpg-agent-info"
     export GPG_AGENT_INFO
 else
-    gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+    if [ $HOST == "linux-nyit" ]; then
+        gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
+    else
+        gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+    fi
 fi
 
 # From the ZSH wiki
