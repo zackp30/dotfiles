@@ -1,3 +1,4 @@
+setopt AUTO_PUSHD
 export PATH=$HOME/bin:$PATH # weird how this isn't a default...
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
