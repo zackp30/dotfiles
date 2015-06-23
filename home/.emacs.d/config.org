@@ -121,7 +121,9 @@
                     magit-gitflow ;; Magit interface for git-flow
                     magit-tramp ;; TRAMP integration for Magit
                     markdown-mode ;; mode for the Markdown markup
-                    material-theme
+                    material-theme ;; materiald design theme
+                    moe-theme
+                    zenburn-theme ;; Zenburn theme
                     mediawiki ;; mediawiki client
                     mmm-mode
                     nim-mode
@@ -153,7 +155,6 @@
                     ws-butler
                     yaml-mode
                     yasnippet ;; snippets
-                    zenburn-theme ;; Zenburn theme
                     ))
 
     (loop for pkg in pkgs do
@@ -943,6 +944,8 @@ Useful for navigating around my config.
 * Misc
 
 #+BEGIN_SRC emacs-lisp :tangle yes
+  (require 'moe-theme)
+  (moe-dark)
   (require 'tramp) ;; edit files on remote locations
   (require 'whitespace) ;; whitespace monitor
   (column-number-mode 1) ;; enable column number in modeline
@@ -951,7 +954,6 @@ Useful for navigating around my config.
   (scroll-bar-mode -1) ;; disable scrollbar
   (global-linum-mode 1) ;; enable line numbers
   (electric-pair-mode 1) ;; match parens automatically
-  (load-theme 'material t) ;; Yay material design.
   (setq-default indent-tabs-mode nil) ;; no tabs.
   (setq-default tab-width 2) ;; Ruby-style indentation
   (require 'saveplace)
@@ -967,8 +969,8 @@ Useful for navigating around my config.
   (show-paren-mode 1) ;; highlight matching parens
   (mouse-avoidance-mode 'banish) ;; be gone cursor!
   (setq initial-scratch-message ;; I know it's a scratch buffer by now!
-  (format ";; Emacs was started at %s"
-  (format-time-string "%Y-%m-%dT%T")))
+        (format ";; Emacs was started at %s"
+                (format-time-string "%Y-%m-%dT%T")))
   (setq package-menu-async nil) ;; disable this, I hate it when I press "U" just when I run `list-packages' to result in it claiming there's no updates avaialble so I have to run it again.
 #+END_SRC
 
