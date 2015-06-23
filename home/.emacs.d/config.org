@@ -943,11 +943,6 @@ Useful for navigating around my config.
 * Misc
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'moe-theme)
-  (moe-dark)
-  (set-face-background 'default "#262a26")
-  (setq default-frame-alist
-        '((background-color . "#262a26")))
   (require 'tramp) ;; edit files on remote locations
   (require 'whitespace) ;; whitespace monitor
   (column-number-mode 1) ;; enable column number in modeline
@@ -958,6 +953,7 @@ Useful for navigating around my config.
   (electric-pair-mode 1) ;; match parens automatically
   (setq-default indent-tabs-mode nil) ;; no tabs.
   (setq-default tab-width 2) ;; Ruby-style indentation
+  (set-face-background 'default "#262a20")
   (require 'saveplace)
   (setq-default save-place t)
   (a-mode ".md" "markdown")
