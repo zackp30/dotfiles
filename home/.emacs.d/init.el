@@ -13,6 +13,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#262a26" :foreground "#c6c6c6" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 108 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(flyspell-incorrect ((t (:background "#ef2929" :foreground "#c6c6c6" :underline (:color foreground-color :style wave) :weight bold))))
  '(font-lock-string-face ((t (:foreground "LavenderBlush4"))))
  '(isearch ((t (:box (:line-width 2 :color "grey75" :style released-button) :underline (:color foreground-color :style wave) :slant oblique :width expanded)))))
 (custom-set-variables

@@ -34,12 +34,13 @@
   A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
   
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun require-package (package)
-      "Install given PACKAGE."
-      (unless (package-installed-p package)
-        (unless (assoc package package-archive-contents)
-          (package-refresh-contents))
-        (package-install package)))
+        (defun require-package (package)
+          "Install given PACKAGE."
+          (unless (package-installed-p package)
+            (unless (assoc package package-archive-contents)
+              (package-refresh-contents))
+            (package-install package)))
+
   #+END_SRC
   
 * List of packages
@@ -884,8 +885,6 @@ Snippet for Emacs.
   (add-hook 'mail-mode-hook 'auto-fill-mode) ;; hard-wrap text when emailing
 #+END_SRC
 
-
-
 ** Wanderlust
 
 Not used much, but might switch to Wanderlust one day.
@@ -946,6 +945,9 @@ Useful for navigating around my config.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (require 'moe-theme)
   (moe-dark)
+  (set-face-background 'default "#262a26")
+  (setq default-frame-alist
+        '((background-color . "#262a26")))
   (require 'tramp) ;; edit files on remote locations
   (require 'whitespace) ;; whitespace monitor
   (column-number-mode 1) ;; enable column number in modeline
