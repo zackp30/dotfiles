@@ -25,3 +25,5 @@
 
 (require 'moe-theme)
 (moe-dark)
+
+(face-spec-set 'default '((t :background "#262a26")))
