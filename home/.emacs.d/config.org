@@ -122,8 +122,6 @@
                     magit-gitflow ;; Magit interface for git-flow
                     magit-tramp ;; TRAMP integration for Magit
                     markdown-mode ;; mode for the Markdown markup
-                    material-theme ;; materiald design theme
-                    moe-theme
                     zenburn-theme ;; Zenburn theme
                     mediawiki ;; mediawiki client
                     mmm-mode
