@@ -13,7 +13,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(isearch ((t (:background "#5F5F5F" :foreground "#D0BF8F" :box (:line-width 2 :color "orange red" :style released-button) :weight bold)))))
+ '(isearch ((t (:background "#5F5F5F" :foreground "#D0BF8F" :box (:line-width 2 :color "orange red" :style released-button) :weight bold))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "orange red"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "yellow"))))
+ '(rainbow-identifiers-identifier-1 ((t (:foreground "orange red")))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

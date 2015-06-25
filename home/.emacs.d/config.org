@@ -923,6 +923,7 @@ Not used much, but might switch to Wanderlust one day.
     (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
   (use-package rainbow-delimiters
     :config
+    (add-hook 'markdown-mode-hook 'rainbow-delimiters-mode)
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 #+END_SRC
