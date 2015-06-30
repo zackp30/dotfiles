@@ -267,7 +267,8 @@ p_load() {
 
 p_load
 
-alias pull='git pull'
+alias gpull='git pull'
+alias gstatus='git status'
 alias ..='cd ..'
 alias cab='cabal install'
 alias :q='exit'
@@ -293,3 +294,19 @@ task
 source_if_exists ~/.fzf.zsh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+job_sessions="school"
+
+if [[ $TMUX ]]; then
+    if [[ "$(tmux display-message -p '#{session_name}')" =~ $job_sessions ]]; then
+        job_session_this="$(tmux display-message -p '#{session_name}')"
+        if [[ "$(tmux display-message -p '#{session_windows}')" > 1 ]]; then
+            echo "Attempted to create pane in job tmux, redirecting..."
+            # check if the misc session exists
+            if [[ "$(tmux list-sessions -F '#{session_name}' | grep \" $job_session_this \")" ]]; then # grep returns exit code 1 when nothing found
+                # if not found
+                tmux new-session -s misc
+            fi
+        fi
+    fi
+fi

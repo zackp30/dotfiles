@@ -118,7 +118,6 @@
                     lentic
                     lua-mode ;; mode for the Lua language
                     magit ;; git integration
-                    magit-gh-pulls ;; see GitHub pull requests in Magit
                     magit-gitflow ;; Magit interface for git-flow
                     magit-tramp ;; TRAMP integration for Magit
                     markdown-mode ;; mode for the Markdown markup
@@ -373,16 +372,6 @@ Magit for gitflow.
     :config
 
     (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
-#+END_SRC
-
-** GitHub pulls
-
-See GitHub pull requests in Magit.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package magit-gh-pulls
-    :config
-    (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 #+END_SRC
 
 * Auto completion
