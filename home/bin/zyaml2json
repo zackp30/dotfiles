@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby 
+
+require 'yaml'
+require 'json'
+
+puts JSON.dump YAML.load_file File.expand_path ARGV[0]
