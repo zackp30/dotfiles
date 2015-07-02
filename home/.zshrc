@@ -297,16 +297,23 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 job_sessions="school"
 
-if [[ $TMUX ]]; then
-    if [[ "$(tmux display-message -p '#{session_name}')" =~ $job_sessions ]]; then
-        job_session_this="$(tmux display-message -p '#{session_name}')"
-        if [[ "$(tmux display-message -p '#{session_windows}')" > 1 ]]; then
-            echo "Attempted to create pane in job tmux, redirecting..."
-            # check if the misc session exists
-            if [[ "$(tmux list-sessions -F '#{session_name}' | grep \" $job_session_this \")" ]]; then # grep returns exit code 1 when nothing found
-                # if not found
-                tmux new-session -s misc
-            fi
-        fi
-    fi
-fi
+# if [[ $TMUX ]]; then
+#     if [[ "$(tmux display-message -p '#{session_name}')" =~ $job_sessions ]]; then
+#         job_session_this="$(tmux display-message -p '#{session_name}')"
+#         if [[ "$(tmux display-message -p '#{session_windows}')" > 1 ]]; then
+#             echo "Attempted to create pane in job tmux, redirecting..."
+#             # check if the misc session exists
+#             if [[ $(tmux list-sessions -F ' #{session_name} ' | grep " $job_session_this ") ]]; then
+#                 # grep returns exit code 1 when nothing found
+#                 if [[ echo $? ]]; then # session doesn't exist
+#                     tmux new-session -s misc
+#                 else # session exists
+
+#                 fi
+#             fi
+#         fi
+#     fi
+# fi
+
+
+jobmux
