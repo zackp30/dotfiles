@@ -637,7 +637,9 @@ The following enables Eldoc for use with CIDER.
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package cider
     :config
-    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
+    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+    (a-mode ".boot" "clojure")
+    (add-to-list 'magic-mode-alist '(". boot" . clojure-mode)))
 #+END_SRC
 
 ** JavaScript
