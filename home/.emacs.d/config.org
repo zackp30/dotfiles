@@ -118,7 +118,6 @@
                     lentic
                     lua-mode ;; mode for the Lua language
                     magit ;; git integration
-                    magit-gitflow ;; Magit interface for git-flow
                     magit-tramp ;; TRAMP integration for Magit
                     markdown-mode ;; mode for the Markdown markup
                     zenburn-theme ;; Zenburn theme
@@ -361,17 +360,6 @@ Magit is fantastic!
     :config
     (setq magit-auto-revert-mode nil)
     (setq magit-last-seen-setup-instructions "1.4.0"))
-#+END_SRC
-
-** Gitflow
-
-Magit for gitflow.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package magit-gitflow
-    :config
-
-    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
 #+END_SRC
 
 * Auto completion
