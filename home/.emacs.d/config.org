@@ -94,7 +94,6 @@
                     ghc
                     ghci-completion
                     gist
-                    git-commit-mode
                     git-gutter ;; Git status in left fringe
                     git-timemachine
                     gitconfig-mode

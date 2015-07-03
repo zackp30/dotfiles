@@ -316,4 +316,18 @@ job_sessions="school"
 # fi
 
 
+
+# http://www.yamadapc.com.br/posts/emacs/workflow/2015/03/11/how-i-manage-emacs-daemons.html command "projectroot" implemented myself.
+function ep {
+    emacsclient -t -s $(basename $(projectroot)) $@
+}
+
+function ep-start {
+    emacs -f server-start -s $(basename $(projectroot)) $@
+}
+
+function ep-stop {
+    emacsclient -t -s $(basename $(projectroot)) -e '(safe-buffers-kill-emacs)'
+}
+
 jobmux
