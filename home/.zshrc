@@ -323,7 +323,7 @@ function ep {
 }
 
 function ep-start {
-    emacs -f server-start -s $(basename $(projectroot)) $@
+    emacs --eval '(setq server-name '$(basename $(projectroot))') (server-start)' $@
 }
 
 function ep-stop {
