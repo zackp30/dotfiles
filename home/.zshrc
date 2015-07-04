@@ -323,6 +323,7 @@ function ep {
 }
 
 function ep-start {
+    waitforemacs $(basename $(projectroot))
     emacs $@
 }
 

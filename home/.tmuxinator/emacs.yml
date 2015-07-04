@@ -6,7 +6,7 @@ root: ~/
 windows:
   - main:
       panes:
-        - 'cd $HOME && ep-start'
+        - 'cd $HOME && emacs --daemon'
   - documents:
       panes:
         - 'cd $HOME/documents && ep-start'

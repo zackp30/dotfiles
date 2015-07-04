@@ -1,1 +1,12 @@
 #!/bin/bash
+
+# this is neccesary to stop init file locking (config.el gets locked when tangling my config.org).
+
+emacstmp="/tmp/emacs$UID/"
+if [ "$(ls -A $emacstmp)" ]; then # no servers exist, stop waiting and exit
+    touch $emacstmp/... # without this, when the program exits, other servers (because I have multiple) will run at the same time
+                        # this makes the above condition fail, and not exit
+    exit
+fi
+
+inotifywait -r --format '%w%f' -e create $emacstmp | grep "$1"
