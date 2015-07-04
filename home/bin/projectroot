@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+pwd = Dir.pwd
+
+pwd_a = pwd.split('/')
+
+list_of_project_things = [
+  '.git',
+  '.gitignore',
+  '.project'
+]
+
+
+where_am_i = []
+pwd_a.each do |current|
+  where_am_i << current.sub(/^/, "/")
+  Dir.chdir where_am_i.join('/')
+  $found_any = nil
+  list_of_project_things.each do |l|
+    if File.exists? l
+      puts Dir.pwd
+      $found_any = true
+      break
+    else
+      $found_any = false
+      break
+    end
+  end
+  break if $found_any
+end
+
+puts Dir.pwd if ! $found_any
