@@ -1070,6 +1070,12 @@ Insert the output of a shell command into the buffer at cursor's position.
 * The end
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-    (provide 'init) ;; that's a wrap folks!
-    ;;; init.el ends here
+  (defun init-server ()
+    (setq server-name
+          (replace-regexp-in-string "\n$" ""
+                                    (shell-command-to-string "basename $(projectroot)")))
+    (server-start))
+  (add-hook 'after-init-hook 'init-server)
+  (provide 'init) ;; that's a wrap folks!
+            ;;; init.el ends here
 #+END_SRC
