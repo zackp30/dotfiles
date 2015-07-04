@@ -1,0 +1,14 @@
+# ~/.tmuxinator/school.yml
+
+name: school
+root: ~/documents
+
+
+windows:
+  - main:
+      layout: even-horizontal
+      panes:
+          - emacs:
+              - 'e'
+          - pane2:
+              - 'bundle exec guard'
