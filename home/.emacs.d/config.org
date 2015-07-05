@@ -1070,17 +1070,14 @@
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun get-project-name ()
+    (defun shell-without-newline (s)
       (replace-regexp-in-string "\n$" ""
-                                (shell-command-to-string "basename $(projectroot)")))
+                                (shell-command-to-string s)))
+    (defun get-project-name ()
+      (shell-without-newline "basename $(projectroot)"))
     (defun init-server ()
-      (if (string= (get-project-name) (replace-regexp-in-string "\n$" ""
-                                                                (shell-command-to-string "basename $HOME"))))
-      (setq server-name (get-project-name))
-      (setq server-name "server")
-
-      (server-start))
-    (add-hook 'after-init-hook 'init-server)
+      (string= (get-project-name) (shell-without-newline "basename $HOME")))
+    ;;(add-hook 'after-init-hook 'init-server)
     (provide 'init) ;; that's a wrap folks!
-                    ;;; init.el ends here
+                            ;;; init.el ends here
   #+END_SRC
