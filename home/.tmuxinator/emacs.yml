@@ -6,7 +6,10 @@ root: ~/
 windows:
   - main:
       panes:
-        - 'cd $HOME && emacs --daemon'
+        - 'cd $HOME && ep-start'
   - documents:
       panes:
         - 'cd $HOME/documents && ep-start'
+  - dotfiles:
+      panes:
+        - 'cd $HOME/.homesick/repos/dotfiles && ep-start'

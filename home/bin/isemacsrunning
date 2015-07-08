@@ -1,0 +1,24 @@
+#!/bin/bash
+emacstmp="/tmp/emacs$UID/"
+pid_location="$emacstmp/ready/"
+
+while true; do
+    if [ -f $pid_location/$1 ]; then
+        pid="$(cat $pid_location/$1)"
+        ps -p $pid --no-heading > /dev/null
+        if [ $? == 1 ]; then
+            echo "no"
+            exit
+        else
+            echo "yes"
+            if [ $2 == "1" ]; then
+                exit
+            else
+                sleep 1
+            fi
+        fi
+    else
+        echo "no"
+        exit
+    fi
+done

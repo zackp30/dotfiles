@@ -9,12 +9,26 @@
   (replace-regexp-in-string "\n$" ""
                             (shell-command-to-string s)))
 (defun get-project-name ()
-  ;; get the project that Emacs is running within
-  (shell-without-newline "basename $(projectroot)"))
+  "get the project that Emacs is running within"
+  (if (string=
+       (shell-without-newline "basename $(projectroot)")
+       (shell-without-newline "basename $HOME"))
+      "server"
+    (shell-without-newline "basename $(projectroot)")))
 
 (setq pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/"))
 (setq server-name (get-project-name))
 (setq pid-file (concat pid-dir server-name))
+
+;; Here we determine whether we're about to conflict with another Emacs server.
+(when (string= "yes" (shell-without-newline (concat
+                                "isemacsrunning "
+                               server-name
+                                " "
+                                (number-to-string 1))))
+  (progn (error (concat "Emacs server (" server-name ") is already running, exiting"))
+         (kill-emacs)))
+
 (when (and (not server-mode))
   (server-start))
 

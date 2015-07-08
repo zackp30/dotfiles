@@ -5,20 +5,21 @@
 emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
 
-rm -v $emacstmp/$1
-
-if [ "$1" == "$(basename $HOME)" ]; then # one server has to kick it off
+if [ $1 == $(basename $HOME) ]; then
     exit
 fi
 
-isemacsrunning | while read RUNNING
-do
-
+for i in $(ls -A $emacstmp); do
+    if [ -S "$emacstmp/$i" ]; then
+        # isemacsrunning $i 0 | while read -r RUNNING
+        # do
+        #     if [ $RUNNING == "no" ]; then
+        #         break
+        #     else
+        #         if [a]; then
+        #         fi
+        #     fi
+        # done
+        inotifywait $emacstmp/ready/$i
+    fi
 done
-
-# inotifywait -r --format '%w%f' $emacstmp | while read FILE
-# do
-#     if [ -S $FILE ]; then
-
-#     fi
-# done
