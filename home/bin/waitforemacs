@@ -3,11 +3,22 @@
 # this is neccesary to stop init file locking (config.el gets locked when tangling my config.org).
 
 emacstmp="/tmp/emacs$UID/"
+pid_location="$emacstmp/ready/"
 
-inotifywait -m -r --format '%w%f' -e create $emacstmp | while read FILE
+rm -v $emacstmp/$1
+
+if [ "$1" == "$(basename $HOME)" ]; then # one server has to kick it off
+    exit
+fi
+
+isemacsrunning | while read RUNNING
 do
-    if [ $(echo $FILE | grep -v $1) ]; then
-       exit
-    fi
-    
+
 done
+
+# inotifywait -r --format '%w%f' $emacstmp | while read FILE
+# do
+#     if [ -S $FILE ]; then
+
+#     fi
+# done

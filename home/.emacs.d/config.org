@@ -1067,17 +1067,10 @@
     (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
     (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
+  
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun shell-without-newline (s)
-      (replace-regexp-in-string "\n$" ""
-                                (shell-command-to-string s)))
-    (defun get-project-name ()
-      (shell-without-newline "basename $(projectroot)"))
-    (defun init-server ()
-      (string= (get-project-name) (shell-without-newline "basename $HOME")))
-    ;;(add-hook 'after-init-hook 'init-server)
     (provide 'init) ;; that's a wrap folks!
-                            ;;; init.el ends here
+    ;;; init.el ends here
   #+END_SRC
