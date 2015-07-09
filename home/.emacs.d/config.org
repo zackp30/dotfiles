@@ -1,6 +1,6 @@
 * Commentary
   Such commentary, wow.
-  
+
   #+begin_src emacs-lisp :tangle yes
     ;;; Commentary:
     ;; A hacked together Emacs config.
@@ -484,6 +484,7 @@
    I found this in Bling's dotemacs.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (set-face-background 'mode-line "grey")
      (defun my-evil-modeline-change (default-color)
        "changes the modeline color when the evil mode changes"
        (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
@@ -703,6 +704,15 @@
        (add-to-list 'auto-mode-alist
                     '("CMakeLists.txt" . cmake-mode)) )
    #+END_SRC
+
+** VisualBasic
+   
+Used for work experience.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+  (a-mode ".vbs" "visual-basic")
+#+END_SRC
 
 * ibuffer
 
