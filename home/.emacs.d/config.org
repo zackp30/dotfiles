@@ -484,7 +484,7 @@
    I found this in Bling's dotemacs.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (set-face-background 'mode-line "grey")
+     (set-face-background 'mode-line "bright-black")
      (defun my-evil-modeline-change (default-color)
        "changes the modeline color when the evil mode changes"
        (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
