@@ -22,10 +22,10 @@
 
 ;; Here we determine whether we're about to conflict with another Emacs server.
 (when (string= "yes" (shell-without-newline (concat
-                                "isemacsrunning "
-                               server-name
-                                " "
-                                (number-to-string 1))))
+                                             "isemacsrunning "
+                                             server-name
+                                             " "
+                                             (number-to-string 1))))
   (progn (error (concat "Emacs server (" server-name ") is already running, exiting"))
          (kill-emacs)))
 
