@@ -812,7 +812,15 @@ Used for work experience.
     (use-package projectile
       :bind ("C-c v f" . helm-projectile-find-file)
       :config
-      (projectile-global-mode))
+      (setq projectile-completion-system 'helm)
+      (projectile-global-mode)
+      (add-hook 'projectile-mode-hook 'projectile-rails-on))
+  #+END_SRC
+** Projectile rails
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package projectile-rails
+      :config
+      (projectile-r))
   #+END_SRC
 
 * Smart-Mode-Line
