@@ -15,4 +15,6 @@ elif [[ $REMOTE_HOSTNAME == "art_laptop" ]]; then
     echo "1536x864"
 elif [[ $REMOTE_HOSTNAME == "phone" ]]; then
     echo "1920x1080"
+elif [[ $REMOTE_HOSTNAME == "we" ]]; then
+    echo "1920x1080"
 fi

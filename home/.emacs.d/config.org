@@ -72,6 +72,8 @@
                     d-mode ;; mode for the D language
                     dired+
                     dired-rainbow
+                    projectile-rails
+                    rinari
                     dired-toggle-sudo
                     edit-server ;; used by Edit With Emacs
                     editorconfig
@@ -808,6 +810,7 @@ Used for work experience.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package projectile
+      :bind ("C-c v f" . helm-projectile-find-file)
       :config
       (projectile-global-mode))
   #+END_SRC
