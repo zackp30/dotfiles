@@ -816,12 +816,6 @@ Used for work experience.
       (projectile-global-mode)
       (add-hook 'projectile-mode-hook 'projectile-rails-on))
   #+END_SRC
-** Projectile rails
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package projectile-rails
-      :config
-      (projectile-r))
-  #+END_SRC
 
 * Smart-Mode-Line
 
@@ -937,6 +931,21 @@ Used for work experience.
                  '("Used Packages"
                    "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
   #+END_SRC
+
+* linum
+
+http://stackoverflow.com/a/8470136/3289461
+
+I would like to add padding but still have a space after the fringe.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defadvice linum-update-window (around linum-dynamic activate)
+    (let* ((w (length (number-to-string
+                       (count-lines (point-min) (point-max)))))
+           (linum-format (concat "%" (number-to-string w) "d ")))
+      ad-do-it))
+#+END_SRC
+
 
 * Misc
 
