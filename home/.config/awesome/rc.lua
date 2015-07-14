@@ -215,8 +215,10 @@ for s = 1, screen.count() do
    local right_layout = wibox.layout.fixed.horizontal()
    if s == 1 then right_layout:add(wibox.widget.systray()) end
    right_layout:add(mylayoutbox[s])
-   right_layout:add(obvious.volume_alsa(0, speaker_name))
-   right_layout:add(obvious.battery())
+   if os.getenv('HOME') ~= "xieshaij" then
+      right_layout:add(obvious.volume_alsa(0, speaker_name))
+      right_layout:add(obvious.battery())
+   end
    right_layout:add(mytextclock)
 
 
