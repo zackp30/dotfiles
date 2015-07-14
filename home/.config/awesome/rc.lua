@@ -92,7 +92,7 @@ end
 tags = {}
 for s = 1, screen.count() do
    -- Each screen has its own tag table.
-   tags[s] = awful.tag({ "1","2","3","4","5","6","7","8" }, s, layouts[1])
+   tags[s] = awful.tag({"➊", "➋", "➌", "➍", "➎", "➏", "➐", "➑", "➒", "➓"}, s, layouts[1])
 end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
@@ -373,15 +373,8 @@ awful.rules.rules = {
                     focus = awful.client.focus.filter,
                     keys = clientkeys,
                     buttons = clientbuttons } },
-   { rule = { instance = "cairo-dock" },
-     properties = {
-        floating = true,
-        ontop = true, 
-        focus = false
-     } 
-   }, 
-   { rule = { class = "sel" },
-     properties = { floating = true }}
+   { rule = { instance = "Chrome" },
+     properties = {tag = tags[1][2]}}
 }
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
@@ -418,8 +411,7 @@ client.connect_signal("manage", function (c, startup)
                                      client.focus = c
                                      c:raise()
                                      awful.mouse.client.resize(c)
-                               end)
-                            )
+                            end))
 
                             -- Widgets that are aligned to the left
                             local left_layout = wibox.layout.fixed.horizontal()
