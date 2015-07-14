@@ -7,13 +7,7 @@
 --  * http://awesome.naquadah.org/wiki/Nice_Icons
 
 theme = {}
-if os.getenv("HOSTNAME") == "raspberrypi" then
-  theme.wallpaper = os.getenv("HOME").."/bg/pi.jpg"
-else
-  -- theme.wallpaper = os.getenv("HOME").."/.config/awesome/themes/zenburn/fig.png"
-  theme.wallpaper = os.getenv("HOME").."/.config/awesome/themes/zenburn/gnu.png"
-
-end
+theme.wallpaper = os.getenv("HOME").."/.config/awesome/themes/zenburn/gnu.png"
 theme.font      = "sans 8"
 
 theme.fg_normal  = "#DCDCCC"
