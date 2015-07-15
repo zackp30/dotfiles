@@ -1,0 +1,6 @@
+#!/bin/bash
+file_to_source=$HOME/powerline/powerline/bindings/tmux
+
+if [ -e $file_to_source ]; then
+    tmux source $file_to_source
+fi
