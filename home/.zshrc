@@ -8,7 +8,7 @@ function detect_command() {
 }
 
 function run_command() {
-    if [ $($(detect_command $1); echo $?) == 0 ]; then
+    if [ $($(detect_command $1); echo $?) -eq 0 ]; then
         $@
     fi
 }
