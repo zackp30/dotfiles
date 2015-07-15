@@ -7,6 +7,12 @@ function detect_command() {
     return 0
 }
 
+function run_command() {
+    if [ $($(detect_command $1); echo $?) == 0 ]; then
+        $@
+    fi
+}
+
 function source_if_exists() {
     [ ! -e "$1" ] || source "$1"
 }
@@ -331,4 +337,4 @@ function ep-stop {
     emacsclient -t -s $(basename $(projectroot)) -e '(safe-buffers-kill-emacs)'
 }
 
-jobmux
+run_command jobmux
