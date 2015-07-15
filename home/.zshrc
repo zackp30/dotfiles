@@ -142,7 +142,6 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 autoload -Uz compinit
 compinit
-export GOROOT=$HOME/go
 export GOPATH=$HOME/gostuff
 # if [ -f "${HOME}/.gpg-agent-info" ]; then
 #     . "${HOME}/.gpg-agent-info"
