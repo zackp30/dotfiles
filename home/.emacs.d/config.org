@@ -193,21 +193,6 @@
                     (intern (concat mode "-mode")))))
   #+END_SRC
 
-* Safe themes
-
-  I find it kinda silly how Emacs asks to load themes which "can contain code", I mean, shouldn't it do this for every single package downloaded from ELPA/MELPA/etc? Obviously not, so why should it do it for themes? It seems redundant.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (custom-set-variables
-     ;; custom-set-variables was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     '(custom-safe-themes
-       (quote
-        ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))
-  #+END_SRC
-
 * Org mode
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -726,7 +711,6 @@ Geiser is great for scheme.
                                   (add-to-list 'company-backends 'geiser-company-backend))))
 #+END_SRC
 
-
 * ibuffer
 
   ibuffer is an enhanced version of the standard =buffer-menu=.
@@ -956,7 +940,6 @@ I would like to add padding but still have a space after the fringe.
            (linum-format (concat "%" (number-to-string w) "d ")))
       ad-do-it))
 #+END_SRC
-
 
 * Misc
 
