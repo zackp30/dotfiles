@@ -9,7 +9,7 @@ TERM-THEME: the theme to set when within a terminal
 X-THEME: the theme to set when within X11"
   (setq color-theme-is-global nil) ;; make `load-theme' non-global
 
-  (if (getenv "DISPLAY")
+  (if (display-graphic-p)
       (load-theme x-theme t)
     (load-theme term-theme t)))
 
