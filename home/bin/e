@@ -3,4 +3,6 @@
 # Here I make a wrapper to fall back to a different color scheme on terminals
 # and also run emacsclient using a single letter.
 
-emacsclient -c $@
+if [ $DISPLAY ]; then
+    emacsclient -c $@
+fi
