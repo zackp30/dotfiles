@@ -96,6 +96,7 @@
                     ghc
                     ghci-completion
                     gist
+                    geiser
                     git-gutter ;; Git status in left fringe
                     git-timemachine
                     gitconfig-mode
@@ -715,6 +716,18 @@ Used for work experience.
   (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
   (a-mode ".vbs" "visual-basic")
 #+END_SRC
+
+** Scheme
+
+Geiser is great for scheme.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package :geiser
+    :config
+    (add-hook 'scheme-mode-hook (lambda ()
+                                  (add-to-list 'company-backends 'geiser-company-backend))))
+#+END_SRC
+
 
 * ibuffer
 
