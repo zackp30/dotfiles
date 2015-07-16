@@ -944,6 +944,10 @@ I would like to add padding but still have a space after the fringe.
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'frame-theme)
+    (add-hook 'server-visit-hook 
+              (lambda ()
+                (frame-theme 'zenburn 'material)))
     (require 'tramp) ;; edit files on remote locations
     (require 'whitespace) ;; whitespace monitor
     (column-number-mode 1) ;; enable column number in modeline
