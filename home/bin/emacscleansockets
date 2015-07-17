@@ -1,3 +1,16 @@
 #!/bin/bash
 
-# Clean emacs sockets and temporary files.
+# Clean Emacs sockets and temporary files.
+
+echo "Cleaning Emacs tmp files..."
+
+emacstmp="/tmp/emacs$UID/"
+pid_location="$emacstmp/ready/"
+#for tmp in $(ls -A $pid_location); do
+#    if [ $(isemacsrunning $tmp 1) == "no" -a ! -f $emacstmp/$tmp -a $(echo -n " $tmp "  | grep -q " $PROJECT_NAME "; echo $?) == 0 ]; then
+#        rm -v $pid_location/$tmp
+#        rm -v $emacstmp/$tmp
+#    fi
+#done
+
+

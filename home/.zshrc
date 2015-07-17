@@ -328,13 +328,20 @@ function ep {
 }
 
 function ep-start {
-    waitforemacs $(basename $(projectroot))
-    source /tmp/emacs$UID/ready/$(basename $(projectroot))-env
-    emacs
+	waitforemacs $(basename $(projectroot))
+		if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
+		    . /tmp/emacs$UID/ready/server-env
+		else
+		    . /tmp/emacs$UID/ready/$(basename $(projectroot))-env
+		fi
+		emacs
 }
 
 function ep-stop {
     emacsclient -t -s $(basename $(projectroot)) -e '(safe-buffers-kill-emacs)'
+    rm /tmp/emacs$UID/ready/$(basename (projectroot))
+    rm /tmp/emacs$UID/waiting/$(basename (projectroot))
+    rm /tmp/emacs$UID/$(basename (projectroot))
 }
 
 run_command jobmux

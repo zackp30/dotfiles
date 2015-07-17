@@ -8,10 +8,7 @@
   "remove the newline from the output of a shell command"
   (replace-regexp-in-string "\n$" ""
                             (shell-command-to-string s)))
-(defvar project-name (if (string=
-                              (getenv "PROJECT_NAME")
-                              (shell-without-newline "basename $HOME"))
-                             "server")
+(defvar project-name (getenv "PROJECT_NAME")
                            "Get the project that Emacs is running within.")
 
 (defvar pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/")

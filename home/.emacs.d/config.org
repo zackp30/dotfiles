@@ -495,6 +495,16 @@
            evil-normal-state-cursor '((hollow . 5) "white"))
    #+END_SRC
 
+** Matching
+
+   Extends `%'.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package evil-matchit
+    :config
+    (global-evil-matchit-mode))
+#+END_SRC
+
 * GNU Global
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -944,6 +954,7 @@ I would like to add padding but still have a space after the fringe.
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
+    (set-face-attribute 'default nil :height 85)
     (require 'tramp) ;; edit files on remote locations
     (require 'whitespace) ;; whitespace monitor
     (column-number-mode 1) ;; enable column number in modeline

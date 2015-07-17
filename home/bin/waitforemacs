@@ -6,37 +6,47 @@ emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
 waiting_location="$emacstmp/waiting/"
 if [ ! -e $emacstmp ]; then
-  mkdir $emacstmp
+    mkdir $emacstmp
 
-  # make directory safe
-  chmod o-wrx $emacstmp
-  chmod g-wrx $emacstmp
+    # make directory safe
+    chmod o-wrx $emacstmp
+    chmod g-wrx $emacstmp
 fi
 if [ ! -e $waiting_location ]; then
-  mkdir $waiting_location
+    mkdir $waiting_location
 fi
 if [ ! -e $pid_location ]; then
-  mkdir $pid_location
+    mkdir $pid_location
 fi
-if [ ! $PROJECT_NAME ]; then
-    if [ ! "$(basename $HOME)" = "$(basename $(projectroot))" ]; then
-        export PROJECT_NAME="server"
-    else
-        export PROJECT_NAME="$(basename $(projectroot))"
-    fi
-    echo "export PROJECT_NAME="$PROJECT_NAME >| /tmp/emacs$UID/ready/$PROJECT_NAME-env
+if [ "$(basename $HOME)" == "$(basename $(projectroot))" ]; then
+    PROJECT_NAME="server"
+else
+    PROJECT_NAME="$(basename $(projectroot))"
 fi
 
-touch "$waiting_location/$PROJECT_NAME"
+echo "export PROJECT_NAME="$PROJECT_NAME >| $pid_location/$PROJECT_NAME-env # parent process will inherit this env
+chmod +x $pid_location/$PROJECT_NAME-env
 
-if [ $1 == $(basename $HOME) ]; then
+# main server needs to kick things off
+if [ $PROJECT_NAME == server ]; then
     exit
 fi
 
-for i in $(ls -A $waiting_location); do
-    if [ -f "$waiting_location/$PROJECT_NAME" -a "$i" != "$PROJECT_NAME" ]; then
-        inotifywait -e delete $waiting_location/$i
-    fi
-done
+function determine_file() {
+    case $PROJECT_NAME in
+        documents)
+            echo dotfiles
+            ;;
+        dotfiles)
+            echo server
+            ;;
+        *)
+    esac
+}
 
-rm "$waiting_location/$PROJECT_NAME"
+inotifywait -m -e close_write --format '%f' $pid_location |
+    while read file; do
+        if [ $(echo -n " $file " | grep -q " $(determine_file) "; echo $?) ]; then # spaces to ensure uniqueness
+            exit
+        fi
+    done
