@@ -248,7 +248,7 @@ p_module_host() {
 }
 
 p_module_user() {
-       echo "%F{$_p_color_user_fg}%K{$_p_color_user}%n%F{red}⍟%f%k%f"
+    echo "%F{$_p_color_user_fg}%K{$_p_color_user}%n%F{red}⍟%f%k%f"
 }
 
 p_module_pwd() {
@@ -328,20 +328,27 @@ function ep {
 }
 
 function ep-start {
-	waitforemacs $(basename $(projectroot))
-		if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
-		    . /tmp/emacs$UID/ready/server-env
-		else
-		    . /tmp/emacs$UID/ready/$(basename $(projectroot))-env
-		fi
-		emacs
+    waitforemacs $(basename $(projectroot))
+    if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
+        . /tmp/emacs$UID/ready/server-env
+    else
+        . /tmp/emacs$UID/ready/$(basename $(projectroot))-env
+    fi
+    emacs
 }
 
 function ep-stop {
-    emacsclient -t -s $(basename $(projectroot)) -e '(safe-buffers-kill-emacs)'
-    rm /tmp/emacs$UID/ready/$(basename (projectroot))
-    rm /tmp/emacs$UID/waiting/$(basename (projectroot))
-    rm /tmp/emacs$UID/$(basename (projectroot))
+    if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
+        emacsclient -t -s server -e '(safe-buffers-kill-emacs)'
+        rm /tmp/emacs$UID/ready/server
+        rm /tmp/emacs$UID/waiting/server
+        rm /tmp/emacs$UID/server
+    else
+        emacsclient -t -s $(basename $(projectroot)) -e '(safe-buffers-kill-emacs)'
+        rm /tmp/emacs$UID/ready/$(basename (projectroot))
+        rm /tmp/emacs$UID/waiting/$(basename (projectroot))
+        rm /tmp/emacs$UID/$(basename (projectroot))
+    fi
 }
 
 run_command jobmux
