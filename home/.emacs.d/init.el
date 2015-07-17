@@ -8,17 +8,17 @@
   "remove the newline from the output of a shell command"
   (replace-regexp-in-string "\n$" ""
                             (shell-command-to-string s)))
-(defun get-project-name ()
-  "get the project that Emacs is running within"
-  (if (string=
-       (shell-without-newline "basename $(projectroot)")
-       (shell-without-newline "basename $HOME"))
-      "server"
-    (shell-without-newline "basename $(projectroot)")))
+(defvar project-name (if (string=
+                              (getenv "PROJECT_NAME")
+                              (shell-without-newline "basename $HOME"))
+                             "server")
+                           "Get the project that Emacs is running within.")
 
-(setq pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/"))
-(setq server-name (get-project-name))
-(setq pid-file (concat pid-dir server-name))
+(defvar pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/")
+  "Where the PIDs are stored.")
+(setq server-name project-name)
+(defvar pid-file (concat pid-dir server-name)
+  "Where the PID file is.")
 
 ;; Here we determine whether we're about to conflict with another Emacs server.
 (when (string= "yes" (shell-without-newline (concat
@@ -29,7 +29,7 @@
   (progn (error (concat "Emacs server (" server-name ") is already running, exiting"))
          (kill-emacs)))
 
-(when (and (not server-mode))
+(when (not server-mode)
   (server-start))
 
 

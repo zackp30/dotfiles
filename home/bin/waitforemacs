@@ -4,22 +4,39 @@
 
 emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
+waiting_location="$emacstmp/waiting/"
+if [ ! -e $emacstmp ]; then
+  mkdir $emacstmp
+
+  # make directory safe
+  chmod o-wrx $emacstmp
+  chmod g-wrx $emacstmp
+fi
+if [ ! -e $waiting_location ]; then
+  mkdir $waiting_location
+fi
+if [ ! -e $pid_location ]; then
+  mkdir $pid_location
+fi
+if [ ! $PROJECT_NAME ]; then
+    if [ ! "$(basename $HOME)" = "$(basename $(projectroot))" ]; then
+        export PROJECT_NAME="server"
+    else
+        export PROJECT_NAME="$(basename $(projectroot))"
+    fi
+    echo "export PROJECT_NAME="$PROJECT_NAME >| /tmp/emacs$UID/ready/$PROJECT_NAME-env
+fi
+
+touch "$waiting_location/$PROJECT_NAME"
 
 if [ $1 == $(basename $HOME) ]; then
     exit
 fi
 
-for i in $(ls -A $emacstmp); do
-    if [ -S "$emacstmp/$i" ]; then
-        # isemacsrunning $i 0 | while read -r RUNNING
-        # do
-        #     if [ $RUNNING == "no" ]; then
-        #         break
-        #     else
-        #         if [a]; then
-        #         fi
-        #     fi
-        # done
-        inotifywait $emacstmp/ready/$i
+for i in $(ls -A $waiting_location); do
+    if [ -f "$waiting_location/$PROJECT_NAME" -a "$i" != "$PROJECT_NAME" ]; then
+        inotifywait -e delete $waiting_location/$i
     fi
 done
+
+rm "$waiting_location/$PROJECT_NAME"

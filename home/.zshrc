@@ -329,6 +329,7 @@ function ep {
 
 function ep-start {
     waitforemacs $(basename $(projectroot))
+    source /tmp/emacs$UID/ready/$(basename $(projectroot))-env
     emacs
 }
 
