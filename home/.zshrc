@@ -324,7 +324,7 @@ job_sessions="school"
 
 # http://www.yamadapc.com.br/posts/emacs/workflow/2015/03/11/how-i-manage-emacs-daemons.html command "projectroot" implemented myself.
 function ep {
-    emacsclient -t -s $(basename $(projectroot)) $@
+    emacsclient -c -s $(basename $(projectroot)) $@
 }
 
 function ep-start {
