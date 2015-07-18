@@ -5,48 +5,49 @@
 emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
 waiting_location="$emacstmp/waiting/"
-if [ ! -e $emacstmp ]; then
-    mkdir $emacstmp
 
-    # make directory safe
-    chmod o-wrx $emacstmp
-    chmod g-wrx $emacstmp
-fi
-if [ ! -e $waiting_location ]; then
-    mkdir $waiting_location
-fi
-if [ ! -e $pid_location ]; then
-    mkdir $pid_location
-fi
 if [ "$(basename $HOME)" == "$(basename $(projectroot))" ]; then
     PROJECT_NAME="server"
 else
     PROJECT_NAME="$(basename $(projectroot))"
 fi
-
 echo "export PROJECT_NAME="$PROJECT_NAME >| $pid_location/$PROJECT_NAME-env # parent process will inherit this env
 chmod +x $pid_location/$PROJECT_NAME-env
+
 
 # main server needs to kick things off
 if [ $PROJECT_NAME == server ]; then
     exit
 fi
 
+echo $PROJECT_NAME
+
 function determine_file() {
     case $PROJECT_NAME in
+        fb-mapper)
+            printf documents
+            ;;
         documents)
-            echo dotfiles
+            printf dotfiles
             ;;
         dotfiles)
-            echo server
+            printf server
             ;;
         *)
     esac
 }
 
-inotifywait -m -e close_write --format '%f' $pid_location |
+file_to_watch=$(determine_file)
+exec 3< <(tail -n 0 -f $emacstmp/inotify.log)
+log_pid=$$
+cat <&3 | {
+    read inotify_pid
     while read file; do
-        if [ $(echo -n " $file " | grep -q " $(determine_file) "; echo $?) ]; then # spaces to ensure uniqueness
-            exit
+        if [ $(echo -n "$file" | grep -q "$file_to_watch$" ; echo $?) == 0 ]; then
+            echo continuing...
+            kill $log_pid
+        else
+            echo $file
         fi
     done
+}

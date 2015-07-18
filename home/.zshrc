@@ -328,6 +328,7 @@ function ep {
 }
 
 function ep-start {
+    sleep 1 # wait for shells to initialise, THEN start
     waitforemacs $(basename $(projectroot))
     if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
         . /tmp/emacs$UID/ready/server-env
@@ -335,6 +336,7 @@ function ep-start {
         . /tmp/emacs$UID/ready/$(basename $(projectroot))-env
     fi
     emacs
+    rm /tmp/emacs$UID/ready/$PROJECT_NAME
 }
 
 function ep-stop {
