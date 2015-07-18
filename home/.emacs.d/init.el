@@ -3,9 +3,20 @@
 (setq vc-follow-symlinks t)
 
 ;; Server handling
+;; I use multiple Emacs servers, and had a problem where loading `config.org'
+;; and tangling it into `config.el' ended up causing a lock.
+;; So I went on the quest to make my own system to run them one at a time.
+;; This involved:
+;; 1. Running the servers in a contained manner (tmux!).
+;; 2. Wait for a PID file to appear, which will happen a few seconds after `after-init-hook'
+;; 3. Make Emacs servers depend on each other, for example:
+;;   - fb-mapper depends on documents which depends on dotfiles which depends on server
+;;
+;; This system works really well.
 
 (defun shell-without-newline (s)
-  "remove the newline from the output of a shell command"
+  "Remove the newline from the output of a shell command.
+S: shell command to run"
   (replace-regexp-in-string "\n$" ""
                             (shell-command-to-string s)))
 (defvar project-name (getenv "PROJECT_NAME")
@@ -31,6 +42,7 @@
 
 
 (defun init-pid ()
+  "saves a PID file"
   (when (file-exists-p pid-file)
     (delete-file pid-file))
   (when (not (file-exists-p pid-dir))
