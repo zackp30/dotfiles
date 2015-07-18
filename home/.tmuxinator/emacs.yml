@@ -16,3 +16,6 @@ windows:
   - fbmapper:
       panes:
         - 'cd $HOME/fb-mapper && ep-start'
+  - damon:
+      panes:
+        - 'cd $HOME/damon && ep-start'

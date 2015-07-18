@@ -24,6 +24,9 @@ echo $PROJECT_NAME
 
 function determine_file() {
     case $PROJECT_NAME in
+        damon)
+            printf fb-mapper
+            ;;
         fb-mapper)
             printf documents
             ;;
@@ -39,6 +42,9 @@ function determine_file() {
 
 # Process redirection is used here to store the `tail` PID, and then terminate it when finished.
 file_to_watch=$(determine_file)
+if [ -e $pid_location/$file_to_watch ]; then
+    exit
+fi
 exec 3< <(tail -n 0 -f $emacstmp/inotify.log)
 log_pid=$$ # PID stored here
 cat <&3 | {
