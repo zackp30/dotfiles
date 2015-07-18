@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# this is neccesary to stop init file locking (config.el gets locked when tangling my config.org).
+# This is neccesary to stop init file locking (config.el gets locked when tangling my config.org).
 
 emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
@@ -37,17 +37,18 @@ function determine_file() {
     esac
 }
 
+# Process redirection is used here to store the `tail` PID, and then terminate it when finished.
 file_to_watch=$(determine_file)
 exec 3< <(tail -n 0 -f $emacstmp/inotify.log)
-log_pid=$$
+log_pid=$$ # PID stored here
 cat <&3 | {
     read inotify_pid
     while read file; do
         if [ $(echo -n "$file" | grep -q "$file_to_watch$" ; echo $?) == 0 ]; then
             echo continuing...
-            kill $log_pid
+            kill $log_pid # we're done, terminate and let other things take over
         else
-            echo $file
+            echo $file # debugging, really
         fi
     done
 }

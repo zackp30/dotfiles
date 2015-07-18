@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This program runs a daemonized inotify to avoid using multiple inotifywait processes.
+# It saves output to `inotify.log` which is read by some `tail` processes in `waitforemacs`
+
 emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
 waiting_location="$emacstmp/waiting/"
