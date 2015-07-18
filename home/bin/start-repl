@@ -1,0 +1,6 @@
+#!/usr/bin/env clisp
+
+(ql:quickload "swank")
+
+(loop do ;; in case I terminate the server by accident
+     (swank:create-server))
