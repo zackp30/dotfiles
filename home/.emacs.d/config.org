@@ -494,11 +494,11 @@
 
    Extends =%=.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package evil-matchit
-    :config
-    (global-evil-matchit-mode))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-matchit
+       :config
+       (global-evil-matchit-mode))
+   #+END_SRC
 
 * GNU Global
 
@@ -697,23 +697,23 @@
 
 ** VisualBasic
    
-Used for work experience.
+   Used for work experience.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-  (a-mode ".vbs" "visual-basic")
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+     (a-mode ".vbs" "visual-basic")
+   #+END_SRC
 
 ** Scheme
 
-Geiser is great for scheme.
+   Geiser is great for scheme.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package geiser
-    :config
-    (add-hook 'scheme-mode-hook (lambda ()
-                                  (add-to-list 'company-backends 'geiser-company-backend))))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package geiser
+       :config
+       (add-hook 'scheme-mode-hook (lambda ()
+                                     (add-to-list 'company-backends 'geiser-company-backend))))
+   #+END_SRC
 
 * ibuffer
 
@@ -1024,7 +1024,7 @@ Geiser is great for scheme.
        (get-rnd-list '("blue" "red" "yellow" "pink")))
    #+END_SRC
 *** TODO [0/1]
-- [ ] Add more colors
+    - [ ] Add more colors
 
 ** Increment the number at point, like VIM's =C-a=
 
@@ -1098,10 +1098,10 @@ Geiser is great for scheme.
   
 ** =waitforemacs=
 
-Hangs until a certain other Emacs server starts.
+   Hangs until a certain other Emacs server starts.
 
-#+INCLUDE: "~/bin/waitforemacs" src shell
+   #+INCLUDE: "~/bin/waitforemacs" src shell
 
 ** =emacsinotify=
 
-#+INCLUDE: "~/bin/emacsinotify" src shell
+   #+INCLUDE: "~/bin/emacsinotify" src shell
