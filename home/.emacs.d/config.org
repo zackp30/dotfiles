@@ -444,7 +444,6 @@
 
 ** Leader
 
-   TODO: Replace this with Hydra maybe?
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-leader
@@ -461,6 +460,8 @@
          "g t r" 'ctags-create-or-update-tags-table))
    #+END_SRC
 
+*** TODO [0/1]
+    - [ ] Replace this with Hydra maybe?
 ** Modeline color changing
 
    I found this in Bling's dotemacs.
@@ -1015,13 +1016,15 @@ Geiser is great for scheme.
        (nth (random* (length lst)) lst))
    #+END_SRC
 
-** Get a random color (TODO: more colors)
+** Get a random color
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun random-color ()
        "Get a random color."
        (get-rnd-list '("blue" "red" "yellow" "pink")))
    #+END_SRC
+*** TODO [0/1]
+- [ ] Add more colors
 
 ** Increment the number at point, like VIM's =C-a=
 
