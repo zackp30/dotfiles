@@ -15,3 +15,8 @@ I use Awesome (and no desktop environment) for managing windows.
 * zsh
 
 #+INCLUDE: "~/.zshrc.org" :minlevel 2
+* tmux
+
+tmux is AWESOME!
+
+#+INCLUDE: "~/.homesick/repos/dotfiles/home/.tmux.conf.org" :minlevel 2
