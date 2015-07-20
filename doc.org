@@ -10,3 +10,7 @@ The documentation for my dotfiles.
 I use Awesome (and no desktop environment) for managing windows.
 
 #+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2
+
+* zsh
+
+#+INCLUDE: "~/.zshrc.org" :minlevel 2

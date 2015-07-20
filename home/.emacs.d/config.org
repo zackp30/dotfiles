@@ -491,7 +491,7 @@
 
 ** Matching
 
-   Extends `%'.
+   Extends =%=.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package evil-matchit
@@ -509,7 +509,7 @@
 
 * Git-gutter
 
-  Git-gutter displays a git diff in the left fringe of the current buffer.
+  Git-gutter displays a summary of =git diff= in the left fringe of the current buffer.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package git-gutter
@@ -1089,3 +1089,16 @@ Geiser is great for scheme.
     (provide 'init) ;; that's a wrap folks!
     ;;; init.el ends here
   #+END_SRC
+
+
+* Cascade startup system
+  
+** =waitforemacs=
+
+Hangs until a certain other Emacs server starts.
+
+#+INCLUDE: "~/bin/waitforemacs" src shell
+
+** =emacsinotify=
+
+#+INCLUDE: "~/bin/emacsinotify" src shell
