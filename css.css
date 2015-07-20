@@ -2,6 +2,10 @@ pre.src {
     background-color: #262626;
     color: #ffffff;
 }
+
+pre.src:before {
+    color: black;
+}
 .org-ace-flyspell--background {
     /* ace-flyspell-background */
     font-weight: bold;
