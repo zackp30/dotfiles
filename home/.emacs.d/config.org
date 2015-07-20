@@ -28,7 +28,7 @@
         (load "~/.local.el"))
   #+END_SRC
   
-* `require-package'
+* =require-package=
   
   A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
   
