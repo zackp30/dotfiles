@@ -1,0 +1,12 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./css.css">
+
+The documentation for my dotfiles.
+
+* Emacs configuration
+#+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
+
+* Window manager (Awesome)
+
+I use Awesome (and no desktop environment) for managing windows.
+
+#+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2

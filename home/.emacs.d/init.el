@@ -1,4 +1,7 @@
 (package-initialize)
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(require 'org)
+(require 'htmlize)
 
 (setq vc-follow-symlinks t)
 
@@ -20,7 +23,7 @@ S: shell command to run"
   (replace-regexp-in-string "\n$" ""
                             (shell-command-to-string s)))
 (defvar project-name (getenv "PROJECT_NAME")
-                           "Get the project that Emacs is running within.")
+  "Get the project that Emacs is running within.")
 
 (defvar pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/")
   "Where the PIDs are stored.")

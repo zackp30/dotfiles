@@ -50,7 +50,6 @@
 
     (require 'cl)
     ;; Install packages.
-    (add-to-list 'load-path "~/.emacs.d/lisp")
     (defvar pkgs '(use-package
                     ace-flyspell ;; ace-jump-mode for flyspell
                     ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
@@ -934,6 +933,7 @@ Geiser is great for scheme.
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq org-export-htmlize-output-type 'css)
     (set-face-attribute 'default nil :height 85)
     (require 'tramp) ;; edit files on remote locations
     (require 'whitespace) ;; whitespace monitor
@@ -953,6 +953,7 @@ Geiser is great for scheme.
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
+    (require 'htmlize)
     (electric-indent-mode 1) ;; automatically indent on RET or others
     (show-paren-mode 1) ;; highlight matching parens
     (mouse-avoidance-mode 'banish) ;; be gone cursor!
