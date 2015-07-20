@@ -48,7 +48,7 @@ This configuration is heavily modified from the original one.
 *** TODO
 
     - [ ] Make more robust [0/1]
-      - [ ] Use xrandr or something instead of using a host.
+      - [ ] Use =xrandr= or something instead of using a host.
 
 * Error handling
 
