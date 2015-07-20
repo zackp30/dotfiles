@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clisp -i <<EOF
-(ql:quickload "swank")
-
-(loop do ;; in case I terminate the server by accident
-     (swank:create-server))
-EOF

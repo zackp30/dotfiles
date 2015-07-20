@@ -5,7 +5,6 @@
     ;;; Commentary:
     ;; A hacked together Emacs config.
     ;;; Code:
-    ;; Add repositories for package archives
   #+end_src
   
 * Package archives
@@ -594,7 +593,7 @@
                     (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
                     (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
         (slime-setup '(slime-fancy slime-repl slime-company))
-        (setq inferior-lisp-program "clisp")) ;; use GNU clisp
+        (setq inferior-lisp-program "sbcl")) ;; use SBCL
     #+END_SRC
 
 
