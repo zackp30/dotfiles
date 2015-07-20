@@ -3,6 +3,7 @@
 The documentation for my dotfiles.
 
 * Emacs configuration
+
 #+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
 
 * Window manager (Awesome)
