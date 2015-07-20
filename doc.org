@@ -20,3 +20,17 @@ I use Awesome (and no desktop environment) for managing windows.
 tmux is AWESOME!
 
 #+INCLUDE: "~/.homesick/repos/dotfiles/home/.tmux.conf.org" :minlevel 2
+
+** tmuxinator
+   
+*** Emacs server
+
+   #+INCLUDE: "~/.tmuxinator/emacs.yml" src yaml
+
+*** School
+
+   #+INCLUDE: "~/.tmuxinator/school.yml" src yaml
+
+*** X11
+
+   #+INCLUDE: "~/.tmuxinator/x.yml" src yaml
