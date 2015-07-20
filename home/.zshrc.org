@@ -269,6 +269,8 @@
   #+END_SRC
 
 * FZF
+  
+Taken from the FZF README.
 
   #+BEGIN_SRC shell :tangle yes
     # fe [FUZZY PATTERN] - Open the selected file with the default editor
