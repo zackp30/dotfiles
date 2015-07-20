@@ -194,7 +194,20 @@
     (define-key global-map (kbd "C-c l") 'org-store-link)
     (define-key global-map (kbd "C-c a") 'org-agenda)
     (setq org-log-done t)
+    (setq org-latex-listings 'minted) ;; enable minted
+    (setq org-latex-custom-lang-environments
+          '((emacs-lisp "common-lispcode")
+            (conf-space "aconfcode")))
+    (setq org-latex-minted-options
+          '(("frame" "lines")
+            ("fontsize" "\\scriptsize")
+            ("linenos" "")))
     (setq org-directory "~/org") ;; where I store the documents
+    (setq org-latex-to-pdf-process
+          '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+    (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
     (add-hook 'after-init-hook (lambda () 
                                  (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
@@ -1092,7 +1105,6 @@
     (provide 'init) ;; that's a wrap folks!
     ;;; init.el ends here
   #+END_SRC
-
 
 * Cascade startup system
   

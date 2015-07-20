@@ -168,7 +168,7 @@ This configuration is heavily modified from the original one.
 
 ** Clock
 
-   #+BEGIN_SRC  :tangle yes
+   #+BEGIN_SRC lua :tangle yes
   -- Create a textclock widget
   mytextclock = awful.widget.textclock()
 
