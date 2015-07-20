@@ -6,10 +6,12 @@ emacstmp="/tmp/emacs$UID/"
 pid_location="$emacstmp/ready/"
 waiting_location="$emacstmp/waiting/"
 
-if [ "$(basename $HOME)" == "$(basename $(projectroot))" ]; then
-    PROJECT_NAME="server"
-else
-    PROJECT_NAME="$(basename $(projectroot))"
+if [ ! $PROJECT_NAME ]; then
+    if [ "$(basename $HOME)" == "$(basename $(projectroot))" ]; then
+        PROJECT_NAME="server"
+    else
+        PROJECT_NAME="$(basename $(projectroot))"
+    fi
 fi
 echo "export PROJECT_NAME="$PROJECT_NAME >| $pid_location/$PROJECT_NAME-env # parent process will inherit this env
 chmod +x $pid_location/$PROJECT_NAME-env
@@ -24,6 +26,9 @@ echo $PROJECT_NAME
 
 function determine_file() {
     case $PROJECT_NAME in
+        x11)
+            printf damon
+            ;;
         damon)
             printf fb-mapper
             ;;

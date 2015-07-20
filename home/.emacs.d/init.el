@@ -76,5 +76,4 @@ S: shell command to run"
  ;; If there is more than one, they won't work right.
  )
 
-(load-theme 'zenburn t)
-
+(load-theme 'material t)

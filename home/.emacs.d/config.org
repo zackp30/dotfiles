@@ -53,11 +53,11 @@
     (add-to-list 'load-path "~/.emacs.d/lisp")
     (defvar pkgs '(use-package
                     ace-flyspell ;; ace-jump-mode for flyspell
-                    ace-jump-helm-line
+                    ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
                     ace-jump-mode ;; easymotion
-                    ace-window
+                    ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
-                    bookmark+ ;;
+                    bookmark+ ;; improved boomarks
                     browse-kill-ring ;; menu for the killring
                     cider ;; REPL for Clojure
                     clojure-mode ;; mode for the Clojure language
@@ -66,45 +66,44 @@
                     company ;; auto completion
                     company-anaconda ;; Python completion for company
                     company-ghc ;; Haskell completion for company
-                    company-tern
-                    ctags
+                    company-tern ;; completion for `tern-mode'.
+                    ctags ;; ctags integration for Emacs
                     d-mode ;; mode for the D language
-                    dired+
-                    dired-rainbow
+                    dired+ ;; extensions for Dired
+                    dired-rainbow ;; RAINBOWS
                     projectile-rails
-                    rinari
+                    rinari ;; Rails
                     dired-toggle-sudo
                     edit-server ;; used by Edit With Emacs
-                    editorconfig
+                    editorconfig ;; make sure I conform to style guides
                     ein ;; iPython Notebook for Emacs
-                    elixir-mode
+                    elixir-mode ;; major mode for Elixir
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
-                    evil
-                    evil-indent-textobject
-                    evil-leader
-                    evil-matchit
-                    evil-nerd-commenter
+                    evil ;; VIM for Emacs
+                    evil-indent-textobject ;; indentation text object for Evil
+                    evil-leader ;; VIM's leader key for Emacs
+                    evil-matchit ;; `%' extensions in Evil
+                    evil-nerd-commenter ;; efficent commenting for Evil
                     evil-numbers
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
-                    flycheck-ledger
                     flycheck-rust ;; flycheck for the Rust language
-                    ggtags
+                    ggtags ;; GNU Global
                     ghc
-                    ghci-completion
-                    gist
-                    geiser
+                    ghci-completion ;; GHC integration for company
+                    gist ;; GitHub Gist integration for Emacs.
+                    geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
                     git-gutter ;; Git status in left fringe
-                    git-timemachine
-                    gitconfig-mode
-                    gitignore-mode
-                    gnuplot-mode
-                    go-mode
-                    haskell-mode ;; mode for Haskell
+                    git-timemachine ;; rollback to previous revisions of a buffer
+                    gitconfig-mode ;; major mode for `.gitconfig'
+                    gitignore-mode ;; major mode for `.gitignore'
+                    gnuplot-mode ;; major mode for gnuplot
+                    go-mode ;; major mode for go
+                    haskell-mode ;; major mode for Haskell
                     helm ;; menus for ALL the things
-                    helm-ag
+                    helm-ag ;; integration with Helm and `ag'
                     helm-projectile ;; projectile integration for helm
                     helm-swoop ;; grep-like tool for Helm
                     highlight-numbers ;; rainbowify numbers
@@ -112,10 +111,9 @@
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
                     indent-guide ;; a "ruler" for indentation
-                    io-mode
-                    js2-mode
+                    io-mode ;; major mode for Io
+                    js2-mode ;; major mode for JavaScript
                     julia-mode ;; mode for the Julia language
-                    ledger-mode
                     lentic
                     lua-mode ;; mode for the Lua language
                     magit ;; git integration
@@ -123,8 +121,8 @@
                     markdown-mode ;; mode for the Markdown markup
                     zenburn-theme ;; Zenburn theme
                     mediawiki ;; mediawiki client
-                    mmm-mode
-                    nim-mode
+                    mmm-mode ;; Multiple Major Modes
+                    nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
                     perspective ;; basically tabs
                     projectile ;; project management
@@ -136,22 +134,20 @@
                     rust-mode ;; mode for the Rust language
                     scss-mode ;; mode for the Sass language
                     slim-mode ;; mode for the Slim templating language
-                    slime
+                    slime ;; REPL for Common Lisp
                     slime-company
                     smart-mode-line ;; a nice mode line
-                    spinner
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
-                    sx
                     table ;; tables!
                     todotxt ;; Mode for the todo.txt markup
                     undo-tree ;; vim-like undo tree
                     wanderlust ;; email
                     web-mode ;; mode for web stuff
-                    wgrep
+                    wgrep ;; writable grep
                     wgrep-ag ;; writable grep, but for ag
-                    workgroups2
-                    ws-butler
-                    yaml-mode
+                    workgroups2 ;; work groups for Emacs
+                    ws-butler ;; whitespace removal
+                    yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
                     ))
 
@@ -519,8 +515,7 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package git-gutter
       :config
-      (global-git-gutter-mode 1)
-      (git-gutter:linum-setup)) ;; work with linum-mode.
+      (global-git-gutter-mode 1))
   #+END_SRC
 
 * Helm
@@ -936,20 +931,6 @@ Geiser is great for scheme.
                    "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
   #+END_SRC
 
-* linum
-
-http://stackoverflow.com/a/8470136/3289461
-
-I would like to add padding but still have a space after the fringe.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defadvice linum-update-window (around linum-dynamic activate)
-    (let* ((w (length (number-to-string
-                       (count-lines (point-min) (point-max)))))
-           (linum-format (concat "%" (number-to-string w) "d ")))
-      ad-do-it))
-#+END_SRC
-
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -961,7 +942,6 @@ I would like to add padding but still have a space after the fringe.
     (tool-bar-mode -1) ;; disable toolbar
     (when (fboundp 'scroll-bar-mode)
       (scroll-bar-mode -1)) ;; disable scrollbar
-    (global-linum-mode 1) ;; enable line numbers
     (electric-pair-mode 1) ;; match parens automatically
     (setq-default indent-tabs-mode nil) ;; no tabs.
     (setq-default tab-width 2) ;; Ruby-style indentation
@@ -973,7 +953,6 @@ I would like to add padding but still have a space after the fringe.
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
-    (a-mode ".ledger" "ledger")
     (electric-indent-mode 1) ;; automatically indent on RET or others
     (show-paren-mode 1) ;; highlight matching parens
     (mouse-avoidance-mode 'banish) ;; be gone cursor!
