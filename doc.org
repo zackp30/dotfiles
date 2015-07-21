@@ -24,12 +24,16 @@ tmux is AWESOME!
 
 ** Screenshots
 
-   
-[[http://g.apertron.net/Xack/dotfiles/raw/master/screens/1437481975.png][Powerline]]
+- [[file:screens/1437482737.png][Vanilla]]
+- [[file:screens/1437481975.png][My tmux]]
 
 #+INCLUDE: "~/.homesick/repos/dotfiles/home/.tmux.conf.org" :minlevel 2
- (and the rest of my dotfiles)
+
 ** tmuxinator
+
+=tmuxinator= handles the automatic creation of tmux sessions using handy YAML files.
+
+A single command can produce a huge and complex tmux session.
    
 *** Emacs server
 
