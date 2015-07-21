@@ -36,3 +36,10 @@ tmux is AWESOME!
 
    #+INCLUDE: "~/.tmuxinator/x.yml" src yaml
 
+* Wiki
+
+#+INCLUDE: "~/wiki/index.md" :minlevel 2
+
+** TODO
+
+#+INCLUDE: "~/wiki/TODO.org"
