@@ -690,11 +690,14 @@
 
    Also enable rainbow things for GDScript.
 
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'gdscript-mode-hook 'rainbow-identifiers-mode)
      (add-hook 'gdscript-mode-hook 'rainbow-delimiters-mode)
    #+END_SRC
 
+*** TODO [0/1]
+    - [ ] Make =gdscript-mode.el= derive from =prog-mode= to obsolete above.
 ** CMake
 
    CMake is a great alternative to autotools/automake. I use it for any C/C++ project I work on.
