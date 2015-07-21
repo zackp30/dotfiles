@@ -20,6 +20,12 @@ I use Awesome (and no desktop environment) for managing windows.
 
 tmux is AWESOME!
 
+[[tmux]][http://tmux.github.io] is short for "terminal multiplexer", it is "window management" for the standard terminal.
+
+** Screenshots
+
+- [[]]
+
 #+INCLUDE: "~/.homesick/repos/dotfiles/home/.tmux.conf.org" :minlevel 2
 
 ** tmuxinator
