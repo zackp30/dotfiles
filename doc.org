@@ -38,8 +38,4 @@ tmux is AWESOME!
 
 * Wiki
 
-#+INCLUDE: "~/wiki/index.md" :minlevel 2
-
-** TODO
-
-#+INCLUDE: "~/wiki/TODO.org"
+#+INCLUDE: "~/wiki/index.org" :minlevel 2

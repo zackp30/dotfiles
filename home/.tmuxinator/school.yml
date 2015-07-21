@@ -1,5 +1,3 @@
-# ~/.tmuxinator/school.yml
-
 name: school
 root: ~/documents
 

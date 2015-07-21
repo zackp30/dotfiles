@@ -1,5 +1,3 @@
-# Initialize my Emacs servers.
-
 name: emacs
 root: ~/
 
@@ -19,6 +17,3 @@ windows:
   - damon:
       panes:
         - 'cd $HOME/damon && ep-start'
-  # - x11:
-  #     panes:
-  #       - 'cd $HOME && PROJECT_NAME=x11 ep-start'
