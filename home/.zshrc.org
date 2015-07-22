@@ -4,23 +4,6 @@
     setopt AUTO_PUSHD
   #+END_SRC
 
-* PATH
-  #+BEGIN_SRC shell :tangle yes
-    export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-    export PATH=$HOME/bin:$PATH # weird how this isn't a default...
-    export PATH=$PATH:/usr/local/bin
-    export PATH=$PATH:$HOME/.local/bin
-    export GOPATH=$HOME/gostuff
-  #+END_SRC
-* Variables
-  
-  #+BEGIN_SRC shell :tangle yes
-    export EDITOR=e
-    HISTSIZE=99999999
-    SAVEHIST=99999999
-    HISTFILE=~/.zsh_history
-  #+END_SRC
-
 * Functions
 ** Detect command
    
@@ -110,6 +93,24 @@
          for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> $1
      }
    #+END_SRC
+* PATH
+  #+BEGIN_SRC shell :tangle yes
+    export PATH=$PATH:$HOME/.fzf/bin
+    export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+    export PATH=$HOME/bin:$PATH # weird how this isn't a default...
+    export PATH=$PATH:/usr/local/bin
+    export PATH=$PATH:$HOME/.local/bin
+    export GOPATH=$HOME/gostuff
+  #+END_SRC
+* Variables
+  
+  #+BEGIN_SRC shell :tangle yes
+    export EDITOR=e
+    HISTSIZE=99999999
+    SAVEHIST=99999999
+    HISTFILE=~/.zsh_history
+  #+END_SRC
+
 * =gpg-agent=
 
   Runs =gpg-agent= if it isn't already running.
@@ -125,7 +126,6 @@
         fi
     fi
   #+END_SRC
-
 
 * zkbd
   
@@ -170,7 +170,6 @@
     zle -N zle-line-finish
   #+END_SRC
 
-
 * Source plugins
   
   #+BEGIN_SRC shell :tangle yes
@@ -181,7 +180,7 @@
     source_if_exists $HOME/.homesick/repos/homeshick/homeshick.sh
     source_if_exists ~/.autojump/etc/profile.d/autojump.sh
     source_if_exists ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
-    source_if_exists ~/.fzf.zsh
+    source_if_exists ~/.zsh/plugins/fzf.zsh
     source_if_exists ~/.locals.sh # host specific things *not* to be checked into version control.
   #+END_SRC
 
@@ -269,8 +268,10 @@
   #+END_SRC
 
 * FZF
-  
-Taken from the FZF README.
+
+  FZF is a generic fuzzy-finder for the shell, it's like Vim's CtrlP or Emacs' Helm but using standard shell pipes.
+
+  Taken from the FZF README.
 
   #+BEGIN_SRC shell :tangle yes
     # fe [FUZZY PATTERN] - Open the selected file with the default editor
@@ -342,6 +343,9 @@ Taken from the FZF README.
                              -c "silent tag $(cut -f2 <<< "$line")"
     }
   #+END_SRC
+  
+** Screenshots
+
 
 * pprompt
 
