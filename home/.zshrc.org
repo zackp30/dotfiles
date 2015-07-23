@@ -232,6 +232,7 @@
     bindkey '^f' vi-forward-blank-word
     export KEYTIMEOUT=1
     ZSH_VCS_PROMPT_ENABLE_CACHING='true'
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
     fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
     export rvmsudo_secure_path=1
 
