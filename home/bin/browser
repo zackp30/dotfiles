@@ -2,6 +2,6 @@
 
 if [[ $HOST == "xieshaij" ]]; then
     echo "chrome"
-else
-    echo "firefox"
+elif [[ $HOST == "linux-nyit" ]]; then
+    echo "chromium"
 fi
