@@ -22,7 +22,7 @@ function ep {
 function ep-start {
     sleep 1 # wait for shells to initialise, THEN start
     waitforemacs $(basename $(projectroot))
-    if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
+    if [[ $(basename $(projectroot)) == $(basename $HOME) ]]; then
         . /tmp/emacs$UID/ready/server-env
     else
         . /tmp/emacs$UID/ready/$(basename $(projectroot))-env
@@ -32,7 +32,7 @@ function ep-start {
 }
 
 function ep-stop {
-    if [ $(basename $(projectroot)) == $(basename $HOME) ]; then
+    if [[ $(basename $(projectroot)) == $(basename $HOME) ]]; then
         emacsclient -t -s server -e '(safe-buffers-kill-emacs)'
         rm /tmp/emacs$UID/ready/server
         rm /tmp/emacs$UID/waiting/server
