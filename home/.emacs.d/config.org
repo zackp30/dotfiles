@@ -123,7 +123,7 @@
                     mmm-mode ;; Multiple Major Modes
                     nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
-                    perspective ;; basically tabs
+                    persp-mode ;; basically tabs
                     projectile ;; project management
                     racket-mode ;; mode for the Racket
                     rainbow-blocks ;; omg more rainbows
@@ -513,6 +513,23 @@
        (global-evil-matchit-mode))
    #+END_SRC
 
+* Workgroups
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package workgroups2
+    :config
+    (workgroups-mode 1))
+#+END_SRC
+
+* persp-mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package persp-mode
+    :config
+    (add-hook 'after-init-hook 'persp-mode)
+    (setq persp-use-workgroups t))
+#+END_SRC
+
 * GNU Global
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -874,8 +891,8 @@
       :config
       (yas-global-mode 1)
       (a-mode ".snip" "snippet")
-      (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
-      (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
+      (define-key yas-minor-mode-map (kbd "C-c 7 n") 'yas-next-field)
+      (define-key yas-minor-mode-map (kbd "C-c 7 p") 'yas-prev-field)
       (define-key yas-minor-mode-map (kbd "<tab>") nil)
       (define-key yas-minor-mode-map (kbd "TAB") nil)
       (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
