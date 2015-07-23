@@ -1,0 +1,5 @@
+#!/bin/bash
+
+where_is="$(which clisp)"
+
+$where_is -i $@

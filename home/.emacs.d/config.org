@@ -5,7 +5,6 @@
     ;;; Commentary:
     ;; A hacked together Emacs config.
     ;;; Code:
-    ;; Add repositories for package archives
   #+end_src
   
 * Package archives
@@ -29,7 +28,7 @@
         (load "~/.local.el"))
   #+END_SRC
   
-* `require-package'
+* =require-package=
   
   A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
   
@@ -51,14 +50,13 @@
 
     (require 'cl)
     ;; Install packages.
-    (add-to-list 'load-path "~/.emacs.d/lisp")
     (defvar pkgs '(use-package
                     ace-flyspell ;; ace-jump-mode for flyspell
-                    ace-jump-helm-line
-                    ace-jump-mode ;; easymotion
-                    ace-window
+                    ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
+                    avy ;; easymotion
+                    ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
-                    bookmark+ ;;
+                    bookmark+ ;; improved boomarks
                     browse-kill-ring ;; menu for the killring
                     cider ;; REPL for Clojure
                     clojure-mode ;; mode for the Clojure language
@@ -67,45 +65,44 @@
                     company ;; auto completion
                     company-anaconda ;; Python completion for company
                     company-ghc ;; Haskell completion for company
-                    company-tern
-                    ctags
+                    company-tern ;; completion for `tern-mode'.
+                    ctags ;; ctags integration for Emacs
                     d-mode ;; mode for the D language
-                    dired+
-                    dired-rainbow
+                    dired+ ;; extensions for Dired
+                    dired-rainbow ;; RAINBOWS
                     projectile-rails
-                    rinari
+                    rinari ;; Rails
                     dired-toggle-sudo
                     edit-server ;; used by Edit With Emacs
-                    editorconfig
+                    editorconfig ;; make sure I conform to style guides
                     ein ;; iPython Notebook for Emacs
-                    elixir-mode
+                    elixir-mode ;; major mode for Elixir
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
-                    evil
-                    evil-indent-textobject
-                    evil-leader
-                    evil-matchit
-                    evil-nerd-commenter
+                    evil ;; VIM for Emacs
+                    evil-indent-textobject ;; indentation text object for Evil
+                    evil-leader ;; VIM's leader key for Emacs
+                    evil-matchit ;; `%' extensions in Evil
+                    evil-nerd-commenter ;; efficent commenting for Evil
                     evil-numbers
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
-                    flycheck-ledger
                     flycheck-rust ;; flycheck for the Rust language
-                    ggtags
+                    ggtags ;; GNU Global
                     ghc
-                    ghci-completion
-                    gist
-                    geiser
+                    ghci-completion ;; GHC integration for company
+                    gist ;; GitHub Gist integration for Emacs.
+                    geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
                     git-gutter ;; Git status in left fringe
-                    git-timemachine
-                    gitconfig-mode
-                    gitignore-mode
-                    gnuplot-mode
-                    go-mode
-                    haskell-mode ;; mode for Haskell
+                    git-timemachine ;; rollback to previous revisions of a buffer
+                    gitconfig-mode ;; major mode for `.gitconfig'
+                    gitignore-mode ;; major mode for `.gitignore'
+                    gnuplot-mode ;; major mode for gnuplot
+                    go-mode ;; major mode for go
+                    haskell-mode ;; major mode for Haskell
                     helm ;; menus for ALL the things
-                    helm-ag
+                    helm-ag ;; integration with Helm and `ag'
                     helm-projectile ;; projectile integration for helm
                     helm-swoop ;; grep-like tool for Helm
                     highlight-numbers ;; rainbowify numbers
@@ -113,10 +110,9 @@
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
                     indent-guide ;; a "ruler" for indentation
-                    io-mode
-                    js2-mode
+                    io-mode ;; major mode for Io
+                    js2-mode ;; major mode for JavaScript
                     julia-mode ;; mode for the Julia language
-                    ledger-mode
                     lentic
                     lua-mode ;; mode for the Lua language
                     magit ;; git integration
@@ -124,10 +120,10 @@
                     markdown-mode ;; mode for the Markdown markup
                     zenburn-theme ;; Zenburn theme
                     mediawiki ;; mediawiki client
-                    mmm-mode
-                    nim-mode
+                    mmm-mode ;; Multiple Major Modes
+                    nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
-                    perspective ;; basically tabs
+                    persp-mode ;; basically tabs
                     projectile ;; project management
                     racket-mode ;; mode for the Racket
                     rainbow-blocks ;; omg more rainbows
@@ -137,22 +133,20 @@
                     rust-mode ;; mode for the Rust language
                     scss-mode ;; mode for the Sass language
                     slim-mode ;; mode for the Slim templating language
-                    slime
+                    slime ;; REPL for Common Lisp
                     slime-company
                     smart-mode-line ;; a nice mode line
-                    spinner
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
-                    sx
                     table ;; tables!
                     todotxt ;; Mode for the todo.txt markup
                     undo-tree ;; vim-like undo tree
                     wanderlust ;; email
                     web-mode ;; mode for web stuff
-                    wgrep
+                    wgrep ;; writable grep
                     wgrep-ag ;; writable grep, but for ag
-                    workgroups2
-                    ws-butler
-                    yaml-mode
+                    workgroups2 ;; work groups for Emacs
+                    ws-butler ;; whitespace removal
+                    yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
                     ))
 
@@ -193,21 +187,6 @@
                     (intern (concat mode "-mode")))))
   #+END_SRC
 
-* Safe themes
-
-  I find it kinda silly how Emacs asks to load themes which "can contain code", I mean, shouldn't it do this for every single package downloaded from ELPA/MELPA/etc? Obviously not, so why should it do it for themes? It seems redundant.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (custom-set-variables
-     ;; custom-set-variables was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
-     '(custom-safe-themes
-       (quote
-        ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))
-  #+END_SRC
-
 * Org mode
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -215,7 +194,20 @@
     (define-key global-map (kbd "C-c l") 'org-store-link)
     (define-key global-map (kbd "C-c a") 'org-agenda)
     (setq org-log-done t)
+    (setq org-latex-listings 'minted) ;; enable minted
+    (setq org-latex-custom-lang-environments
+          '((emacs-lisp "common-lispcode")
+            (conf-space "aconfcode")))
+    (setq org-latex-minted-options
+          '(("frame" "lines")
+            ("fontsize" "\\scriptsize")
+            ("linenos" "")))
     (setq org-directory "~/org") ;; where I store the documents
+    (setq org-latex-to-pdf-process
+          '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+    (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
     (add-hook 'after-init-hook (lambda () 
                                  (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
@@ -312,47 +304,47 @@
 
 * ace-jump
 
-  =ace-jump= is like VIM's [[https://github.com/Lokaltog/vim-easymotion][EasyMotion]] but for Emacs.
+  =avy= is like VIM's [[https://github.com/Lokaltog/vim-easymotion][EasyMotion]] but for Emacs.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ace-jump-mode
+    (use-package avy
       :config
-      (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+      (define-key global-map (kbd "C-c SPC") 'avy-goto-char))
   #+END_SRC
 
-** Flyspell
+# ** Flyspell
    
-   =ace-flyspell= navigating to incorrect spelling of words using =ace-jump=, I bind it to =C-c .
+#    =ace-flyspell= navigating to incorrect spelling of words using =ace-jump=, I bind it to =C-c .
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package ace-flyspell
-       :config
-       (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
-   #+END_SRC
+#    #+BEGIN_SRC emacs-lisp :tangle yes
+#      (use-package ace-flyspell
+#        :config
+#        (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
+#    #+END_SRC
 
 
-** Helm
+# ** Helm
    
-   =ace-jump-helm-line= allows jumping to a Helm completion entry using =ace-jump=.
+#    =ace-jump-helm-line= allows jumping to a Helm completion entry using =ace-jump=.
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package ace-jump-helm-line
-       :bind ("C-@" . ace-jump-helm-line)
-       :config
-       (setq helm-display-header-line nil)
-       (set-face-attribute 'helm-source-header nil :height 0.1))
-   #+END_SRC
+#    #+BEGIN_SRC emacs-lisp :tangle yes
+#      (use-package ace-jump-helm-line
+#        :bind ("C-@" . ace-jump-helm-line)
+#        :config
+#        (setq helm-display-header-line nil)
+#        (set-face-attribute 'helm-source-header nil :height 0.1))
+#    #+END_SRC
 
 
-** Windows
+# ** Windows
 
-   =ace-window= allows jumping to a window using =ace-jump=
+#    =ace-window= allows jumping to a window using =ace-jump=
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package ace-window
-       :config
-       (define-key global-map (kbd "C-c w") 'ace-window))
-   #+END_SRC
+#    #+BEGIN_SRC emacs-lisp :tangle yes
+#      (use-package ace-window
+#        :config
+#        (define-key global-map (kbd "C-c w") 'ace-window))
+#    #+END_SRC
 
 * Magit
   Magit is fantastic!
@@ -465,7 +457,6 @@
 
 ** Leader
 
-   TODO: Replace this with Hydra maybe?
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-leader
@@ -482,6 +473,8 @@
          "g t r" 'ctags-create-or-update-tags-table))
    #+END_SRC
 
+*** TODO [0/1]
+    - [ ] Replace this with Hydra maybe?
 ** Modeline color changing
 
    I found this in Bling's dotemacs.
@@ -510,6 +503,33 @@
            evil-normal-state-cursor '((hollow . 5) "white"))
    #+END_SRC
 
+** Matching
+
+   Extends =%=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-matchit
+       :config
+       (global-evil-matchit-mode))
+   #+END_SRC
+
+* Workgroups
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package workgroups2
+    :config
+    (workgroups-mode 1))
+#+END_SRC
+
+* persp-mode
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package persp-mode
+    :config
+    (add-hook 'after-init-hook 'persp-mode)
+    (setq persp-use-workgroups t))
+#+END_SRC
+
 * GNU Global
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -520,13 +540,12 @@
 
 * Git-gutter
 
-  Git-gutter displays a git diff in the left fringe of the current buffer.
+  Git-gutter displays a summary of =git diff= in the left fringe of the current buffer.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package git-gutter
       :config
-      (global-git-gutter-mode 1)
-      (git-gutter:linum-setup)) ;; work with linum-mode.
+      (global-git-gutter-mode 1))
   #+END_SRC
 
 * Helm
@@ -599,7 +618,7 @@
                     (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
                     (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
         (slime-setup '(slime-fancy slime-repl slime-company))
-        (setq inferior-lisp-program "clisp")) ;; use GNU clisp
+        (setq inferior-lisp-program "sbcl")) ;; use SBCL
     #+END_SRC
 
 
@@ -688,11 +707,14 @@
 
    Also enable rainbow things for GDScript.
 
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'gdscript-mode-hook 'rainbow-identifiers-mode)
      (add-hook 'gdscript-mode-hook 'rainbow-delimiters-mode)
    #+END_SRC
 
+*** TODO [0/1]
+    - [ ] Make =gdscript-mode.el= derive from =prog-mode= to obsolete above.
 ** CMake
 
    CMake is a great alternative to autotools/automake. I use it for any C/C++ project I work on.
@@ -708,24 +730,23 @@
 
 ** VisualBasic
    
-Used for work experience.
+   Used for work experience.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-  (a-mode ".vbs" "visual-basic")
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+     (a-mode ".vbs" "visual-basic")
+   #+END_SRC
 
 ** Scheme
 
-Geiser is great for scheme.
+   Geiser is great for scheme.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package :geiser
-    :config
-    (add-hook 'scheme-mode-hook (lambda ()
-                                  (add-to-list 'company-backends 'geiser-company-backend))))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package geiser
+       :config
+       (add-hook 'scheme-mode-hook (lambda ()
+                                     (add-to-list 'company-backends 'geiser-company-backend))))
+   #+END_SRC
 
 * ibuffer
 
@@ -870,8 +891,8 @@ Geiser is great for scheme.
       :config
       (yas-global-mode 1)
       (a-mode ".snip" "snippet")
-      (define-key yas-minor-mode-map (kbd "C-c n") 'yas-next-field)
-      (define-key yas-minor-mode-map (kbd "C-c p") 'yas-prev-field)
+      (define-key yas-minor-mode-map (kbd "C-c 7 n") 'yas-next-field)
+      (define-key yas-minor-mode-map (kbd "C-c 7 p") 'yas-prev-field)
       (define-key yas-minor-mode-map (kbd "<tab>") nil)
       (define-key yas-minor-mode-map (kbd "TAB") nil)
       (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
@@ -943,24 +964,11 @@ Geiser is great for scheme.
                    "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
   #+END_SRC
 
-* linum
-
-http://stackoverflow.com/a/8470136/3289461
-
-I would like to add padding but still have a space after the fringe.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defadvice linum-update-window (around linum-dynamic activate)
-    (let* ((w (length (number-to-string
-                       (count-lines (point-min) (point-max)))))
-           (linum-format (concat "%" (number-to-string w) "d ")))
-      ad-do-it))
-#+END_SRC
-
-
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq org-export-htmlize-output-type 'css)
+    (set-face-attribute 'default nil :height 85)
     (require 'tramp) ;; edit files on remote locations
     (require 'whitespace) ;; whitespace monitor
     (column-number-mode 1) ;; enable column number in modeline
@@ -968,7 +976,6 @@ I would like to add padding but still have a space after the fringe.
     (tool-bar-mode -1) ;; disable toolbar
     (when (fboundp 'scroll-bar-mode)
       (scroll-bar-mode -1)) ;; disable scrollbar
-    (global-linum-mode 1) ;; enable line numbers
     (electric-pair-mode 1) ;; match parens automatically
     (setq-default indent-tabs-mode nil) ;; no tabs.
     (setq-default tab-width 2) ;; Ruby-style indentation
@@ -980,7 +987,7 @@ I would like to add padding but still have a space after the fringe.
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
-    (a-mode ".ledger" "ledger")
+    (require 'htmlize)
     (electric-indent-mode 1) ;; automatically indent on RET or others
     (show-paren-mode 1) ;; highlight matching parens
     (mouse-avoidance-mode 'banish) ;; be gone cursor!
@@ -1042,13 +1049,15 @@ I would like to add padding but still have a space after the fringe.
        (nth (random* (length lst)) lst))
    #+END_SRC
 
-** Get a random color (TODO: more colors)
+** Get a random color
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun random-color ()
        "Get a random color."
        (get-rnd-list '("blue" "red" "yellow" "pink")))
    #+END_SRC
+*** TODO [0/1]
+    - [ ] Add more colors
 
 ** Increment the number at point, like VIM's =C-a=
 
@@ -1116,3 +1125,15 @@ I would like to add padding but still have a space after the fringe.
     (provide 'init) ;; that's a wrap folks!
     ;;; init.el ends here
   #+END_SRC
+
+* Cascade startup system
+  
+** =waitforemacs=
+
+   Hangs until a certain other Emacs server starts.
+
+   #+INCLUDE: "~/bin/waitforemacs" src shell
+
+** =emacsinotify=
+
+   #+INCLUDE: "~/bin/emacsinotify" src shell

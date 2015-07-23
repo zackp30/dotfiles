@@ -1,0 +1,52 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./css.css"/>
+
+The documentation for my dotfiles.
+
+* Emacs configuration
+
+#+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
+
+* Window manager (Awesome)
+
+I use Awesome (and no desktop environment) for managing windows.
+
+#+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2
+
+* zsh
+
+#+INCLUDE: "~/.zshrc.org" :minlevel 2
+
+* tmux
+
+tmux is AWESOME!
+
+[[http://tmux.github.io][tmux]] is short for "terminal multiplexer", it is "window management" for the standard terminal.
+
+** Screenshots
+
+- [[file:screens/1437482737.png][Vanilla]]
+- [[file:screens/1437481975.png][My tmux]]
+
+#+INCLUDE: "~/.homesick/repos/dotfiles/home/.tmux.conf.org" :minlevel 2
+
+** tmuxinator
+
+=tmuxinator= handles the automatic creation of tmux sessions using handy YAML files.
+
+A single command can produce a huge and complex tmux session.
+   
+*** Emacs server
+
+   #+INCLUDE: "~/.tmuxinator/emacs.yml" src yaml
+
+*** School
+
+   #+INCLUDE: "~/.tmuxinator/school.yml" src yaml
+
+*** X11
+
+   #+INCLUDE: "~/.tmuxinator/x.yml" src yaml
+
+* Wiki
+
+#+INCLUDE: "~/wiki/index.org" :minlevel 2

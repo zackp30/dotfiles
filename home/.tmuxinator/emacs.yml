@@ -1,15 +1,19 @@
-# Initialize my Emacs servers.
-
 name: emacs
 root: ~/
 
 windows:
   - main:
       panes:
-        - 'cd $HOME && ep-start'
+        - 'cd $HOME && emacsinotify && ep-start'
   - documents:
       panes:
         - 'cd $HOME/documents && ep-start'
   - dotfiles:
       panes:
         - 'cd $HOME/.homesick/repos/dotfiles && ep-start'
+  - fbmapper:
+      panes:
+        - 'cd $HOME/fb-mapper && ep-start'
+  - damon:
+      panes:
+        - 'cd $HOME/damon && ep-start'

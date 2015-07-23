@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# This program runs a daemonized inotify to avoid using multiple inotifywait processes.
+# It saves output to `inotify.log` which is read by some `tail` processes in `waitforemacs`
+
+emacstmp="/tmp/emacs$UID/"
+pid_location="$emacstmp/ready/"
+waiting_location="$emacstmp/waiting/"
+if [ ! -e $emacstmp ]; then
+    mkdir $emacstmp
+
+    # make directory safe
+    chmod o-wrx $emacstmp
+    chmod g-wrx $emacstmp
+fi
+if [ ! -e $waiting_location ]; then
+    mkdir $waiting_location
+fi
+if [ ! -e $pid_location ]; then
+    mkdir $pid_location
+fi
+
+inotifywait -m -e create --format '%f' $pid_location -d -o $emacstmp/inotify.log
