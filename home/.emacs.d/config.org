@@ -78,6 +78,7 @@
                     ein ;; iPython Notebook for Emacs
                     elixir-mode ;; major mode for Elixir
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+                    tuareg ;; ocaml
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
                     evil ;; VIM for Emacs

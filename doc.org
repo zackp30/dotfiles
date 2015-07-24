@@ -6,6 +6,7 @@ The documentation for my dotfiles.
 
 #+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
 
+
 * Window manager (Awesome)
 
 I use Awesome (and no desktop environment) for managing windows.
