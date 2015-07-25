@@ -39,7 +39,6 @@
         (unless (assoc package package-archive-contents)
           (package-refresh-contents))
         (package-install package)))
-
   #+END_SRC
   
 * List of packages
@@ -107,6 +106,7 @@
                     helm-projectile ;; projectile integration for helm
                     helm-swoop ;; grep-like tool for Helm
                     highlight-numbers ;; rainbowify numbers
+                    tiny
                     hy-mode ;; hy mode
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
@@ -1017,7 +1017,7 @@
   From Sacha Chua.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun my/sort-sexps-in-region (beg end)
+    (defun sort-sexps-in-region (beg end)
       "Can be handy for sorting out duplicates.
     Sorts the sexps from BEG to END. Leaves the point at where it
     couldn't figure things out (ex: syntax errors)."
