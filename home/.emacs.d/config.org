@@ -72,6 +72,7 @@
                     projectile-rails
                     rinari ;; Rails
                     dired-toggle-sudo
+                    boxquote
                     edit-server ;; used by Edit With Emacs
                     editorconfig ;; make sure I conform to style guides
                     ein ;; iPython Notebook for Emacs
@@ -551,10 +552,11 @@
 
 * Helm
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package helm
-      :config
-      (helm-mode 1)
-      (helm-autoresize-mode 1))
+        (use-package helm
+          :config
+          (helm-mode 1)
+          (helm-autoresize-mode 1)
+          (global-set-key (kbd "C-x C-f") 'helm-find-files))
   #+END_SRC
 ** Projectile
    Integrate Projectile and Helm.
@@ -1085,6 +1087,19 @@
      (global-set-key (kbd "C-c -") 'decrement-number-at-point)
 
    #+END_SRC
+
+* Boxquote
+  
+From https://github.com/joedicastro/dotfiles/tree/master/emacs
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package boxquote
+      :config
+      (setq-default  boxquote-bottom-corner "╰"       ; U+2570
+                     boxquote-side          "│ "      ; U+2572 + space
+                     boxquote-top-and-tail  "────"    ; U+2500 (×4)
+                     boxquote-top-corner    "╭"))     ; U+256F)
+  #+END_SRC
 
 * Insert shell command
 
