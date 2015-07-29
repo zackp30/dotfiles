@@ -85,6 +85,7 @@
                     evil-indent-textobject ;; indentation text object for Evil
                     evil-leader ;; VIM's leader key for Emacs
                     evil-matchit ;; `%' extensions in Evil
+                    material-theme
                     evil-nerd-commenter ;; efficent commenting for Evil
                     evil-numbers
                     evil-visualstar
