@@ -63,7 +63,7 @@ HISTSIZE=99999999
 SAVEHIST=99999999
 HISTFILE=~/.zsh_history
 
-if [ "$(cat /etc/os-release | grep Arch; echo $?)" == 1] # crude Arch detection
+if [ "$(cat /etc/os-release | grep Arch; echo $?)" == 1]; then # crude Arch detection
    if [ -f "${HOME}/.gpg-agent-info" ]; then
        . "${HOME}/.gpg-agent-info"
        export GPG_AGENT_INFO
