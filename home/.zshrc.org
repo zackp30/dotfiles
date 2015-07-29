@@ -114,17 +114,22 @@
 * =gpg-agent=
 
   Runs =gpg-agent= if it isn't already running.
+  In GPG 2.1 (currently I only use this on my Arch systems) this doesn't exist.
   #+BEGIN_SRC shell :tangle yes
-    if [ -f "${HOME}/.gpg-agent-info" ]; then
-        . "${HOME}/.gpg-agent-info"
-        export GPG_AGENT_INFO
-    else
-        if [[ $HOST == "linux-nyit" ]]; then
-            gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
-        else
-            gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
-        fi
-    fi
+    if [ "$(cat /etc/os-release | grep Arch; echo $?)" == 1] # crude Arch detection
+       if [ -f "${HOME}/.gpg-agent-info" ]; then
+           . "${HOME}/.gpg-agent-info"
+           export GPG_AGENT_INFO
+       else
+           if [[ $HOST == "linux-nyit" ]]; then
+               gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
+           else
+               gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+           fi
+       else
+           export SSH_AUTH_SOCK="~/.gnupg/S.gpg-agent.ssh"
+           gpgconf --launch gpg-agent
+       fi
   #+END_SRC
 
 * zkbd
