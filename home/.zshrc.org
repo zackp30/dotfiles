@@ -126,10 +126,11 @@
            else
                gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
            fi
+       fi
        else
            export SSH_AUTH_SOCK="~/.gnupg/S.gpg-agent.ssh"
            gpgconf --launch gpg-agent
-       fi
+    fi
   #+END_SRC
 
 * zkbd
