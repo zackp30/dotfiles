@@ -85,6 +85,7 @@
                     evil-indent-textobject ;; indentation text object for Evil
                     evil-leader ;; VIM's leader key for Emacs
                     evil-matchit ;; `%' extensions in Evil
+                    purescript-mode
                     material-theme
                     evil-nerd-commenter ;; efficent commenting for Evil
                     evil-numbers
@@ -139,6 +140,7 @@
                     slime ;; REPL for Common Lisp
                     slime-company
                     smart-mode-line ;; a nice mode line
+                    smart-mode-line-powerline-theme
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
                     table ;; tables!
                     todotxt ;; Mode for the todo.txt markup
@@ -198,13 +200,13 @@
     (define-key global-map (kbd "C-c a") 'org-agenda)
     (setq org-log-done t)
     (setq org-latex-listings 'minted) ;; enable minted
-    (setq org-latex-custom-lang-environments
-          '((emacs-lisp "common-lispcode")
-            (conf-space "aconfcode")))
     (setq org-latex-minted-options
           '(("frame" "lines")
             ("fontsize" "\\scriptsize")
             ("linenos" "")))
+    (setq org-latex-minted-langs
+      '((conf-space "aconf")
+        (conf-unix "squid")))
     (setq org-directory "~/org") ;; where I store the documents
     (setq org-latex-to-pdf-process
           '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -485,7 +487,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (set-face-background 'mode-line "bright-black")
      (defun my-evil-modeline-change (default-color)
-       "changes the modeline color when the evil mode changes"
+         "changes the modeline color when the evil mode changes"
        (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
                           ((evil-visual-state-p) '("#330022" . "#ffffff"))
                           ((evil-normal-state-p) default-color)
@@ -1136,6 +1138,24 @@ From https://github.com/joedicastro/dotfiles/tree/master/emacs
     (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
   
+* Extra-warning face
+
+Used to make things stand out even more then =font-lock-warning-face=.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defface extra-warning-face
+    '((t :background "red"
+         :foreground "brightblue"))
+    "Face for even more warninger warnings."
+    :group 'basic-faces)
+
+  (defvar keywords '(("\\b\\(BUG\\)\\b" 1 'extra-warning-face))
+    "List of keywords to highlight in extra-warning-face.")
+
+  (add-hook 'prog-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
+  (add-hook 'text-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
+#+END_SRC
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
