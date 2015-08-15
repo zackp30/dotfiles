@@ -6,6 +6,8 @@
     ;; A hacked together Emacs config.
     ;;; Code:
   #+end_src
+
+See [[Override keymap]].
   
   #+BEGIN_SRC emacs-lisp :tangle yes
     (defvar zack-keys-minor-mode-map (make-keymap) "Override package keys.")
