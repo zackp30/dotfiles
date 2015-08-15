@@ -7,6 +7,10 @@
     ;;; Code:
   #+end_src
   
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defvar zack-keys-minor-mode-map (make-keymap) "Override package keys.")
+  #+END_SRC
+  
 * Package archives
   
   I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
@@ -991,9 +995,12 @@
 
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-to-list 'imenu-generic-expression
-		 '("Used Packages"
-		   "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+    (use-package imenu
+      :config
+      (add-to-list 'imenu-generic-expression
+		   '("Used Packages"
+		     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+      (define-key zack-keys-minor-mode-map (kbd "C-j") 'imenu))
   #+END_SRC
 
 * Misc
@@ -1152,9 +1159,9 @@
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history 1)
     (setq savehist-additional-variables
-	  '(kill-ring
-	    search-ring
-	    regexp-search-ring))
+          '(kill-ring
+            search-ring
+            regexp-search-ring))
   #+END_SRC
 
 * Eldoc
@@ -1171,7 +1178,7 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (defface extra-warning-face
       '((t :background "red"
-	   :foreground "brightblue"))
+           :foreground "brightblue"))
       "Face for even more warninger warnings."
       :group 'basic-faces)
 
@@ -1181,6 +1188,38 @@
     (add-hook 'prog-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
     (add-hook 'text-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
   #+END_SRC
+
+* Misc utilities
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'calendar)
+    (defun insdate-insert-current-date (&optional omit-day-of-week-p)
+      "Insert today's date using the current locale.
+    With a prefix argument, the date is inserted without the day of
+    the week."
+      (interactive "P*")
+      (insert (calendar-date-string (calendar-current-date) nil
+                                    omit-day-of-week-p)))
+  #+END_SRC
+
+* Override keymap
+
+  Idea from http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
+
+  This is used to override package keymaps (who put there mappings in =C-c=!) without going through the process of:
+
+  1. =C-h k= to see if the binding is used.
+  2. Look at =C-h k= to find the keymap it uses.
+  3. Unbind the key from the keymap.
+  4. Repeat 1 to 3 if packages actually use the same keymapping and they overlap.
+  5. Bind your key.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (define-minor-mode zack-keys-minor-mode
+      "Override package keys."
+      t "z-keys" 'zack-keys-minor-mode-map)
+  #+END_SRC
+
 
 * The end
 
