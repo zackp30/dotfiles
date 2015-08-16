@@ -1219,7 +1219,7 @@ See [[Override keymap]].
   #+BEGIN_SRC emacs-lisp :tangle yes
     (define-minor-mode zack-keys-minor-mode
       "Override package keys."
-      t "z-keys" 'zack-keys-minor-mode-map)
+      t " z-keys" 'zack-keys-minor-mode-map)
   #+END_SRC
 
 
