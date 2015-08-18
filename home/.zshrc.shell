@@ -64,20 +64,23 @@ SAVEHIST=99999999
 HISTFILE=~/.zsh_history
 
 if [[ "$(cat /etc/os-release | grep Arch; echo $?)" == 1 ]]; then # crude Arch detection
-    if [ -f "${HOME}/.gpg-agent-info" ]; then
-        . "${HOME}/.gpg-agent-info"
-        export GPG_AGENT_INFO
-    else
-        if [[ $HOST == "linux-nyit" ]]; then
-            gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
-        else
-            gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
-        fi
-    fi
-else
-    export SSH_AUTH_SOCK="~/.gnupg/S.gpg-agent.ssh"
-    gpgconf --launch gpg-agent
+      if [ -f "${HOME}/.gpg-agent-info" ]; then
+          . "${HOME}/.gpg-agent-info"
+          export GPG_AGENT_INFO
+      else
+          if [[ $HOST == "linux-nyit" ]]; then
+              gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
+          else
+              gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+          fi
+      fi
+  else
+  if [[ $HOST != "xieshaij" ]]; then
+
+      export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+      gpgconf --launch gpg-agent
 fi
+  fi
 
 # From the ZSH wiki
 # create a zkbd compatible hash;
@@ -260,6 +263,28 @@ ftags() {
             ) && $EDITOR $(cut -f3 <<< "$line") -c "set nocst" \
                          -c "silent tag $(cut -f2 <<< "$line")"
 }
+
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+     echo "Initialising new SSH agent..."
+     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+     echo succeeded
+     chmod 600 "${SSH_ENV}"
+     . "${SSH_ENV}" > /dev/null
+     /usr/bin/ssh-add;
+}
+
+# Source SSH settings, if applicable
+
+if [ -f "${SSH_ENV}" ]; then
+     . "${SSH_ENV}" > /dev/null
+     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+         start_agent;
+     }
+else
+     start_agent;
+fi
 
 # Colors
 _p_color_date=cyan

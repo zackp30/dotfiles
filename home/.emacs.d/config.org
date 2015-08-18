@@ -1024,6 +1024,7 @@ See [[Override keymap]].
     (setq-default save-place t)
     (a-mode ".md" "markdown")
     (a-mode ".markdown" "markdown")
+    (a-mode ".mdwn" "markdown")
     (a-mode ".mw" "mediawiki")
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
@@ -1221,6 +1222,16 @@ See [[Override keymap]].
       "Override package keys."
       t " z-keys" 'zack-keys-minor-mode-map)
   #+END_SRC
+
+* Tiny
+
+[[https://github.com/abo-abo/tiny][Tiny]] is an alternative to macros, using a tiny template language.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package tiny
+    :config
+    (tiny-setup-default))
+#+END_SRC
 
 
 * The end
