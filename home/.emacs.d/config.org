@@ -56,117 +56,117 @@
     (require 'cl)
     ;; Install packages.
     (defvar pkgs '(use-package
-        ace-flyspell ;; ace-jump-mode for flyspell
-        ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
-        ace-window ;; jump to a window using `ace-jump'.
-        ag ;; the silver searcher
-        anzu
-        avy ;; easymotion
-        bookmark+ ;; improved boomarks
-        boxquote
-        browse-kill-ring ;; menu for the killring
-        cider ;; REPL for Clojure
-        clojure-mode ;; mode for the Clojure language
-        cmake-mode ;; mode for the CMake language
-        coffee-mode ;; mode for the CoffeeScript language
-        company ;; auto completion
-        company-anaconda ;; Python completion for company
-        company-ghc ;; Haskell completion for company
-        company-tern ;; completion for `tern-mode'.
-        ctags ;; ctags integration for Emacs
-        d-mode ;; mode for the D language
-        dired+ ;; extensions for Dired
-        dired-rainbow ;; RAINBOWS
-        dired-toggle-sudo
-        edit-server ;; used by Edit With Emacs
-        editorconfig ;; make sure I conform to style guides
-        ein ;; iPython Notebook for Emacs
-        elixir-mode ;; major mode for Elixir
-        emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
-        emmet-mode ;; http://emmet.io implementation for Emacs
-        etags-select
-        evil ;; VIM for Emacs
-        evil-anzu
-        evil-args ;; delimited text objects
-        evil-indent-textobject ;; indentation text object for Evil
-        evil-leader ;; VIM's leader key for Emacs
-        evil-matchit ;; `%' extensions in Evil
-        evil-nerd-commenter ;; efficent commenting for Evil
-        evil-numbers
-        evil-visualstar
-        flycheck ;; on the fly syntax checking
-        flycheck-rust ;; flycheck for the Rust language
-        geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
-        ggtags ;; GNU Global
-        ghc
-        ghci-completion ;; GHC integration for company
-        gist ;; GitHub Gist integration for Emacs.
-        git-gutter ;; Git status in left fringe
-        git-timemachine ;; rollback to previous revisions of a buffer
-        gitconfig-mode ;; major mode for `.gitconfig'
-        gitignore-mode ;; major mode for `.gitignore'
-        gnuplot-mode ;; major mode for gnuplot
-        go-mode ;; major mode for go
-        haskell-mode ;; major mode for Haskell
-        helm ;; menus for ALL the things
-        helm-ag ;; integration with Helm and `ag'
-        helm-projectile ;; projectile integration for helm
-        helm-swoop ;; grep-like tool for Helm
-        highlight-numbers ;; rainbowify numbers
-        hy-mode ;; hy mode
-        hydra ;; micro-states!
-        ibuffer-vc ;; ibuffer integration for vc.el
-        indent-guide ;; a "ruler" for indentation
-        io-mode ;; major mode for Io
-        js2-mode ;; major mode for JavaScript
-        julia-mode ;; mode for the Julia language
-        lentic
-        lua-mode ;; mode for the Lua language
-        magit ;; git integration
-        magit-tramp ;; TRAMP integration for Magit
-        markdown-mode ;; mode for the Markdown markup
-        material-theme
-        mediawiki ;; mediawiki client
-        mmm-mode ;; Multiple Major Modes
-        nim-mode ;; major mode for Nim
-        ocodo-svg-modelines
-        persp-mode ;; basically tabs
-        projectile ;; project management
-        projectile-rails
-        purescript-mode
-        racket-mode ;; mode for the Racket
-        rainbow-blocks ;; omg more rainbows
-        rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
-        rainbow-identifiers ;; rainbows!
-        rinari ;; Rails
-        ruby-mode ;; mode for the Ruby language
-        rust-mode ;; mode for the Rust language
-        scss-mode ;; mode for the Sass language
-        slim-mode ;; mode for the Slim templating language
-        slime ;; REPL for Common Lisp
-        slime-company
-        smart-mode-line ;; a nice mode line
-        smart-mode-line-powerline-theme
-        surround ;; Delete surrounding characters (`()', `[]', etc.).
-        table ;; tables!
-        tiny
-        todotxt ;; Mode for the todo.txt markup
-        tuareg ;; ocaml
-        undo-tree ;; vim-like undo tree
-        wanderlust ;; email
-        web-mode ;; mode for web stuff
-        wgrep ;; writable grep
-        wgrep-ag ;; writable grep, but for ag
-        workgroups2 ;; work groups for Emacs
-        ws-butler ;; whitespace removal
-        yaml-mode ;; major mode for YAML
-        yasnippet ;; snippets
-  zenburn-theme ;; Zenburn theme
-  evil-space
-  ))
+                    ace-flyspell ;; ace-jump-mode for flyspell
+                    ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
+                    ace-window ;; jump to a window using `ace-jump'.
+                    ag ;; the silver searcher
+                    anzu
+                    avy ;; easymotion
+                    bookmark+ ;; improved boomarks
+                    boxquote
+                    browse-kill-ring ;; menu for the killring
+                    cider ;; REPL for Clojure
+                    clojure-mode ;; mode for the Clojure language
+                    cmake-mode ;; mode for the CMake language
+                    coffee-mode ;; mode for the CoffeeScript language
+                    company ;; auto completion
+                    company-anaconda ;; Python completion for company
+                    company-ghc ;; Haskell completion for company
+                    company-tern ;; completion for `tern-mode'.
+                    ctags ;; ctags integration for Emacs
+                    d-mode ;; mode for the D language
+                    dired+ ;; extensions for Dired
+                    dired-rainbow ;; RAINBOWS
+                    dired-toggle-sudo
+                    edit-server ;; used by Edit With Emacs
+                    editorconfig ;; make sure I conform to style guides
+                    ein ;; iPython Notebook for Emacs
+                    elixir-mode ;; major mode for Elixir
+                    emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+                    emmet-mode ;; http://emmet.io implementation for Emacs
+                    etags-select
+                    evil ;; VIM for Emacs
+                    evil-anzu
+                    evil-args ;; delimited text objects
+                    evil-indent-textobject ;; indentation text object for Evil
+                    evil-leader ;; VIM's leader key for Emacs
+                    evil-matchit ;; `%' extensions in Evil
+                    evil-nerd-commenter ;; efficent commenting for Evil
+                    evil-numbers
+                    evil-visualstar
+                    flycheck ;; on the fly syntax checking
+                    flycheck-rust ;; flycheck for the Rust language
+                    geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
+                    ggtags ;; GNU Global
+                    ghc
+                    ghci-completion ;; GHC integration for company
+                    gist ;; GitHub Gist integration for Emacs.
+                    git-gutter ;; Git status in left fringe
+                    git-timemachine ;; rollback to previous revisions of a buffer
+                    gitconfig-mode ;; major mode for `.gitconfig'
+                    gitignore-mode ;; major mode for `.gitignore'
+                    gnuplot-mode ;; major mode for gnuplot
+                    go-mode ;; major mode for go
+                    haskell-mode ;; major mode for Haskell
+                    helm ;; menus for ALL the things
+                    helm-ag ;; integration with Helm and `ag'
+                    helm-projectile ;; projectile integration for helm
+                    helm-swoop ;; grep-like tool for Helm
+                    highlight-numbers ;; rainbowify numbers
+                    hy-mode ;; hy mode
+                    hydra ;; micro-states!
+                    ibuffer-vc ;; ibuffer integration for vc.el
+                    indent-guide ;; a "ruler" for indentation
+                    io-mode ;; major mode for Io
+                    js2-mode ;; major mode for JavaScript
+                    julia-mode ;; mode for the Julia language
+                    lentic
+                    lua-mode ;; mode for the Lua language
+                    magit ;; git integration
+                    magit-tramp ;; TRAMP integration for Magit
+                    markdown-mode ;; mode for the Markdown markup
+                    material-theme
+                    mediawiki ;; mediawiki client
+                    mmm-mode ;; Multiple Major Modes
+                    nim-mode ;; major mode for Nim
+                    ocodo-svg-modelines
+                    persp-mode ;; basically tabs
+                    projectile ;; project management
+                    projectile-rails
+                    purescript-mode
+                    racket-mode ;; mode for the Racket
+                    rainbow-blocks ;; omg more rainbows
+                    rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
+                    rainbow-identifiers ;; rainbows!
+                    rinari ;; Rails
+                    ruby-mode ;; mode for the Ruby language
+                    rust-mode ;; mode for the Rust language
+                    scss-mode ;; mode for the Sass language
+                    slim-mode ;; mode for the Slim templating language
+                    slime ;; REPL for Common Lisp
+                    slime-company
+                    smart-mode-line ;; a nice mode line
+                    smart-mode-line-powerline-theme
+                    surround ;; Delete surrounding characters (`()', `[]', etc.).
+                    table ;; tables!
+                    tiny
+                    todotxt ;; Mode for the todo.txt markup
+                    tuareg ;; ocaml
+                    undo-tree ;; vim-like undo tree
+                    wanderlust ;; email
+                    web-mode ;; mode for web stuff
+                    wgrep ;; writable grep
+                    wgrep-ag ;; writable grep, but for ag
+                    workgroups2 ;; work groups for Emacs
+                    ws-butler ;; whitespace removal
+                    yaml-mode ;; major mode for YAML
+                    yasnippet ;; snippets
+                    zenburn-theme ;; Zenburn theme
+                    evil-space
+                    ))
 
-  (loop for pkg in pkgs do
-  (require-package pkg))
+    (loop for pkg in pkgs do
+          (require-package pkg))
 
   #+END_SRC
 
@@ -419,7 +419,6 @@
        ;; Haskell!
        (autoload 'ghc-init "ghc" nil t))
    #+END_SRC
-
 
 * edit-server
 
