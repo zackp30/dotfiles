@@ -7,7 +7,7 @@
     ;;; Code:
   #+end_src
 
-See [[Override keymap]].
+  See [[Override keymap]].
   
   #+BEGIN_SRC emacs-lisp :tangle yes
     (defvar zack-keys-minor-mode-map (make-keymap) "Override package keys.")
@@ -19,9 +19,9 @@ See [[Override keymap]].
   
   #+begin_src emacs-lisp :tangle yes
     (setq package-archives '(("melpa" . "http://melpa.org/packages/")
-			     ("org" . "http://orgmode.org/elpa/")
-			     ("marmalade" . "http://marmalade-repo.org/packages/")
-			     ("gnu" . "https://elpa.gnu.org/packages/")))
+                             ("org" . "http://orgmode.org/elpa/")
+                             ("marmalade" . "http://marmalade-repo.org/packages/")
+                             ("gnu" . "https://elpa.gnu.org/packages/")))
     (package-initialize)
   #+end_src
   
@@ -31,7 +31,7 @@ See [[Override keymap]].
   
   #+BEGIN_SRC emacs-lisp :tangle yes
     (if (file-exists-p "~/.local.el")
-	(load "~/.local.el"))
+        (load "~/.local.el"))
   #+END_SRC
   
 * =require-package=
@@ -42,9 +42,9 @@ See [[Override keymap]].
     (defun require-package (package)
       "Install given PACKAGE."
       (unless (package-installed-p package)
-	(unless (assoc package package-archive-contents)
-	  (package-refresh-contents))
-	(package-install package)))
+        (unless (assoc package package-archive-contents)
+          (package-refresh-contents))
+        (package-install package)))
   #+END_SRC
   
 * List of packages
@@ -56,117 +56,117 @@ See [[Override keymap]].
     (require 'cl)
     ;; Install packages.
     (defvar pkgs '(use-package
-		    ace-flyspell ;; ace-jump-mode for flyspell
-		    ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
-		    ace-window ;; jump to a window using `ace-jump'.
-		    ag ;; the silver searcher
-		    anzu
-		    avy ;; easymotion
-		    bookmark+ ;; improved boomarks
-		    boxquote
-		    browse-kill-ring ;; menu for the killring
-		    cider ;; REPL for Clojure
-		    clojure-mode ;; mode for the Clojure language
-		    cmake-mode ;; mode for the CMake language
-		    coffee-mode ;; mode for the CoffeeScript language
-		    company ;; auto completion
-		    company-anaconda ;; Python completion for company
-		    company-ghc ;; Haskell completion for company
-		    company-tern ;; completion for `tern-mode'.
-		    ctags ;; ctags integration for Emacs
-		    d-mode ;; mode for the D language
-		    dired+ ;; extensions for Dired
-		    dired-rainbow ;; RAINBOWS
-		    dired-toggle-sudo
-		    edit-server ;; used by Edit With Emacs
-		    editorconfig ;; make sure I conform to style guides
-		    ein ;; iPython Notebook for Emacs
-		    elixir-mode ;; major mode for Elixir
-		    emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
-		    emmet-mode ;; http://emmet.io implementation for Emacs
-		    etags-select
-		    evil ;; VIM for Emacs
-		    evil-anzu
-		    evil-args ;; delimited text objects
-		    evil-indent-textobject ;; indentation text object for Evil
-		    evil-leader ;; VIM's leader key for Emacs
-		    evil-matchit ;; `%' extensions in Evil
-		    evil-nerd-commenter ;; efficent commenting for Evil
-		    evil-numbers
-		    evil-visualstar
-		    flycheck ;; on the fly syntax checking
-		    flycheck-rust ;; flycheck for the Rust language
-		    geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
-		    ggtags ;; GNU Global
-		    ghc
-		    ghci-completion ;; GHC integration for company
-		    gist ;; GitHub Gist integration for Emacs.
-		    git-gutter ;; Git status in left fringe
-		    git-timemachine ;; rollback to previous revisions of a buffer
-		    gitconfig-mode ;; major mode for `.gitconfig'
-		    gitignore-mode ;; major mode for `.gitignore'
-		    gnuplot-mode ;; major mode for gnuplot
-		    go-mode ;; major mode for go
-		    haskell-mode ;; major mode for Haskell
-		    helm ;; menus for ALL the things
-		    helm-ag ;; integration with Helm and `ag'
-		    helm-projectile ;; projectile integration for helm
-		    helm-swoop ;; grep-like tool for Helm
-		    highlight-numbers ;; rainbowify numbers
-		    hy-mode ;; hy mode
-		    hydra ;; micro-states!
-		    ibuffer-vc ;; ibuffer integration for vc.el
-		    indent-guide ;; a "ruler" for indentation
-		    io-mode ;; major mode for Io
-		    js2-mode ;; major mode for JavaScript
-		    julia-mode ;; mode for the Julia language
-		    lentic
-		    lua-mode ;; mode for the Lua language
-		    magit ;; git integration
-		    magit-tramp ;; TRAMP integration for Magit
-		    markdown-mode ;; mode for the Markdown markup
-		    material-theme
-		    mediawiki ;; mediawiki client
-		    mmm-mode ;; Multiple Major Modes
-		    nim-mode ;; major mode for Nim
-		    ocodo-svg-modelines
-		    persp-mode ;; basically tabs
-		    projectile ;; project management
-		    projectile-rails
-		    purescript-mode
-		    racket-mode ;; mode for the Racket
-		    rainbow-blocks ;; omg more rainbows
-		    rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
-		    rainbow-identifiers ;; rainbows!
-		    rinari ;; Rails
-		    ruby-mode ;; mode for the Ruby language
-		    rust-mode ;; mode for the Rust language
-		    scss-mode ;; mode for the Sass language
-		    slim-mode ;; mode for the Slim templating language
-		    slime ;; REPL for Common Lisp
-		    slime-company
-		    smart-mode-line ;; a nice mode line
-		    smart-mode-line-powerline-theme
-		    surround ;; Delete surrounding characters (`()', `[]', etc.).
-		    table ;; tables!
-		    tiny
-		    todotxt ;; Mode for the todo.txt markup
-		    tuareg ;; ocaml
-		    undo-tree ;; vim-like undo tree
-		    wanderlust ;; email
-		    web-mode ;; mode for web stuff
-		    wgrep ;; writable grep
-		    wgrep-ag ;; writable grep, but for ag
-		    workgroups2 ;; work groups for Emacs
-		    ws-butler ;; whitespace removal
-		    yaml-mode ;; major mode for YAML
-		    yasnippet ;; snippets
-		    zenburn-theme ;; Zenburn theme
-		    evil-space
-		    ))
+        ace-flyspell ;; ace-jump-mode for flyspell
+        ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
+        ace-window ;; jump to a window using `ace-jump'.
+        ag ;; the silver searcher
+        anzu
+        avy ;; easymotion
+        bookmark+ ;; improved boomarks
+        boxquote
+        browse-kill-ring ;; menu for the killring
+        cider ;; REPL for Clojure
+        clojure-mode ;; mode for the Clojure language
+        cmake-mode ;; mode for the CMake language
+        coffee-mode ;; mode for the CoffeeScript language
+        company ;; auto completion
+        company-anaconda ;; Python completion for company
+        company-ghc ;; Haskell completion for company
+        company-tern ;; completion for `tern-mode'.
+        ctags ;; ctags integration for Emacs
+        d-mode ;; mode for the D language
+        dired+ ;; extensions for Dired
+        dired-rainbow ;; RAINBOWS
+        dired-toggle-sudo
+        edit-server ;; used by Edit With Emacs
+        editorconfig ;; make sure I conform to style guides
+        ein ;; iPython Notebook for Emacs
+        elixir-mode ;; major mode for Elixir
+        emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+        emmet-mode ;; http://emmet.io implementation for Emacs
+        etags-select
+        evil ;; VIM for Emacs
+        evil-anzu
+        evil-args ;; delimited text objects
+        evil-indent-textobject ;; indentation text object for Evil
+        evil-leader ;; VIM's leader key for Emacs
+        evil-matchit ;; `%' extensions in Evil
+        evil-nerd-commenter ;; efficent commenting for Evil
+        evil-numbers
+        evil-visualstar
+        flycheck ;; on the fly syntax checking
+        flycheck-rust ;; flycheck for the Rust language
+        geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
+        ggtags ;; GNU Global
+        ghc
+        ghci-completion ;; GHC integration for company
+        gist ;; GitHub Gist integration for Emacs.
+        git-gutter ;; Git status in left fringe
+        git-timemachine ;; rollback to previous revisions of a buffer
+        gitconfig-mode ;; major mode for `.gitconfig'
+        gitignore-mode ;; major mode for `.gitignore'
+        gnuplot-mode ;; major mode for gnuplot
+        go-mode ;; major mode for go
+        haskell-mode ;; major mode for Haskell
+        helm ;; menus for ALL the things
+        helm-ag ;; integration with Helm and `ag'
+        helm-projectile ;; projectile integration for helm
+        helm-swoop ;; grep-like tool for Helm
+        highlight-numbers ;; rainbowify numbers
+        hy-mode ;; hy mode
+        hydra ;; micro-states!
+        ibuffer-vc ;; ibuffer integration for vc.el
+        indent-guide ;; a "ruler" for indentation
+        io-mode ;; major mode for Io
+        js2-mode ;; major mode for JavaScript
+        julia-mode ;; mode for the Julia language
+        lentic
+        lua-mode ;; mode for the Lua language
+        magit ;; git integration
+        magit-tramp ;; TRAMP integration for Magit
+        markdown-mode ;; mode for the Markdown markup
+        material-theme
+        mediawiki ;; mediawiki client
+        mmm-mode ;; Multiple Major Modes
+        nim-mode ;; major mode for Nim
+        ocodo-svg-modelines
+        persp-mode ;; basically tabs
+        projectile ;; project management
+        projectile-rails
+        purescript-mode
+        racket-mode ;; mode for the Racket
+        rainbow-blocks ;; omg more rainbows
+        rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
+        rainbow-identifiers ;; rainbows!
+        rinari ;; Rails
+        ruby-mode ;; mode for the Ruby language
+        rust-mode ;; mode for the Rust language
+        scss-mode ;; mode for the Sass language
+        slim-mode ;; mode for the Slim templating language
+        slime ;; REPL for Common Lisp
+        slime-company
+        smart-mode-line ;; a nice mode line
+        smart-mode-line-powerline-theme
+        surround ;; Delete surrounding characters (`()', `[]', etc.).
+        table ;; tables!
+        tiny
+        todotxt ;; Mode for the todo.txt markup
+        tuareg ;; ocaml
+        undo-tree ;; vim-like undo tree
+        wanderlust ;; email
+        web-mode ;; mode for web stuff
+        wgrep ;; writable grep
+        wgrep-ag ;; writable grep, but for ag
+        workgroups2 ;; work groups for Emacs
+        ws-butler ;; whitespace removal
+        yaml-mode ;; major mode for YAML
+        yasnippet ;; snippets
+  zenburn-theme ;; Zenburn theme
+  evil-space
+  ))
 
-    (loop for pkg in pkgs do
-	  (require-package pkg))
+  (loop for pkg in pkgs do
+  (require-package pkg))
 
   #+END_SRC
 
@@ -197,9 +197,9 @@ See [[Override keymap]].
     (defun a-mode (ext mode)
       "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
       (add-to-list 'auto-mode-alist
-		   (cons
-		    (format "\\%s\\'" ext)
-		    (intern (concat mode "-mode")))))
+                   (cons
+                    (format "\\%s\\'" ext)
+                    (intern (concat mode "-mode")))))
   #+END_SRC
 
 * Org mode
@@ -211,20 +211,20 @@ See [[Override keymap]].
     (setq org-log-done t)
     (setq org-latex-listings 'minted) ;; enable minted
     (setq org-latex-minted-options
-	  '(("frame" "lines")
-	    ("fontsize" "\\scriptsize")
-	    ("linenos" "")))
+          '(("frame" "lines")
+            ("fontsize" "\\scriptsize")
+            ("linenos" "")))
     (setq org-latex-minted-langs
-	  '((conf-space "aconf")
-	    (conf-unix "squid")))
+          '((conf-space "aconf")
+            (conf-unix "squid")))
     (setq org-directory "~/org") ;; where I store the documents
     (setq org-latex-to-pdf-process
-	  '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	    "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	    "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+          '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
     (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
     (add-hook 'after-init-hook (lambda () 
-				 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
+                                 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
 
 ** Babel
@@ -236,8 +236,8 @@ See [[Override keymap]].
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((ruby . t)
-	(gnuplot . t)
-	(org . t)))
+        (gnuplot . t)
+        (org . t)))
    #+END_SRC
 
 ** Misc. settings
@@ -403,10 +403,9 @@ See [[Override keymap]].
      (use-package company-anaconda
        :config
        (add-hook 'python-mode-hook (lambda ()
-				     (anaconda-mode)
-				     (add-to-list 'company-backends 'company-anaconda))))
+                                     (anaconda-mode)
+                                     (add-to-list 'company-backends 'company-anaconda))))
    #+END_SRC
-
 
 ** Haskell
 
@@ -416,10 +415,11 @@ See [[Override keymap]].
      (use-package company-ghc
        :config
        (add-hook 'haskell-mode-hook (lambda ()
-				      (add-to-list 'company-backends 'company-ghc)))
+                                      (add-to-list 'company-backends 'company-ghc)))
        ;; Haskell!
        (autoload 'ghc-init "ghc" nil t))
    #+END_SRC
+
 
 * edit-server
 
@@ -429,7 +429,7 @@ See [[Override keymap]].
     (use-package edit-server
       :config
       (when (string= (system-name) "linux-nyit.site") ;; home PC
-	(edit-server-start)))
+        (edit-server-start)))
   #+END_SRC
 
 * Anzu
@@ -487,13 +487,13 @@ See [[Override keymap]].
        (evil-leader/set-leader "<SPC>") ;; space is my leader
        (global-evil-leader-mode 1)
        (evil-leader/set-key
-	 "p b" 'projectile-switch-to-buffer
-	 "p D" 'projectile-dired
-	 "p d" 'projectile-find-dir
-	 "p s" 'projectile-switch-project
-	 "p R" 'projectile-regenerate-tags
-	 "p j" 'projectile-find-tag
-	 "g t r" 'ctags-create-or-update-tags-table))
+         "p b" 'projectile-switch-to-buffer
+         "p D" 'projectile-dired
+         "p d" 'projectile-find-dir
+         "p s" 'projectile-switch-project
+         "p R" 'projectile-regenerate-tags
+         "p j" 'projectile-find-tag
+         "g t r" 'ctags-create-or-update-tags-table))
    #+END_SRC
 
 *** TODO [0/1]
@@ -507,14 +507,14 @@ See [[Override keymap]].
      (defun my-evil-modeline-change (default-color)
        "changes the modeline color when the evil mode changes"
        (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
-			  ((evil-visual-state-p) '("#330022" . "#ffffff"))
-			  ((evil-normal-state-p) default-color)
-			  (t '("#440000" . "#ffffff")))))
-	 (set-face-background 'mode-line (car color))
-	 (set-face-foreground 'mode-line (cdr color))))
+                          ((evil-visual-state-p) '("#330022" . "#ffffff"))
+                          ((evil-normal-state-p) default-color)
+                          (t '("#440000" . "#ffffff")))))
+         (set-face-background 'mode-line (car color))
+         (set-face-foreground 'mode-line (cdr color))))
 
      (lexical-let ((default-color (cons (face-background 'mode-line)
-					(face-foreground 'mode-line))))
+                                        (face-foreground 'mode-line))))
        (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
    #+END_SRC
 
@@ -522,8 +522,8 @@ See [[Override keymap]].
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq evil-insert-state-cursor '((bar . 2) "green")
-	   evil-visual-state-cursor '((bar . 5) "green")
-	   evil-normal-state-cursor '((hollow . 5) "white"))
+           evil-visual-state-cursor '((bar . 5) "green")
+           evil-normal-state-cursor '((hollow . 5) "white"))
    #+END_SRC
 
 ** Matching
@@ -647,16 +647,16 @@ See [[Override keymap]].
     #+BEGIN_SRC emacs-lisp :tangle yes
       (require 'slime-autoloads)
       (use-package slime
-	:config
-	(add-hook 'slime-repl-mode-hook
-		  (lambda ()
-		    ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
-		    (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
-		    (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
-		    (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
-		    (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
-	(slime-setup '(slime-fancy slime-repl slime-company))
-	(setq inferior-lisp-program "sbcl")) ;; use SBCL
+        :config
+        (add-hook 'slime-repl-mode-hook
+                  (lambda ()
+                    ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
+                    (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+                    (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
+                    (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+                    (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
+        (slime-setup '(slime-fancy slime-repl slime-company))
+        (setq inferior-lisp-program "sbcl")) ;; use SBCL
     #+END_SRC
 
 
@@ -699,8 +699,8 @@ See [[Override keymap]].
        :init
        (a-mode ".js" "js2")
        (add-hook 'js2-mode-hook (lambda ()
-				  (tern-mode t) ;; enable auto-completion using ternjs.
-				  (add-to-list 'company-backends 'company-tern))))
+                                  (tern-mode t) ;; enable auto-completion using ternjs.
+                                  (add-to-list 'company-backends 'company-tern))))
    #+END_SRC
 
 *** Notes
@@ -731,7 +731,7 @@ See [[Override keymap]].
      (use-package gl-conf-mode
        :config
        (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
-				       gl-conf-mode)))
+                                       gl-conf-mode)))
    #+END_SRC
 
 
@@ -763,7 +763,7 @@ See [[Override keymap]].
      (use-package cmake-mode
        :init
        (add-to-list 'auto-mode-alist
-		    '("CMakeLists.txt" . cmake-mode)) )
+                    '("CMakeLists.txt" . cmake-mode)) )
    #+END_SRC
 
 ** VisualBasic
@@ -783,7 +783,7 @@ See [[Override keymap]].
      (use-package geiser
        :config
        (add-hook 'scheme-mode-hook (lambda ()
-				     (add-to-list 'company-backends 'geiser-company-backend))))
+                                     (add-to-list 'company-backends 'geiser-company-backend))))
    #+END_SRC
 
 * ibuffer
@@ -801,19 +801,19 @@ See [[Override keymap]].
        (require 'ibuffer-vc)
        :config
        (setq ibuffer-formats
-	     '((mark modified read-only vc-status-mini " "
-		     (name 18 18 :left :elide)
-		     " "
-		     (size 9 -1 :right)
-		     " "
-		     (mode 16 16 :left :elide)
-		     " "
-		     (vc-status 16 16 :left)
-		     " "
-		     filename-and-process)))
+             '((mark modified read-only vc-status-mini " "
+                     (name 18 18 :left :elide)
+                     " "
+                     (size 9 -1 :right)
+                     " "
+                     (mode 16 16 :left :elide)
+                     " "
+                     (vc-status 16 16 :left)
+                     " "
+                     filename-and-process)))
        (add-hook 'ibuffer-hook
-		 (lambda ()
-		   (ibuffer-vc-set-filter-groups-by-vc-root))))
+                 (lambda ()
+                   (ibuffer-vc-set-filter-groups-by-vc-root))))
    #+END_SRC
 
 * indent-guide
@@ -836,33 +836,33 @@ See [[Override keymap]].
       (setq mmm-global-mode 'maybe)
       (mmm-add-classes
        '((markdown-latex
-	  :submode latex-mode
-	  :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
-	  :back "\\\\end")
-	 (markdown-erb
-	  :submode ruby-mode
-	  :front "<%"
-	  :back "%>")
-	 (markdown-clojure
-	  :submode clojure-mode
-	  :front "```clojure"
-	  :back "```")
-	 (markdown-ruby
-	  :submode ruby-mode
-	  :front "```ruby"
-	  :back "```")
-	 (markdown-haskell
-	  :submode haskell-mode
-	  :front "```haskell"
-	  :back "```")
-	 (markdown-lisp
-	  :submode common-lisp-mode
-	  :front "```commonlisp"
-	  :back "```")
-	 (shell-json
-	  :submode javascript-mode
-	  :front "<<JSON"
-	  :back "JSON")))
+          :submode latex-mode
+          :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
+          :back "\\\\end")
+         (markdown-erb
+          :submode ruby-mode
+          :front "<%"
+          :back "%>")
+         (markdown-clojure
+          :submode clojure-mode
+          :front "```clojure"
+          :back "```")
+         (markdown-ruby
+          :submode ruby-mode
+          :front "```ruby"
+          :back "```")
+         (markdown-haskell
+          :submode haskell-mode
+          :front "```haskell"
+          :back "```")
+         (markdown-lisp
+          :submode common-lisp-mode
+          :front "```commonlisp"
+          :back "```")
+         (shell-json
+          :submode javascript-mode
+          :front "<<JSON"
+          :back "JSON")))
       (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
       (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
       (mmm-add-mode-ext-class 'shell-mode "\\.sh\\'" 'shell-json)
@@ -954,7 +954,7 @@ See [[Override keymap]].
      (autoload 'wl "wl" "Wanderlust" t)
      (a-mode ".wl" "emacs-lisp")
      (add-to-list 'auto-mode-alist
-		  '("mutt-" . mail-mode)) ;; mutt temporary files
+                  '("mutt-" . mail-mode)) ;; mutt temporary files
      (defun foo-wl ()
        (when evil-mode (evil-change-state 'emacs)))
 
@@ -1000,8 +1000,8 @@ See [[Override keymap]].
     (use-package imenu
       :config
       (add-to-list 'imenu-generic-expression
-		   '("Used Packages"
-		     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+                   '("Used Packages"
+                     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
       (define-key zack-keys-minor-mode-map (kbd "C-j") 'imenu))
   #+END_SRC
 
@@ -1034,8 +1034,8 @@ See [[Override keymap]].
     (show-paren-mode 1) ;; highlight matching parens
     (mouse-avoidance-mode 'banish) ;; be gone cursor!
     (setq initial-scratch-message ;; I know it's a scratch buffer by now!
-	  (format ";; Emacs was started at %s"
-		  (format-time-string "%Y-%m-%dT%T")))
+          (format ";; Emacs was started at %s"
+                  (format-time-string "%Y-%m-%dT%T")))
     (setq package-menu-async nil) ;; disable this, I hate it when I press "U" just when I run `list-packages' to result in it claiming there's no updates avaialble so I have to run it again.
   #+END_SRC
 
@@ -1060,28 +1060,28 @@ See [[Override keymap]].
   #+BEGIN_SRC emacs-lisp :tangle yes
     (defun sort-sexps-in-region (beg end)
       "Can be handy for sorting out duplicates.
-    Sorts the sexps from BEG to END. Leaves the point at where it
-    couldn't figure things out (ex: syntax errors)."
+      Sorts the sexps from BEG to END. Leaves the point at where it
+      couldn't figure things out (ex: syntax errors)."
       (interactive "r")
       (let ((input (buffer-substring beg end))
-	    list last-point form result)
-	(save-restriction
-	  (save-excursion
-	    (narrow-to-region beg end)
-	    (goto-char (point-min))
-	    (setq last-point (point-min))
-	    (setq form t)
-	    (while (and form (not (eobp)))
-	      (setq form (ignore-errors (read (current-buffer))))
-	      (when form
-		(add-to-list 'list
-			     (cons
-			      (prin1-to-string form)
-			      (buffer-substring last-point (point))))
-		(setq last-point (point))))
-	    (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
-	    (delete-region (point-min) (point))
-	    (insert (mapconcat 'cdr list "\n"))))))
+            list last-point form result)
+        (save-restriction
+          (save-excursion
+            (narrow-to-region beg end)
+            (goto-char (point-min))
+            (setq last-point (point-min))
+            (setq form t)
+            (while (and form (not (eobp)))
+              (setq form (ignore-errors (read (current-buffer))))
+              (when form
+                (add-to-list 'list
+                             (cons
+                              (prin1-to-string form)
+                              (buffer-substring last-point (point))))
+                (setq last-point (point))))
+            (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
+            (delete-region (point-min) (point))
+            (insert (mapconcat 'cdr list "\n"))))))
   #+END_SRC
 ** Get a random item from a list
 
@@ -1108,7 +1108,7 @@ See [[Override keymap]].
        (interactive)
        (skip-chars-backward "0123456789")
        (or (looking-at "[0123456789]+")
-	   (error "No number at point"))
+           (error "No number at point"))
        (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
      (global-set-key (kbd "C-c +") 'increment-number-at-point)
    #+END_SRC
@@ -1120,7 +1120,7 @@ See [[Override keymap]].
        (interactive)
        (skip-chars-backward "0123456789")
        (or (looking-at "[0123456789]+")
-	   (error "No number at point"))
+           (error "No number at point"))
        (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
 
      (global-set-key (kbd "C-c -") 'decrement-number-at-point)
@@ -1135,9 +1135,9 @@ See [[Override keymap]].
     (use-package boxquote
       :config
       (setq-default  boxquote-bottom-corner "╰"       ; U+2570
-		     boxquote-side          "│ "      ; U+2572 + space
-		     boxquote-top-and-tail  "────"    ; U+2500 (×4)
-		     boxquote-top-corner    "╭"))     ; U+256F)
+                     boxquote-side          "│ "      ; U+2572 + space
+                     boxquote-top-and-tail  "────"    ; U+2500 (×4)
+                     boxquote-top-corner    "╭"))     ; U+256F)
   #+END_SRC
 
 * Insert shell command
@@ -1225,14 +1225,13 @@ See [[Override keymap]].
 
 * Tiny
 
-[[https://github.com/abo-abo/tiny][Tiny]] is an alternative to macros, using a tiny template language.
+  [[https://github.com/abo-abo/tiny][Tiny]] is an alternative to macros, using a tiny template language.
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package tiny
-    :config
-    (tiny-setup-default))
-#+END_SRC
-
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package tiny
+      :config
+      (tiny-setup-default))
+  #+END_SRC
 
 * The end
 
