@@ -1001,7 +1001,7 @@
       (add-to-list 'imenu-generic-expression
                    '("Used Packages"
                      "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
-      (define-key zack-keys-minor-mode-map (kbd "C-j") 'imenu))
+      (define-key zack-keys-minor-mode-map (kbd "C-d") 'imenu))
   #+END_SRC
 
 * Misc
