@@ -7,7 +7,7 @@ windows:
       layout: even-horizontal
       panes:
           - htop:
-              - "ssh zack@10.8.0.10 -t 'htop'"
+              - "htop"
   - work-ccih:
       layout: even-horizontal
       panes:
