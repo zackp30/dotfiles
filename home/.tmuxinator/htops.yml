@@ -6,10 +6,10 @@ windows:
   - xieshaij:
       layout: even-horizontal
       panes:
-          - lnav:
-              - 'ssh zack@10.8.0.10 -t \'htop\''
+          - htop:
+              - "ssh zack@10.8.0.10 -t 'htop'"
   - work-ccih:
       layout: even-horizontal
       panes:
-          - lnav:
-              - 'ssh zack@10.8.0.10 -t \'htop\''
+          - htop:
+              - "ssh zack@10.8.0.10 -t 'htop'"
