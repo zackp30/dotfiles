@@ -23,5 +23,9 @@ windows:
       layout: main-vertical
       panes:
         - weechat
-        - htop
-        - lnav /var/log
+  - start-other-stuff:
+      layout: main-vertical
+      panes:
+        - "mux s log && exit"
+        - "mux s htops && exit"
+        - "ep-start"
