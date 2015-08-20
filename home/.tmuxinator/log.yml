@@ -1,0 +1,20 @@
+name: log
+root: ~/documents
+
+
+windows:
+  - unified:
+      layout: even-horizontal
+      panes:
+          - lnav:
+              - 'lnav /home/opt/logs/**/*'
+  - xieshaij:
+      layout: even-horizontal
+      panes:
+          - lnav:
+              - 'lnav /home/opt/logs/xieshaij/*'
+  - work-ccih:
+      layout: even-horizontal
+      panes:
+          - lnav:
+              - 'lnav /home/opt/logs/linux-ccih/*'
