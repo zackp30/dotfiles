@@ -22,40 +22,41 @@
 S: shell command to run"
   (replace-regexp-in-string "\n$" ""
                             (shell-command-to-string s)))
-(defvar project-name (getenv "PROJECT_NAME")
-  "Get the project that Emacs is running within.")
+(when (getenv "EMACS_USE_CASCADE")
+  (defvar project-name (getenv "PROJECT_NAME")
+    "Get the project that Emacs is running within.")
 
-(defvar pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/")
-  "Where the PIDs are stored.")
-(setq server-name project-name)
-(defvar pid-file (concat pid-dir server-name)
-  "Where the PID file is.")
+  (defvar pid-dir (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/")
+    "Where the PIDs are stored.")
+  (setq server-name project-name)
+  (defvar pid-file (concat pid-dir server-name)
+    "Where the PID file is.")
 
-;; Here we determine whether we're about to conflict with another Emacs server.
-(when (string= "yes" (shell-without-newline (concat
-                                             "isemacsrunning "
-                                             server-name
-                                             " "
-                                             (number-to-string 1))))
-  (progn (error (concat "Emacs server (" server-name ") is already running, exiting"))
-         (kill-emacs)))
+  ;; Here we determine whether we're about to conflict with another Emacs server.
+  (when (string= "yes" (shell-without-newline (concat
+                                               "isemacsrunning "
+                                               server-name
+                                               " "
+                                               (number-to-string 1))))
+    (progn (error (concat "Emacs server (" server-name ") is already running, exiting"))
+           (kill-emacs)))
 
-(when (not server-mode)
-  (server-start))
+  (when (not server-mode)
+    (server-start))
 
 
-(defun init-pid ()
-  "saves a PID file"
-  (when (file-exists-p pid-file)
-    (delete-file pid-file))
-  (when (not (file-exists-p pid-dir))
-    (make-directory pid-dir t))
-  (when (file-exists-p pid-file)
-    (add-hook 'kill-emacs-hook
-              (lambda ()
-                (delete-file (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/" server-name)))))
-  (append-to-file (number-to-string (emacs-pid)) nil pid-file))
-(add-hook 'after-init-hook 'init-pid)
+  (defun init-pid ()
+    "saves a PID file"
+    (when (file-exists-p pid-file)
+      (delete-file pid-file))
+    (when (not (file-exists-p pid-dir))
+      (make-directory pid-dir t))
+    (when (file-exists-p pid-file)
+      (add-hook 'kill-emacs-hook
+                (lambda ()
+                  (delete-file (concat "/tmp/emacs" (number-to-string (user-uid)) "/ready/" server-name)))))
+    (append-to-file (number-to-string (emacs-pid)) nil pid-file))
+  (add-hook 'after-init-hook 'init-pid))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
