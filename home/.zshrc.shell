@@ -286,7 +286,7 @@ if [[ $HOST != "linux-nyit" ]]; then
   else
        start_agent;
   fi
-f
+fi
 
 # Colors
 _p_color_date=cyan
