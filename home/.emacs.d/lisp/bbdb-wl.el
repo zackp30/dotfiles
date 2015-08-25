@@ -1,491 +1,240 @@
-;;; bbdb-wl.el -- BBDB interface to Wanderlust
-
-;; Copyright (C) 1998,1999,2000 Yuuichi Teranishi <teranisi@gohome.org>
-
-;; Author: Yuuichi Teranishi <teranisi@gohome.org>
-;; Keywords: mail, news, database
-
-;;; Commentary:
+;;; bbdbV3-wl.el --- 
+;; 
+;; Filename: bbdbV3-wl.el
+;; Description: 
+;; Author: Christian Nelson Giménez
+;; Maintainer: 
+;; Created: vie oct  7 11:28:06 2011 (-0300)
+;; Version: 
+;; Last-Updated: 
+;;           By: 
+;;     Update #: 0
+;; URL: 
+;; Keywords: 
+;; Compatibility: 
+;; 
+;; Features that might be required by this library:
 ;;
-;;  Insert the following lines in your ~/.wl
+;;   None
 ;;
-;;  (require 'bbdb-wl)
-;;  (bbdb-wl-setup)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;;; Commentary: 
+;; 
+;; I decide to make a bbdb-wl interface from scratch.
+;; This decition cames because BBDB V3.x changes a lot from his last. 
+;; Almost everything for e-mails was implemented, and every function 
+;; has changed their names or even does not exist anymore.
+;;
+;; So, there's another version for this BBDB and Wanderlust 2011.
+;; 
+;; 
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;;; Change Log:
+;; 
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;; 
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;; 
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
 ;;; Code:
-;;
 
-;; bbdb setup.
-(eval-when-compile
-  (require 'static)
-  (require 'mime-setup)
-  (require 'elmo-vars)
-  (require 'elmo-util)
-  (require 'wl-summary)
-  (require 'wl-message)
-  (require 'wl-draft)
-  (require 'wl-address)
-  (require 'bbdb-com)
-  (defvar bbdb-pop-up-elided-display nil))
+
+;; This is from bbdb-wl for BBDB V2.x
+(eval-and-compile
+  (add-hook 'wl-message-redisplay-hook 'bbdb-wl-get-update-record)
+;;   (add-hook 'wl-summary-exit-hook 'bbdb-wl-hide-bbdb-buffer)
+;;   (add-hook 'wl-message-window-deleted-hook 'bbdb-wl-hide-bbdb-buffer)
+;;   (add-hook 'wl-exit-hook 'bbdb-wl-exit)
+;;   (add-hook 'wl-save-hook '(bbdb-save t))
+;;   (add-hook 'wl-summary-toggle-disp-off-hook 'bbdb-wl-hide-bbdb-buffer)
+;;   (add-hook 'wl-summary-toggle-disp-folder-on-hook 'bbdb-wl-hide-bbdb-buffer)
+;;   (add-hook 'wl-summary-toggle-disp-folder-off-hook 'bbdb-wl-hide-bbdb-buffer)
+;;   (add-hook 'wl-summary-toggle-disp-folder-message-resumed-hook
+;;             'bbdb-wl-show-bbdb-buffer)
+;;   (add-hook 'wl-summary-mode-hook
+;;             (function
+;;              (lambda ()
+;;                (define-key (current-local-map) ":" 'bbdb-wl-show-sender)
+;;                (define-key (current-local-map) ";" 'bbdb-wl-edit-notes))))
+;;   (add-hook 'wl-summary-exit-hook 'bbdb-flush-all-caches)
+;;   (add-hook 'wl-summary-exec-hook 'bbdb-flush-all-caches)
+;;   (add-hook 'wl-mail-setup-hook
+;;             (function
+;;              (lambda ()
+;; ;;;            (local-set-key "\M-\t" 'bbdb-complete-name)
+;;                (define-key (current-local-map) "\M-\t" 'bbdb-complete-name))))
+  (define-key mime-view-mode-default-map ":" 'bbdb-wl-get-update-record)
+  )
 
 (require 'bbdb)
+(require 'bbdb-com)
+(require 'wl)
 
-(defvar bbdb-wl-get-update-record-hook nil)
-(defvar bbdb-wl-folder-regexp nil)
-(defvar bbdb-wl-ignore-folder-regexp nil)
+(defun bbdb-wl-get-sender-data ()
+  "Get all the data located in the header about the sender."
+  (save-excursion
+    (goto-char 0)
+    (search-forward-regexp "^From:[[:blank:]]*" nil t) 
+    (search-forward-regexp "[^[:blank:]].*$" nil t)
+    (match-string-no-properties 0)
+    )
+  )
 
-(defvar bbdb-wl-canonicalize-full-name-function
-  #'bbdb-wl-canonicalize-spaces-and-dots
-  "Way to canonicalize full name.")
+(defun bbdb-wl-get-sender-name ()
+  "Return the sender name(just the name)"
+  ;; Search for sender mail...
+  (let ((usrmail (bbdb-wl-get-sender-data)))
+    ;; Extract real name
+    (wl-address-header-extract-realname usrmail)
+    )
+  )
 
-(defun bbdb-wl-canonicalize-spaces-and-dots (string)
-  (while (and string (string-match "  +\\|[\f\t\n\r\v]+\\|\\." string))
-    (setq string (replace-match " " nil t string)))
-  (and string (string-match "^ " string)
-       (setq string (replace-match "" nil t string)))
-  string)
+(defun bbdb-wl-get-sender-address ()
+  "Return the sender petname(just that)"
+  (let ((usrmail (bbdb-wl-get-sender-data)))
+    (wl-address-header-extract-address usrmail)
+    )
+  )
 
-;;;###autoload
-(defun bbdb-wl-setup ()
-  (add-hook 'wl-message-redisplay-hook 'bbdb-wl-get-update-record)
-  (add-hook 'wl-summary-exit-hook 'bbdb-wl-hide-bbdb-buffer)
-  (add-hook 'wl-message-window-deleted-hook 'bbdb-wl-hide-bbdb-buffer)
-  (add-hook 'wl-exit-hook 'bbdb-wl-exit)
-  (add-hook 'wl-save-hook 'bbdb-offer-save)
-  (add-hook 'wl-summary-toggle-disp-off-hook 'bbdb-wl-hide-bbdb-buffer)
-  (add-hook 'wl-summary-toggle-disp-folder-on-hook 'bbdb-wl-hide-bbdb-buffer)
-  (add-hook 'wl-summary-toggle-disp-folder-off-hook 'bbdb-wl-hide-bbdb-buffer)
-  (add-hook 'wl-summary-toggle-disp-folder-message-resumed-hook
-	    'bbdb-wl-show-bbdb-buffer)
-  (add-hook 'wl-summary-mode-hook
-	    (function
-	     (lambda ()
-	       (define-key (current-local-map) ":" 'bbdb-wl-show-sender)
-	       (define-key (current-local-map) ";" 'bbdb-wl-edit-notes))))
-  (add-hook 'wl-summary-exit-hook 'bbdb-flush-all-caches)
-  (add-hook 'wl-summary-exec-hook 'bbdb-flush-all-caches)
-  (add-hook 'wl-mail-setup-hook
-	    (function
-	     (lambda ()
-;;;	       (local-set-key "\M-\t" 'bbdb-complete-name)
-	       (define-key (current-local-map) "\M-\t" 'bbdb-complete-name))))
-  (require 'bbdb)
-  (bbdb-initialize)
+(defun bbdb-wl-find-and-show (name)
+  "Look for the name in the BBDB and show it! 
+Return the records of the BBDB found.
+If no records are found, just return nil.
 
-  (if (not (boundp 'bbdb-get-addresses-from-headers))
-      (defvar bbdb-get-addresses-from-headers
-	'("From" "Resent-From" "Reply-To")))
-
-  (if (not (boundp 'bbdb-get-addresses-to-headers))
-      (defvar bbdb-get-addresses-to-headers
-	'("Resent-To" "Resent-CC" "To" "CC" "BCC")))
-
-  (if (not (boundp 'bbdb-get-addresses-headers))
-      (defvar bbdb-get-addresses-headers
-	(append bbdb-get-addresses-from-headers
-		bbdb-get-addresses-to-headers))))
-
-(defun bbdb-wl-exit ()
-  (let (bbdb-buf)
-    (if (setq bbdb-buf (get-buffer bbdb-buffer-name))
-	(kill-buffer bbdb-buf)))
-  (bbdb-offer-save))
+If name is an empty string, to avoid showing all the people in BBDB this function will return nil."
+  (if (string= name "")      
+      (progn
+	(bbdb-display-records nil) ;; Display nothing, erase last display.
+	nil
+	)
+    (progn
+      (setq records (bbdb-search (bbdb-records) name))
+      (bbdb-display-records records)
+      records
+      )
+    )
+  )
 
 (defun bbdb-wl-get-update-record ()
-  (let ((folder-name (with-current-buffer
-			 wl-message-buffer-cur-summary-buffer
-		       (wl-summary-buffer-folder-name))))
-    (if (and (or (null bbdb-wl-folder-regexp)
-		 (string-match bbdb-wl-folder-regexp folder-name))
-	     (not (and bbdb-wl-ignore-folder-regexp
-		       (string-match bbdb-wl-ignore-folder-regexp
-				     folder-name))))
-	(with-current-buffer (wl-message-get-original-buffer)
-	  (bbdb-wl-update-record)
-	  (run-hooks 'bbdb-wl-get-update-record-hook)))))
-
-(defun bbdb-wl-hide-bbdb-buffer ()
-  (let (bbdb-buf bbdb-win)
-    (if (setq bbdb-buf (get-buffer bbdb-buffer-name))
-	(if (setq bbdb-win (get-buffer-window bbdb-buf))
-	    (delete-window bbdb-win)))))
-
-(defun bbdb-wl-show-bbdb-buffer ()
-  (save-selected-window
-    (if (get-buffer-window bbdb-buffer-name)
-	nil
-      (let ((mes-win (get-buffer-window
-		      (save-excursion
-			(if (buffer-live-p  wl-current-summary-buffer)
-			    (set-buffer wl-current-summary-buffer))
-			wl-message-buffer)))
-	    (cur-win (selected-window))
-	    (b (current-buffer)))
-	(and mes-win (select-window mes-win))
-	(let ((size (min
-		     (- (window-height mes-win)
-			window-min-height 1)
-		     (- (window-height mes-win)
-			(max window-min-height
-			     (1+ bbdb-pop-up-target-lines))))))
-	  (split-window mes-win (if (> size 0) size window-min-height)))
-	;; goto the bottom of the two...
-	(select-window (next-window))
-	;; make it display *BBDB*...
-	(let ((pop-up-windows nil))
-	  (switch-to-buffer (get-buffer-create bbdb-buffer-name)))))))
-
-(defun bbdb-wl-get-petname (from)
-  "For `wl-summary-get-petname-function'."
-  (let* ((address (wl-address-header-extract-address from))
-	 (record (bbdb-search-simple nil address)))
-    (and record
-	 (or (bbdb-record-name record)
-	     (car (bbdb-record-name record))))))
-
-(defun bbdb-wl-from-func (string)
-  "A candidate From field STRING.  For `wl-summary-from-function'."
-  (let ((hit (bbdb-search-simple nil (wl-address-header-extract-address
-				      string)))
-	first-name last-name from-str)
-    (if hit
-	(progn
-	  (setq first-name (aref hit 0))
-	  (setq last-name (aref hit 1))
-	  (cond ((and (null first-name)
-		      (null last-name))
-		 (setq from-str string))
-		((and first-name last-name)
-		 (setq from-str (concat first-name " " last-name)))
-		((or first-name last-name)
-		 (setq from-str (or first-name last-name))))
-	  from-str)
-      string)))
-
-(defun bbdb-wl-get-addresses-1 (&optional only-first-address)
-  "Return real name and email address of sender respectively recipients.
-If an address matches `bbdb-user-mail-names' it will be ignored.
-The headers to search can be configured by `bbdb-get-addresses-headers'.
-For BBDB 2.33 or earlier."
-  (save-excursion
-    (save-restriction
-      (std11-narrow-to-header)
-      (let ((headers bbdb-get-addresses-headers)
-	    (uninteresting-senders bbdb-user-mail-names)
-	    addrlist header structures structure fn ad)
-	(while headers
-	  (setq header (std11-fetch-field (car headers)))
-	  (when header
-	    (setq structures (std11-parse-addresses-string
-			      (std11-unfold-string header)))
-	    (while (and (setq structure (car structures))
-			(eq (car structure) 'mailbox))
-	      (setq fn (std11-full-name-string structure)
-		    fn (and fn
-			    (with-temp-buffer ; to keep raw buffer unibyte.
-			      (set-buffer-multibyte
-			       default-enable-multibyte-characters)
-			      (eword-decode-string
-			       (decode-mime-charset-string
-				fn wl-mime-charset))))
-                    fn (funcall bbdb-wl-canonicalize-full-name-function fn)
-		    ad (std11-address-string structure))
-	      ;; ignore uninteresting addresses, this is kinda gross!
-	      (when (or (not (stringp uninteresting-senders))
-			(not
-			 (or
-			  (and fn (string-match uninteresting-senders fn))
-			  (and ad (string-match uninteresting-senders ad)))))
-		(add-to-list 'addrlist (list fn ad)))
-	      (if (and only-first-address addrlist)
-		  (setq structures nil headers nil)
-		(setq structures (cdr structures)))))
-	  (setq headers (cdr headers)))
-	(nreverse addrlist)))))
-
-(defun bbdb-wl-get-addresses-2 (&optional only-first-address)
-  "Return real name and email address of sender respectively recipients.
-If an address matches `bbdb-user-mail-names' it will be ignored.
-The headers to search can be configured by `bbdb-get-addresses-headers'.
-For BBDB 2.34 or later."
-  (save-excursion
-    (save-restriction
-      (std11-narrow-to-header)
-      (let ((headers bbdb-get-addresses-headers)
-	    (uninteresting-senders bbdb-user-mail-names)
-	    addrlist header structures structure fn ad
-	    header-type header-fields header-content)
-	(while headers
-	  (setq header-type (caar headers)
-		header-fields (cdar headers))
-	  (while header-fields
-	    (setq header-content (std11-fetch-field (car header-fields)))
-	    (when header-content
-	      (setq structures (std11-parse-addresses-string
-				(std11-unfold-string header-content)))
-	      (while (and (setq structure (car structures))
-			  (eq (car structure) 'mailbox))
-                (setq fn (std11-full-name-string structure)
-		      fn (and fn
-			      (with-temp-buffer ; to keep raw buffer unibyte.
-				(set-buffer-multibyte
-				 default-enable-multibyte-characters)
-				(eword-decode-string
-				 (decode-mime-charset-string
-				  fn wl-mime-charset))))
-		      fn (funcall bbdb-wl-canonicalize-full-name-function fn)
-		      ad (std11-address-string structure))
-		;; ignore uninteresting addresses, this is kinda gross!
-		(when (or (not (stringp uninteresting-senders))
-			  (not
-			   (or
-			    (and fn
-				 (string-match uninteresting-senders fn))
-			    (and ad
-				 (string-match uninteresting-senders ad)))))
-		  (add-to-list 'addrlist (list header-type
-					       (car header-fields)
-					       (list fn ad))))
-		(if (and only-first-address addrlist)
-		    (setq structures nil headers nil)
-		  (setq structures (cdr structures)))))
-	    (setq header-fields (cdr header-fields)))
-	  (setq headers (cdr headers)))
-	(nreverse addrlist)))))
-
-(defun bbdb-wl-get-addresses (&optional only-first-address)
-  "Return real name and email address of sender respectively recipients.
-If an address matches `bbdb-user-mail-names' it will be ignored.
-The headers to search can be configured by `bbdb-get-addresses-headers'."
-  (if (string< bbdb-version "2.34")
-      (bbdb-wl-get-addresses-1)
-    (bbdb-wl-get-addresses-2)))
-
-(defun bbdb-wl-update-record (&optional offer-to-create)
-  "Returns the record corresponding to the current WL message,
-creating or modifying it as necessary.  A record will be created if
-bbdb/mail-auto-create-p is non-nil, or if OFFER-TO-CREATE is true and
-the user confirms the creation."
-  (let* ((bbdb-get-only-first-address-p t)
-	 (records (bbdb-wl-update-records offer-to-create)))
-    (if (and records (listp records))
-	(car records)
-      records)))
-
-(defun bbdb-wl-update-records (&optional offer-to-create)
-  "Returns the records corresponding to the current WL message,
-creating or modifying it as necessary.  A record will be created if
-bbdb/mail-auto-create-p is non-nil, or if OFFER-TO-CREATE is true and
-the user confirms the creation."
-  (save-excursion
-    (if bbdb-use-pop-up
-	(bbdb-wl-pop-up-bbdb-buffer offer-to-create)
-      (let ((key
-	     (save-excursion
-	       (set-buffer
-		(save-excursion
-		  (if (buffer-live-p wl-current-summary-buffer)
-		      (set-buffer wl-current-summary-buffer))
-		  wl-message-buffer))
-	       (intern (format
-			"%s-%d"
-			wl-current-summary-buffer
-			wl-message-buffer-cur-number))))
-	    record)
-	(or (progn (setq record (bbdb-message-cache-lookup key))
-		   (if (listp record) (nth 1 record) record))
-	    (static-if (not (fboundp 'bbdb-update-records))
-		(let* ((from (or (std11-field-body "From") ""))
-		       (addr (and from
-				  (nth 1 (std11-extract-address-components
-					  from)))))
-		  (if (or (null from)
-			  (null addr)
-			  (string-match (bbdb-user-mail-names) addr))
-		      (setq from (or (std11-field-body "To") from)))
-		  (with-temp-buffer ; to keep raw buffer unibyte.
-		    (set-buffer-multibyte
-		     default-enable-multibyte-characters)
-		    (setq from (eword-decode-string
-				(decode-mime-charset-string
-				 from
-				 wl-mime-charset))))
-		  (if from
-		      (bbdb-encache-message
-		       key
-		       (bbdb-annotate-message-sender
-			from t
-			(or (bbdb-invoke-hook-for-value
-			     bbdb/mail-auto-create-p)
-			    offer-to-create)
-			offer-to-create))))
-	      (bbdb-encache-message
-	       key
-	       (bbdb-update-records (bbdb-wl-get-addresses
-				     bbdb-get-only-first-address-p)
-				    (or (bbdb-invoke-hook-for-value
-					 bbdb/mail-auto-create-p)
-					offer-to-create)
-				    offer-to-create))))))))
-
-(defun bbdb-wl-annotate-sender (string)
-  "Add a line to the end of the Notes field of the BBDB record
-corresponding to the sender of this message."
-  (interactive (list (if bbdb-readonly-p
-			 (error "The Insidious Big Brother Database is read-only")
-		       (read-string "Comments: "))))
-  (set-buffer (wl-message-get-original-buffer))
-  (bbdb-annotate-notes (bbdb-wl-update-record t) string))
-
-(defun bbdb-wl-edit-notes (&optional arg)
-  "Edit the notes field or (with a prefix arg) a user-defined field
-of the BBDB record corresponding to the sender of this message."
-  (interactive "P")
-  (wl-summary-set-message-buffer-or-redisplay)
-  (set-buffer (wl-message-get-original-buffer))
-  (let ((record (or (bbdb-wl-update-record t) (error ""))))
-    (bbdb-display-records (list record))
-    (if arg
-	(bbdb-record-edit-property record nil t)
-      (bbdb-record-edit-notes record t))))
-
-(defun bbdb-wl-show-records (&optional headers)
-  "Display the contents of the BBDB for the sender of this message.
-This buffer will be in `bbdb-mode', with associated keybindings."
+  "Function ideally of `wl-message-redisplay-hook'.
+Find all data from the sender and reciever(the 'get' part) and query to update if necessary(the 'update' part)."  
   (interactive)
-  (wl-summary-set-message-buffer-or-redisplay)
-  (set-buffer (wl-message-get-original-buffer))
-  (let ((bbdb-get-addresses-headers (or headers bbdb-get-addresses-headers))
-	(bbdb-update-records-mode 'annotating)
-	(bbdb-message-cache nil)
-	(bbdb-user-mail-names nil)
-	records bbdb-win)
-    (setq records (bbdb-wl-update-records t))
+
+  ;; Find names!
+  (let ((sender-name (bbdb-wl-get-sender-name)))
+    ;; is it in BBDB?    
+    (setq records (bbdb-wl-find-and-show sender-name))
     (if records
-	(progn
-	  (bbdb-wl-pop-up-bbdb-buffer)
-	  (bbdb-display-records (if (listp records) records
-				  (list records))))
-      (bbdb-undisplay-records))
-    (setq bbdb-win (get-buffer-window (get-buffer bbdb-buffer-name)))
-    (and bbdb-win
-	 (select-window bbdb-win))
-    records))
+	;; yes, exists...	
+	;; should we update it?
+	(bbdb-wl-check-update record)
+      ;;Nop, doesn't exists...
+      (progn
+	(bbdb-wl-query-create-sender)
+	(bbdb-wl-find-and-show sender-name)
+	)
+      )
+    )
+  )
 
-(defun bbdb-wl-address-headers-spec (address-class)
-  "Return address headers structure for ADDRESS-CLASS."
-  (if (string< bbdb-version "2.34")
-      (cond
-       ((eq address-class 'recipients)
-	bbdb-get-addresses-to-headers)
-       ((eq address-class 'authors)
-	bbdb-get-addresses-from-headers)
-       (t
-	(append bbdb-get-addresses-to-headers
-		bbdb-get-addresses-from-headers)))
-    (list (assoc address-class bbdb-get-addresses-headers))))
+(defun bbdb-wl-check-update (record)
+  "Check if this BBDB record and the information in the mail are different.
+If they are, query the user if she/he want to update the BBDB record.
+If she/he wants, update it.
+If not, well, do nothing!"
+  ;; TODO
+  )
 
-(defun bbdb-wl-show-all-recipients ()
-  "Show all recipients of this message. Counterpart to `bbdb/vm-show-sender'."
+(defun bbdb-wl-query-create-sender ()
+  "Query the user if we can create the sender. If we can, create the sender with its data.
+If we cannot... just ignore this mail."
+  (when (y-or-n-p (format "Record %s doesn't exists. Create it?" (bbdb-wl-get-sender-name)))
+    ;; Answers "y"... create it.
+    (bbdb-wl-create-sender)
+    )	       
+  )
+
+(defun bbdb-wl-create-sender ()
+  "Create the sender BBDB record and add it to BBDB."
+  ;; Avoid duplication!
+  ;;(let ((bbdb-no-duplicates t))
+    (if
+	(bbdb-create-internal (bbdb-wl-get-sender-name) ;; name
+			      nil ;; affix
+			      nil ;; aka
+			      nil ;; organizations
+			      (cons (bbdb-wl-get-sender-address) nil);; mail
+			      nil ;; phones
+			      nil ;; addresses 
+			      nil ;; notes
+			      )
+	(message "%s" "Record Added: Done")
+      (message "%s" "Record not added... Possibly it is already in the database")
+      )
+	
+  ;;  )
+  )
+
+
+					; ******************************
+					; ** Addressbook
+
+(defun bbdb-wl-find-name (name)
+  "Find this name in the BBDB. 
+If it does exists return the record.
+If nothing founds, return nil."
+  (bbdb-search (bbdb-records) name)
+  )
+
+(defun bbdb-wl-sinchronize-addressbook ()
+  "Sinchronize BBDB with Wanderlust's Addressbook."
   (interactive)
-  (bbdb-wl-show-records (bbdb-wl-address-headers-spec 'recipients)))
-
-(defun bbdb-wl-show-sender (&optional show-recipients)
-  "Display the contents of the BBDB for the senders of this message.
-With a prefix argument show the recipients instead,
-with two prefix arguments show all records.
-This buffer will be in `bbdb-mode', with associated keybindings."
-  (interactive "p")
-  (cond ((= 4 show-recipients)
-	 (bbdb-wl-show-all-recipients))
-	((= 16 show-recipients)
-	 (bbdb-wl-show-records))
-	(t
-	 (if (null (bbdb-wl-show-records
-		    (bbdb-wl-address-headers-spec 'authors)))
-	     (bbdb-wl-show-all-recipients)))))
-
-(defun bbdb-wl-pop-up-bbdb-buffer (&optional offer-to-create)
-  "Make the *BBDB* buffer be displayed along with the WL window(s),
-displaying the record corresponding to the sender of the current message."
-  (if (get-buffer-window bbdb-buffer-name)
-      nil
-    (let ((mes-win (get-buffer-window
-		    (save-excursion
-		      (if (buffer-live-p  wl-current-summary-buffer)
-			  (set-buffer wl-current-summary-buffer))
-		      wl-message-buffer)))
-	  (cur-win (selected-window))
-	  (b (current-buffer)))
-      (and mes-win
-	   (select-window mes-win))
-      (let ((size (min
-		   (- (window-height mes-win)
-		      window-min-height 1)
-		   (- (window-height mes-win)
-		      (max window-min-height
-			   (1+ bbdb-pop-up-target-lines))))))
-	(split-window mes-win (if (> size 0) size window-min-height)))
-      ;; goto the bottom of the two...
-      (select-window (next-window))
-      ;; make it display *BBDB*...
-      (let ((pop-up-windows nil))
-	(switch-to-buffer (get-buffer-create bbdb-buffer-name)))
-      ;; select the original window we were in...
-      (select-window cur-win)
-      ;; and make sure the current buffer is correct as well.
-      (set-buffer b)))
-  (let ((bbdb-gag-messages t)
-	(bbdb-use-pop-up nil)
-	(bbdb-electric-p nil))
-    (let* ((records (static-if (fboundp 'bbdb-update-records)
-			(bbdb-wl-update-records offer-to-create)
-		      (bbdb-wl-update-record offer-to-create)))
-	   ;; BBDB versions v2.33 and later.
-	   (bbdb-display-layout
-	    (cond ((boundp 'bbdb-pop-up-display-layout)
-		   (symbol-value 'bbdb-pop-up-display-layout))
-		  ((boundp 'bbdb-pop-up-elided-display)
-		   (symbol-value 'bbdb-pop-up-elided-display))))
-	   ;; BBDB versions prior to v2.33,
-	   (bbdb-elided-display bbdb-display-layout)
-	   (b (current-buffer)))
-      (bbdb-display-records (if (listp records) records
-			      (list records)))
-      (set-buffer b)
-      records)))
-
-(defun bbdb-wl-send-mail-internal (&optional to subj records)
-  (unwind-protect
-      (wl-draft (wl-address-header-extract-address to) "" (or subj ""))
-    (condition-case nil (delete-other-windows) (error))))
-
-;;; @ bbdb-extract-field-value -- stolen from tm-bbdb.
-;;;
-(eval-and-compile
-  (if (fboundp 'bbdb-wl-extract-field-value-internal)
-;;(if (fboundp 'PLEASE_REPLACE_WITH_SEMI-BASED_MIME-BBDB)) ;; mime-bbdb
-      nil
-    (if (and (string< bbdb-version "1.58")
-	     ;;(not (fboundp 'bbdb-extract-field-value) ;; defined as autoload
-	     (not (fboundp 'bbdb-header-start)))
-	(load "bbdb-hooks")
-      (require 'bbdb-hooks))
-    (fset 'bbdb-wl-extract-field-value-internal
-	  (cond
-	   ((fboundp 'tm:bbdb-extract-field-value)
-	    (symbol-function 'tm:bbdb-extract-field-value))
-	   (t (symbol-function 'bbdb-extract-field-value))))
-    (defun bbdb-extract-field-value (field)
-      (let ((value (bbdb-wl-extract-field-value-internal field)))
-	(with-temp-buffer ; to keep raw buffer unibyte.
-	  (set-buffer-multibyte
-	   default-enable-multibyte-characters)
-	  (and value
-	       (eword-decode-string value)))))
-    ))
+  ;; We need that the address buffer has been visited...
+  (let ((buff (get-buffer "Address")))
+    (when buff      
+      ;; it has been visited...
+	(with-current-buffer buff
+	  ;; For each item in the addressbook add it into the BBDB(if don't exists)
+	  (dolist (person wl-addrmgr-list)
+	    (unless (bbdb-wl-find-name (nth 2 person))
+	      ;; It doesn't exists... create it
+	      (message "%s %s %s %s" "Adding into BBDB: " (nth 0 person) (nth 1 person) (nth 2 person))
+	      (bbdb-create-internal (nth 2 person) ;; name
+				    nil ;; affix
+				    (cons (nth 1 person) nil) ;; aka
+				    nil ;; organizations
+				    (cons (nth 0 person) nil);; mail
+				    nil ;; phones
+				    nil ;; addresses 
+				    nil ;; notes
+				    )
+	      )
+	    )
+	  )
+	)
+    )
+  )
 
 
-(provide 'bbdb-wl)
+(provide 'bbdbV3-wl)
 
-;;; bbdb-wl.el ends here
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; bbdbV3-wl.el ends here
