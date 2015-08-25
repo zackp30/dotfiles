@@ -62,6 +62,7 @@
                     ag ;; the silver searcher
                     anzu
                     avy ;; easymotion
+                    bbdb
                     bookmark+ ;; improved boomarks
                     boxquote
                     browse-kill-ring ;; menu for the killring
@@ -1241,6 +1242,23 @@
     :config
     (setenv "INSIDE_EMACS" "1"))
 #+END_SRC
+
+* bbdb
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package bbdb-wl
+    :config
+    (bbdb-wl-setup)
+    ;; enable pop-ups
+    (setq bbdb-use-pop-up t)
+    ;; auto collection
+    (setq bbdb/mail-auto-create-p t)
+    ;; exceptional folders against auto collection
+    (setq bbdb-wl-ignore-folder-regexp "^@")
+    (setq signature-use-bbdb t)
+    (setq bbdb-north-american-phone-numbers-p nil))
+#+END_SRC
+
 
 * Org-capture + Org-protocol
 
