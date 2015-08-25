@@ -952,6 +952,7 @@
    Not used much, but might switch to Wanderlust one day.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'wl)
      (autoload 'wl "wl" "Wanderlust" t)
      (a-mode ".wl" "emacs-lisp")
      (add-to-list 'auto-mode-alist
@@ -965,6 +966,7 @@
      (add-hook 'wl-message-mode-hook 'foo-wl)
      (add-hook 'mime-view-mode-hook 'foo-wl)
      (add-hook 'wl-template-mode-hook 'foo-wl)
+     (require 'bbdbV3-wl)
    #+END_SRC
 
 * undotree
@@ -1241,22 +1243,6 @@
   (use-package pinentry
     :config
     (setenv "INSIDE_EMACS" "1"))
-#+END_SRC
-
-* bbdb
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package bbdb-wl
-    :config
-    (bbdb-wl-setup)
-    ;; enable pop-ups
-    (setq bbdb-use-pop-up t)
-    ;; auto collection
-    (setq bbdb/mail-auto-create-p t)
-    ;; exceptional folders against auto collection
-    (setq bbdb-wl-ignore-folder-regexp "^@")
-    (setq signature-use-bbdb t)
-    (setq bbdb-north-american-phone-numbers-p nil))
 #+END_SRC
 
 
