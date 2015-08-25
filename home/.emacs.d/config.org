@@ -65,6 +65,7 @@
                     bookmark+ ;; improved boomarks
                     boxquote
                     browse-kill-ring ;; menu for the killring
+                    calfw ;; calendar
                     cider ;; REPL for Clojure
                     clojure-mode ;; mode for the Clojure language
                     cmake-mode ;; mode for the CMake language
