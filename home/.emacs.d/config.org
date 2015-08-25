@@ -130,6 +130,7 @@
                     mmm-mode ;; Multiple Major Modes
                     nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
+                    pinentry
                     persp-mode ;; basically tabs
                     projectile ;; project management
                     projectile-rails
@@ -961,6 +962,7 @@
      (add-hook 'wl-summary-mode-hook 'foo-wl)
      (add-hook 'wl-message-mode-hook 'foo-wl)
      (add-hook 'mime-view-mode-hook 'foo-wl)
+     (add-hook 'wl-template-mode-hook 'foo-wl)
    #+END_SRC
 
 * undotree
@@ -1230,6 +1232,14 @@
       :config
       (tiny-setup-default))
   #+END_SRC
+
+* Pinentry
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package pinentry
+    :config
+    (setenv "INSIDE_EMACS" "1"))
+#+END_SRC
 
 * Org-capture + Org-protocol
 
