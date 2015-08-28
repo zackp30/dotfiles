@@ -137,6 +137,7 @@
                     projectile ;; project management
                     projectile-rails
                     purescript-mode
+                    puml-mode
                     racket-mode ;; mode for the Racket
                     rainbow-blocks ;; omg more rainbows
                     rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
@@ -240,7 +241,9 @@
       'org-babel-load-languages
       '((ruby . t)
         (gnuplot . t)
-        (org . t)))
+        (org . t)
+        (plantuml . t)))
+     (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
    #+END_SRC
 
 ** Misc. settings
