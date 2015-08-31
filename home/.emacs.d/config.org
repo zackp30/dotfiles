@@ -233,7 +233,7 @@
 
 ** Babel
 
-   Load the Babel languages that I use, and also use nifty embedded highlighting (syntax within syntax)).
+   Load the Babel languages that I use, and also use nifty embedded highlighting (syntax within syntax).
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq org-src-fontify-natively t)
