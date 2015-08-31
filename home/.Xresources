@@ -59,3 +59,5 @@ URxvt*color12: #94bff3
 URxvt*color13: #ec93d3
 URxvt*color14: #93e0e3
 URxvt*color15: #ffffff
+
+Emacs.background: #262626
