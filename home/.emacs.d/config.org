@@ -263,6 +263,14 @@
      (setq org-src-tab-acts-natively t)
    #+END_SRC
 
+* plantuml
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (auto-image-file-mode 1)
+  ;; otherwise, when using `auto-revert-mode` the raw text of the image is displayed after reverting
+  (add-hook 'image-mode-hook 'auto-revert-mode)
+#+END_SRC
+
 * Flycheck
 
   Flycheck is the "modern equivalent of flymake", think of it as [[https://github.com/scrooloose/syntastic][Syntastic]] but for Emacs.
