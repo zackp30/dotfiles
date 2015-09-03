@@ -1285,6 +1285,12 @@
            "%?\nEntered on %U\n \%i\n %a")))
 #+END_SRC
 
+* Pretty symbols
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq prettify-symbols-alist '(("!=" "≠")
+                                 ("! " "¬ ")))
+#+END_SRC
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
