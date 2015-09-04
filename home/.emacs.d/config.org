@@ -87,7 +87,6 @@
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
-el-get
                     evil ;; VIM for Emacs
                     evil-anzu
                     evil-args ;; delimited text objects
@@ -208,15 +207,6 @@ el-get
                     (format "\\%s\\'" ext)
                     (intern (concat mode "-mode")))))
   #+END_SRC
-* el-get
-
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-(use-package el-get
-:config
-(el-get 'sync))
-  #+END_SRC
-
 * Org
 
   #+BEGIN_SRC emacs-lisp :tangle yes
