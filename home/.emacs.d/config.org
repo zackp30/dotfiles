@@ -132,7 +132,6 @@
 		    mmm-mode ;; Multiple Major Modes
 		    nim-mode ;; major mode for Nim
 		    ocodo-svg-modelines
-		    ;;org-beautify-theme
 		    org-bullets
 		    pinentry
 		    persp-mode ;; basically tabs
@@ -272,11 +271,8 @@
     
 *** Org-beautify theme
     
-    #+BEGIN_SRC emacs-lisp :tangle yes
-;;      (use-package org-beautify-theme
-;;        :config
-;;        (load-theme 'org-beautify-theme))
-
+#+BEGIN_SRC emacs-lisp :tangle yes
+(load-theme 'org-beautify t)
     #+END_SRC
 
 

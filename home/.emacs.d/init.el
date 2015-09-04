@@ -1,5 +1,7 @@
 (package-initialize)
 (add-to-list 'load-path "~/.emacs.d/lisp")
+(setq custom-theme-directory "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (require 'org)
 (require 'htmlize)
 

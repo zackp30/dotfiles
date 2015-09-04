@@ -28,25 +28,25 @@
 
 ;;; Code: 
 
-(deftheme org-beautify-theme "Sub-theme to beautify org mode")
+(deftheme org-beautify "Sub-theme to beautify org mode")
 
 (let* ((base-font-color (face-foreground 'default  nil 'default))
        (background-color (face-background 'default nil 'default))
        (headline `(:inherit default :foreground ,base-font-color))
        (primary-color (face-foreground 'mode-line nil))
-       (secondary-color (face-background 'secondary-selection nil 'region))
-       (padding `(:line-width 5 :color ,background-color))
-       (org-highlights `(:foreground ,base-font-color :background ,secondary-color)))
-  (custom-theme-set-faces 'org-beautify-theme
+       (secondary-color "#00008b")
+       (padding `(:line-width 5))
+       (org-highlights `(:foreground "white" :background ,secondary-color)))
+  (custom-theme-set-faces 'org-beautify
                           `(org-agenda-structure ((t (:inherit default :height 2.0 :underline nil))))
                           `(org-level-8 ((t ,headline)))
                           `(org-level-7 ((t ,headline)))
                           `(org-level-6 ((t ,headline)))
                           `(org-level-5 ((t ,headline)))
                           `(org-level-4 ((t ,headline)))
-                          `(org-level-3 ((t (,@headline :box ,padding))))
-                          `(org-level-2 ((t (,@headline :height 1.25 :box ,padding))))
-                          `(org-level-1 ((t (,@headline :height 1.5 :box ,padding ))))
+                          `(org-level-3 ((t (,@headline))))
+                          `(org-level-2 ((t (,@headline :height 1.25))))
+                          `(org-level-1 ((t (,@headline :height 1.5))))
                           `(org-document-title ((t (:inherit org-level-1 :height 2.0 :underline nil :box ,padding))))
 
                           `(org-block ((t (:foreground ,base-font-color :background ,background-color :box nil))))
@@ -58,6 +58,6 @@
                           `(org-headline-done ((t (:strike-through t))))
                           `(org-done ((t (:strike-through t))))))
 
-(provide-theme 'org-beautify-theme)
+(provide-theme 'org-beautify)
 
 ;;; org-beautify-theme.el ends here
