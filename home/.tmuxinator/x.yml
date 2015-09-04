@@ -6,6 +6,6 @@ windows:
         - xvfb:
             - "Xvfb :2 -auth $HOME/.Xauthority -nolisten tcp +extension RANDR -screen 0 $(screenres)x16" 
         - x11vnc:
-            - "sleep 2; x11vnc -auth $HOME/.Xauthority -forever -usepw -localhost -display :2"
+            - "sleep 2; x11vnc -auth $HOME/.Xauthority -forever -usepw -localhost -display :2 -capslock"
         - awesome:
             - "sleep 5; DISPLAY=:2 awesome"

@@ -87,6 +87,7 @@
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
+el-get
                     evil ;; VIM for Emacs
                     evil-anzu
                     evil-args ;; delimited text objects
@@ -132,6 +133,8 @@
                     mmm-mode ;; Multiple Major Modes
                     nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
+                    ;;org-beautify-theme
+                    org-bullets
                     pinentry
                     persp-mode ;; basically tabs
                     projectile ;; project management
@@ -205,8 +208,16 @@
                     (format "\\%s\\'" ext)
                     (intern (concat mode "-mode")))))
   #+END_SRC
+* el-get
 
-* Org mode
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+(use-package el-get
+:config
+(el-get 'sync))
+  #+END_SRC
+
+* Org
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'org)
@@ -231,6 +242,54 @@
                                  (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
 
+** Org-capture + Org-protocol
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'org-capture)
+     (require 'org-protocol)
+
+     ;;; Org Capture
+     ;;;; Thank you random person from StackOverflow
+     ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
+
+     (defadvice org-capture
+         (after make-full-window-frame activate)
+       "Advise capture to be the only window when used as a popup"
+       (if (equal "emacs-capture" (frame-parameter nil 'name))
+           (delete-other-windows)))
+
+     (defadvice org-capture-finalize
+         (after delete-capture-frame activate)
+       "Advise capture-finalize to close the frame"
+       (if (equal "emacs-capture" (frame-parameter nil 'name))
+           (delete-frame)))
+
+     ;;; Capture Templates
+     ;;;; Add idea, mind-onanism, contacts, movies to download das
+     (setq org-capture-templates
+           '(("l" "Temp Links from the interwebs" item
+              (file+headline "links.org" "Temporary Links")
+              "%?\nEntered on %U\n \%i\n %a")))
+   #+END_SRC
+
+** Beautiful Org
+*** Org-bullets
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package org-bullets
+        :config
+        (add-hook 'org-mode-hook 'org-bullets-mode))
+    #+END_SRC
+    
+*** Org-beautify theme
+    
+    #+BEGIN_SRC emacs-lisp :tangle yes
+;;      (use-package org-beautify-theme
+;;        :config
+;;        (load-theme 'org-beautify-theme))
+
+    #+END_SRC
+
+
 ** Babel
 
    Load the Babel languages that I use, and also use nifty embedded highlighting (syntax within syntax).
@@ -245,31 +304,13 @@
         (plantuml . t)))
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
    #+END_SRC
+* PlantUML
 
-** Misc. settings
-
-   Miscellaneous setting that don't go anywhere else.  
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-startup-with-inline-images t)
-   #+END_SRC
-
-** Indentation
-
-   
-   Enables indentation for the language when in a SRC block.
-   
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-src-tab-acts-natively t)
-   #+END_SRC
-
-* plantuml
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (auto-image-file-mode 1)
-  ;; otherwise, when using `auto-revert-mode` the raw text of the image is displayed after reverting
-  (add-hook 'image-mode-hook 'auto-revert-mode)
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (auto-image-file-mode 1)
+    ;; otherwise, when using `auto-revert-mode` the raw text of the image is displayed after reverting
+    (add-hook 'image-mode-hook 'auto-revert-mode)
+  #+END_SRC
 
 * Flycheck
 
@@ -1249,47 +1290,17 @@
 
 * Pinentry
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package pinentry
-    :config
-    (setenv "INSIDE_EMACS" "1"))
-#+END_SRC
-
-* Org-capture + Org-protocol
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (require 'org-capture)
-  (require 'org-protocol)
-
-  ;;; Org Capture
-  ;;;; Thank you random person from StackOverflow
-  ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
-
-  (defadvice org-capture
-      (after make-full-window-frame activate)
-    "Advise capture to be the only window when used as a popup"
-    (if (equal "emacs-capture" (frame-parameter nil 'name))
-        (delete-other-windows)))
-
-  (defadvice org-capture-finalize
-      (after delete-capture-frame activate)
-    "Advise capture-finalize to close the frame"
-    (if (equal "emacs-capture" (frame-parameter nil 'name))
-        (delete-frame)))
-
-  ;;; Capture Templates
-  ;;;; Add idea, mind-onanism, contacts, movies to download das
-  (setq org-capture-templates
-        '(("l" "Temp Links from the interwebs" item
-           (file+headline "links.org" "Temporary Links")
-           "%?\nEntered on %U\n \%i\n %a")))
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package pinentry
+      :config
+      (setenv "INSIDE_EMACS" "1"))
+  #+END_SRC
 
 * Pretty symbols
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq prettify-symbols-alist '(("!=" "≠")
-                                 ("! " "¬ ")))
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq prettify-symbols-alist '(("!=" "≠")
+                                   ("! " "¬ ")))
+  #+END_SRC
 
 * The end
 
