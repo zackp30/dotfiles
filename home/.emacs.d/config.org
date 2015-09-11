@@ -189,10 +189,15 @@
    (use-package el-get
     :config
     (el-get-bundle org-drill
-        :type http
-        :pkgname "org-drill"
-        :description "org-drill"
-        :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el"))
+	:type http
+	:pkgname "org-drill"
+	:description "org-drill"
+	:url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
+    (el-get-bundle org-learn
+	:type http
+	:pkgname "org-learn"
+	:description "org-learn"
+	:url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
 * a-mode
 
@@ -573,9 +578,9 @@
 ** Cursor changing
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq evil-insert-state-cursor '((bar . 2) "green")
-	   evil-visual-state-cursor '((bar . 5) "green")
-	   evil-normal-state-cursor '((hollow . 5) "white"))
+     (setq evil-insert-state-cursor '((bar . 2) "white")
+           evil-visual-state-cursor '((bar . 5) "white")
+           evil-normal-state-cursor '((hollow . 5) "white"))
    #+END_SRC
 
 ** Matching
