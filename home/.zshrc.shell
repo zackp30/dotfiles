@@ -1,3 +1,5 @@
+autoload -U add-zsh-hook
+
 setopt AUTO_PUSHD
 setopt CORRECT
 setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
@@ -171,8 +173,18 @@ fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
 export rvmsudo_secure_path=1
 
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
+function z-preexec() {
+    local th="$?"
+    case "$th" in
+        0)
+            color='green' ;;
+        *)
+            color='red' ;;
+    esac
+    z_retcode_prompt='%F{$color}'$th'%f'    }
+add-zsh-hook precmd z-preexec
 function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
+    RPS1='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $z_retcode_prompt'
     zle reset-prompt
 }
 
