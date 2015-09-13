@@ -2,6 +2,8 @@
 
   #+BEGIN_SRC shell :tangle yes
     setopt AUTO_PUSHD
+    setopt CORRECT
+    setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
   #+END_SRC
 
 * Functions
@@ -207,7 +209,6 @@
   #+BEGIN_SRC shell :tangle yes
     setopt prompt_subst
     autoload -U colors && colors
-    setopt histignorealldups sharehistory
     autoload -Uz compinit
     compinit
     zstyle ':completion:*' menu select

@@ -299,8 +299,9 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq org-src-fontify-natively t)
+     (setq org-src-fontify-natively t)
      (org-babel-do-load-languages
-      'org-babel-load-languages
+     'org-babel-load-languages
       '((ruby . t)
 	(gnuplot . t)
 	(org . t)
@@ -537,7 +538,6 @@
 
 ** Leader
 
-
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-leader
        :config
@@ -552,9 +552,6 @@
 	 "p j" 'projectile-find-tag
 	 "g t r" 'ctags-create-or-update-tags-table))
    #+END_SRC
-
-*** TODO [0/1]
-    - [ ] Replace this with Hydra maybe?
 ** Modeline color changing
 
    I found this in Bling's dotemacs.
@@ -1304,6 +1301,41 @@
 				   ("! " "¬ ")))
   #+END_SRC
 
+* Pretty markdown
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(add-hook 'markdown-mode-hook (lambda ()
+(set-face-attribute 'markdown-header-face-1 nil :weight 'bold :height 250)
+(set-face-attribute 'markdown-header-face-2 nil :weight 'bold :height 200)
+(set-face-attribute 'markdown-header-face-3 nil :weight 'bold :height 150)
+(set-face-attribute 'markdown-header-face-4 nil :weight 'bold :height 100)
+(set-face-attribute 'markdown-header-face-5 nil :weight 'bold :height 50)
+(set-face-attribute 'markdown-header-face-6 nil :weight 'bold :height 25)))
+#+END_SRC
+
+* Hydras
+
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(defhydra window-resize (:color blue)
+
+"
+Resizing
+========
+
+_h_: left      _k_: up
+_l_: right     _j_: down"
+
+("h" shrink-window-horizontally)
+("k" shrink-window-horizontally)
+("l" shrink-window-horizontally)
+("j" shrink-window-horizontally)
+)
+
+
+#+END_SRC
+
+  
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes

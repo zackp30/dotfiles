@@ -1,4 +1,6 @@
 setopt AUTO_PUSHD
+setopt CORRECT
+setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
 
 function detect_command() {
     command -v $1 >/dev/null 2>&1 || return 1
@@ -137,7 +139,6 @@ fi
 
 setopt prompt_subst
 autoload -U colors && colors
-setopt histignorealldups sharehistory
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' menu select
