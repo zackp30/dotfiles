@@ -255,13 +255,14 @@ autoload -U add-zsh-hook
     VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
     function z-preexec() {
         local th="$?"
+        local reason
         case "$th" in
             0)
                 color='green' ;;
             *)
                 color='red' ;;
         esac
-        z_retcode_prompt='%F{$color}'$th'%f'    }
+        z_retcode_prompt='%K{red}$reason%k%F{$color}'$th'%f'    }
     add-zsh-hook precmd z-preexec
     function zle-line-init zle-keymap-select {
         RPS1='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $z_retcode_prompt'

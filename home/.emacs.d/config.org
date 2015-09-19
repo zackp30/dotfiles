@@ -1335,7 +1335,13 @@ _l_: right     _j_: down"
 
 #+END_SRC
 
-  
+* Font  
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(set-face-attribute 'default t :font "Hack-8")
+#+END_SRC
+
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
