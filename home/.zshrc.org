@@ -5,11 +5,13 @@ autoload -U add-zsh-hook
 #+END_SRC
 
 * Misc
+  
+=e=: see  [[emacsclient script ]]
 
   #+BEGIN_SRC shell :tangle yes
     setopt AUTO_PUSHD
+    export EDITOR=e
     setopt CORRECT
-    setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
   #+END_SRC
 
 * Functions
@@ -113,13 +115,16 @@ autoload -U add-zsh-hook
     export PATH=$PATH:$HOME/.local/bin
     export GOPATH=$HOME/gostuff
   #+END_SRC
-* Variables
+* History
+  
+** TODO [0/1]
+   - [ ] Decide whether to go over the top and use an sqlite/mysql/whatever database for this.
   
   #+BEGIN_SRC shell :tangle yes
-    export EDITOR=e
     HISTSIZE=99999999
     SAVEHIST=99999999
     HISTFILE=~/.zsh_history
+    setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
   #+END_SRC
 
 * =gpg-agent=
@@ -497,3 +502,8 @@ autoload -U add-zsh-hook
      alias grmv="git remote -v"
    #+END_SRC
 
+* emacsclient script
+  
+Can't be an alias since almost nothing can read aliases from the shell, since these aren't actual programs.
+
+#+INCLUDE: "~/bin/e" src shell
