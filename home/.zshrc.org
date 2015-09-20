@@ -47,6 +47,9 @@ autoload -U add-zsh-hook
    #+END_SRC
 
 ** Emacs projects
+
+   WARNING: I don't use this anymore.   
+
 *** =ep=
 
     #+BEGIN_SRC shell :tangle yes
