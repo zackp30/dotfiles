@@ -61,6 +61,7 @@
                     ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
                     anzu
+                    auctex
                     avy ;; easymotion
                     bbdb
                     bookmark+ ;; improved boomarks
