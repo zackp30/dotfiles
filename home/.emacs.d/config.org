@@ -42,9 +42,9 @@
     (defun require-package (package)
       "Install given PACKAGE."
       (unless (package-installed-p package)
-	(unless (assoc package package-archive-contents)
-	  (package-refresh-contents))
-	(package-install package)))
+        (unless (assoc package package-archive-contents)
+          (package-refresh-contents))
+        (package-install package)))
   #+END_SRC
   
 * List of packages
@@ -61,7 +61,6 @@
                     ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
                     anzu
-                    auctex
                     avy ;; easymotion
                     bbdb
                     bookmark+ ;; improved boomarks
@@ -158,6 +157,7 @@
                     tiny
                     todotxt ;; Mode for the todo.txt markup
                     tuareg ;; ocaml
+                    ox-twbs                 ;
                     undo-tree ;; vim-like undo tree
                     wanderlust ;; email
                     web-mode ;; mode for web stuff
@@ -173,8 +173,7 @@
 
     (loop for pkg in pkgs do
           (require-package pkg))
-  #+END_SRC
-
+#+END_SRC
 * use-package  
   use-package (https://github.com/jwiegley/use-package) handles loading of packages, allowing a neatly organized configuration.
 
@@ -185,18 +184,18 @@
 * El-get
   
   #+BEGIN_SRC emacs-lisp :tangle yes
-   (use-package el-get
-    :config
-    (el-get-bundle org-drill
-	:type http
-	:pkgname "org-drill"
-	:description "org-drill"
-	:url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
-    (el-get-bundle org-learn
-	:type http
-	:pkgname "org-learn"
-	:description "org-learn"
-	:url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
+    (use-package el-get
+      :config
+      (el-get-bundle org-drill
+        :type http
+        :pkgname "org-drill"
+        :description "org-drill"
+        :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
+      (el-get-bundle org-learn
+        :type http
+        :pkgname "org-learn"
+        :description "org-learn"
+        :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
 * a-mode
 
@@ -461,8 +460,8 @@
      (use-package company-anaconda
        :config
        (add-hook 'python-mode-hook (lambda ()
-				     (anaconda-mode)
-				     (add-to-list 'company-backends 'company-anaconda))))
+                                     (anaconda-mode)
+                                     (add-to-list 'company-backends 'company-anaconda))))
    #+END_SRC
 
 ** Haskell
@@ -473,7 +472,7 @@
      (use-package company-ghc
        :config
        (add-hook 'haskell-mode-hook (lambda ()
-				      (add-to-list 'company-backends 'company-ghc)))
+                                      (add-to-list 'company-backends 'company-ghc)))
        ;; Haskell!
        (autoload 'ghc-init "ghc" nil t))
    #+END_SRC
