@@ -415,6 +415,7 @@ autoload -U add-zsh-hook
 #+END_SRC
 * pprompt
 
+  My own multi-line prompt, [[file:~/.homesick/repos/dotfiles/screens/1443966011.png][I like it]].
 
   #+BEGIN_SRC shell :tangle yes
     # Colors
