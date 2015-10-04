@@ -103,7 +103,7 @@ autoload -U add-zsh-hook
 ** Load Minetest mods into config
    #+BEGIN_SRC shell :tangle yes
      mt_load_mods() {
-         for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> $1
+       find -maxdepth 1 -mindepth 1 -type d -printf 'load_mod_%f = true\n' >> $1
      }
    #+END_SRC
 * PATH
@@ -380,7 +380,6 @@ autoload -U add-zsh-hook
     }
   #+END_SRC
   
-
 * ssh-agent
 
 #+BEGIN_SRC shell :tangle yes
