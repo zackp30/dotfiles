@@ -127,7 +127,7 @@ autoload -U add-zsh-hook
     setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
   #+END_SRC
 
-* =gpg-agent=
+* gpg-agent
 
   Runs =gpg-agent= if it isn't already running.
   In GPG 2.1 (currently I only use this on my Arch systems) this doesn't exist.
@@ -209,7 +209,7 @@ autoload -U add-zsh-hook
     source_if_exists ~/.locals.sh # host specific things *not* to be checked into version control.
   #+END_SRC
 
-* =pyenv=
+* pyenv
 
   Initial =pyenv= if found.
 
@@ -380,7 +380,6 @@ autoload -U add-zsh-hook
     }
   #+END_SRC
   
-** Screenshots
 
 * ssh-agent
 
@@ -415,7 +414,7 @@ autoload -U add-zsh-hook
 #+END_SRC
 * pprompt
 
-  My own multi-line prompt, [[file:~/.homesick/repos/dotfiles/screens/1443966011.png][I like it]].
+  My own multi-line prompt, [[http://assets.apertron.net/screens/1443966011.png][I like it]].
   
 ** Colors
 
