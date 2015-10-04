@@ -416,9 +416,10 @@ autoload -U add-zsh-hook
 * pprompt
 
   My own multi-line prompt, [[file:~/.homesick/repos/dotfiles/screens/1443966011.png][I like it]].
+  
+** Colors
 
   #+BEGIN_SRC shell :tangle yes
-    # Colors
     _p_color_date=cyan
     _p_color_pwd=cyan
     _p_color_pwd_fg=red
@@ -427,7 +428,16 @@ autoload -U add-zsh-hook
     _p_color_host=white
     _p_color_host_fg=black
 
-    p_module_privsymbol() {
+    #+END_SRC
+    
+** Modules
+   
+*** Root-or-not-root symbol
+    
+#+BEGIN_SRC shell :tangle yes
+
+
+  p_module_privsymbol() {
         if [[ $(print -P "%#") == "#" ]] ; then
             _p_color_user_privsymbol=red
         else
@@ -435,23 +445,42 @@ autoload -U add-zsh-hook
         fi
         echo "%F{$_p_color_user_privsymbol}%#%f"
     }
+#+END_SRC
 
+*** Hostname
+    
+#+BEGIN_SRC shell :tangle yes
     p_module_host() {
         echo "%F{$_p_color_host_fg}%K{$_p_color_host}%m%k%f"
     }
+#+END_SRC
 
+*** Username
+
+#+BEGIN_SRC shell :tangle yes
     p_module_user() {
         echo "%F{$_p_color_user_fg}%K{$_p_color_user}%n%F{red}⍟%f%k%f"
     }
+#+END_SRC
 
+*** Current directory.
+
+#+BEGIN_SRC shell :tangle yes
     p_module_pwd() {
         echo "%F{$_p_color_pwd_fg}%K{$_p_color_pwd}%~%k%f"
     }
+#+END_SRC
 
+*** Time
+    
+#+BEGIN_SRC shell :tangle yes
     p_module_time() {
         echo '%F{$_p_color_date}%D{%H:%M:%S}%f'
     }
+#+END_SRC
 
+** Load
+   #+BEGIN_SRC shell :tangle yes
     p_load() {
         export PS1=$(p_module_pwd)" "
         export PS1=$PS1$(p_module_time)" "
@@ -464,21 +493,31 @@ autoload -U add-zsh-hook
     }
 
     p_load
+   #+END_SRC
+** Dumb terminal handling
 
-    # `$TERM' is set to "dumb" when using TRAMP to connect to the host, my custom prompt
-    # doesn't work well with TRAMP (i.e: makes TRAMP wait forever for a prompt), so simply
-    # set `PS1' to a very simple prompt.
+   =$TERM= is set to "dumb" when using TRAMP to connect to the host, my custom prompt
+   doesn't work well with TRAMP (i.e: makes TRAMP wait forever for a prompt), so simply
+   set =PS1= to a very simple prompt.
+
+   #+BEGIN_SRC shell :tangle yes
     [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
+   #+END_SRC
 
+* Unset =DISPLAY= because of my remote desktop inheriting it, preventing me from attaching to tmux.
+
+   #+BEGIN_SRC shell :tangle yes
     [[ $DISPLAY == ":2" ]] && unset TMUX
 
-    # When in tmux I leave some panes to idle, but when I'm not in tmux I don't need `$TMOUT'
-    # especially when forwarding ports, so determine if within `TMUX' and set `TMOUT'.
+  #+END_SRC
+
+* Cleanup of old sessions
+
+    When in tmux I leave some panes to idle, but when I'm not in tmux I don't need =$TMOUT=
+    especially when forwarding ports, so determine if within =TMUX= and set =TMOUT= to an hour.
+
+  #+BEGIN_SRC shell :tangle yes
     [[ $TMUX ]] && export TMOUT=3600
-
-
-
-    task
   #+END_SRC
 
 * Aliases
