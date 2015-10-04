@@ -230,20 +230,23 @@
     (setq org-log-done t)
     (setq org-latex-listings 'minted) ;; enable minted
     (setq org-latex-minted-options
-	  '(("frame" "lines")
-	    ("fontsize" "\\scriptsize")
-	    ("linenos" "")))
+          '(("frame" "lines")
+            ("fontsize" "\\scriptsize")
+            ("linenos" "")))
     (setq org-latex-minted-langs
-	  '((conf-space "aconf")
-	    (conf-unix "squid")))
+          '((conf-space "aconf")
+            (conf-unix "squid")))
     (setq org-directory "~/org") ;; where I store the documents
     (setq org-latex-to-pdf-process
-	  '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	    "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-	    "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+          '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
     (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
-    (add-hook 'after-init-hook (lambda () 
-				 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
+    (add-hook 'after-init-hook (lambda ()
+                                 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
+    (setq org-twbs-head-extra (with-temp-buffer
+                                (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                (buffer-string)))
   #+END_SRC
 
 ** Org-capture + Org-protocol
@@ -853,19 +856,19 @@
        (require 'ibuffer-vc)
        :config
        (setq ibuffer-formats
-	     '((mark modified read-only vc-status-mini " "
-		     (name 18 18 :left :elide)
-		     " "
-		     (size 9 -1 :right)
-		     " "
-		     (mode 16 16 :left :elide)
-		     " "
-		     (vc-status 16 16 :left)
-		     " "
-		     filename-and-process)))
+             '((mark modified read-only vc-status-mini " "
+                     (name 18 18 :left :elide)
+                     " "
+                     (size 9 -1 :right)
+                     " "
+                     (mode 16 16 :left :elide)
+                     " "
+                     (vc-status 16 16 :left)
+                     " "
+                     filename-and-process)))
        (add-hook 'ibuffer-hook
-		 (lambda ()
-		   (ibuffer-vc-set-filter-groups-by-vc-root))))
+                 (lambda ()
+                   (ibuffer-vc-set-filter-groups-by-vc-root))))
    #+END_SRC
 
 * indent-guide
@@ -1314,22 +1317,19 @@
 
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-(defhydra window-resize (:color blue)
+  (defhydra window-resize (:color blue)
 
-"
-Resizing
-========
+    "
+  Resizing
+  ========
 
-_h_: left      _k_: up
-_l_: right     _j_: down"
+  _h_: left      _k_: up
+  _l_: right     _j_: down"
 
-("h" shrink-window-horizontally)
-("k" shrink-window-horizontally)
-("l" shrink-window-horizontally)
-("j" shrink-window-horizontally)
-)
-
-
+    ("h" shrink-window-horizontally)
+    ("k" shrink-window-horizontally)
+    ("l" shrink-window-horizontally)
+    ("j" shrink-window-horizontally))
 #+END_SRC
 
 * Font  
