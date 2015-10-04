@@ -135,7 +135,6 @@
                     ocodo-svg-modelines
                     org-bullets
                     pinentry
-                    persp-mode ;; basically tabs
                     projectile ;; project management
                     projectile-rails
                     purescript-mode
@@ -163,7 +162,6 @@
                     web-mode ;; mode for web stuff
                     wgrep ;; writable grep
                     wgrep-ag ;; writable grep, but for ag
-                    workgroups2 ;; work groups for Emacs
                     ws-butler ;; whitespace removal
                     yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
@@ -604,23 +602,6 @@
        (setq evil-space-prev-key (kbd "C-p"))
        (evil-space-mode 1))
    #+END_SRC
-
-* Workgroups
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package workgroups2
-      :config
-      (workgroups-mode 1))
-  #+END_SRC
-
-* persp-mode
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package persp-mode
-      :config
-      (add-hook 'after-init-hook 'persp-mode)
-      (setq persp-use-workgroups t))
-  #+END_SRC
 
 * GNU Global
 
