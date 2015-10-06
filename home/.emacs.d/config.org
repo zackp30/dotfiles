@@ -223,6 +223,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'org)
+    (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
     (define-key global-map (kbd "C-c l") 'org-store-link)
     (define-key global-map (kbd "C-c a") 'org-agenda)
     (setq org-log-done t)
@@ -234,7 +235,6 @@
     (setq org-latex-minted-langs
           '((conf-space "aconf")
             (conf-unix "squid")))
-    (setq org-directory "~/org") ;; where I store the documents
     (setq org-latex-to-pdf-process
           '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
             "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -252,10 +252,14 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'org-capture)
      (require 'org-protocol)
+     (setq org-capture-templates `(("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+                                    "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+                                   ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+                                    "* %? [[%:link][%:description]] \nCaptured On: %U")))
 
-       ;;; Org Capture
-       ;;;; Thank you random person from StackOverflow
-       ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
+     ;; Org Capture
+     ;; Thank you random person from StackOverflow
+     ;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
 
      (defadvice org-capture
          (after make-full-window-frame activate)
@@ -268,13 +272,6 @@
        "Advise capture-finalize to close the frame"
        (if (equal "emacs-capture" (frame-parameter nil 'name))
            (delete-frame)))
-
-       ;;; Capture Templates
-       ;;;; Add idea, mind-onanism, contacts, movies to download das
-     (setq org-capture-templates
-           '(("l" "Temp Links from the interwebs" item
-              (file+headline "links.org" "Temporary Links")
-              "%?\nEntered on %U\n \%i\n %a")))
    #+END_SRC
 
 ** Beautiful Org
