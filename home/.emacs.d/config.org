@@ -1319,6 +1319,14 @@
 (set-face-attribute 'default t :font "Hack-8")
 #+END_SRC
 
+* Calc
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package calc-ext
+    :config
+    (define-key calc-mode-map "lr" 'calc-reset))
+#+END_SRC
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
