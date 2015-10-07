@@ -31,7 +31,7 @@
   
   #+BEGIN_SRC emacs-lisp :tangle yes
     (if (file-exists-p "~/.local.el")
-	(load "~/.local.el"))
+        (load "~/.local.el"))
   #+END_SRC
   
 * =require-package=
@@ -197,7 +197,9 @@
     #+END_SRC
 * a-mode
 
-  `a-mode' is (if I remember correctly) my first Emacs Lisp function, quite simple really, all it does is act as a wrapper for `auto-mode-alist', shortening the overall use of it from:
+  `a-mode' is (if I remember correctly) my first Emacs Lisp function,
+  quite simple really, all it does is act as a wrapper for
+  `auto-mode-alist', shortening the overall use of it from:
 
   #+BEGIN_SRC emacs-lisp :tangle no
     (add-to-list 'auto-mode-alist "\\.markdown\\" 'markdown-mode)
@@ -764,7 +766,7 @@
      (use-package gl-conf-mode
        :config
        (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
-				       gl-conf-mode)))
+                                       gl-conf-mode)))
    #+END_SRC
 
 
@@ -796,7 +798,7 @@
      (use-package cmake-mode
        :init
        (add-to-list 'auto-mode-alist
-		    '("CMakeLists.txt" . cmake-mode)) )
+                    '("CMakeLists.txt" . cmake-mode)))
    #+END_SRC
 
 ** VisualBasic
@@ -816,7 +818,7 @@
      (use-package geiser
        :config
        (add-hook 'scheme-mode-hook (lambda ()
-				     (add-to-list 'company-backends 'geiser-company-backend))))
+                                     (add-to-list 'company-backends 'geiser-company-backend))))
    #+END_SRC
 
 * ibuffer
@@ -860,6 +862,7 @@
   #+END_SRC
 
 * Multiple-Major-Modes
+
   This package is *fantastic* for things that embed other languages.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1033,8 +1036,8 @@
     (use-package imenu
       :config
       (add-to-list 'imenu-generic-expression
-		   '("Used Packages"
-		     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+                   '("Used Packages"
+                     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
       (define-key zack-keys-minor-mode-map (kbd "C-d") 'imenu))
   #+END_SRC
 
@@ -1083,8 +1086,6 @@
      (setq vc-make-backup-files t)
      (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
    #+END_SRC
-
-* Utility functions
 
 * Sort sexps
 
@@ -1195,9 +1196,9 @@
     (setq history-delete-duplicates t)
     (setq savehist-save-minibuffer-history 1)
     (setq savehist-additional-variables
-	  '(kill-ring
-	    search-ring
-	    regexp-search-ring))
+          '(kill-ring
+            search-ring
+            regexp-search-ring))
   #+END_SRC
 
 * Eldoc
@@ -1214,7 +1215,7 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (defface extra-warning-face
       '((t :background "red"
-	   :foreground "brightblue"))
+           :foreground "brightblue"))
       "Face for even more warninger warnings."
       :group 'basic-faces)
 
@@ -1235,7 +1236,7 @@
     the week."
       (interactive "P*")
       (insert (calendar-date-string (calendar-current-date) nil
-				    omit-day-of-week-p)))
+                                    omit-day-of-week-p)))
   #+END_SRC
 
 * Override keymap
@@ -1282,13 +1283,13 @@
 * Pretty markdown
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-(add-hook 'markdown-mode-hook (lambda ()
-(set-face-attribute 'markdown-header-face-1 nil :weight 'bold :height 250)
-(set-face-attribute 'markdown-header-face-2 nil :weight 'bold :height 200)
-(set-face-attribute 'markdown-header-face-3 nil :weight 'bold :height 150)
-(set-face-attribute 'markdown-header-face-4 nil :weight 'bold :height 100)
-(set-face-attribute 'markdown-header-face-5 nil :weight 'bold :height 50)
-(set-face-attribute 'markdown-header-face-6 nil :weight 'bold :height 25)))
+  (add-hook 'markdown-mode-hook (lambda ()
+                                  (set-face-attribute 'markdown-header-face-1 nil :weight 'bold :height 250)
+                                  (set-face-attribute 'markdown-header-face-2 nil :weight 'bold :height 200)
+                                  (set-face-attribute 'markdown-header-face-3 nil :weight 'bold :height 150)
+                                  (set-face-attribute 'markdown-header-face-4 nil :weight 'bold :height 100)
+                                  (set-face-attribute 'markdown-header-face-5 nil :weight 'bold :height 50)
+                                  (set-face-attribute 'markdown-header-face-6 nil :weight 'bold :height 25)))
 #+END_SRC
 
 * Hydras
@@ -1313,7 +1314,7 @@
 * Font  
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-(set-face-attribute 'default t :font "Hack-8")
+  (set-face-attribute 'default t :font "Hack-8")
 #+END_SRC
 
 * Calc
