@@ -100,7 +100,6 @@
                     flycheck ;; on the fly syntax checking
                     flycheck-rust ;; flycheck for the Rust language
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
-                    ggtags ;; GNU Global
                     ghc
                     ghci-completion ;; GHC integration for company
                     gist ;; GitHub Gist integration for Emacs.
@@ -601,14 +600,6 @@
        (setq evil-space-prev-key (kbd "C-p"))
        (evil-space-mode 1))
    #+END_SRC
-
-* GNU Global
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ggtags
-      :config
-      (add-hook 'prog-mode-hook 'ggtags-mode)) ;; enable ggtags for all prgoramming-mode
-  #+END_SRC
 
 * Git-gutter
 
@@ -1277,7 +1268,7 @@
 * Pretty symbols
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq prettify-symbols-alist '(("!=" "≠")
-				   ("! " "¬ ")))
+                                   ("! " "¬ ")))
   #+END_SRC
 
 * Pretty markdown
@@ -1314,7 +1305,7 @@
 * Font  
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (set-face-attribute 'default t :font "Hack-8")
+  (set-default-font "Hack-8")
 #+END_SRC
 
 * Calc
@@ -1325,6 +1316,15 @@
     (define-key calc-mode-map "lr" 'calc-reset))
 #+END_SRC
 
+* Batch indentation
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun indent-buffer ()
+      "Format the whole buffer."
+      (indent-region (point-min) (point-max) nil)
+      (untabify (point-min) (point-max))
+      (save-buffer))
+    #+END_SRC
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
