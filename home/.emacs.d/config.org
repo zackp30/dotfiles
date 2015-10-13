@@ -1,11 +1,11 @@
 * Commentary
   Such commentary, wow.
 
-  #+begin_src emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle yes
     ;;; Commentary:
     ;; A hacked together Emacs config.
     ;;; Code:
-  #+end_src
+  #+END_SRC
 
   See [[Override keymap]].
   
