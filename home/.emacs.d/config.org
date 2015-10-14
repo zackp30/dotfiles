@@ -380,42 +380,10 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package avy
       :config
-      (define-key global-map (kbd "C-c SPC") 'avy-goto-char))
+      (define-key global-map (kbd "C-c k c") 'avy-goto-char)
+      (define-key global-map (kbd "C-c k w") 'avy-goto-word-1)
+      (define-key global-map (kbd "C-c k l") 'avy-goto-line))
   #+END_SRC
-
-  # ** Flyspell
-   
-  #    =ace-flyspell= navigating to incorrect spelling of words using =ace-jump=, I bind it to =C-c .
-
-  #    #+BEGIN_SRC emacs-lisp :tangle yes
-  #      (use-package ace-flyspell
-  #        :config
-  #        (define-key global-map (kbd "C-c .") 'ace-flyspell-jump-word))
-  #    #+END_SRC
-
-
-  # ** Helm
-   
-  #    =ace-jump-helm-line= allows jumping to a Helm completion entry using =ace-jump=.
-
-  #    #+BEGIN_SRC emacs-lisp :tangle yes
-  #      (use-package ace-jump-helm-line
-  #        :bind ("C-@" . ace-jump-helm-line)
-  #        :config
-  #        (setq helm-display-header-line nil)
-  #        (set-face-attribute 'helm-source-header nil :height 0.1))
-  #    #+END_SRC
-
-
-  # ** Windows
-
-  #    =ace-window= allows jumping to a window using =ace-jump=
-
-  #    #+BEGIN_SRC emacs-lisp :tangle yes
-  #      (use-package ace-window
-  #        :config
-  #        (define-key global-map (kbd "C-c w") 'ace-window))
-  #    #+END_SRC
 
 * Magit
   Magit is fantastic!
