@@ -63,6 +63,7 @@
                     anzu
                     avy ;; easymotion
                     bbdb
+                    beacon
                     bookmark+ ;; improved boomarks
                     boxquote
                     browse-kill-ring ;; menu for the killring
@@ -959,7 +960,6 @@
      (add-hook 'wl-message-mode-hook 'foo-wl)
      (add-hook 'mime-view-mode-hook 'foo-wl)
      (add-hook 'wl-template-mode-hook 'foo-wl)
-     (require 'bbdbV3-wl)
    #+END_SRC
 
 * undotree
@@ -1283,6 +1283,14 @@
   (use-package calc-ext
     :config
     (define-key calc-mode-map "lr" 'calc-reset))
+#+END_SRC
+
+* Beacon
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package beacon
+    :config
+    (beacon-mode 1))
 #+END_SRC
 
 * Batch indentation
