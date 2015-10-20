@@ -307,6 +307,14 @@
 	(plantuml . t)))
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
    #+END_SRC
+** Org-drill
+   
+   Used for my flashcards.
+   
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'org-drill)
+   #+END_SRC
+
 * PlantUML
 
   #+BEGIN_SRC emacs-lisp :tangle yes
