@@ -100,6 +100,7 @@
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
                     flycheck-rust ;; flycheck for the Rust language
+                    fountain-mode
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
                     ghc
                     ghci-completion ;; GHC integration for company
