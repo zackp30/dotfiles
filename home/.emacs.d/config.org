@@ -111,6 +111,7 @@
                     gitignore-mode ;; major mode for `.gitignore'
                     gnuplot-mode ;; major mode for gnuplot
                     go-mode ;; major mode for go
+                    graphviz-dot-mode
                     haskell-mode ;; major mode for Haskell
                     helm ;; menus for ALL the things
                     helm-ag ;; integration with Helm and `ag'
@@ -305,7 +306,8 @@
       '((ruby . t)
         (gnuplot . t)
         (org . t)
-        (plantuml . t)))
+        (plantuml . t)
+        (dot . t)))
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
    #+END_SRC
 ** Org-drill

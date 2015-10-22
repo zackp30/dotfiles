@@ -1,24 +1,27 @@
 #!/bin/bash
-if [[ $REMOTE_HOSTNAME == "mlaptop" ]]; then
-    echo "1440x900"
-elif [[ $REMOTE_HOSTNAME == "house_pc" ]]; then
-    echo "1280x1024"
-elif [[ $REMOTE_HOSTNAME == "maths_laptop" ]]; then
-    echo "1280x800"
-elif [[ $REMOTE_HOSTNAME == "house_laptop" ]]; then
-    echo "1366x768"
-elif [[ $REMOTE_HOSTNAME == "home_pc" ]]; then
-    echo "1680x1050"
-elif [[ $REMOTE_HOSTNAME == "small" ]]; then
-    echo "650x650"
-elif [[ $REMOTE_HOSTNAME == "art_laptop" ]]; then
-    echo "1536x864"
-elif [[ $REMOTE_HOSTNAME == "phone" ]]; then
-    echo "1920x1080"
-elif [[ $REMOTE_HOSTNAME == "we" ]]; then
-    echo "1920x1080"
-elif [[ $REMOTE_HOSTNAME == "work_pc" ]]; then
-    echo "1366x768"
-elif [[ $REMOTE_HOSTNAME == "work_pc2" ]]; then
-    echo "1440x900"
-fi
+case $REMOTE_HOSTNAME in
+    mlaptop)
+        echo "1440x900"
+        ;;
+    house_pc)
+        echo "1280x1024"
+        ;;
+    maths_laptop)
+        echo "1280x800"
+        ;;
+    house_laptop)
+        echo "1366x768"
+        ;;
+    home_pc)
+        echo "1680x1050"
+        ;;
+    small)
+        echo "650x650"
+        ;;
+    art_laptop)
+        echo "1536x864"
+        ;;
+    library_pc)
+        echo "1024x768"
+        ;;
+esac
