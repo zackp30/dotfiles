@@ -320,7 +320,7 @@
 
 * PlantUML
 
-    Enable auto-image-file-mode everwhere, otherwise, when using `auto-revert-mode` the raw text of the image
+    Enable auto-image-file-mode everywhere, otherwise, when using `auto-revert-mode` the raw text of the image
     is displayed after reverting
 
   #+BEGIN_SRC emacs-lisp :tangle yes
