@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rm tmp.png
+
+if [[ "$1" == "window" ]]; then
+    maim ./tmp.png
+    shoot ./tmp.png | xclip -selection c
+else
+    maim -s ./tmp.png
+    shoot ./tmp.png | xclip -selection c
+fi

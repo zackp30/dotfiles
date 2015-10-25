@@ -1,0 +1,17 @@
+#!/bin/bash
+
+img="$1"
+
+conf="$(cat ~/.up_settings.json)"
+
+get_conf() {
+    echo "$conf" | jq -r ".$1"
+}
+
+method="$(get_conf method)"
+host="$(get_conf host)"
+pass="$(get_conf pass)"
+
+curl -F "u=@$img" -F "pass=$pass" "$method://$host"
+
+printf "\n"
