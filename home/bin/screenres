@@ -24,4 +24,7 @@ case $REMOTE_HOSTNAME in
     library_pc)
         echo "1024x768"
         ;;
+    claptop)
+        echo "1280x800"
+        ;;
 esac
