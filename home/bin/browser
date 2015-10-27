@@ -1,7 +1,11 @@
 #!/bin/bash
 
-if [[ $HOST == "xieshaij" ]]; then
-    echo "chrome"
-elif [[ $HOST == "linux-nyit" ]]; then
-    echo "chromium"
-fi
+case $HOST in
+    xieshaij)
+        echo "chrome"
+        ;;
+
+    linux-nyit)
+        echo "chrome"
+        ;;
+esac
