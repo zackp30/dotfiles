@@ -253,6 +253,9 @@
       (setq org-twbs-head-extra (with-temp-buffer
                                   (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                   (buffer-string))))
+    (defun my-org-confirm-babel-evaluate (lang body)
+      (not (string= lang "dot")))  ; don't ask for ditaa
+    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   #+END_SRC
 
 ** Org-capture + Org-protocol

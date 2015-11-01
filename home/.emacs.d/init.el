@@ -33,7 +33,8 @@ S: shell command to run"
  '(persp-keymap-prefix "w")
  '(safe-local-variable-values
    (quote
-    ((haskell-process-use-ghci . t)
+    ((encoding . utf-8)
+     (haskell-process-use-ghci . t)
      (haskell-indent-spaces . 4))))
  '(sml/full-mode-string " …"))
 
