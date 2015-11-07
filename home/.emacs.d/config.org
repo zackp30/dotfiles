@@ -168,8 +168,7 @@
                     yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
                     zenburn-theme ;; Zenburn theme
-                    evil-space
-                    ))
+                    evil-space))
 
     (loop for pkg in pkgs do
           (require-package pkg))
@@ -254,7 +253,7 @@
                                   (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                   (buffer-string))))
     (defun my-org-confirm-babel-evaluate (lang body)
-      (not (string= lang "dot")))  ; don't ask for ditaa
+      (not (string= lang "dot")))  ; don't ask for graphviz
     (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
   #+END_SRC
 
@@ -711,10 +710,11 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package js2-mode
        :init
+       (a-mode ".es6" "js2")
        (a-mode ".js" "js2")
        (add-hook 'js2-mode-hook (lambda ()
-          (tern-mode t) ;; enable auto-completion using ternjs.
-          (add-to-list 'company-backends 'company-tern))))
+                                  (tern-mode t) ;; enable auto-completion using ternjs.
+                                  (add-to-list 'company-backends 'company-tern))))
    #+END_SRC
 
 *** Notes
