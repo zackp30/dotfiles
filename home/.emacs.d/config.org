@@ -66,6 +66,7 @@
                     beacon
                     bookmark+ ;; improved boomarks
                     boxquote
+                    bpr
                     browse-kill-ring ;; menu for the killring
                     calfw ;; calendar
                     cider ;; REPL for Clojure
@@ -1297,6 +1298,17 @@
     ("l" shrink-window-horizontally)
     ("j" shrink-window-horizontally))
 #+END_SRC
+
+* BPR
+
+Background Process Runner.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package bpr
+    :config
+    (setq bpr-colorize-output t))
+#+END_SRC
+
 
 * Font
 

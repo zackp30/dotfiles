@@ -27,4 +27,7 @@ case $REMOTE_HOSTNAME in
     claptop)
         echo "1280x800"
         ;;
+    art_laptop)
+        echo "1920x1080"
+        ;;
 esac
