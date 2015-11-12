@@ -270,7 +270,7 @@ autoload -U add-zsh-hook
             *)
                 color='red' ;;
         esac
-        z_retcode_prompt='%K{red}$reason%k%F{$color}'$th'%f'    }
+        z_retcode_prompt="%K{red}$reason%k%F{$color}"$th'%f'    }
     add-zsh-hook precmd z-preexec
     function zle-line-init zle-keymap-select {
         RPS1='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $z_retcode_prompt'
@@ -505,7 +505,7 @@ autoload -U add-zsh-hook
 * Unset =DISPLAY= because of my remote desktop inheriting it, preventing me from attaching to tmux.
 
    #+BEGIN_SRC shell :tangle yes
-    [[ $DISPLAY == ":2" ]] && unset TMUX
+    if [[ $DISPLAY == ":2" ]]; then unset TMUX; fi
 
   #+END_SRC
 
@@ -515,7 +515,7 @@ autoload -U add-zsh-hook
     especially when forwarding ports, so determine if within =TMUX= and set =TMOUT= to an hour.
 
   #+BEGIN_SRC shell :tangle yes
-    [[ $TMUX ]] && export TMOUT=3600
+    [[ ! -z $TMUX ]] && export TMOUT=3600
   #+END_SRC
 
 * Aliases

@@ -1,8 +1,8 @@
 autoload -U add-zsh-hook
 
 setopt AUTO_PUSHD
+export EDITOR=e
 setopt CORRECT
-setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
 
 function detect_command() {
     command -v $1 >/dev/null 2>&1 || return 1
@@ -52,7 +52,7 @@ function ep-stop {
 function gi() { curl -L -s https://www.gitignore.io/api/$@ }
 
 mt_load_mods() {
-    for i in $(echo *) ; do echo $i | sed 's/^/load_mod_/g' | sed 's/$/ = true/g' ; done >> $1
+  find -maxdepth 1 -mindepth 1 -type d -printf 'load_mod_%f = true\n' >> $1
 }
 
 export PATH=$PATH:$HOME/.fzf/bin
@@ -62,10 +62,10 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 export GOPATH=$HOME/gostuff
 
-export EDITOR=e
 HISTSIZE=99999999
 SAVEHIST=99999999
 HISTFILE=~/.zsh_history
+setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
 
 if [[ "$(cat /etc/os-release | grep Arch; echo $?)" == 1 ]]; then # crude Arch detection
       if [ -f "${HOME}/.gpg-agent-info" ]; then
@@ -175,13 +175,14 @@ export rvmsudo_secure_path=1
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
 function z-preexec() {
     local th="$?"
+    local reason
     case "$th" in
         0)
             color='green' ;;
         *)
             color='red' ;;
     esac
-    z_retcode_prompt='%F{$color}'$th'%f'    }
+    z_retcode_prompt="%K{red}$reason%k%F{$color}"$th'%f'    }
 add-zsh-hook precmd z-preexec
 function zle-line-init zle-keymap-select {
     RPS1='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $z_retcode_prompt'
@@ -301,7 +302,6 @@ if [[ $HOST != "linux-nyit" ]]; then
   fi
 fi
 
-# Colors
 _p_color_date=cyan
 _p_color_pwd=cyan
 _p_color_pwd_fg=red
@@ -311,13 +311,13 @@ _p_color_host=white
 _p_color_host_fg=black
 
 p_module_privsymbol() {
-    if [[ $(print -P "%#") == "#" ]] ; then
-        _p_color_user_privsymbol=red
-    else
-        _p_color_user_privsymbol=blue
-    fi
-    echo "%F{$_p_color_user_privsymbol}%#%f"
-}
+      if [[ $(print -P "%#") == "#" ]] ; then
+          _p_color_user_privsymbol=red
+      else
+          _p_color_user_privsymbol=blue
+      fi
+      echo "%F{$_p_color_user_privsymbol}%#%f"
+  }
 
 p_module_host() {
     echo "%F{$_p_color_host_fg}%K{$_p_color_host}%m%k%f"
@@ -348,27 +348,22 @@ p_load() {
 
 p_load
 
-alias gpull='git pull'
-alias gstatus='git status'
-alias ..='cd ..'
-alias cab='cabal install'
-alias :q='exit'
-
-# `$TERM' is set to "dumb" when using TRAMP to connect to the host, my custom prompt
-# doesn't work well with TRAMP (i.e: makes TRAMP wait forever for a prompt), so simply
-# set `PS1' to a very simple prompt.
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-[[ $DISPLAY == ":2" ]] && unset TMUX
+if [[ $DISPLAY == ":2" ]]; then unset TMUX; fi
 
-# When in tmux I leave some panes to idle, but when I'm not in tmux I don't need `$TMOUT'
-# especially when forwarding ports, so determine if within `TMUX' and set `TMOUT'.
-[[ $TMUX ]] && export TMOUT=3600
-
-
-
-task
+[[ ! -z $TMUX ]] && export TMOUT=3600
 
 alias gcem="git commit -am '' --allow-empty-message"
 
 alias grmv="git remote -v"
+
+alias gpull='git pull'
+
+alias gstatus='git status'
+
+alias ..='cd ..'
+
+alias cab='cabal install'
+
+alias :q='exit'
