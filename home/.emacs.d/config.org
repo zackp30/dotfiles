@@ -18,9 +18,9 @@
   I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+    (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                              ("org" . "http://orgmode.org/elpa/")
-                             ("marmalade" . "http://marmalade-repo.org/packages/")
+                             ("marmalade" . "https://marmalade-repo.org/packages/")
                              ("gnu" . "https://elpa.gnu.org/packages/")))
     (package-initialize)
   #+END_SRC
