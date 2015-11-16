@@ -6,10 +6,27 @@ import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.SpawnOnce
 import XMonad.Actions.GridSelect
 import XMonad.Layout.Accordion
+import XMonad.Layout.Tabbed
+import XMonad.Layout.PerWorkspace
+
 import System.IO
 
+tabConfig = defaultTheme {
+    -- from https://github.com/vicfryzel/xmonad-config/blob/master/xmonad.hs
+    activeBorderColor = "#7C7C7C",
+    activeTextColor = "#CEFFAC",
+    activeColor = "#000000",
+    inactiveBorderColor = "#7C7C7C",
+    inactiveTextColor = "#EEEEEE",
+    inactiveColor = "#000000"
+}
+
+myManageHook = composeAll
+    [ className =? "stalonetray" --> doIgnore
+    , className =? "switcher" --> doIgnore
+    , manageDocks ]
 myMod = mod1Mask
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = tiled ||| Mirror tiled ||| Full ||| tabbed shrinkText tabConfig
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -34,6 +51,7 @@ main = do
          manageHook = manageDocks <+> manageHook defaultConfig,
          layoutHook = avoidStruts myLayout,
          terminal = myTerminal,
+         borderWidth = 3,
          focusedBorderColor = "#03C5E7"
     } `additionalKeys`
     [ ((myMod, xK_BackSpace), goToSelected defaultGSConfig)
