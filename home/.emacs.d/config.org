@@ -154,6 +154,7 @@
                     slime ;; REPL for Common Lisp
                     slime-company
                     smart-mode-line ;; a nice mode line
+                    stumpwm-mode
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
                     table ;; tables!
                     tiny
