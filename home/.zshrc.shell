@@ -350,7 +350,8 @@ p_load
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-if [[ $DISPLAY == ":2" ]]; then unset TMUX; fi
+# if test "$DISPLAY"; then unset TMUX; fi
+if test "$DISPLAY" && test "$TMUX"; then unset DISPLAY; fi
 
 [[ ! -z $TMUX ]] && export TMOUT=3600
 
