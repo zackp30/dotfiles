@@ -11,8 +11,8 @@
 (defcommand rofi () ()
   (run-shell-command "rofi -show run"))
 
-(defcommand chromium () ()
-  (run-shell-command "CHROME_DEVEL_SANDBOX=~/chrome-linux/chrome_sandbox ~/chrome-linux/chrome")) ;; "chrome" on xieshaij, chromium elsehwhere; TODO: Other machines.
+(defcommand chromium () () ;; "chrome" on xieshaij, chromium elsehwhere; TODO: Other machines.
+  (run-shell-command "CHROME_DEVEL_SANDBOX=~/chrome-linux/chrome_sandbox ~/chrome-linux/chrome"))
 
 (set-prefix-key (kbd "C-z"))
 
@@ -23,7 +23,7 @@
 (define-key *root-map* (kbd "C-x") "fprev")
 
 (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
-(define-key *root-map* (kbd "p") "rofi") ;; dmenu like utility; TODO: Doesn't work on X2Go, File a bug report?
+(define-key *root-map* (kbd "p") "rofi") ;; dmenu-like utility
 
 (setq *mouse-focus-policy* :sloppy)
 
