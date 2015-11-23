@@ -233,30 +233,29 @@
     (use-package org
       :config
       (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
+      (setq org-agenda-files `(,(expand-file-name "~/org/Events.org")))
       (define-key global-map (kbd "C-c l") 'org-store-link)
       (define-key global-map (kbd "C-c a") 'org-agenda)
-      (setq org-log-done t)
-      (setq org-latex-listings 'minted) ;; enable minted syntax highlighting for LaTeX export
-      (setq org-latex-minted-options
-            '(("frame" "lines")
-              ("fontsize" "\\scriptsize")
-              ("linenos" "")))
-      (setq org-latex-minted-langs
-            '((conf-space "aconf")
-              (conf-unix "squid")))
-      (setq org-latex-to-pdf-process
-            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+      (setq org-log-done t
+            org-latex-listings 'minted ;; enable minted syntax highlighting for LaTeX export
+            org-latex-minted-options '(("frame" "lines")
+                                       ("fontsize" "\\scriptsize")
+                                       ("linenos" ""))
+            org-latex-minted-langs '((conf-space "aconf")
+                                     (conf-unix "squid"))
+            org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+            org-twbs-head-extra (with-temp-buffer
+                                  (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                  (buffer-string)))
+      (defun my-org-confirm-babel-evaluate (lang body)
+        (not (string= lang "dot")))  ; don't ask to run a Graphviz block
+      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
       (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
       (add-hook 'after-init-hook (lambda ()
-                                   (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
-      (setq org-twbs-head-extra (with-temp-buffer
-                                  (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                                  (buffer-string))))
-    (defun my-org-confirm-babel-evaluate (lang body)
-      (not (string= lang "dot")))  ; don't ask for graphviz
-    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+                                   (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
 
 ** Org-capture + Org-protocol
@@ -1263,6 +1262,7 @@
       :config
       (setenv "INSIDE_EMACS" "1"))
   #+END_SRC
+
 * Pretty symbols
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq prettify-symbols-alist '(("!=" "≠")
@@ -1350,6 +1350,7 @@ Background Process Runner.
       (untabify (point-min) (point-max))
       (save-buffer))
     #+END_SRC
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
