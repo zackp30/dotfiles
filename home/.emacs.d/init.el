@@ -51,7 +51,7 @@ S: shell command to run"
  ;; If there is more than one, they won't work right.
  '(flyspell-incorrect ((t (:underline (:color "#CC9393" :style wave) :slant italic))))
  '(font-lock-comment-face ((t (:foreground "#7F9F7F" :slant italic))))
- '(mode-line ((t (:background "#440000" :foreground "#ffffff" :inverse-video nil :box (:line-width 2 :style released-button))))))
+ '(mode-line ((t (:background "#440000" :foreground "#ffffff" :inverse-video nil :box (:line-width 5 :style released-button))))))
 
 (server-start)
 

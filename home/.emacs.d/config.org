@@ -193,6 +193,11 @@
         :pkgname "org-drill"
         :description "org-drill"
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
+      (el-get-bundle helm-bbdb
+        :type http
+        :pkgname "helm-bbdb"
+        :description "helm-bbdb"
+        :url "https://raw.githubusercontent.com/emacs-helm/helm-bbdb/master/helm-bbdb.el")
       (el-get-bundle org-learn
         :type http
         :pkgname "org-learn"
@@ -233,7 +238,6 @@
     (use-package org
       :config
       (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
-      (setq org-agenda-files `(,(expand-file-name "~/org/Events.org")))
       (define-key global-map (kbd "C-c l") 'org-store-link)
       (define-key global-map (kbd "C-c a") 'org-agenda)
       (setq org-log-done t
@@ -1333,6 +1337,16 @@ Background Process Runner.
     (define-key calc-mode-map "lr" 'calc-reset))
 #+END_SRC
 
+* BBDB
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package bbdb
+    :init
+    (setq bbdb-file "~/org/bbdb")
+    :config
+    (bbdb-initialize))
+#+END_SRC
+
 * Beacon
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1369,3 +1383,9 @@ Background Process Runner.
 ** =emacsinotify=
 
    #+INCLUDE: "~/bin/emacsinotify" src shell
+* Things that need to be at the bottom for some reason
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq org-agenda-files '("~/org"))
+  #+END_SRC
+
