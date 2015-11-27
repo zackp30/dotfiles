@@ -328,6 +328,13 @@
      (require 'org-drill)
    #+END_SRC
 
+** Clocking
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq org-clock-persist 'history)
+     (org-clock-persistence-insinuate)
+   #+END_SRC
+
 * PlantUML
 
     Enable auto-image-file-mode everywhere, otherwise, when using `auto-revert-mode` the raw text of the image
@@ -733,6 +740,8 @@
      (use-package web-mode
        :config
        (a-mode ".phtml" "web")
+       (a-mode ".hamlet" "web")
+       (a-mode ".julius" "web")
        (a-mode ".tpl\\.php" "web")
        (a-mode ".[agj]sp" "web")
        (a-mode ".as[cp]x" "web")
@@ -1036,6 +1045,7 @@
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq echo-keystrokes 0.01)
     (setq org-export-htmlize-output-type 'css)
     (set-face-attribute 'default nil :height 85)
     (require 'tramp) ;; edit files on remote locations
@@ -1386,6 +1396,8 @@ Background Process Runner.
 * Things that need to be at the bottom for some reason
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq org-agenda-files '("~/org"))
+    (add-hook 'after-init-hook
+              (lambda ()
+                (setq org-agenda-files '("~/org"))))
   #+END_SRC
 
