@@ -119,6 +119,7 @@
                     helm-projectile ;; projectile integration for helm
                     helm-swoop ;; grep-like tool for Helm
                     highlight-numbers ;; rainbowify numbers
+                    highlight-indentation
                     hy-mode ;; hy mode
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
@@ -160,7 +161,7 @@
                     tiny
                     todotxt ;; Mode for the todo.txt markup
                     tuareg ;; ocaml
-                    ox-twbs                 ;
+                    ox-twbs
                     undo-tree ;; vim-like undo tree
                     wanderlust ;; email
                     web-mode ;; mode for web stuff
@@ -240,6 +241,9 @@
       (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
       (define-key global-map (kbd "C-c l") 'org-store-link)
       (define-key global-map (kbd "C-c a") 'org-agenda)
+      (add-hook 'after-init-hook
+                (lambda ()
+                  (setq org-agenda-files '("~/org"))))
       (setq org-log-done t
             org-latex-listings 'minted ;; enable minted syntax highlighting for LaTeX export
             org-latex-minted-options '(("frame" "lines")
@@ -855,6 +859,16 @@
       (indent-guide-global-mode 1)) ;; enable globally
   #+END_SRC
 
+* highlight-indentation
+
+  Highlight indentation, a complement to indent-guide.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package highlight-indentation
+      :config
+      (highlight-indentation-mode 1)) ;; enable globally
+  #+END_SRC
+
 * Multiple-Major-Modes
 
   This package is *fantastic* for things that embed other languages.
@@ -1393,11 +1407,3 @@ Background Process Runner.
 ** =emacsinotify=
 
    #+INCLUDE: "~/bin/emacsinotify" src shell
-* Things that need to be at the bottom for some reason
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-hook 'after-init-hook
-              (lambda ()
-                (setq org-agenda-files '("~/org"))))
-  #+END_SRC
-

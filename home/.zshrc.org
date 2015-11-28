@@ -106,6 +106,7 @@ autoload -U add-zsh-hook
        find -maxdepth 1 -mindepth 1 -type d -printf 'load_mod_%f = true\n' >> $1
      }
    #+END_SRC
+
 * PATH
   #+BEGIN_SRC shell :tangle yes
     export PATH=$PATH:$HOME/.fzf/bin
@@ -113,6 +114,8 @@ autoload -U add-zsh-hook
     export PATH=$HOME/bin:$PATH # weird how this isn't a default...
     export PATH=$PATH:/usr/local/bin
     export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin
+
     export GOPATH=$HOME/gostuff
   #+END_SRC
 * History

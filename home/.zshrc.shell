@@ -60,6 +60,8 @@ export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH=$HOME/bin:$PATH # weird how this isn't a default...
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin
+
 export GOPATH=$HOME/gostuff
 
 HISTSIZE=99999999
@@ -350,8 +352,7 @@ p_load
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-# if test "$DISPLAY"; then unset TMUX; fi
-if test "$DISPLAY" && test "$TMUX"; then unset DISPLAY; fi
+if [[ $DISPLAY == ":2" ]]; then unset TMUX; fi
 
 [[ ! -z $TMUX ]] && export TMOUT=3600
 
