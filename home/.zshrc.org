@@ -96,10 +96,13 @@ autoload -U add-zsh-hook
           fi
       }
     #+END_SRC
-** http://gitignore.io
+** Gitignore templates
+
+   http://gitignore.io
    #+BEGIN_SRC shell :tangle yes
      function gi() { curl -L -s https://www.gitignore.io/api/$@ }
    #+END_SRC
+
 ** Load Minetest mods into config
    #+BEGIN_SRC shell :tangle yes
      mt_load_mods() {
@@ -118,6 +121,7 @@ autoload -U add-zsh-hook
 
     export GOPATH=$HOME/gostuff
   #+END_SRC
+
 * History
   
 ** TODO [0/1]
@@ -386,8 +390,6 @@ autoload -U add-zsh-hook
 * ssh-agent
 
 #+BEGIN_SRC shell :tangle yes
-
-
     SSH_ENV="$HOME/.ssh/environment"
 
     function start_agent {
@@ -411,9 +413,8 @@ autoload -U add-zsh-hook
          start_agent;
     fi
   fi
-  
-
 #+END_SRC
+
 * pprompt
 
   My own multi-line prompt, [[http://assets.apertron.net/screens/1443966011.png][I like it]].
@@ -541,22 +542,27 @@ autoload -U add-zsh-hook
    #+BEGIN_SRC shell :tangle yes
      alias gpull='git pull'
    #+END_SRC
+
 ** =gstatus=
    #+BEGIN_SRC shell :tangle yes
      alias gstatus='git status'
    #+END_SRC
+
 ** =..=
    #+BEGIN_SRC shell :tangle yes
      alias ..='cd ..'
    #+END_SRC
+
 ** =cab=
    #+BEGIN_SRC shell :tangle yes
     alias cab='cabal install'
    #+END_SRC
+
 ** =:q=
    #+BEGIN_SRC shell :tangle yes
     alias :q='exit'
    #+END_SRC
+
 * emacsclient script
   
 Can't be an alias since almost nothing can read aliases from the shell, since these aren't actual programs.
