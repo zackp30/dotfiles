@@ -22,7 +22,8 @@ I use Awesome (and no desktop environment) for managing windows.
 
 tmux is AWESOME!
 
-[[http://tmux.github.io][tmux]] is short for "terminal multiplexer", it is "window management" for the standard terminal.
+[[http://tmux.github.io][tmux]] is short for "terminal multiplexer", it is "window management"
+for the standard terminal.
 
 ** Screenshots
 
@@ -33,9 +34,9 @@ tmux is AWESOME!
 
 ** tmuxinator
 
-=tmuxinator= handles the automatic creation of tmux sessions using handy YAML files.
+   =tmuxinator= handles the automatic creation of tmux sessions using handy YAML files.
 
-A single command can produce a huge and complex tmux session.
+   A single command can produce a huge and complex tmux session.
    
 *** Emacs server
 

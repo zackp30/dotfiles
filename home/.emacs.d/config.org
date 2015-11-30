@@ -236,34 +236,37 @@
 * Org
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package org
-      :config
-      (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
-      (define-key global-map (kbd "C-c l") 'org-store-link)
-      (define-key global-map (kbd "C-c a") 'org-agenda)
-      (add-hook 'after-init-hook
-                (lambda ()
-                  (setq org-agenda-files '("~/org"))))
-      (setq org-log-done t
-            org-latex-listings 'minted ;; enable minted syntax highlighting for LaTeX export
-            org-latex-minted-options '(("frame" "lines")
-                                       ("fontsize" "\\scriptsize")
-                                       ("linenos" ""))
-            org-latex-minted-langs '((conf-space "aconf")
-                                     (conf-unix "squid"))
-            org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-            org-twbs-head-extra (with-temp-buffer
-                                  (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                                  (buffer-string)))
-      (defun my-org-confirm-babel-evaluate (lang body)
-        (not (string= lang "dot")))  ; don't ask to run a Graphviz block
-      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+        (use-package org
+          :config
+          (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
+          (define-key global-map (kbd "C-c l") 'org-store-link)
+          (define-key global-map (kbd "C-c a") 'org-agenda)
+          (add-hook 'after-init-hook
+                    (lambda ()
+                      (setq org-agenda-files '("~/org"))))
+          (setq org-log-done t
+                org-latex-listings 'minted ;; enable minted syntax highlighting for LaTeX export
+                org-latex-minted-options '(("frame" "lines")
+                                           ("fontsize" "\\scriptsize")
+                                           ("linenos" "")
+                                           ("breakautoindent")
+                                           ("breaklines")
+                                           ("whitespace"))
+                org-latex-minted-langs '((conf-space "aconf")
+                                         (conf-unix "squid"))
+                org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+                org-twbs-head-extra (with-temp-buffer
+                                      (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                      (buffer-string)))
+          (defun my-org-confirm-babel-evaluate (lang body)
+            (not (string= lang "dot")))  ; don't ask to run a Graphviz block
+          (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
-      (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
-      (add-hook 'after-init-hook (lambda ()
-                                   (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))) ;; readd TAB back to normal mode in EVIL
+          (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
+          (add-hook 'after-init-hook (lambda ()
+                                       (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
 
 ** Org-capture + Org-protocol
