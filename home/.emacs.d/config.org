@@ -508,6 +508,8 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package evil
+      :init
+      (setq evil-toggle-key "C-c C-j")
       :config
       (evil-mode 1)
       (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
