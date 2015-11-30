@@ -1,0 +1,99 @@
+* Enter stumpwm package
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (in-package :stumpwm)
+  #+END_SRC
+  
+* Border width
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (setf *normal-border-width* 2)
+  #+END_SRC
+
+* Unfocus/focus color
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (set-focus-color "orange")
+    (set-unfocus-color "palegreen3")
+  #+END_SRC
+
+* Commands
+** reinit
+
+
+Reloads the config file.
+  
+
+#+BEGIN_SRC common-lisp :tangle yes
+    (defcommand reinit () ()
+      (run-commands "reload" "loadrc"))
+#+END_SRC
+
+** rofi
+
+[[https://davedavenport.github.io/rofi/][Application (and more) launcher]]
+
+   #+BEGIN_SRC common-lisp :tangle yes
+     (defcommand rofi () ()
+       (run-shell-command "rofi -show run"))
+   #+END_SRC
+
+** Chromium
+
+Run Chromium.
+
+   #+BEGIN_SRC common-lisp :tangle yes
+     (defcommand chromium () () ;; "chrome" on xieshaij, chromium elsehwhere; TODO: Other machines.
+       (run-shell-command "CHROME_DEVEL_SANDBOX=~/chrome-linux/chrome_sandbox ~/chrome-linux/chrome"))
+   #+END_SRC
+   
+* Keys
+  
+** Set the prefix key
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (set-prefix-key (kbd "C-z"))
+  #+END_SRC
+ 
+** Launch urxvt, a terminal emulator.
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "c") "exec urxvt-256color")
+  #+END_SRC
+
+** Chromium
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "C-c") "chromium") ;; browser
+  #+END_SRC
+
+** Focus to previous/next window
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "C-z") "fnext")
+    (define-key *root-map* (kbd "C-x") "fprev")
+  #+END_SRC
+
+** Reload config.
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
+  #+END_SRC
+
+** Rofi
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "p") "rofi") ;; dmenu-like utility
+  #+END_SRC
+
+** Focus follows mouse
+
+  #+BEGIN_SRC common-lisp :tangle yes
+  (setq *mouse-focus-policy* :sloppy)
+  #+END_SRC
+
+* Create workspaces
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
+  #+END_SRC
