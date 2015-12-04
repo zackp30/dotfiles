@@ -749,6 +749,7 @@
      (use-package web-mode
        :config
        (a-mode ".phtml" "web")
+       (a-mode ".liquid" "web")
        (a-mode ".hamlet" "web")
        (a-mode ".julius" "web")
        (a-mode ".tpl\\.php" "web")
