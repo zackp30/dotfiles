@@ -144,7 +144,7 @@ autoload -U add-zsh-hook
             . "${HOME}/.gpg-agent-info"
             export GPG_AGENT_INFO
         else
-            if [[ $HOST == "linux-nyit" ]]; then
+            if [[ $HOST == "linux-wtin" ]]; then
                 gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
             else
                 gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
@@ -403,7 +403,7 @@ autoload -U add-zsh-hook
 
     # Source SSH settings, if applicable
 
-  if [[ $HOST != "linux-nyit" ]]; then
+  if [[ $HOST != "linux-wtin" ]]; then
     if [ -f "${SSH_ENV}" ]; then
          . "${SSH_ENV}" > /dev/null
          ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {

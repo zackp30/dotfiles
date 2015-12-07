@@ -5,7 +5,7 @@ case $HOST in
         echo "chrome"
         ;;
 
-    linux-nyit)
+    linux-wtin)
         echo "chrome"
         ;;
 esac
