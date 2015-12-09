@@ -14,6 +14,10 @@
 (defcommand chromium () () ;; "chrome" on xieshaij, chromium elsehwhere; TODO: Other machines.
   (run-shell-command "CHROME_DEVEL_SANDBOX=~/chrome-linux/chrome_sandbox ~/chrome-linux/chrome"))
 
+(defcommand (fprev tile-group) () ()
+  "Cycle through the frame tree to the prev frame."
+  (focus-prev-frame (current-group)))
+
 (set-prefix-key (kbd "C-z"))
 
 (define-key *root-map* (kbd "c") "exec urxvt-256color")

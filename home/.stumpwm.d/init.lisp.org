@@ -47,6 +47,14 @@ Run Chromium.
        (run-shell-command "CHROME_DEVEL_SANDBOX=~/chrome-linux/chrome_sandbox ~/chrome-linux/chrome"))
    #+END_SRC
    
+** fprev
+
+   #+BEGIN_SRC common-lisp :tangle yes
+     (defcommand (fprev tile-group) () ()
+       "Cycle through the frame tree to the prev frame."
+       (focus-prev-frame (current-group)))
+   #+END_SRC
+
 * Keys
   
 ** Set the prefix key
@@ -91,6 +99,7 @@ Run Chromium.
   #+BEGIN_SRC common-lisp :tangle yes
   (setq *mouse-focus-policy* :sloppy)
   #+END_SRC
+
 
 * Create workspaces
 
