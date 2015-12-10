@@ -1,5 +1,45 @@
 (package-initialize)
 
+(defvar melpa-url
+  "https://melpa.org/packages/"
+  "URL to the MELPA Emacs Lisp package Archive.")
+
+(setq package-archives `(("melpa" . ,melpa-url)))
+
+(package-initialize)
+
+;; A utility function (borrowed from Bling's
+;; (https://github.com/bling)) configuration to install a package.
+(defun require-package (package)
+  "Install given PACKAGE."
+  (unless (package-installed-p package)
+    (unless (assoc package package-archive-contents)
+      (package-refresh-contents))
+    (package-install package)))
+
+(require-package 'el-get)
+
+;; Since my configuration is a giant Org document, this needs to go
+;; here since the correct version of Org isn't loaded, as `(require
+;; 'org)' requires the built-in Emacs Org.
+
+(el-get-bundle org-mode ;; following from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/org-mode.rcp
+  :website "http://orgmode.org/"
+  :description "Org-mode is for keeping notes, maintaining ToDo lists, doing project planning, and authoring with a fast and effective plain-text system."
+  :type git
+  :url "git://orgmode.org/org-mode.git"
+  :info "doc"
+  :build/berkeley-unix `,(mapcar
+                          (lambda (target)
+                            (list "gmake" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
+                          '("oldorg"))
+  :build `,(mapcar
+            (lambda (target)
+              (list "make" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
+            '("oldorg"))
+  :load-path ("." "contrib/lisp" "lisp")
+  :load ("lisp/org-loaddefs.el"))
+
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (setq custom-theme-directory "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")

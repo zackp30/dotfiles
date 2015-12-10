@@ -18,11 +18,12 @@
   I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+    (setq package-archives `(("melpa" . ,melpa-url)
                              ("org" . "http://orgmode.org/elpa/")
                              ("marmalade" . "https://marmalade-repo.org/packages/")
                              ("gnu" . "https://elpa.gnu.org/packages/")))
     (package-initialize)
+    (package-refresh-contents)
   #+END_SRC
 
 * Local files
@@ -32,19 +33,6 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (if (file-exists-p "~/.local.el")
         (load "~/.local.el"))
-  #+END_SRC
-
-* =require-package=
-
-  A utility function (borrowed from Bling's (https://github.com/bling)) configuration to install a package.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun require-package (package)
-      "Install given PACKAGE."
-      (unless (package-installed-p package)
-        (unless (assoc package package-archive-contents)
-          (package-refresh-contents))
-        (package-install package)))
   #+END_SRC
 
 * List of packages
