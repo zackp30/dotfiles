@@ -52,3 +52,4 @@ The documentation for my dotfiles.
 * Wiki
 
   #+INCLUDE: "~/wiki/index.org" :minlevel 2
+

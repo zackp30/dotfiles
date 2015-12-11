@@ -369,3 +369,5 @@ alias ..='cd ..'
 alias cab='cabal install'
 
 alias :q='exit'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

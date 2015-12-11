@@ -166,7 +166,8 @@
 #+END_SRC
 
 * use-package
-  use-package (https://github.com/jwiegley/use-package) handles loading of packages, allowing a neatly organized configuration.
+  use-package (https://github.com/jwiegley/use-package) handles
+  loading of packages, allowing a neatly organized configuration.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'use-package)
