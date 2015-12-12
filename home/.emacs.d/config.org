@@ -1024,14 +1024,25 @@
   #+END_SRC
 
 * Rainbows
+** Numbers
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package highlight-numbers
       :config
       (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+  #+END_SRC
+
+** Identifiers
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package rainbow-identifiers
       :config
       (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
+  #+END_SRC
+
+** Delimiters
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package rainbow-delimiters
       :config
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
