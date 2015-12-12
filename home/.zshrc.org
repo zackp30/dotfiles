@@ -498,9 +498,10 @@ autoload -U add-zsh-hook
    #+END_SRC
 ** Dumb terminal handling
 
-   =$TERM= is set to "dumb" when using TRAMP to connect to the host, my custom prompt
-   doesn't work well with TRAMP (i.e: makes TRAMP wait forever for a prompt), so simply
-   set =PS1= to a very simple prompt.
+   =$TERM= is set to "dumb" when using TRAMP to connect to the host,
+   my custom prompt doesn't work well with TRAMP (i.e: makes TRAMP
+   wait forever for a prompt), so simply set =PS1= to a very simple
+   prompt.
 
    #+BEGIN_SRC shell :tangle yes
     [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '

@@ -28,16 +28,19 @@
 
 * Local files
 
-  I sometimes have a file called `local.el' which contains functions which have passwords (ERC), this is not checked into version control for obvious reasons.
+  I sometimes have a file called `local.el' which contains functions
+  which have passwords (ERC), this is not checked into version control
+  for obvious reasons.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (if (file-exists-p "~/.local.el")
+    (when (file-exists-p "~/.local.el")
         (load "~/.local.el"))
   #+END_SRC
 
 * List of packages
 
-  This (huge) list contains each package I use, at the end each is passed to `require-package' to download and install.
+  This (huge) list contains each package I use, at the end each is
+  passed to `require-package' to download and install.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
 
@@ -1287,23 +1290,23 @@
 * Pretty symbols
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq prettify-symbols-alist '(("!=" "≠")
-                                   ("! " "¬ ")))
+                                   ("! " "¬")))
   #+END_SRC
 
 * Pretty markdown
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'markdown-mode-hook (lambda ()
-                                  (set-face-attribute 'markdown-header-face-1 nil :weight 'bold :height 250)
-                                  (set-face-attribute 'markdown-header-face-2 nil :weight 'bold :height 200)
-                                  (set-face-attribute 'markdown-header-face-3 nil :weight 'bold :height 150)
-                                  (set-face-attribute 'markdown-header-face-4 nil :weight 'bold :height 100)
-                                  (set-face-attribute 'markdown-header-face-5 nil :weight 'bold :height 50)
-                                  (set-face-attribute 'markdown-header-face-6 nil :weight 'bold :height 25)))
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              (set-face-attribute 'markdown-header-face-1 nil :weight 'bold :height 250)
+              (set-face-attribute 'markdown-header-face-2 nil :weight 'bold :height 200)
+              (set-face-attribute 'markdown-header-face-3 nil :weight 'bold :height 150)
+              (set-face-attribute 'markdown-header-face-4 nil :weight 'bold :height 100)
+              (set-face-attribute 'markdown-header-face-5 nil :weight 'bold :height 50)
+              (set-face-attribute 'markdown-header-face-6 nil :weight 'bold :height 25)))
 #+END_SRC
 
 * Hydras
-
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (defhydra window-resize (:color blue)
