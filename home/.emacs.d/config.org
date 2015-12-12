@@ -124,7 +124,6 @@
                     magit-tramp ;; TRAMP integration for Magit
                     markdown-mode ;; mode for the Markdown markup
                     material-theme
-                    mediawiki ;; mediawiki client
                     mmm-mode ;; Multiple Major Modes
                     nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
@@ -1084,7 +1083,6 @@
     (a-mode ".md" "markdown")
     (a-mode ".markdown" "markdown")
     (a-mode ".mdwn" "markdown")
-    (a-mode ".mw" "mediawiki")
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
@@ -1343,15 +1341,6 @@ Background Process Runner.
   (use-package bpr
     :config
     (setq bpr-colorize-output t))
-#+END_SRC
-
-* Mediawiki
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package mediawiki
-    :config
-    (add-to-list 'mediawiki-site-alist
-                 '("Wikipedia" "https://en.wikipedia.org/" "zackp30" "" "Main page")))
 #+END_SRC
 
 * Font
