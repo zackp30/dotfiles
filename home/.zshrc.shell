@@ -74,7 +74,7 @@ if [[ "$(cat /etc/os-release | grep Arch; echo $?)" == 1 ]]; then # crude Arch d
           . "${HOME}/.gpg-agent-info"
           export GPG_AGENT_INFO
       else
-          if [[ $HOST == "linux-nyit" ]]; then
+          if [[ $HOST == "linux-wtin" ]]; then
               gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
           else
               gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
@@ -293,7 +293,7 @@ SSH_ENV="$HOME/.ssh/environment"
 
   # Source SSH settings, if applicable
 
-if [[ $HOST != "linux-nyit" ]]; then
+if [[ $HOST != "linux-wtin" ]]; then
   if [ -f "${SSH_ENV}" ]; then
        . "${SSH_ENV}" > /dev/null
        ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
@@ -369,5 +369,3 @@ alias ..='cd ..'
 alias cab='cabal install'
 
 alias :q='exit'
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

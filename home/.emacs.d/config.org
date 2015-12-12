@@ -239,8 +239,7 @@
                                        ("fontsize" "\\scriptsize")
                                        ("linenos" "")
                                        ("breakautoindent")
-                                       ("breaklines")
-                                       ("whitespace"))
+                                       ("breaklines"))
             org-latex-minted-langs '((conf-space "aconf")
                                      (conf-unix "squid"))
             org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -250,7 +249,8 @@
                                   (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                   (buffer-string)))
       (defun my-org-confirm-babel-evaluate (lang body)
-        (not (string= lang "dot")))  ; don't ask to run a Graphviz block
+        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
+                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
       (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
       (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
@@ -477,7 +477,7 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package edit-server
       :config
-      (when (string= (system-name) "linux-nyit.site") ;; home PC
+      (when (string= (system-name) "linux-wtin.site") ;; home PC
         (edit-server-start)))
   #+END_SRC
 
@@ -1010,7 +1010,7 @@
      (setq mime-edit-split-message nil)
    #+END_SRC
 
-* undotree
+* Undo-Tree
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package undo-tree
