@@ -1351,7 +1351,7 @@ Background Process Runner.
   (use-package mediawiki
     :config
     (add-to-list 'mediawiki-site-alist
-                 '("Wikipedia" "https://en.wikipedia.org/" "zackp30" "REDACTED" "Main page")))
+                 '("Wikipedia" "https://en.wikipedia.org/" "zackp30" "" "Main page")))
 #+END_SRC
 
 * Font
