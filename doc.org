@@ -2,6 +2,7 @@ The documentation for my dotfiles.
 
 * TODO [0/1]
   - [ ] More screenshots
+  - [ ] Describe packages better
 
 * Emacs configuration
 
