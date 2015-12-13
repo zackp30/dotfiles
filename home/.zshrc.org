@@ -529,8 +529,11 @@ autoload -U add-zsh-hook
 
    Bad habits...
 
+   The commit message (obviously) isn't empty, but things like
+   `git-rebase` mess up with a repo with empty commit messages.
+
    #+BEGIN_SRC shell :tangle yes
-     alias gcem="git commit -am '' --allow-empty-message"
+     alias gcem="git commit -am 'The commit message was empty.'"
    #+END_SRC
 
 ** =grmv=
