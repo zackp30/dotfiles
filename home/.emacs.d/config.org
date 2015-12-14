@@ -226,38 +226,116 @@
 
 * Org
 
+** Org directory
+
+   =~/org= seems the best place to store such things.
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package org
       :config
-      (setq org-directory (expand-file-name "~/org/")) ;; where I store the documents
+      (setq org-directory (expand-file-name "~/org/"))
+  #+END_SRC
+
+** Key bindings
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
       (define-key global-map (kbd "C-c l") 'org-store-link)
       (define-key global-map (kbd "C-c a") 'org-agenda)
-      (add-hook 'after-init-hook
-                (lambda ()
-                  (setq org-agenda-files '("~/org"))))
-      (setq org-log-done t
-            org-latex-listings 'minted ;; enable minted syntax highlighting for LaTeX export
-            org-latex-minted-options '(("frame" "lines")
-                                       ("fontsize" "\\scriptsize")
-                                       ("linenos" "")
-                                       ("breakautoindent")
-                                       ("breaklines"))
-            org-latex-minted-langs '((conf-space "aconf")
-                                     (conf-unix "squid"))
-            org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                       "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-            org-twbs-head-extra (with-temp-buffer
-                                  (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                                  (buffer-string)))
-      (defun my-org-confirm-babel-evaluate (lang body)
-        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
-                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
-      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+  #+END_SRC
 
-      (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
-      (add-hook 'after-init-hook (lambda ()
-                                   (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))) ;; readd TAB back to normal mode in EVIL
+** =org-agenda-files=
+
+   Set to =org-directory= since that just makes sense.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq org-agenda-files `(,org-directory))
+   #+END_SRC
+** =org-log-done=
+
+   As per the documentation, this simply adds a time stamp when I mark a task as DONE.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq org-log-done 'time
+   #+END_SRC
+
+** Minted instead of listings
+
+   This enables the [[http://ctan.mirrorcatalogs.com/macros/latex/contrib/minted/minted.pdf][minted]] syntax highlighter when exporting to
+   LaTeX. Minted is like listings in LaTeX, but uses [[http://pygments.org/][Pygments]] as the
+   backend for generating the syntax highlighting.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     org-latex-listings 'minted
+   #+END_SRC
+
+*** Options
+
+    - =frame= produces a box around all code blocks.
+    - =fontsize \\scriptsize= make the fontsize the same as the rest
+      of the document.
+    - =linenos= enables line numbers
+    - =breakautoindent= when breaking a line that is too long,
+      automatically indent the line produced from breaking
+    - =breaklines= break lines that are too long
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     org-latex-minted-options '(("frame" "lines")
+                                ("fontsize" "\\scriptsize")
+                                ("linenos" "")
+                                ("breakautoindent")
+                                ("breaklines"))
+   #+END_SRC
+
+   =org-latex-minted-langs= simply aliases Emacs mode names (that
+   might not be known by Pygments) to a language Pygments knows.
+
+   - =conf-space=: tmux and udev files
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+          org-latex-minted-langs '((conf-space "aconf")
+                                   (conf-unix "squid"))
+   #+END_SRC
+** Finally, import the LaTeX package
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
+   #+END_SRC
+
+** Pdf
+
+   LaTeX should be run 3 times to make sure cross-references are correct.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+   #+END_SRC
+
+   When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
+   would like to include a CSS file generated using =htmlize.el=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     org-twbs-head-extra (with-temp-buffer
+                           (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                           (buffer-string)))
+   #+END_SRC
+
+** Confirm or not to confirm, that is the question
+
+   (Sorry to any Shakespeare fans)
+
+   I don't need, or want, to press =y= for any document that has a lot
+   of Graphviz/PlantUML diagrams.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun my-org-confirm-babel-evaluate (lang body)
+       (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
+                (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
+     (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+   #+END_SRC
+
+    (add-hook 'after-init-hook (lambda ()
+                                 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))) ;; readd TAB back to normal mode in EVIL
   #+END_SRC
 
 ** Org-capture + Org-protocol
