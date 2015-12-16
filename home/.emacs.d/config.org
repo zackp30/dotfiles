@@ -79,6 +79,7 @@
                     el-get
                     elixir-mode ;; major mode for Elixir
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
+                    emojify ;; emojis :smile:
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
                     evil ;; VIM for Emacs
@@ -226,6 +227,11 @@
 
 * Org
 
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'ox-twbs)
+  #+END_SRC
+
+
 ** Org directory
 
    =~/org= seems the best place to store such things.
@@ -293,7 +299,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
           org-latex-minted-langs '((conf-space "aconf")
-                                   (conf-unix "squid"))
+                                   (conf-unix "squid")))
    #+END_SRC
 ** Finally, import the LaTeX package
 
@@ -301,14 +307,17 @@
      (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
    #+END_SRC
 
-** Pdf
+** PDF
+   :PROPERTIES:
+   :DOTF_DISABLED: <2015-12-15 Tue>
+   :End:
 
    LaTeX should be run 3 times to make sure cross-references are correct.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
+     ;; org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     ;;                            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     ;;                            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
    #+END_SRC
 
    When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
@@ -330,7 +339,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun my-org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
-                (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
+                (string= lang "puml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
    #+END_SRC
 
@@ -390,7 +399,7 @@
       '((ruby . t)
         (gnuplot . t)
         (org . t)
-        (plantuml . t)
+        (puml . t)
         (dot . t)))
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
    #+END_SRC
@@ -931,6 +940,13 @@
       :config
       (indent-guide-global-mode 1)) ;; enable globally
   #+END_SRC
+
+* Emojis
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (global-emojify-mode 1)
+#+END_SRC
+
 
 * highlight-indentation
 

@@ -27,7 +27,7 @@
   :website "http://orgmode.org/"
   :description "Org-mode is for keeping notes, maintaining ToDo lists, doing project planning, and authoring with a fast and effective plain-text system."
   :type git
-  :url "git://orgmode.org/org-mode.git"
+  :url "ssh://git@apertron.net/Xack/org-mode"
   :info "doc"
   :build/berkeley-unix `,(mapcar
                           (lambda (target)
