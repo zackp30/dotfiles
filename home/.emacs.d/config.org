@@ -191,6 +191,15 @@
         :pkgname "helm-bbdb"
         :description "helm-bbdb"
         :url "https://raw.githubusercontent.com/emacs-helm/helm-bbdb/master/helm-bbdb.el")
+      ;; from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/ntcmd.rcp
+      (el-get-bundle ntcmd
+        :type emacswiki
+        :pkgname "ntcmd"
+        :description "major mode for editing cmd scripts"
+        :load-path "."
+        :prepare (progn
+                   (add-to-list 'auto-mode-alist '("\\.[bB][Aa][Tt]\\'" . ntcmd-mode))
+                   (add-to-list 'auto-mode-alist '("\\.[Cc][Mm][Dd]\\'" . ntcmd-mode))))
       (el-get-bundle org-learn
         :type http
         :pkgname "org-learn"
@@ -299,8 +308,14 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
           org-latex-minted-langs '((conf-space "aconf")
-                                   (conf-unix "squid")))
+                                   (conf-unix "squid"))
    #+END_SRC
+** Todo states
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     org-todo-keywords '((sequence "TODO" "|" "NOT REQUIRED" "ABANDONED" "DONE")))
+   #+END_SRC
+
 ** Finally, import the LaTeX package
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -946,7 +961,6 @@
 #+BEGIN_SRC emacs-lisp :tangle yes
   (global-emojify-mode 1)
 #+END_SRC
-
 
 * highlight-indentation
 
