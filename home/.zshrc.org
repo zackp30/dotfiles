@@ -6,7 +6,7 @@ autoload -U add-zsh-hook
 
 * Misc
   
-=e=: see  [[emacsclient script ]]
+=e=: see  [[emacsclient script]]
 
   #+BEGIN_SRC shell :tangle yes
     setopt AUTO_PUSHD
