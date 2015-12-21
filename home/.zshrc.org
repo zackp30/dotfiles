@@ -138,24 +138,17 @@ autoload -U add-zsh-hook
 
   Runs =gpg-agent= if it isn't already running.
   In GPG 2.1 (currently I only use this on my Arch systems) this doesn't exist.
-  #+BEGIN_SRC shell :tangle yes
-    if [[ "$(cat /etc/os-release | grep Arch; echo $?)" == 1 ]]; then # crude Arch detection
-        if [ -f "${HOME}/.gpg-agent-info" ]; then
-            . "${HOME}/.gpg-agent-info"
-            export GPG_AGENT_INFO
-        else
-            if [[ $HOST == "linux-wtin" ]]; then
-                gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
-            else
-                gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
-            fi
-        fi
-    else
-    if [[ $HOST != "xieshaij" ]]; then
 
-        export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-        gpgconf --launch gpg-agent
-  fi
+  #+BEGIN_SRC shell :tangle yes
+    if [ -f "${HOME}/.gpg-agent-info" ]; then
+        . "${HOME}/.gpg-agent-info"
+        export GPG_AGENT_INFO
+    else
+        if [[ $HOST == "linux-wtin" ]]; then
+            gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
+        else
+            gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+        fi
     fi
   #+END_SRC
 
