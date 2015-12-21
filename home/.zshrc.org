@@ -511,7 +511,6 @@ autoload -U add-zsh-hook
 
    #+BEGIN_SRC shell :tangle yes
     if [[ $DISPLAY == ":2" ]]; then unset TMUX; fi
-
   #+END_SRC
 
 * Cleanup of old sessions
@@ -569,6 +568,7 @@ autoload -U add-zsh-hook
 
 * emacsclient script
   
-Can't be an alias since almost nothing can read aliases from the shell, since these aren't actual programs.
+Can't be an alias since almost nothing can read aliases from the
+shell, since they aren't actual programs.
 
 #+INCLUDE: "~/bin/e" src shell
