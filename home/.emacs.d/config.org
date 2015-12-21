@@ -316,10 +316,10 @@
      org-todo-keywords '((sequence "TODO" "|" "NOT REQUIRED" "ABANDONED" "DONE")))
    #+END_SRC
 
-** Finally, import the LaTeX package
+** Import the LaTeX package
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
+     (add-to-list 'org-latex-default-packages-alist '("" "minted" t)))
    #+END_SRC
 
 ** PDF
@@ -333,15 +333,6 @@
      ;; org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
      ;;                            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
      ;;                            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-   #+END_SRC
-
-   When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
-   would like to include a CSS file generated using =htmlize.el=.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     org-twbs-head-extra (with-temp-buffer
-                           (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                           (buffer-string)))
    #+END_SRC
 
 ** Confirm or not to confirm, that is the question
@@ -433,6 +424,17 @@
      (org-clock-persistence-insinuate)
    #+END_SRC
 
+** TWBS
+
+   When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
+   would like to include a CSS file generated using =htmlize.el=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq org-twbs-head (concat org-twbs-head
+                                 (with-temp-buffer
+                                   (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                   (buffer-string))))
+   #+END_SRC
 * PlantUML
 
     Enable auto-image-file-mode everywhere, otherwise, when using `auto-revert-mode` the raw text of the image

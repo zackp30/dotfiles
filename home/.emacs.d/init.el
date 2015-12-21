@@ -1,5 +1,3 @@
-(package-initialize)
-
 (defvar melpa-url
   "https://melpa.org/packages/"
   "URL to the MELPA Emacs Lisp package Archive.")
