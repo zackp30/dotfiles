@@ -1,4 +1,5 @@
-This configuration was a sample configuration taken elsewhere, I have unfortuently forgotten where it came from.
+This configuration was a sample configuration taken elsewhere, I have
+unfortuently forgotten where it came from.
 
 This configuration is heavily modified from the original one.
 
@@ -21,19 +22,25 @@ This configuration is heavily modified from the original one.
     require("obvious.volume_alsa") -- volume control
     require("obvious.mem")
     require("obvious.battery") -- battery indicator
-
   #+END_SRC
 
 * Utility functions
 
-** =does_monitor_exist()=
+** =get_host()=
 
+   #+BEGIN_SRC lua :tangle yes
+     function get_host()
+        vicious.widgets.os()[4]
+     end
+   #+END_SRC
+
+** =does_monitor_exist()=
 
    Determine whether a monitor exists.   
 
    #+BEGIN_SRC lua :tangle yes
      function does_monitor_exist(m)
-        if vicious.widgets.os()[4] == 'linux.site' then
+        if get_host == 'linux-wtin' then
            if screen.count() == 2 then
               return m
            else
@@ -90,21 +97,6 @@ This configuration is heavily modified from the original one.
     -- Themes define colours, icons, and wallpapers
     beautiful.init(os.getenv("HOME").."/.config/awesome/themes/zenburn/theme.lua")
   #+END_SRC
-
-* Adjust screens
-
-  #+BEGIN_SRC lua :tangle yes
-
-    if os.getenv("HOST") == "linux-nyit" then
-       awful.util.spawn("xrandr --output VGA-1 --right-of HDMI-1 --output HDMI-1 --mode 1680x1050")
-    end
-    if os.getenv("HOST") == "xieshaij" then
-       awful.util.spawn("xvfbsetupz")
-    end
-  #+END_SRC
-
-* Miscellaneous variables
-
 
 * Layouts
 
@@ -182,7 +174,7 @@ This configuration is heavily modified from the original one.
      cpu_cores = {}
 
      function determine_core_count()
-        if os.getenv("HOST") == "xieshaij" then
+        if get_host() == "xieshaij" then
            return 4
         else
            return 1
@@ -270,12 +262,12 @@ This configuration is heavily modified from the original one.
 
 ** Volume
    #+BEGIN_SRC lua :tangle yes
-     if vicious.widgets.os()[4] == "linux-nyit.site" then
+     if get_host() == 'linux-wtin' then
         speaker_name = "Master"
      else
         speaker_name = "Speaker"
      end
-     if os.getenv('HOST') ~= "xieshaij" then
+     if get_host() ~= "xieshaij" then
         right_layout:add(obvious.volume_alsa(0, speaker_name))
         right_layout:add(obvious.battery())
      end
