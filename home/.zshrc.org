@@ -214,7 +214,7 @@ autoload -U add-zsh-hook
   Initial =pyenv= if found.
 
   #+BEGIN_SRC shell :tangle yes
-    if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
+    if detect_command pyenv; then
         eval "$(pyenv init -)"
     fi
   #+END_SRC

@@ -69,28 +69,16 @@ SAVEHIST=99999999
 HISTFILE=~/.zsh_history
 setopt SHARE_HISTORY HIST_IGNORE_DUPS EXTENDED_HISTORY
 
-if [[ "$(cat /etc/os-release | grep Arch; echo $?)" == 1 ]]; then # crude Arch detection
-      if [ -f "${HOME}/.gpg-agent-info" ]; then
-          . "${HOME}/.gpg-agent-info"
-          export GPG_AGENT_INFO
-      else
-          if [[ $HOST == "linux-wtin" ]]; then
-              gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
-          else
-              gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
-          fi
-      fi
-  else
-  if [[ $HOST != "xieshaij" ]]; then
-
-      export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-      gpgconf --launch gpg-agent
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+    . "${HOME}/.gpg-agent-info"
+    export GPG_AGENT_INFO
+else
+    if [[ $HOST == "linux-wtin" ]]; then
+        gpg-agent --enable-ssh-support --daemon --write-env-file "${HOME}/.gpg-agent-info"
+    else
+        gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"
+    fi
 fi
-  fi
-
-# From the ZSH wiki
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
 
 typeset -A key
 
@@ -106,14 +94,14 @@ key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
 
 # setup key accordingly
-[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
-[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
-[[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
-[[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
-[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
-[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
-[[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
-[[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
+[[ -n "${key[Home]}"    ]] && bindkey "${key[Home]}"    beginning-of-line
+[[ -n "${key[End]}"     ]] && bindkey "${key[End]}"     end-of-line
+[[ -n "${key[Insert]}"  ]] && bindkey "${key[Insert]}"  overwrite-mode
+[[ -n "${key[Delete]}"  ]] && bindkey "${key[Delete]}"  delete-char
+[[ -n "${key[Up]}"      ]] && bindkey "${key[Up]}"      up-line-or-history
+[[ -n "${key[Down]}"    ]] && bindkey "${key[Down]}"    down-line-or-history
+[[ -n "${key[Left]}"    ]] && bindkey "${key[Left]}"    backward-char
+[[ -n "${key[Right]}"   ]] && bindkey "${key[Right]}"   forward-char
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
@@ -137,7 +125,7 @@ source_if_exists ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
 source_if_exists ~/.zsh/plugins/fzf.zsh
 source_if_exists ~/.locals.sh # host specific things *not* to be checked into version control.
 
-if [[ ! "$(which pyenv)" =~ "not found" ]] ; then
+if detect_command pyenv; then
     eval "$(pyenv init -)"
 fi
 
@@ -211,16 +199,12 @@ bindkey '^Z' fancy-ctrl-z
 autoload -Uz compinit
 compinit
 
-# fe [FUZZY PATTERN] - Open the selected file with the default editor
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
 fe() {
     local file
     file=$(fzf --query="$1" --select-1 --exit-0)
     [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
-# fd - cd to selected directory
 fd() {
     local dir
     dir=$(find ${1:-*} -path '*/\.*' -prune \
@@ -228,31 +212,25 @@ fd() {
         cd "$dir"
 }
 
-# fda - including hidden directories
 fda() {
     local dir
     dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-# fh - repeat history
 fh() {
     eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
 }
 
-# fkill - kill process
 fkill() {
     ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9}
 }
 
-# fbr - checkout git branch
 fbr() {
     local branches branch
     branches=$(git branch) &&
         branch=$(echo "$branches" | fzf +s +m) &&
         git checkout $(echo "$branch" | sed "s/.* //")
 }
-
-# fstage - stage uncommited file
 
 fstage() {
     local files to_stage
@@ -261,7 +239,6 @@ fstage() {
     git add $(echo $to_stage | tr '\n' ' ')
 }
 
-# fco - checkout git commit
 fco() {
     local commits commit
     commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
@@ -269,7 +246,6 @@ fco() {
         git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
-# ftags - search ctags
 ftags() {
     local line
     [ -e tags ] &&
