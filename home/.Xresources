@@ -11,8 +11,6 @@ Xft.hinting: true
 Xft.rgba: rgb
 Xft.hintstyle: hintfull
 
-urxvt.font: xft:Hack:size=8
-
 URxvt.scrollBar: false
 URxvt.jumpScroll: true
 URxvt.skipScroll: true
