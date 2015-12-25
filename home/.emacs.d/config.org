@@ -152,7 +152,6 @@
                     tiny
                     todotxt ;; Mode for the todo.txt markup
                     tuareg ;; ocaml
-                    ox-twbs
                     undo-tree ;; vim-like undo tree
                     wanderlust ;; email
                     web-mode ;; mode for web stuff
@@ -186,6 +185,8 @@
         :pkgname "org-drill"
         :description "org-drill"
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
+      (el-get-bundle github:zackp30/ox-twbs)
+      ;; (el-get-bundle github:zackp30/emacs-dbgr)
       (el-get-bundle helm-bbdb
         :type http
         :pkgname "helm-bbdb"
@@ -548,7 +549,9 @@
       (setq company-minimum-prefix-length 1)
       (unbind-key (kbd "C-w") company-active-map)
       (define-key company-active-map (kbd "C-u") 'company-show-location)
-      (make-variable-buffer-local 'company-backends))
+      (make-variable-buffer-local 'company-backends)
+       (add-hook 'c-mode-hook (lambda ()
+                                      (add-to-list 'company-backends 'company-clang))))
   #+END_SRC
 
 ** Anaconda
@@ -1456,7 +1459,8 @@ Background Process Runner.
 * Font
 
 #+BEGIN_SRC emacs-lisp :tangle yes
-  (set-default-font "Hack-8")
+  (when (string= "xieshaij" (getenv "HOST"))
+    (set-default-font "Hack-8"))
 #+END_SRC
 
 * Calc
@@ -1465,6 +1469,9 @@ Background Process Runner.
   (use-package calc-ext
     :config
     (define-key calc-mode-map "lr" 'calc-reset))
+  (use-package calc
+    :config
+    (define-key calc-mode-map "lp" 'calc-pop))
 #+END_SRC
 
 * BBDB
