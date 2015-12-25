@@ -43,4 +43,4 @@
       (list '(:eval (stumpwm:run-shell-command "date" t))
             "%u"
             "%v"
-            '(:eval (stumpwm:run-shell-command "bat"))))
+            '(:eval (stumpwm:run-shell-command "~/bin/bat" t))))
