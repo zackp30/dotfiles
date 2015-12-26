@@ -57,7 +57,7 @@
                  (let* ((,s (current-screen))
                         (,w (prin1-to-string (screen-width ,s)))
                         (,h (prin1-to-string (screen-height ,s)))
-                        (,files-path ".stumpwm.d/rules")
+                        (,files-path ".stumpwm.d/rules/")
                         (,layout (concat ,files-path ,command "-layout-" ,w "x" ,h ".lisp"))
                         (,rules (concat ,files-path ,command "-rules" ".lisp")))
                    (gnew ,command)
