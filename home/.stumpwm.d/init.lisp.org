@@ -126,3 +126,33 @@
                  '(:eval (stumpwm:run-shell-command "~/bin/bat" t))))
    #+END_SRC
 
+* Background image
+  # #+BEGIN_SRC common-lisp :tangle yes
+  #   (run-shell-command "display -window root " "~/.homesick/repos/dotfiles/backgrounds/") ;
+  # #+END_SRC
+* GIMP
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    ;; courtesy of Peter Seibel
+    (defmacro with-gensyms ((&rest names) &body body)
+      `(let ,(loop for n in names collect `(,n (gensym)))
+         ,@body))
+
+    (defmacro program-with-layout (name &key (command (string-downcase (string name)))
+                                          (props `'(:class ,(string-capitalize command))))
+      (with-gensyms (s w h files-path layout rules)
+        `(defcommand ,name () ()
+                     (let* ((,s (current-screen))
+                            (,w (prin1-to-string (screen-width ,s)))
+                            (,h (prin1-to-string (screen-height ,s)))
+                            (,files-path ".stumpwm.d/rules")
+                            (,layout (concat ,files-path ,command "-layout-" ,w "x" ,h))
+                            (,rules (concat ,files-path ,command "-rules")))
+                       (gnew ,command)
+                       (restore-from-file ,layout)
+                       (restore-window-placement-rules ,rules)
+                       (run-or-raise ,command ,props)
+                       (place-existing-windows)))))
+
+    (program-with-layout gimp)
+  #+END_SRC

@@ -5,7 +5,7 @@ case $HOST in
         echo "chrome"
         ;;
 
-    linux-wtin)
-        echo "chrome"
+    linux-m03e)
+        echo "chromium"
         ;;
 esac
