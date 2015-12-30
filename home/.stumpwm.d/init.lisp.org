@@ -60,7 +60,7 @@
 ** Set the prefix key
 
    #+BEGIN_SRC common-lisp :tangle yes
-    (set-prefix-key (kbd "C-z"))
+    (set-prefix-key (kbd "C-M-z"))
    #+END_SRC
  
 ** Launch urxvt, a terminal emulator.
@@ -86,12 +86,6 @@
 
    #+BEGIN_SRC common-lisp :tangle yes
     (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
-   #+END_SRC
-
-** Rofi
-
-   #+BEGIN_SRC common-lisp :tangle yes
-    (define-key *root-map* (kbd "p") "rofi") ;; dmenu-like utility
    #+END_SRC
 
 ** Focus follows mouse
@@ -130,7 +124,8 @@
   # #+BEGIN_SRC common-lisp :tangle yes
   #   (run-shell-command "display -window root " "~/.homesick/repos/dotfiles/backgrounds/") ;
   # #+END_SRC
-* GIMP
+* Programs
+** GIMP
 
   #+BEGIN_SRC common-lisp :tangle yes
     ;; courtesy of Peter Seibel
@@ -156,3 +151,4 @@
 
     (program-with-layout gimp)
   #+END_SRC
+

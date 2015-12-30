@@ -1,2 +1,6 @@
 [Added Associations]
+text/html=chromium-browser.desktop;kde4-kfmclient_html.desktop;firefox.desktop;org.kde.kwrite.desktop;writer.desktop;kde4-okularApplication_txt.desktop;
 x-scheme-handler/org-protocol=org-protocol.desktop
+
+[Default Applications]
+text/html=chromium-browser.desktop;

@@ -29,8 +29,6 @@
 
 (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
 
-(define-key *root-map* (kbd "p") "rofi") ;; dmenu-like utility
-
 (setq *mouse-focus-policy* :sloppy)
 
 (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
