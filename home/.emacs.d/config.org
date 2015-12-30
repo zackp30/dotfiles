@@ -409,6 +409,7 @@
         (puml . t)
         (dot . t)))
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
+     (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
    #+END_SRC
 ** Org-drill
 
