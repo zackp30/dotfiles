@@ -78,8 +78,8 @@
 ** Focus to previous/next window
 
    #+BEGIN_SRC common-lisp :tangle yes
-    (define-key *root-map* (kbd "C-z") "fnext")
-    (define-key *root-map* (kbd "C-x") "fprev")
+    (define-key *root-map* (kbd "C-M-z") "fnext")
+    (define-key *root-map* (kbd "C-M-x") "fprev")
    #+END_SRC
 
 ** Reload config.

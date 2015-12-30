@@ -24,8 +24,8 @@
 
 (define-key *root-map* (kbd "C-c") "chromium") ;; browser
 
-(define-key *root-map* (kbd "C-z") "fnext")
-(define-key *root-map* (kbd "C-x") "fprev")
+(define-key *root-map* (kbd "C-M-z") "fnext")
+(define-key *root-map* (kbd "C-M-x") "fprev")
 
 (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
 
