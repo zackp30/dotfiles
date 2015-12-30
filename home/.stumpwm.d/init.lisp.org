@@ -55,8 +55,12 @@
        (focus-prev-frame (current-group)))
    #+END_SRC
 
+** lock
+   #+BEGIN_SRC common-lisp :tangle yes
+     (defcommand lock () ()
+       (run-shell-command "lock"))
+   #+END_SRC
 * Keys
-  
 ** Set the prefix key
 
    #+BEGIN_SRC common-lisp :tangle yes
@@ -92,6 +96,12 @@
 
    #+BEGIN_SRC common-lisp :tangle yes
   (setq *mouse-focus-policy* :sloppy)
+   #+END_SRC
+
+** Lock
+
+   #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "`") "lock") ;; reload config
    #+END_SRC
 
 * Create workspaces

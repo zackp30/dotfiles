@@ -3,5 +3,5 @@
 # Requires maim, ImageMagick and i3lock.
 tmp="$(mktemp -d)"
 maim $tmp/i.png
-convert $tmp/i.png -blur 50 $tmp/blur.png
+convert $tmp/i.png -blur 70 $tmp/blur.png
 i3lock -i $tmp/blur.png
