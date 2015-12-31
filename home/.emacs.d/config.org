@@ -259,6 +259,16 @@
       (define-key global-map (kbd "C-c a") 'org-agenda)
   #+END_SRC
 
+** UTF8 checkboxes
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq org-html-checkbox-type 'unicode)
+     (setq org-html-checkbox-types
+      '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                 (off . "<span class=\"task-todo\">&#x2610;</span>")
+                 (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+   #+END_SRC
+
 ** =org-agenda-files=
 
    Set to =org-directory= since that just makes sense.
