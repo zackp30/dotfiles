@@ -18,20 +18,23 @@
   "Cycle through the frame tree to the prev frame."
   (focus-prev-frame (current-group)))
 
-(set-prefix-key (kbd "C-z"))
+(defcommand lock () ()
+  (run-shell-command "lock"))
+
+(set-prefix-key (kbd "C-M-z"))
 
 (define-key *root-map* (kbd "c") "exec urxvt-256color")
 
 (define-key *root-map* (kbd "C-c") "chromium") ;; browser
 
-(define-key *root-map* (kbd "C-z") "fnext")
-(define-key *root-map* (kbd "C-x") "fprev")
+(define-key *root-map* (kbd "C-M-z") "fnext")
+(define-key *root-map* (kbd "C-M-x") "fprev")
 
 (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
 
-(define-key *root-map* (kbd "p") "rofi") ;; dmenu-like utility
-
 (setq *mouse-focus-policy* :sloppy)
+
+(define-key *root-map* (kbd "`") "lock") ;; reload config
 
 (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
 

@@ -55,12 +55,16 @@
        (focus-prev-frame (current-group)))
    #+END_SRC
 
+** lock
+   #+BEGIN_SRC common-lisp :tangle yes
+     (defcommand lock () ()
+       (run-shell-command "lock"))
+   #+END_SRC
 * Keys
-  
 ** Set the prefix key
 
    #+BEGIN_SRC common-lisp :tangle yes
-    (set-prefix-key (kbd "C-z"))
+    (set-prefix-key (kbd "C-M-z"))
    #+END_SRC
  
 ** Launch urxvt, a terminal emulator.
@@ -78,8 +82,8 @@
 ** Focus to previous/next window
 
    #+BEGIN_SRC common-lisp :tangle yes
-    (define-key *root-map* (kbd "C-z") "fnext")
-    (define-key *root-map* (kbd "C-x") "fprev")
+    (define-key *root-map* (kbd "C-M-z") "fnext")
+    (define-key *root-map* (kbd "C-M-x") "fprev")
    #+END_SRC
 
 ** Reload config.
@@ -88,16 +92,16 @@
     (define-key *root-map* (kbd "C-q") "reinit") ;; reload config
    #+END_SRC
 
-** Rofi
-
-   #+BEGIN_SRC common-lisp :tangle yes
-    (define-key *root-map* (kbd "p") "rofi") ;; dmenu-like utility
-   #+END_SRC
-
 ** Focus follows mouse
 
    #+BEGIN_SRC common-lisp :tangle yes
   (setq *mouse-focus-policy* :sloppy)
+   #+END_SRC
+
+** Lock
+
+   #+BEGIN_SRC common-lisp :tangle yes
+    (define-key *root-map* (kbd "`") "lock") ;; reload config
    #+END_SRC
 
 * Create workspaces
@@ -130,7 +134,8 @@
   # #+BEGIN_SRC common-lisp :tangle yes
   #   (run-shell-command "display -window root " "~/.homesick/repos/dotfiles/backgrounds/") ;
   # #+END_SRC
-* GIMP
+* Programs
+** GIMP
 
   #+BEGIN_SRC common-lisp :tangle yes
     ;; courtesy of Peter Seibel
@@ -156,3 +161,4 @@
 
     (program-with-layout gimp)
   #+END_SRC
+

@@ -1,7 +1,7 @@
-#/usr/bin/sh
+#!/bin/bash
 # Screen lock.
 # Requires maim, ImageMagick and i3lock.
 tmp="$(mktemp -d)"
 maim $tmp/i.png
-convert $tmp/i.png -blur 50 $tmp/blur.png
+convert $tmp/i.png -filter Gaussian -resize 50% -define filter:sigma=2.5 -resize 200% $tmp/blur.png
 i3lock -i $tmp/blur.png

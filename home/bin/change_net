@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cfgdir=$HOME/netcfgs
+
+name=$1
+
+cp $cfgdir/$name /etc/sysconfig/network/ifcfg-wlan0
