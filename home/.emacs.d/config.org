@@ -262,11 +262,17 @@
 ** UTF8 checkboxes
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-html-checkbox-type 'unicode)
-     (setq org-html-checkbox-types
-      '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
-                 (off . "<span class=\"task-todo\">&#x2610;</span>")
-                 (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+     (setq org-html-checkbox-type 'unicode
+           org-html-checkbox-types
+           '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                      (off . "<span class=\"task-todo\">&#x2610;</span>")
+                      (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+     (defun org-twbs-checkbox (checkbox)
+       (case checkbox
+             (on "<span class=\"task-done\">&#x2611;</span>")
+             (off "<span class=\"task-todo\">&#x2610;</span>")
+             (trans "<span class=\"task-in-progress\">[-]</span>")
+             (t "")))
    #+END_SRC
 
 ** =org-agenda-files=
@@ -281,7 +287,7 @@
    As per the documentation, this simply adds a time stamp when I mark a task as DONE.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq org-log-done 'time
+    (setq org-log-done 'time)
    #+END_SRC
 
 ** Minted instead of listings
@@ -291,7 +297,7 @@
    backend for generating the syntax highlighting.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     org-latex-listings 'minted
+     (setq org-latex-listings 'minted)
    #+END_SRC
 
 *** Options
@@ -305,11 +311,11 @@
     - =breaklines= break lines that are too long
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     org-latex-minted-options '(("frame" "lines")
-                                ("fontsize" "\\scriptsize")
-                                ("linenos" "")
-                                ("breakautoindent")
-                                ("breaklines"))
+     (setq org-latex-minted-options '(("frame" "lines")
+                                      ("fontsize" "\\scriptsize")
+                                      ("linenos" "")
+                                      ("breakautoindent")
+                                      ("breaklines")))
    #+END_SRC
 
    =org-latex-minted-langs= simply aliases Emacs mode names (that
@@ -318,19 +324,19 @@
    - =conf-space=: tmux and udev files
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-          org-latex-minted-langs '((conf-space "aconf")
-                                   (conf-unix "squid"))
+     (setq org-latex-minted-langs '((conf-space "aconf")
+                                    (conf-unix "squid")))
    #+END_SRC
 ** Todo states
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     org-todo-keywords '((sequence "TODO" "|" "NOT REQUIRED" "ABANDONED" "DONE")))
+     (setq org-todo-keywords '((sequence "TODO" "|" "NOT REQUIRED" "ABANDONED" "DONE")))
    #+END_SRC
 
 ** Import the LaTeX package
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (add-to-list 'org-latex-default-packages-alist '("" "minted" t)))
+     (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
    #+END_SRC
 
 ** PDF
@@ -358,11 +364,9 @@
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
                 (string= lang "puml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+     (add-hook 'after-init-hook (lambda ()
+                                  (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
    #+END_SRC
-
-    (add-hook 'after-init-hook (lambda ()
-                                 (define-key evil-normal-state-map (kbd "TAB") 'org-cycle)))) ;; readd TAB back to normal mode in EVIL
-  #+END_SRC
 
 ** Org-capture + Org-protocol
 
@@ -445,7 +449,7 @@
      (setq org-twbs-head (concat org-twbs-head
                                  (with-temp-buffer
                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                                   (buffer-string))))
+                                   (buffer-string))))) ;; =.org= note: extra paren since we close the far above =use-package=
    #+END_SRC
 * PlantUML
 
