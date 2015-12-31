@@ -25,7 +25,7 @@
   :website "http://orgmode.org/"
   :description "Org-mode is for keeping notes, maintaining ToDo lists, doing project planning, and authoring with a fast and effective plain-text system."
   :type git
-  :url "ssh://git@apertron.net/Xack/org-mode"
+  :url "git://orgmode.org/org-mode"
   :info "doc"
   :build/berkeley-unix `,(mapcar
                           (lambda (target)
@@ -72,7 +72,8 @@ S: shell command to run"
  '(persp-keymap-prefix "w")
  '(safe-local-variable-values
    (quote
-    ((encoding . utf-8)
+    ((indent-tabs-mode t)
+     (encoding . utf-8)
      (haskell-process-use-ghci . t)
      (haskell-indent-spaces . 4))))
  '(sml/full-mode-string " …"))
