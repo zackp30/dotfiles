@@ -770,7 +770,7 @@
 
     The following makes sure that I can still use the SLIME REPL history when on-the-go with my physical keyboard and phone.
 
-    `slime-setup' is also loads:
+    =slime-setup= is also loads:
 
     - slime-fancy: makes SLIME spiffy with history, and other stuff.
     - slime-repl: the core of SLIME
