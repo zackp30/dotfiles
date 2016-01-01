@@ -420,11 +420,11 @@
       '((ruby . t)
         (gnuplot . t)
         (org . t)
-        (puml . t)
+        (plantuml . t)
         (dot . t)))
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
      (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
-   #+END_SRC
+     (add-to-list 'org-src-lang-modes '("plantuml" . puml))
 ** Org-drill
 
    Used for my flashcards.
