@@ -1,7 +1,9 @@
 #!/bin/bash
 
-cfgdir=$HOME/netcfgs
+cfgdir=/home/zack/netcfgs
 
 name=$1
 
 cp $cfgdir/$name /etc/sysconfig/network/ifcfg-wlan0
+
+systemctl restart network
