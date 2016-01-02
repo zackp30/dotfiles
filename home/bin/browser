@@ -6,6 +6,6 @@ case $HOST in
         ;;
 
     linux-m03e)
-        echo "chromium"
+        echo "dockerchromium"
         ;;
 esac
