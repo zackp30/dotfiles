@@ -21,6 +21,9 @@
 (defcommand lock () ()
   (run-shell-command "lock"))
 
+(defvar *misc-map* (make-sparse-keymap))
+(define-key *root-map* (kbd "C") '*misc-map*)
+
 (set-prefix-key (kbd "C-M-z"))
 
 (define-key *root-map* (kbd "c") "exec urxvt-256color")
@@ -35,6 +38,9 @@
 (setq *mouse-focus-policy* :sloppy)
 
 (define-key *root-map* (kbd "`") "lock") ;; reload config
+
+(run-shell-command "~/ins/bin/copyq")
+(define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
 
 (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
 
