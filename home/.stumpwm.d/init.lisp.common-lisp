@@ -41,6 +41,7 @@
 
 (run-shell-command "~/ins/bin/copyq")
 (define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
+(define-key *misc-map* (kbd "C-p") "exec ~/ins/bin/copyq paste")
 
 (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
 

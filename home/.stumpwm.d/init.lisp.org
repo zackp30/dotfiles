@@ -116,6 +116,7 @@
    #+BEGIN_SRC common-lisp :tangle yes
      (run-shell-command "~/ins/bin/copyq")
      (define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
+     (define-key *misc-map* (kbd "C-p") "exec ~/ins/bin/copyq paste")
    #+END_SRC
 
 
