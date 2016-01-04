@@ -60,11 +60,14 @@
      (defcommand lock () ()
        (run-shell-command "lock"))
    #+END_SRC
+
 * Keys
 ** Set the prefix key
 
    #+BEGIN_SRC common-lisp :tangle yes
-    (set-prefix-key (kbd "C-M-z"))
+     (if (string-equal (machine-instance) "xieshaij")
+         (set-prefix-key (kbd "M-z"))
+         (set-prefix-key (kbd "M-C-z")))
    #+END_SRC
  
 ** Launch urxvt, a terminal emulator.
@@ -108,6 +111,7 @@
   #+BEGIN_SRC common-lisp :tangle yes
     (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
   #+END_SRC
+
 * Mode line
 ** Enable
    #+BEGIN_SRC common-lisp :tangle yes

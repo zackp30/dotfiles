@@ -21,7 +21,9 @@
 (defcommand lock () ()
   (run-shell-command "lock"))
 
-(set-prefix-key (kbd "C-M-z"))
+(if (string-equal (machine-instance) "xieshaij")
+    (set-prefix-key (kbd "M-z"))
+    (set-prefix-key (kbd "M-C-z")))
 
 (define-key *root-map* (kbd "c") "exec urxvt-256color")
 
