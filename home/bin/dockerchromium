@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec chromium su -c "chromium $@" chromium

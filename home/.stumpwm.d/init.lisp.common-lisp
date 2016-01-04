@@ -21,6 +21,9 @@
 (defcommand lock () ()
   (run-shell-command "lock"))
 
+(defvar *misc-map* (make-sparse-keymap))
+(define-key *root-map* (kbd "C") '*misc-map*)
+
 (if (string-equal (machine-instance) "xieshaij")
     (set-prefix-key (kbd "M-z"))
     (set-prefix-key (kbd "M-C-z")))
@@ -37,6 +40,10 @@
 (setq *mouse-focus-policy* :sloppy)
 
 (define-key *root-map* (kbd "`") "lock") ;; reload config
+
+(run-shell-command "~/ins/bin/copyq")
+(define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
+(define-key *misc-map* (kbd "C-p") "exec ~/ins/bin/copyq paste")
 
 (loop for i from 0 to 9 do (run-commands (format nil "gnewbg ~a" i))) ;; 10 workspaces
 

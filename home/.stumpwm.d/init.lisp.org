@@ -61,6 +61,13 @@
        (run-shell-command "lock"))
    #+END_SRC
 
+* Keymaps
+
+  #+BEGIN_SRC common-lisp :tangle yes
+    (defvar *misc-map* (make-sparse-keymap))
+    (define-key *root-map* (kbd "C") '*misc-map*)
+  #+END_SRC
+
 * Keys
 ** Set the prefix key
 
@@ -106,6 +113,15 @@
    #+BEGIN_SRC common-lisp :tangle yes
     (define-key *root-map* (kbd "`") "lock") ;; reload config
    #+END_SRC
+
+** CopyQ
+
+   #+BEGIN_SRC common-lisp :tangle yes
+     (run-shell-command "~/ins/bin/copyq")
+     (define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
+     (define-key *misc-map* (kbd "C-p") "exec ~/ins/bin/copyq paste")
+   #+END_SRC
+
 
 * Create workspaces
   #+BEGIN_SRC common-lisp :tangle yes

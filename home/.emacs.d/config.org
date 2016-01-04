@@ -1098,7 +1098,7 @@
       (define-key yas-minor-mode-map (kbd "C-c 7 p") 'yas-prev-field)
       (define-key yas-minor-mode-map (kbd "<tab>") nil)
       (define-key yas-minor-mode-map (kbd "TAB") nil)
-      (define-key evil-insert-state-map (kbd "C-c RET") 'yas-expand))
+      (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
   #+END_SRC
 
 
