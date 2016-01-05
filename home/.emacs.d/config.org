@@ -157,6 +157,7 @@
                     web-mode ;; mode for web stuff
                     wgrep ;; writable grep
                     wgrep-ag ;; writable grep, but for ag
+                    which-key
                     ws-butler ;; whitespace removal
                     yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
@@ -1519,6 +1520,15 @@ Background Process Runner.
     :config
     (bbdb-initialize))
 #+END_SRC
+
+* which-key
+  
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package which-key
+      :config
+      (which-key-mode 1))
+  #+END_SRC
+
 
 * Beacon
 
