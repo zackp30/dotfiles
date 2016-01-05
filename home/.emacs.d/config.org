@@ -175,6 +175,14 @@
     (require 'use-package)
   #+END_SRC
 
+* Utilities
+** =rebind-key=
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+    (defun rebind-key (from-key map to-key)
+      (define-key map from-key nil)
+      (define-key map to-key (lookup-key map from-key)))
+#+END_SRC
 * El-get
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -241,7 +249,6 @@
     (require 'ox-twbs)
   #+END_SRC
 
-
 ** Org directory
 
    =~/org= seems the best place to store such things.
@@ -249,6 +256,8 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package org
       :config
+      (rebind-key (kbd "C-c <left>") org-mode-map (kbd "C-x <left>"))
+      (rebind-key (kbd "C-c <right>") org-mode-map (kbd "C-x <right>"))
       (setq org-directory (expand-file-name "~/org/"))
   #+END_SRC
 
@@ -451,6 +460,12 @@
                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                    (buffer-string))))) ;; =.org= note: extra paren since we close the far above =use-package=
    #+END_SRC
+* Winner
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package winner)
+  #+END_SRC
+
 * PlantUML
 
     Enable auto-image-file-mode everywhere, otherwise, when using `auto-revert-mode` the raw text of the image
@@ -978,9 +993,9 @@
 
 * Emojis
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (global-emojify-mode 1)
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (global-emojify-mode 1)
+  #+END_SRC
 
 * highlight-indentation
 
@@ -1226,7 +1241,9 @@
 
 ** Backups
 
-   I don't commit on every change I make, that'd be silly, so put numbered backups in here to not pollute commit history.
+   I don't commit on every change I make, that'd be silly, so put
+   numbered backups in here to not pollute commit history and
+   directory listings.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -1337,8 +1354,11 @@
 
 * History
 
+  - Save an insane amount of previously-used commands.
+  - =savehist-file= specifies where to save the variables.
+
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq list-command-history-max 500) ;; save an insane amount of previously-used commands
+    (setq list-command-history-max 500)
     (setq savehist-file "~/.emacs.d/savehist")
     (savehist-mode 1)
     (setq history-length t)
@@ -1347,7 +1367,8 @@
     (setq savehist-additional-variables
           '(kill-ring
             search-ring
-            regexp-search-ring))
+            regexp-search-ring
+            evil-ex-history))
   #+END_SRC
 
 * Eldoc
