@@ -1,6 +1,6 @@
 The documentation for my dotfiles.
 
-* TODO [0/1]
+* TODO [0/2]
   - [ ] More screenshots
   - [ ] Describe packages better
 

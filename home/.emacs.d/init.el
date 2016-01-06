@@ -87,6 +87,8 @@ S: shell command to run"
  ;; If there is more than one, they won't work right.
  '(flyspell-incorrect ((t (:underline (:color "#CC9393" :style wave) :slant italic))))
  '(font-lock-comment-face ((t (:foreground "#7F9F7F" :slant italic))))
+ '(markdown-header-face-5 ((t (:inherit markdown-header-face :weight bold :height 60))))
+ '(markdown-header-face-6 ((t (:inherit markdown-header-face :weight bold :height 60))))
  '(mode-line ((t (:background "#440000" :foreground "#ffffff" :inverse-video nil :box (:line-width 5 :style released-button))))))
 
 (server-start)
