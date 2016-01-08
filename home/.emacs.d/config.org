@@ -372,7 +372,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun my-org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
-                (string= lang "puml")))) ;; don't ask for PlantUML blocks
+                (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
      (add-hook 'after-init-hook (lambda ()
                                   (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
@@ -421,10 +421,10 @@
 
 ** Babel
 
-   Load the Babel languages that I use, and also use nifty embedded highlighting (syntax within syntax).
+   Load the Babel languages that I use, and also use nifty embedded
+   highlighting (syntax within syntax).
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-src-fontify-natively t)
      (org-babel-do-load-languages
       'org-babel-load-languages
       '((ruby . t)
@@ -432,9 +432,11 @@
         (org . t)
         (plantuml . t)
         (dot . t)))
+     (setq org-src-fontify-natively t)
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
      (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
      (add-to-list 'org-src-lang-modes '("plantuml" . puml))
+   #+END_SRC
 ** Org-drill
 
    Used for my flashcards.
