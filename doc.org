@@ -4,6 +4,248 @@ The documentation for my dotfiles.
   - [ ] More screenshots
   - [ ] Describe packages better
 
+* Introduction
+  
+  Hi, I'm Zack Piper.
+
+  I'm studying computer science at secondary school. It is going well
+  since my main activity throughout secondary school has been programming
+  in Ruby, and a mix of other programming languages.
+
+  I am also studying business studies, art and digital photography, and
+  ICT, which are all predominantly computer based, my favorite is still
+  computer science.
+
+  My main strength is understanding the syntax of new programming
+  languages, of which I have understood the syntax of:
+
+  -  Ruby --- an object oriented scripting language designed with
+    readability in mind
+  -  Some LISP variants
+    - [[http://clojure.org][Clojure]] (50%) --- Java Virtual Machine based language which
+      is a lot like LISP.
+    - [[http://racket-lang.org][Racket]]  [2] (30%) --- an interesting language which is useful for
+      implementing other languages.
+    - [[http://www.lispworks.com/documentation/common-lisp.html][Common Lisp]] (60%) --- a standard of LISP
+    -[[http://trac.sacrideo.us/wg/wiki/R7RSHomePage][ Scheme]] (20%) --- a variant of LISP which is a lot more
+      minimal
+  - [[http://haskell.org][Haskell]] (5%) --- a very very interesting purely functional
+    language, which implements static and strong typing
+
+  Another main strength is programming in general, but it's still a hobby
+  but I hope to get a full-time job in programming.
+
+  I enjoy programming a lot, and that's why I want a full-time job.
+
+** Awards
+
+   During primary school I was registered on the gifted and talented
+   register for ICT and science.
+
+** Hobbies
+
+*** Details on my computing life
+
+    (Updated and revised version of my work experience CV follows)
+
+    I am 15 year old programmer, who likes Ruby, and is learning Haskell and
+    Clojure. I have been fiddling with computers since the age of 10, when I
+    first connected to IRC and started to learn more and more about
+    programming. I since learned Python, moved onto Ruby, and also fiddle
+    with Haskell, and Common Lisp.
+
+    Since the age of 13 I was administering my own server (a virtual machine
+    running on a friends virtualisation-capable dedicated server). My father
+    now rents a dedicated server, which can run 30 small (512MB) virtual
+    machines at the same time, when accounting for essential host system
+    processes such as systemd, journald, sshd, and the Linux kernel itself.
+
+    I thoroughly enjoy system administration, and programming, and am very
+    insistent on getting the job done, and check multiple times if it works
+    well.
+
+    System administration is a good hobby of mine, of which I can spend
+    hours a day fixing things.
+
+    To my knowledge, I have yet to have a break in to any of my machines (I
+    keep an eye on the logs (=journalctl -fl=) under a tmux  [7] session and
+    employ an automated process (fail2ban) to ban attempted intrusions for
+    me). root login is also disabled, and cryptographic keys are the only
+    methods of logging in as root. My password manager uses a ~40 character
+    password, and is encrypted with the GNU Privacy Guard (an OpenPGP
+    implementation), and the password to my account on the machine is simply
+    not guessable.
+    
+**** My server setup
+
+***** Miscellaneous
+
+      -  systemd is the init system
+      -  openSUSE is the Linux distribution
+      -  fail2ban keeps unauthorized clients out
+      -  mysqld for random databases
+      -  libvirtd is used to manage virtual machines
+      -  Docker is used to manage applications which rely on containers.
+      -  16GB RAM, 4 CPU cores.
+      -  1TB disk.
+
+      #+BEGIN_EXAMPLE
+     $ uname -a
+     Linux xieshaij 4.1.12-1-default #1 SMP PREEMPT Thu Oct 29 06:43:42 UTC
+     2015 (e24bad1) x86_64 x86_64 x86_64 GNU/Linux
+      #+END_EXAMPLE
+
+**** Web system
+
+     -  Apache2 is the webserver
+     -  php-fpm is the PHP interpreter
+     -  Address: http://apertron.net
+
+**** My document setup
+
+     I use the GNU Emacs text editor (or VIM when I'm sudo'ing into a user
+     that does not have my user-specific configuraton
+     (https://github.com/zackp30/dotfiles) installed).
+
+     I write all my schoolwork using Emacs in Markdown, using Pandoc  [8],
+     the Markdown processor, which compiles it into LaTeX, to later on be
+     compiled to a standalone PDF document, after being preprocessed. (this
+     is how this very document was produced). All of this is automated using
+     my custom build rules written in Haskell  [9], and live reloaded by
+     Guard  [10]. My Emacs sessions runs under a tmux  [11] session, which
+     uses tmux-powerline  [12].
+
+**** My miscellaneous setup
+
+     -  Emails are, of course, written in Emacs.
+     -  Programming done in, you guessed it: Emacs.
+     -  =mutt=  [13] is my email client.
+     -  =weechat=  [14] is my IRC client.
+     -  My version control of choice is Git  [15].
+     -  Linux distribution of choice is openSUSE  [16].
+     -  Todo list manager of choice is  [17]
+     -  Shell of choice is zsh  [18]
+     -  Browser of choice is Chromium /or/ Elinks  [19] depending on if I'm
+       using my phone with physical keyboard (limited credit, so using
+       =elinks= over ssh without images is great for that).
+     -  Programming language of choice is Ruby, or shell script when doing
+       simple things.
+
+**** Why do you use Linux?
+
+     Linux is an operating system core, it manages application memory,
+     drivers (keyboards, mouse, disk drives, USB).
+
+***** Story
+
+      I'm a Linux user since, I think, the age of 12 or 13, I'm 15 now.
+
+      It started when I got tired with Windows XP at 11 and the waiting,
+      dammit am I impatient sometimes, but waiting for a basic task such as
+      shutting down just made me tired of Windows all together.
+
+      A few months previously I had started participating in discussions in a
+      channel on the freenode IRC network which was about a game, and as
+      freenode usually goes, it was open source and most of the users used
+      Linux.
+
+      I kept on hearing about this Linux but wasn't that interested in it at
+      the time. However, because the channel (and most of freenode) involved
+      quite a bit of programming I started learning Python.
+
+      A year passed and I was attempting to install GNU/Linux (specifically
+      Ubuntu) on my new (technically old, but I had just got it for my
+      birthday) PC, unfortunately it continually froze, for reasons unknown
+      (probably a bad hard drive, or a lot of dust or something else...).
+
+      Back then I was the type to give up on things, so I just continually
+      nagged my father to try and install Ubuntu, he couldn't do it for the
+      same reasons.
+
+      After wanting Linux for a while I became determined to get Linux and
+      ditch windows for good. So instead of Ubuntu I tried Linux Mint, being a
+      derivative of Ubuntu(?) I didn't have high hopes, but it worked!
+
+      I continued using it for another 6 months.
+
+      During that time a friend on IRC gave me a virtual machine (which ran
+      Ubuntu) on their server, I kept it for a year a bit until my father got
+      me my own server.
+
+      After the 6 months I got a new PC (which I still use!) I wanted to try
+      something different.
+
+      I decided to install openSUSE.
+
+      I liked it a lot, and on the same Christmas I obtained a Raspberry Pi,
+      and stuck with Debian on it for a while due to the lack of support other
+      distros had for it.
+
+      A year passed and I installed openSUSE on everything I could find:
+
+      -  My brother's laptop
+      -  My BeagleBone Black (another Raspberry Pi-like thing)
+      -  My PC
+      -  My server my father rents
+
+      Up until recently, due to frequent kernel panics, my BeagleBoard and
+      Raspberry Pi both run Arch Linux ARM, which is also rather nice.
+
+      So, during that year I started learning programming a bit more, my
+      friend on IRC told me about Ruby, and a Ruby training site [20], Ruby
+      looked really nice so I've stuck with it since then.
+
+      I then started turning into a power user.
+
+      I learned basic VIM, and switched from KDE to AwesomeWM, and later to
+      StumpWM, a window manager implemented in Common LISP.
+
+      VIM was nice, but I wanted more power, and VIML was quite poor, and
+      since I was quite interested in LISP, I switched to GNU Emacs, switched
+      back after trying to get something to work, and then switched back to
+      Emacs, which I am currently writing this application in.
+
+      So, to answer the question I started using Linux because I like learning
+      different things, and I love the command line interface.
+
+      [1] http://clojure.org
+
+      [2] [[http://racket-lang.org]]
+
+      [3] http://www.lispworks.com/documentation/common-lisp.html
+
+      [4] http://trac.sacrideo.us/wg/wiki/R7RSHomePage
+
+      [5] http://haskell.org
+
+      [7] http://tmux.github.io
+
+      [8] http://pandoc.org
+
+      [9] https://github.com/zackp30/basedocument-ng
+
+      [10] http://guardgem.org/
+
+      [11] http://tmux.github.io
+
+      [12] http://powerline.readthedocs.org/en/master/
+
+      [13] http://www.mutt.org/
+
+      [14] http://weechat.org
+
+      [15] http://git-scm.org
+
+      [16] http:/opensuse.org
+
+      [17] http://taskwarrior.org
+
+      [18] http://www.zsh.org
+
+      [19] http://elinks.or.cz/
+
+      [20] http://tryruby.org
+
 * Emacs configuration
 
   #+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
@@ -53,4 +295,3 @@ The documentation for my dotfiles.
 * Wiki
 
   #+INCLUDE: "~/wiki/index.org" :minlevel 2
-
