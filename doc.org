@@ -208,38 +208,6 @@ The documentation for my dotfiles.
       So, to answer the question I started using Linux because I like learning
       different things, and I love the command line interface.
 
-      [1] http://clojure.org
-
-      [2] [[http://racket-lang.org]]
-
-      [3] http://www.lispworks.com/documentation/common-lisp.html
-
-      [4] http://trac.sacrideo.us/wg/wiki/R7RSHomePage
-
-      [5] http://haskell.org
-
-      [7] http://tmux.github.io
-
-      [8] http://pandoc.org
-
-      [9] https://github.com/zackp30/basedocument-ng
-
-      [10] http://guardgem.org/
-
-      [11] http://tmux.github.io
-
-      [12] http://powerline.readthedocs.org/en/master/
-
-      [13] http://www.mutt.org/
-
-      [14] http://weechat.org
-
-      [15] http://git-scm.org
-
-      [16] http:/opensuse.org
-
-      [17] http://taskwarrior.org
-
 * Emacs configuration
 
   #+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
