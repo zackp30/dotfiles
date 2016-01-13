@@ -1454,19 +1454,6 @@
                                    ("! " "¬")))
   #+END_SRC
 
-* Pretty markdown
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-hook 'markdown-mode-hook
-            (lambda ()
-              (set-face-attribute 'markdown-header-face-1 nil :weight 'bold :height 250)
-              (set-face-attribute 'markdown-header-face-2 nil :weight 'bold :height 200)
-              (set-face-attribute 'markdown-header-face-3 nil :weight 'bold :height 150)
-              (set-face-attribute 'markdown-header-face-4 nil :weight 'bold :height 100)
-              (set-face-attribute 'markdown-header-face-5 nil :weight 'bold :height 50)
-              (set-face-attribute 'markdown-header-face-6 nil :weight 'bold :height 25)))
-#+END_SRC
-
 * Hydras
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1530,7 +1517,6 @@ Background Process Runner.
       :config
       (which-key-mode 1))
   #+END_SRC
-
 
 * Beacon
 
