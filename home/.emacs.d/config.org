@@ -102,6 +102,7 @@
                     git-timemachine ;; rollback to previous revisions of a buffer
                     gitconfig-mode ;; major mode for `.gitconfig'
                     gitignore-mode ;; major mode for `.gitignore'
+                    gnuplot
                     gnuplot-mode ;; major mode for gnuplot
                     go-mode ;; major mode for go
                     graphviz-dot-mode
