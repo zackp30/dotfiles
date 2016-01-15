@@ -211,11 +211,34 @@
         :prepare (progn
                    (add-to-list 'auto-mode-alist '("\\.[bB][Aa][Tt]\\'" . ntcmd-mode))
                    (add-to-list 'auto-mode-alist '("\\.[Cc][Mm][Dd]\\'" . ntcmd-mode))))
-      (el-get-bundle org-learn
-        :type http
-        :pkgname "org-learn"
-        :description "org-learn"
-        :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
+      ;; from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/tramp.rcp
+      (el-get-bundle tramp
+        :description "Transparent Remote Access, Multiple Protocols."
+        :website "http://www.gnu.org/s/tramp/"
+        :type git
+        :url "git://git.savannah.gnu.org/tramp.git"
+        :build
+        `(("autoconf")
+          ("./configure" ,(concat "--with-emacs=" el-get-emacs)
+           "--with-contrib" ,(concat "--prefix="
+                                     (expand-file-name
+                                      (el-get-package-directory "tramp"))))
+          ("make")
+          ("make" "install"))
+        :load-path ("./lisp")
+        ;; tramp-loaddefs.el uses `tramp-verion' before it's defined,
+        ;; work around this by loading trampver.el first.
+        :autoloads ("trampver.el" "tramp-loaddefs.el")
+        :prepare (progn
+                   ;; Helm will try to call this function in order to figure out
+                   ;; if tramp will be used.
+                   (autoload 'tramp-check-proper-method-and-host "tramp.el"))
+        :info "share/info")
+    (el-get-bundle org-learn
+      :type http
+      :pkgname "org-learn"
+      :description "org-learn"
+      :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
 
 * a-mode
