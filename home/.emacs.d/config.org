@@ -219,7 +219,7 @@
         :url "git://git.savannah.gnu.org/tramp.git"
         :build
         `(("autoconf")
-          ("./configure" ,(concat "--with-emacs=" el-get-emacs):)
+          ("./configure" ,(concat "--with-emacs=" el-get-emacs))
           ("make")
           ("make" "install"))
         :load-path ("./lisp")
