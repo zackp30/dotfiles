@@ -1,5 +1,11 @@
 The documentation for my dotfiles.
 
+This site is available as a few other formats:
+
+- [[http://xack.xyz/misc/doc.txt][Plain text]]
+- [[http://xack.xyz/misc/doc.org][Org]]
+- [[http://xack.xyz/misc/doc.pdf][PDF]]
+
 * TODO [0/2]
   - [ ] More screenshots
   - [ ] Describe packages better
@@ -107,7 +113,7 @@ The documentation for my dotfiles.
      that does not have my user-specific configuraton
      (https://github.com/zackp30/dotfiles) installed).
 
-     I write all my schoolwork using Emacs in Markdown, using Pandoc  [8],
+     I write all my schoolwork using Emacs in Markdown, using [[http://pandoc.org][Pandoc]],
      the Markdown processor, which compiles it into LaTeX, to later on be
      compiled to a standalone PDF document, after being preprocessed. (this
      is how this very document was produced). All of this is automated using
@@ -192,7 +198,7 @@ The documentation for my dotfiles.
       Raspberry Pi both run Arch Linux ARM, which is also rather nice.
 
       So, during that year I started learning programming a bit more, my
-      friend on IRC told me about Ruby, and a Ruby training site [20], Ruby
+      friend on IRC told me about Ruby, and a [[http://tryruby.org][Ruby training site]], Ruby
       looked really nice so I've stuck with it since then.
 
       I then started turning into a power user.
@@ -208,6 +214,10 @@ The documentation for my dotfiles.
       So, to answer the question I started using Linux because I like learning
       different things, and I love the command line interface.
 
+***** Respecting my freedom
+
+      Linux respects my freedom. As the user of software I have the
+      right to freedom to use the software as I wish.
 * Emacs configuration
 
   #+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
