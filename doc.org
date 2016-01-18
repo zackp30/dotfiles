@@ -68,7 +68,7 @@ The documentation for my dotfiles.
     hours a day fixing things.
 
     To my knowledge, I have yet to have a break in to any of my machines (I
-    keep an eye on the logs (=journalctl -fl=) under a tmux  [7] session and
+    keep an eye on the logs (=journalctl -fl=) under a [[http://tmux.github.io][tmux]] session and
     employ an automated process (fail2ban) to ban attempted intrusions for
     me). root login is also disabled, and cryptographic keys are the only
     methods of logging in as root. My password manager uses a ~40 character
