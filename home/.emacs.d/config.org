@@ -202,7 +202,7 @@
         :pkgname "helm-bbdb"
         :description "helm-bbdb"
         :url "https://raw.githubusercontent.com/emacs-helm/helm-bbdb/master/helm-bbdb.el")
-      ;; from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/ntcmd.rcp
+      ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/ntcmd.rcp
       (el-get-bundle ntcmd
         :type emacswiki
         :pkgname "ntcmd"
@@ -211,7 +211,7 @@
         :prepare (progn
                    (add-to-list 'auto-mode-alist '("\\.[bB][Aa][Tt]\\'" . ntcmd-mode))
                    (add-to-list 'auto-mode-alist '("\\.[Cc][Mm][Dd]\\'" . ntcmd-mode))))
-      ;; from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/tramp.rcp
+      ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/tramp.rcp
       (el-get-bundle tramp
         :description "Transparent Remote Access, Multiple Protocols."
         :website "http://www.gnu.org/s/tramp/"

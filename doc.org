@@ -33,7 +33,7 @@ This site is available as a few other formats:
     - [[http://racket-lang.org][Racket]] (30%) --- an interesting language which is useful for
       implementing other languages.
     - [[http://www.lispworks.com/documentation/common-lisp.html][Common Lisp]] (60%) --- a standard of LISP
-    -[[http://trac.sacrideo.us/wg/wiki/R7RSHomePage][ Scheme]] (20%) --- a variant of LISP which is a lot more
+    - [[http://trac.sacrideo.us/wg/wiki/R7RSHomePage][Scheme]] (20%) --- a variant of LISP which is a lot more
       minimal
   - [[http://haskell.org][Haskell]] (5%) --- a very very interesting purely functional
     language, which implements static and strong typing
