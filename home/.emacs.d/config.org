@@ -665,6 +665,7 @@
       (setq evil-toggle-key "C-c C-j")
       :config
       (evil-mode 1)
+      (evil-set-initial-state 'dired-mode 'emacs)
       (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
       (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
       (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize))
