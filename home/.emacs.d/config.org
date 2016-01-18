@@ -219,7 +219,10 @@
         :url "git://git.savannah.gnu.org/tramp.git"
         :build
         `(("autoconf")
-          ("./configure" ,(concat "--with-emacs=" el-get-emacs))
+          ("./configure" ,(concat "--with-emacs=" el-get-emacs)
+           "--with-contrib" ,(concat "--prefix="
+                                     (expand-file-name
+                                      (el-get-package-directory "tramp"))))
           ("make")
           ("make" "install"))
         :load-path ("./lisp")
@@ -662,7 +665,6 @@
       (setq evil-toggle-key "C-c C-j")
       :config
       (evil-mode 1)
-      (evil-set-initial-state 'dired-mode 'emacs)
       (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
       (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
       (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize))
