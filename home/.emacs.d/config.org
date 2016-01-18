@@ -220,9 +220,9 @@
         :build
         `(("autoconf")
           ("./configure" ,(concat "--with-emacs=" el-get-emacs)
-           "--with-contrib" ,(concat "--prefix="
-                                     (expand-file-name
-                                      (el-get-package-directory "tramp"))))
+           ,(concat "--prefix="
+                    (expand-file-name
+                     (el-get-package-directory "tramp"))))
           ("make")
           ("make" "install"))
         :load-path ("./lisp")
@@ -234,11 +234,11 @@
                    ;; if tramp will be used.
                    (autoload 'tramp-check-proper-method-and-host "tramp.el"))
         :info "share/info")
-    (el-get-bundle org-learn
-      :type http
-      :pkgname "org-learn"
-      :description "org-learn"
-      :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
+      (el-get-bundle org-learn
+        :type http
+        :pkgname "org-learn"
+        :description "org-learn"
+        :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
 
 * a-mode
