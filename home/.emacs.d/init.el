@@ -72,7 +72,9 @@ S: shell command to run"
  '(persp-keymap-prefix "w")
  '(safe-local-variable-values
    (quote
-    ((indent-tabs-mode t)
+    ((Package . SYSTEM)
+     (Syntax . Common-Lisp)
+     (indent-tabs-mode t)
      (encoding . utf-8)
      (haskell-process-use-ghci . t)
      (haskell-indent-spaces . 4))))
