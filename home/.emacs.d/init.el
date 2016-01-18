@@ -63,6 +63,7 @@ S: shell command to run"
  '(custom-safe-themes
    (quote
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(el-get-git-shallow-clone t)
  '(indent-guide-char "│")
  '(magit-rebase-arguments (quote ("--keep-empty" "--preserve-merges")))
  '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
