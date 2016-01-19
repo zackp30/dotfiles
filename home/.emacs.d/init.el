@@ -73,7 +73,8 @@ S: shell command to run"
  '(persp-keymap-prefix "w")
  '(safe-local-variable-values
    (quote
-    ((Package . SYSTEM)
+    ((auto-fill-mode . t)
+     (Package . SYSTEM)
      (Syntax . Common-Lisp)
      (indent-tabs-mode t)
      (encoding . utf-8)
