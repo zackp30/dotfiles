@@ -139,6 +139,7 @@
                     rainbow-blocks ;; omg more rainbows
                     rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
                     rainbow-identifiers ;; rainbows!
+                    realgud
                     rinari ;; Rails
                     ruby-mode ;; mode for the Ruby language
                     rust-mode ;; mode for the Rust language
@@ -196,7 +197,6 @@
         :description "org-drill"
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
       (el-get-bundle github:zackp30/ox-twbs)
-      ;; (el-get-bundle github:zackp30/emacs-dbgr)
       (el-get-bundle helm-bbdb
         :type http
         :pkgname "helm-bbdb"
