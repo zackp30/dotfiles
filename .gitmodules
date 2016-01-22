@@ -52,3 +52,6 @@
 [submodule "home/.zsh/plugins/zsh-autosuggestions"]
 	path = home/.zsh/plugins/zsh-autosuggestions
 	url = https://github.com/tarruda/zsh-autosuggestions
+[submodule "home/.zsh/plugins/zsh-autopair"]
+	path = home/.zsh/plugins/zsh-autopair
+	url = https://github.com/hlissner/zsh-autopair
