@@ -275,6 +275,17 @@
     (require 'ox-twbs)
   #+END_SRC
 
+** Colors
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defgroup color-faces '((color-red custom-face)) "color faces")
+
+     (defface color-red
+       '((((class color) (min-colors 88) (background light))
+          :background "red"))
+      "red face"
+       :group 'color-faces)
+   #+END_SRC
+
 ** Org directory
 
    =~/org= seems the best place to store such things.
@@ -374,18 +385,23 @@
      (add-to-list 'org-latex-default-packages-alist '("" "minted" t))
    #+END_SRC
 
-** PDF
-   :PROPERTIES:
-   :DOTF_DISABLED: <2015-12-15 Tue>
-   :End:
+** VideoJS
 
-   LaTeX should be run 3 times to make sure cross-references are correct.
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defvar vid-format
+    (concat "<video class=\"video-js\" controls preload=\"auto\" width=\"640\" height=\"264\""
+            "data-setup=\"{}\">"
+            "<source src=\"%s\" type='video/webm'>"
+            "</video>"))
+  (org-add-link-type "webm"
+                     (lambda (handle)
+                       (browse-url (concat handle)))
+                     (lambda (path desc backend)
+                       (cl-case backend
+                         (html (format vid-format
+                                       path (or desc ""))))))
+#+END_SRC
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;; org-latex-to-pdf-process '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-     ;;                            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-     ;;                            "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")
-   #+END_SRC
 
 ** Confirm or not to confirm, that is the question
 
