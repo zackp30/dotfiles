@@ -74,7 +74,6 @@ S: shell command to run"
      ("_" underline)
      ("=" org-verbatim verbatim)
      ("~" org-code verbatim)
-     ("{r}" color-red verbatim)
      ("+"
       (:strike-through t)))))
  '(package-selected-packages
