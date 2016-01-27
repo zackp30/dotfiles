@@ -78,6 +78,7 @@
                     ein ;; iPython Notebook for Emacs
                     el-get
                     elixir-mode ;; major mode for Elixir
+                    elfeed
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emojify ;; emojis :smile:
                     emmet-mode ;; http://emmet.io implementation for Emacs
@@ -92,7 +93,6 @@
                     evil-numbers
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
-                    flycheck-tip
                     flycheck-rust ;; flycheck for the Rust language
                     fountain-mode
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
@@ -491,6 +491,14 @@
      (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
      (add-to-list 'org-src-lang-modes '("plantuml" . puml))
    #+END_SRC
+*** Languages
+**** Haskell (diagrams)
+
+     #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ob-diagrams)
+     #+END_SRC
+
+
 ** Org-drill
 
    Used for my flashcards.
@@ -569,14 +577,6 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq-default flycheck-emacs-lisp-load-path 'inherit)
    #+END_SRC
-** Flycheck-tip
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package flycheck-tip
-       :config
-       (define-key global-map (kbd "C-c C-n") 'flycheck-tip-cycle))
-   #+END_SRC
-
 * Emmet
 
   [[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".

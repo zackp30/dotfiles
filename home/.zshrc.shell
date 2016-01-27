@@ -1,7 +1,7 @@
 autoload -U add-zsh-hook
 
-setopt AUTO_PUSHD
 export EDITOR=e
+
 setopt CORRECT
 
 function detect_command() {
@@ -57,12 +57,11 @@ mt_load_mods() {
 
 export PATH=$PATH:$HOME/.fzf/bin
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-export PATH=$HOME/bin:$PATH # weird how this isn't a default...
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/.stack/programs/x86_64-linux/ghc-7.10.2/bin
-
 export GOPATH=$HOME/gostuff
+
+export PATH=$HOME/bin:$PATH
 
 HISTSIZE=99999999
 SAVEHIST=99999999
@@ -119,7 +118,7 @@ source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
 source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
 source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source_if_exists ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source_if_exists $HOME/.homesick/repos/homeshick/homeshick.sh
+source_if_exists ~/.homesick/repos/homeshick/homeshick.sh
 source_if_exists ~/.autojump/etc/profile.d/autojump.sh
 source_if_exists ~/.zsh/plugins/zsh-vcs-prompt/zshrc.sh
 source_if_exists ~/.zsh/plugins/zsh-autopair/zsh-autopair.plugin.zsh
@@ -131,6 +130,7 @@ if detect_command pyenv; then
 fi
 
 setopt prompt_subst
+fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
 autoload -U colors && colors
 autoload -Uz compinit
 compinit
@@ -155,25 +155,28 @@ if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$
 fi
 
 bindkey -v
+
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 bindkey -s '^O' '^qcd\n'
-bindkey '^f' vi-forward-blank-word
-export KEYTIMEOUT=1
+
 ZSH_VCS_PROMPT_ENABLE_CACHING='true'
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
-export rvmsudo_secure_path=1
 
 VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
 function z-preexec() {
     local th="$?"
     local reason
     case "$th" in
-        0)
+        0) # green for "normal" exit status (as in, no error)
             color='green' ;;
-        *)
+        *) # anything else is usually an error, color red
             color='red' ;;
     esac
-    z_retcode_prompt="%K{red}$reason%k%F{$color}"$th'%f'    }
+    z_retcode_prompt="%K{red}$reason%k%F{$color}"$th'%f'
+}
 add-zsh-hook precmd z-preexec
 function zle-line-init zle-keymap-select {
     RPS1='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $z_retcode_prompt'
@@ -182,10 +185,6 @@ function zle-line-init zle-keymap-select {
 
 zle -N zle-line-init
 zle -N zle-keymap-select
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then
         fg
@@ -197,8 +196,6 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-autoload -Uz compinit
-compinit
 
 fe() {
     local file
@@ -329,7 +326,7 @@ p_load
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-if [[ $DISPLAY == ":2" ]]; then unset TMUX; fi
+if [[ $DISPLAY ]]; then unset TMUX; fi
 
 [[ ! -z $TMUX ]] && export TMOUT=3600
 
