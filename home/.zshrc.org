@@ -646,3 +646,8 @@ Can't be an alias since almost nothing can read aliases from the
 shell, since they aren't actual programs.
 
 #+INCLUDE: "~/bin/e" src shell
+* RVM
+  #+BEGIN_SRC shell :tangle yes
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+  #+END_SRC
+
