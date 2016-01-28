@@ -120,7 +120,6 @@
 * PATH
   #+BEGIN_SRC shell :tangle yes
     export PATH=$PATH:$HOME/.fzf/bin
-    export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     export PATH=$PATH:/usr/local/bin
     export PATH=$PATH:$HOME/.local/bin
     export GOPATH=$HOME/gostuff
@@ -648,6 +647,7 @@ shell, since they aren't actual programs.
 #+INCLUDE: "~/bin/e" src shell
 * RVM
   #+BEGIN_SRC shell :tangle yes
+    export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
   #+END_SRC
 
