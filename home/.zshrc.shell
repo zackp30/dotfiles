@@ -56,7 +56,6 @@ mt_load_mods() {
 }
 
 export PATH=$PATH:$HOME/.fzf/bin
-export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 export GOPATH=$HOME/gostuff
@@ -344,4 +343,5 @@ alias cab='cabal install'
 
 alias :q='exit'
 
+export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
