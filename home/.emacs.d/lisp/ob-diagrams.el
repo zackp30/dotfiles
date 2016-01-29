@@ -32,7 +32,7 @@
     (:width . 300))
   "Default arguments for evaluating a ditaa source block.")
 
-(defcustom org-diagrams-executable "diagrams-builder-cairo"
+(defcustom org-diagrams-executable "diagrams-builder-rasterific"
   "Path to the diagrams-builder executable"
   :group 'org-babel
   :type  'string)
@@ -49,7 +49,7 @@
         (setq output
               (shell-command-to-string
                (format
-                "%s \"%s\" -o\"%s\" -w%s"
+                "stack exec %s -- \"%s\" -o\"%s\" -w%s"
                 org-diagrams-executable
                 (org-babel-process-file-name
                  script-file)
