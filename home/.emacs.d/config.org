@@ -1598,6 +1598,14 @@ Background Process Runner.
       (save-buffer))
     #+END_SRC
 
+* Unicode
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (set-language-environment "UTF-8")
+    (set-default-coding-systems 'utf-8)
+  #+END_SRC
+
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
