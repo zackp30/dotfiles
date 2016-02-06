@@ -198,6 +198,12 @@
         :description "org-drill"
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
       (el-get-bundle github:zackp30/ox-twbs)
+      (el-get-bundle org-reveal
+        :type github
+        :pkgname "yjwen/org-reveal"
+        :description "Exports Org-mode contents to Reveal.js HTML presentation."
+        :depends org-mode
+        :features ox-reveal)
       (el-get-bundle helm-bbdb
         :type http
         :pkgname "helm-bbdb"
@@ -514,17 +520,26 @@
      (org-clock-persistence-insinuate)
    #+END_SRC
 
-** TWBS
+** Exporting engine
+*** TWBS
 
-   When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
-   would like to include a CSS file generated using =htmlize.el=.
+    When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
+    would like to include a CSS file generated using =htmlize.el=.
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-twbs-head (concat org-twbs-head
-                                 (with-temp-buffer
-                                   (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                                   (buffer-string))))) ;; =.org= note: extra paren since we close the far above =use-package=
-   #+END_SRC
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (setq org-twbs-head (concat org-twbs-head
+                                  (with-temp-buffer
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                    (buffer-string))))) ;; =.org= note: extra paren since we close the far above =use-package=
+    #+END_SRC
+
+*** Reveal.js
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package ox-reveal)
+    #+END_SRC
+
+
 * Winner
 
   #+BEGIN_SRC emacs-lisp :tangle yes
