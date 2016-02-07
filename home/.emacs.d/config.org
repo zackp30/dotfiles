@@ -539,7 +539,6 @@
     (use-package ox-reveal)
     #+END_SRC
 
-
 * Winner
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -832,7 +831,8 @@
       :config
       (helm-mode 1)
       (helm-autoresize-mode 1)
-      (global-set-key (kbd "C-x C-f") 'helm-find-files))
+      (global-set-key (kbd "C-x C-f") 'helm-find-files)
+      (setq helm-mode-fuzzy-match t))
   #+END_SRC
 ** Projectile
    Integrate Projectile and Helm.
@@ -1592,7 +1592,8 @@ Background Process Runner.
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package which-key
       :config
-      (which-key-mode 1))
+      (which-key-mode 1)
+      (setq which-key-idle-delay 0.01))
   #+END_SRC
 
 * Beacon
@@ -1619,7 +1620,6 @@ Background Process Runner.
     (set-language-environment "UTF-8")
     (set-default-coding-systems 'utf-8)
   #+END_SRC
-
 
 * The end
 
