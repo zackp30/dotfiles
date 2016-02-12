@@ -432,6 +432,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun my-org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
+                (string= lang "gnuplot")
                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
      (add-hook 'after-init-hook (lambda ()
@@ -1304,6 +1305,7 @@
     (require 'saveplace)
     (setq-default save-place t)
     (a-mode ".md" "markdown")
+    (a-mode ".slidemd" "markdown")
     (a-mode ".markdown" "markdown")
     (a-mode ".mdwn" "markdown")
     (a-mode "Gemfile" "ruby")
