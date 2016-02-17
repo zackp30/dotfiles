@@ -128,6 +128,7 @@
                     markdown-mode ;; mode for the Markdown markup
                     material-theme
                     mmm-mode ;; Multiple Major Modes
+                    mode-icons ;; icons for major modes
                     nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
                     org-bullets
@@ -165,7 +166,8 @@
                     yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
                     zenburn-theme ;; Zenburn theme
-                    evil-space))
+                    evil-space)
+      "List of packages.")
 
     (loop for pkg in pkgs do
           (require-package pkg))
@@ -1148,10 +1150,10 @@
       (add-hook 'projectile-mode-hook 'projectile-rails-on))
   #+END_SRC
 
-* Smart-Mode-Line
+* Mode-line
+** Smart-Mode-Line
 
   I have yet to get around to making my own mode-line, but Smart-Mode-Line is great, so I don't see why I need to, other than for fun of course.
-
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package smart-mode-line
@@ -1159,6 +1161,14 @@
       (setq sml/theme 'dark)
       (sml/setup))
   #+END_SRC
+
+** mode-icons
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package mode-icons
+:config
+    (mode-icons-mode 1))
+#+END_SRC
 
 * Ag
 
