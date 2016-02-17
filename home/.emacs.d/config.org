@@ -1605,7 +1605,7 @@ Background Process Runner.
     (use-package which-key
       :config
       (which-key-mode 1)
-      (setq which-key-idle-delay 0.01))
+      (setq which-key-idle-delay 0.3))
   #+END_SRC
 
 * Beacon
