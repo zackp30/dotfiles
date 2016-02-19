@@ -55,3 +55,6 @@
 [submodule "home/.zsh/plugins/zsh-autopair"]
 	path = home/.zsh/plugins/zsh-autopair
 	url = https://github.com/hlissner/zsh-autopair
+[submodule "home/.config/awesome/tyrannical"]
+	path = home/.config/awesome/tyrannical
+	url = https://github.com/Elv13/tyrannical
