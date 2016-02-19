@@ -12,6 +12,9 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
+-- Battery
+local assault = require('assault')
+
 
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -133,6 +136,13 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
+-- Battery
+myassault = assault({
+      critical_level = 0.15,
+      critical_color = "#ff0000",
+      charging_color = "#00ff00"
+})
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -209,6 +219,7 @@ for s = 1, screen.count() do
             s == 1 and wibox.widget.systray(),
             mytextclock,
             mylayoutbox[s],
+            myassault
         },
     }
 end

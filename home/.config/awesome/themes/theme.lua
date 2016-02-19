@@ -2,7 +2,7 @@
 -- Default awesome theme --
 ---------------------------
 
-home = os.getenv("HOME")
+home = os.getenv("HOME") .. "/"
 
 local theme = {}
 
