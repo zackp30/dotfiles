@@ -258,7 +258,9 @@ function assault.new (args)
 	end
 
 	widget.draw = assault.draw
-	widget.fit = assault.fit
+  widget.fit = assault.fit
+
+
 
 	return widget
 end
@@ -268,3 +270,4 @@ function assault.mt:__call(...)
 end
 
 return setmetatable(assault, assault.mt)
+
