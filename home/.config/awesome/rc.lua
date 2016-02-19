@@ -39,7 +39,7 @@ end
 
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "default/theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt-256color"

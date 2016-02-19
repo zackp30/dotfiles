@@ -2,6 +2,8 @@
 -- Default awesome theme --
 ---------------------------
 
+home = os.getenv("HOME")
+
 local theme = {}
 
 theme.font          = "sans 8"
@@ -35,13 +37,13 @@ theme.border_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
-theme.taglist_squares_sel   = "/usr/local/share/awesome/themes/default/taglist/squarefw.png"
-theme.taglist_squares_unsel = "/usr/local/share/awesome/themes/default/taglist/squarew.png"
+theme.taglist_squares_sel   = home .. ".config/awesome/themes/taglist/squarefw.png"
+theme.taglist_squares_unsel = home .. ".config/awesome/themes/taglist/squarew.png"
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = "/usr/local/share/awesome/themes/default/submenu.png"
+theme.menu_submenu_icon = home .. ".config/awesome/themes/submenu.png"
 theme.menu_height = 15
 theme.menu_width  = 100
 
@@ -51,50 +53,50 @@ theme.menu_width  = 100
 --theme.bg_widget = "#cc0000"
 
 -- Define the image to load
-theme.titlebar_close_button_normal = "/usr/local/share/awesome/themes/default/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = "/usr/local/share/awesome/themes/default/titlebar/close_focus.png"
-theme.titlebar_minimize_button_normal_inactive = "/usr/local/share/awesome/themes/default/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus_inactive  = "/usr/local/share/awesome/themes/default/titlebar/minimize_focus.png"
+theme.titlebar_close_button_normal = home .. ".config/awesome/themes/titlebar/close_normal.png"
+theme.titlebar_close_button_focus  = home .. ".config/awesome/themes/titlebar/close_focus.png"
+theme.titlebar_minimize_button_normal_inactive = home .. ".config/awesome/themes/titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_focus_inactive  = home .. ".config/awesome/themes/titlebar/minimize_focus.png"
 
-theme.titlebar_ontop_button_normal_inactive = "/usr/local/share/awesome/themes/default/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = "/usr/local/share/awesome/themes/default/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = "/usr/local/share/awesome/themes/default/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = "/usr/local/share/awesome/themes/default/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive = home .. ".config/awesome/themes/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive  = home .. ".config/awesome/themes/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active = home .. ".config/awesome/themes/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active  = home .. ".config/awesome/themes/titlebar/ontop_focus_active.png"
 
-theme.titlebar_sticky_button_normal_inactive = "/usr/local/share/awesome/themes/default/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = "/usr/local/share/awesome/themes/default/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = "/usr/local/share/awesome/themes/default/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = "/usr/local/share/awesome/themes/default/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive = home .. ".config/awesome/themes/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive  = home .. ".config/awesome/themes/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active = home .. ".config/awesome/themes/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active  = home .. ".config/awesome/themes/titlebar/sticky_focus_active.png"
 
-theme.titlebar_floating_button_normal_inactive = "/usr/local/share/awesome/themes/default/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = "/usr/local/share/awesome/themes/default/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = "/usr/local/share/awesome/themes/default/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = "/usr/local/share/awesome/themes/default/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive = home .. ".config/awesome/themes/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive  = home .. ".config/awesome/themes/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active = home .. ".config/awesome/themes/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active  = home .. ".config/awesome/themes/titlebar/floating_focus_active.png"
 
-theme.titlebar_maximized_button_normal_inactive = "/usr/local/share/awesome/themes/default/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = "/usr/local/share/awesome/themes/default/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = "/usr/local/share/awesome/themes/default/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = "/usr/local/share/awesome/themes/default/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = home .. ".config/awesome/themes/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = home .. ".config/awesome/themes/titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active = home .. ".config/awesome/themes/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active  = home .. ".config/awesome/themes/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "/usr/local/share/awesome/themes/default/background.png"
+theme.wallpaper = home .. "gnu.png"
 
 -- You can use your own layout icons like this:
-theme.layout_fairh = "/usr/local/share/awesome/themes/default/layouts/fairhw.png"
-theme.layout_fairv = "/usr/local/share/awesome/themes/default/layouts/fairvw.png"
-theme.layout_floating  = "/usr/local/share/awesome/themes/default/layouts/floatingw.png"
-theme.layout_magnifier = "/usr/local/share/awesome/themes/default/layouts/magnifierw.png"
-theme.layout_max = "/usr/local/share/awesome/themes/default/layouts/maxw.png"
-theme.layout_fullscreen = "/usr/local/share/awesome/themes/default/layouts/fullscreenw.png"
-theme.layout_tilebottom = "/usr/local/share/awesome/themes/default/layouts/tilebottomw.png"
-theme.layout_tileleft   = "/usr/local/share/awesome/themes/default/layouts/tileleftw.png"
-theme.layout_tile = "/usr/local/share/awesome/themes/default/layouts/tilew.png"
-theme.layout_tiletop = "/usr/local/share/awesome/themes/default/layouts/tiletopw.png"
-theme.layout_spiral  = "/usr/local/share/awesome/themes/default/layouts/spiralw.png"
-theme.layout_dwindle = "/usr/local/share/awesome/themes/default/layouts/dwindlew.png"
-theme.layout_cornernw = "/usr/local/share/awesome/themes/default/layouts/cornernww.png"
-theme.layout_cornerne = "/usr/local/share/awesome/themes/default/layouts/cornernew.png"
-theme.layout_cornersw = "/usr/local/share/awesome/themes/default/layouts/cornersww.png"
-theme.layout_cornerse = "/usr/local/share/awesome/themes/default/layouts/cornersew.png"
+theme.layout_fairh = home .. ".config/awesome/themes/layouts/fairhw.png"
+theme.layout_fairv = home .. ".config/awesome/themes/layouts/fairvw.png"
+theme.layout_floating  = home .. ".config/awesome/themes/layouts/floatingw.png"
+theme.layout_magnifier = home .. ".config/awesome/themes/layouts/magnifierw.png"
+theme.layout_max = home .. ".config/awesome/themes/layouts/maxw.png"
+theme.layout_fullscreen = home .. ".config/awesome/themes/layouts/fullscreenw.png"
+theme.layout_tilebottom = home .. ".config/awesome/themes/layouts/tilebottomw.png"
+theme.layout_tileleft   = home .. ".config/awesome/themes/layouts/tileleftw.png"
+theme.layout_tile = home .. ".config/awesome/themes/layouts/tilew.png"
+theme.layout_tiletop = home .. ".config/awesome/themes/layouts/tiletopw.png"
+theme.layout_spiral  = home .. ".config/awesome/themes/layouts/spiralw.png"
+theme.layout_dwindle = home .. ".config/awesome/themes/layouts/dwindlew.png"
+theme.layout_cornernw = home .. ".config/awesome/themes/layouts/cornernww.png"
+theme.layout_cornerne = home .. ".config/awesome/themes/layouts/cornernew.png"
+theme.layout_cornersw = home .. ".config/awesome/themes/layouts/cornersww.png"
+theme.layout_cornerse = home .. ".config/awesome/themes/layouts/cornersew.png"
 
 theme.awesome_icon = "/usr/local/share/awesome/icons/awesome16.png"
 
