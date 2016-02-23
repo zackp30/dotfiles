@@ -18,8 +18,6 @@ local assault = require('assault')
 -- Dynamic tags
 local tyrannical = require("tyrannical")
 
-
-
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
@@ -49,7 +47,7 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt-256color"
+terminal = "terminology"
 editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -80,6 +78,8 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.se,
 }
 
+
+awful.util.spawn_with_shell("compton &")
 
 
 local function client_menu_toggle_fn()
@@ -113,7 +113,7 @@ tyrannical.tags = {
         layout      = awful.layout.suit.tile, -- Use the tile layout
         instance    = {"dev", "ops"},         -- Accept the following instances. This takes precedence over 'class'
         class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
-            "xterm" , "urxvt" , "aterm","URxvt","XTerm","konsole","terminator","gnome-terminal"
+            "xterm" , "urxvt" , "aterm","URxvt","XTerm","konsole","terminator","gnome-terminal", "terminology"
         }
     },
     {
@@ -166,6 +166,7 @@ tyrannical.properties.intrusive = {
     "ksnapshot"     , "pinentry"       , "gtksu"     , "kcalc"        , "xcalc"               ,
     "feh"           , "Gradient editor", "About KDE" , "Paste Special", "Background color"    ,
     "kcolorchooser" , "plasmoidviewer" , "Xephyr"    , "kruler"       , "plasmaengineexplorer",
+    "key-mon"
 }
 
 -- Ignore the tiled layout for the matching clients
@@ -173,7 +174,8 @@ tyrannical.properties.floating = {
     "MPlayer"      , "pinentry"        , "ksnapshot"  , "pinentry"     , "gtksu"          ,
     "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
     "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
-    "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer"
+    "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer" ,
+    "key-mon"
 }
 
 -- Make the matching clients (by classes) on top of the default layout

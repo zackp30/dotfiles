@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cat dmx.conf.raw |sed -e s/WTIN/`cat ~screens/linux-wtin`/g > dmx.conf
+xauth add `tail -1 ~screens/linux-wtin.mc`
+Xdmx -configfile ~/dmx.conf -config wtin -norender -noglxproxy
