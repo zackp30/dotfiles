@@ -42,7 +42,7 @@
   This (huge) list contains each package I use, at the end each is
   passed to `require-package' to download and install.
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  # #+BEGIN_SRC emacs-lisp :tangle yes
 
     (require 'cl)
     ;; Install packages.
@@ -289,6 +289,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package org
+      :quelpa
       :config
       (rebind-key (kbd "C-c <left>") org-mode-map (kbd "C-x <left>"))
       (rebind-key (kbd "C-c <right>") org-mode-map (kbd "C-x <right>"))
@@ -472,6 +473,7 @@
 *** Org-bullets
     #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package org-bullets
+        :quelpa
         :config
         (add-hook 'org-mode-hook 'org-bullets-mode))
     #+END_SRC
@@ -504,7 +506,7 @@
 **** Haskell (diagrams)
 
      #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package ob-diagrams)
+     (use-package ob-diagrams :quelpa)
      #+END_SRC
 
 
@@ -539,13 +541,13 @@
 *** Reveal.js
 
     #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ox-reveal)
+    (use-package ox-reveal :quelpa)
     #+END_SRC
 
 * Winner
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package winner)
+    (use-package winner :quelpa)
   #+END_SRC
 
 * PlantUML
@@ -569,6 +571,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package flycheck
+      :quelpa
       :init
       (setq flycheck-check-syntax-automatically '(save mode-enabled)) ;; check when the file is written, or a new mode is enabled.
       (setq flycheck-highlighting-mode 'symbols)
@@ -611,6 +614,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package emmet-mode
+       :quelpa
        :config
        (add-hook 'web-mode-hook 'turn-on-emmet-mode)
        (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
@@ -623,6 +627,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package avy
+      :quelpa
       :config
       (define-key global-map (kbd "C-c k c") 'avy-goto-char)
       (define-key global-map (kbd "C-c k w") 'avy-goto-word-1)
@@ -634,6 +639,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package magit
+      :quelpa
       :config
       (setq magit-auto-revert-mode nil)
       (setq magit-last-seen-setup-instructions "1.4.0"))
@@ -654,6 +660,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package company
+      :quelpa
       :config
       (add-hook 'after-init-hook 'global-company-mode) ;; enable company-mode globally
       (setq company-idle-delay 0.1)
@@ -671,6 +678,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package company-anaconda
+       :quelpa
        :config
        (add-hook 'python-mode-hook (lambda ()
                                      (anaconda-mode)
@@ -683,6 +691,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package company-ghc
+       :quelpa
        :config
        (add-hook 'haskell-mode-hook (lambda ()
                                       (add-to-list 'company-backends 'company-ghc)))
@@ -696,6 +705,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package edit-server
+      :quelpa
       :config
       (when (string= (system-name) "linux-wtin.site") ;; home PC
         (edit-server-start)))
@@ -705,6 +715,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package anzu
+      :quelpa
       :config
       (global-anzu-mode 1))
   #+END_SRC
@@ -715,6 +726,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package evil
+      :quelpa
       :init
       (setq evil-toggle-key "C-c C-j")
       :config
@@ -729,6 +741,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package surround
+       :quelpa
        :config
        (global-surround-mode 1))
    #+END_SRC
@@ -740,6 +753,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-nerd-commenter
+       :quelpa
        :config
        (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
        (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
@@ -754,6 +768,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-leader
+       :quelpa
        :config
        (evil-leader/set-leader "<SPC>") ;; space is my leader
        (global-evil-leader-mode 1)
@@ -800,6 +815,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-matchit
+       :quelpa
        :config
        (global-evil-matchit-mode))
    #+END_SRC
@@ -808,6 +824,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-space
+       :quelpa
        :config
        (unbind-key "C-p" evil-normal-state-map)
        (unbind-key "C-p" global-map)
@@ -824,6 +841,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package git-gutter
+      :quelpa
       :config
       (global-git-gutter-mode 1))
   #+END_SRC
@@ -831,6 +849,7 @@
 * Helm
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package helm
+      :quelpa
       :config
       (helm-mode 1)
       (helm-autoresize-mode 1)
@@ -842,6 +861,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package helm-projectile
+       :quelpa
        :config
        (global-set-key (kbd "C-c h") 'helm-projectile))
    #+END_SRC
@@ -860,6 +880,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package helm-swoop
+       :quelpa
        :config
        (define-key global-map (kbd "C-c C-a C-c") 'helm-swoop))
    #+END_SRC
@@ -869,6 +890,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package scss-mode
+       :quelpa
        :config
        (setq scss-compile-at-save nil)
        (a-mode ".scss" "scss"))
@@ -891,6 +913,7 @@
     #+BEGIN_SRC emacs-lisp :tangle yes
       (require 'slime-autoloads)
       (use-package slime
+        :quelpa
         :config
         (add-hook 'slime-repl-mode-hook
                   (lambda ()
@@ -910,6 +933,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package haskell-mode
+       :quelpa
        :config
        (setq haskell-font-lock-symbols t) ;; spiffy symbols.
        (add-hook 'haskell-mode-hook 'ghc-init)
@@ -925,6 +949,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package cider
+       :quelpa
        :config
        (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
        (a-mode ".boot" "clojure")
@@ -939,6 +964,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package js2-mode
+       :quelpa
        :init
        (a-mode ".es6" "js2")
        (a-mode ".js" "js2")
@@ -956,6 +982,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package web-mode
+       :quelpa
        :config
        (a-mode ".phtml" "web")
        (a-mode ".liquid" "web")
@@ -976,6 +1003,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package gl-conf-mode
+       :quelpa
        :config
        (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
                                        gl-conf-mode)))
@@ -1009,6 +1037,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package cmake-mode
+       :quelpa
        :init
        (add-to-list 'auto-mode-alist
                     '("CMakeLists.txt" . cmake-mode)))
@@ -1029,6 +1058,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package geiser
+       :quelpa
        :config
        (add-hook 'scheme-mode-hook (lambda ()
                                      (add-to-list 'company-backends 'geiser-company-backend))))
@@ -1044,6 +1074,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ibuffer-vc
+       :quelpa
        :bind ("C-x C-b" . ibuffer)
        :init
        (require 'ibuffer-vc)
@@ -1070,6 +1101,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package indent-guide
+      :quelpa
       :config
       (indent-guide-global-mode 1)) ;; enable globally
   #+END_SRC
@@ -1086,6 +1118,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package highlight-indentation
+      :quelpa
       :config
       (highlight-indentation-mode 1)) ;; enable globally
   #+END_SRC
@@ -1096,6 +1129,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package mmm-mode
+      :quelpa
       :config
       (setq mmm-global-mode 'maybe)
       (mmm-add-classes
@@ -1143,6 +1177,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package projectile
+      :quelpa
       :bind ("C-c v f" . helm-projectile-find-file)
       :config
       (setq projectile-completion-system 'helm)
@@ -1157,6 +1192,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package smart-mode-line
+      :quelpa
       :config
       (setq sml/theme 'dark)
       (sml/setup))
@@ -1166,7 +1202,8 @@
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package mode-icons
-:config
+    :quelpa
+    :config
     (mode-icons-mode 1))
 #+END_SRC
 
@@ -1176,6 +1213,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ag
+      :quelpa
       :config
       (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
   #+END_SRC
@@ -1186,6 +1224,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ws-butler
+      :quelpa
       :config
       (add-hook 'prog-mode-hook 'ws-butler-mode))
   #+END_SRC
@@ -1197,6 +1236,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package yasnippet
+      :quelpa
       :config
       (yas-global-mode 1)
       (a-mode ".snip" "snippet")
@@ -1250,6 +1290,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package undo-tree
+      :quelpa
       :config
       (setq undo-tree-auto-save-history 1)
       (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
@@ -1261,6 +1302,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package highlight-numbers
+      :quelpa
       :config
       (add-hook 'prog-mode-hook 'highlight-numbers-mode))
   #+END_SRC
@@ -1269,6 +1311,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package rainbow-identifiers
+      :quelpa
       :config
       (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
   #+END_SRC
@@ -1277,6 +1320,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package rainbow-delimiters
+      :quelpa
       :config
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
       (add-hook 'text-mode-hook 'rainbow-delimiters-mode-enable))
@@ -1289,6 +1333,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package imenu
+      :quelpa
       :config
       (add-to-list 'imenu-generic-expression
                    '("Used Packages"
@@ -1425,6 +1470,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package boxquote
+      :quelpa
       :config
       (setq-default  boxquote-bottom-corner "╰"       ; U+2570
                      boxquote-side          "│ "      ; U+2572 + space
@@ -1525,6 +1571,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package tiny
+      :quelpa
       :config
       (tiny-setup-default))
   #+END_SRC
@@ -1533,6 +1580,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package pinentry
+      :quelpa
       :config
       (setenv "INSIDE_EMACS" "1"))
   #+END_SRC
@@ -1567,6 +1615,7 @@ Background Process Runner.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package bpr
+    :quelpa
     :config
     (setq bpr-colorize-output t))
 #+END_SRC
@@ -1593,6 +1642,7 @@ Background Process Runner.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package bbdb
+    :quelpa
     :init
     (setq bbdb-file "~/org/bbdb")
     :config
@@ -1603,6 +1653,7 @@ Background Process Runner.
   
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package which-key
+      :quelpa
       :config
       (which-key-mode 1)
       (setq which-key-idle-delay 0.3))
@@ -1612,6 +1663,7 @@ Background Process Runner.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package beacon
+    :quelpa
     :config
     (beacon-mode 1))
 #+END_SRC
