@@ -977,6 +977,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package gl-conf-mode
        :config
+       (setq gdscript-tab-width 2)
        (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
                                        gl-conf-mode)))
    #+END_SRC
