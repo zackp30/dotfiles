@@ -96,7 +96,7 @@
                  (gdscript-insert-tab (gdscript-max-indent)))))))))
 
 
-(define-derived-mode gdscript-mode fundamental-mode "GDScript"
+(define-derived-mode gdscript-mode prog-mode "GDScript"
   (setq-local comment-start "# ")
   (setq-local comment-end "")
   (set-syntax-table gdscript-syntax-table)
