@@ -2,7 +2,6 @@
   (let ((map (make-sparse-keymap)))
     (define-key map [remap newline-and-indent] 'gdscript-newline-and-indent) map))
 
-
 ;;user customization
 (defcustom gdscript-tabs-mode indent-tabs-mode
   "Use tabs (t) or spaces (nil)"
@@ -44,7 +43,7 @@
   (save-excursion
     (skip-chars-backward "\r\n\t ");;maybe don't needs this
     (let ((char-eol (char-before (line-end-position))))
-        (char-equal ?\: char-eol))))
+      (char-equal ?\: char-eol))))
 
 (defun gdscript-max-indent ()
   (save-excursion
@@ -94,18 +93,15 @@
                (move-to-column co)
                (save-excursion
                  (back-to-indentation)
-                 (gdscript-insert-tab (gdscript-max-indent))))))
-          )
-    ))
+                 (gdscript-insert-tab (gdscript-max-indent)))))))))
 
 
-(define-derived-mode gdscript-mode fundamental-mode "GDScript"
-  (setq-local indent-line-function 'gdscript-indent-line)
+(define-derived-mode gdscript-mode prog-mode "GDScript"
   (setq-local comment-start "# ")
   (setq-local comment-end "")
   (set-syntax-table gdscript-syntax-table)
   (setq-local font-lock-defaults '(gdscript-font-lock)))
 
-(provide 'gdscript-mode)
-
 (add-to-list 'auto-mode-alist '("\\.gd\\'" . gdscript-mode))
+
+(provide 'gdscript-mode)
