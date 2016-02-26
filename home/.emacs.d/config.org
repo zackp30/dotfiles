@@ -1328,7 +1328,10 @@
     (setq initial-scratch-message ;; I know it's a scratch buffer by now!
           (format ";; Emacs was started at %s"
                   (format-time-string "%Y-%m-%dT%T")))
-    (setq package-menu-async nil) ;; disable this, I hate it when I press "U" just when I run `list-packages' to result in it claiming there's no updates avaialble so I have to run it again.
+    (setq package-menu-async nil)
+    ;; disable this, I hate it when I
+    ;; press "U" just when I run `list-packages' to result in it claiming
+    ;; there's no updates avaialble so I have to run it again.
   #+END_SRC
 
 ** Backups

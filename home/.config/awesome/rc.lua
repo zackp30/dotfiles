@@ -47,7 +47,7 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "terminology"
+terminal = "urxvt-256color"
 editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -113,7 +113,7 @@ tyrannical.tags = {
         layout      = awful.layout.suit.tile, -- Use the tile layout
         instance    = {"dev", "ops"},         -- Accept the following instances. This takes precedence over 'class'
         class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
-            "xterm" , "urxvt" , "aterm","URxvt","XTerm","konsole","terminator","gnome-terminal", "terminology"
+            "xterm" , "urxvt" , "urxvt-256color", "aterm","URxvt","XTerm","konsole","terminator","gnome-terminal", "terminology"
         }
     },
     {

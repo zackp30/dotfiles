@@ -1,4 +1,0 @@
-#!/bin/bash
-
-ssh root@10.8.0.2 ssh -X screns@10.8.0.4 # wtin &
-~/bin/dmx
