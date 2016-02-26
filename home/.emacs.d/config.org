@@ -1078,7 +1078,7 @@
 * Emojis
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (global-emojify-mode 1)
+    (global-emojify-mode 0)
   #+END_SRC
 
 * highlight-indentation
@@ -1633,6 +1633,23 @@ Background Process Runner.
     (set-language-environment "UTF-8")
     (set-default-coding-systems 'utf-8)
   #+END_SRC
+
+* Prose
+** Marking
+*** Determine arrow type for marking
+    When I'm marking a piece of school work I use a custom made snippet
+    for my own notation of correction. The function below is used
+    within said snippet in order to not make the snippet incredibly
+    long.
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z-determine-arrow (text)
+        (case text
+          ("✓" "-->")
+          ("✗" "==>")
+          ("N/A" "~~>")))
+    #+END_SRC
+
 
 * The end
 
