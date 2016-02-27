@@ -189,6 +189,20 @@
       (define-key map from-key nil)
       (define-key map to-key (lookup-key map from-key)))
 #+END_SRC
+
+** =scase=
+
+   Like =case= but for string equality, not using =eq=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defmacro scase (to-compare &rest forms)
+       `(cond
+         ,@(mapcar (lambda (form)
+                     `((string= ,(first form) ,to-compare)
+                       ,(second form)))
+                   forms)))
+   #+END_SRC
+
 * El-get
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1647,12 +1661,11 @@ Background Process Runner.
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (defun z-determine-arrow (text)
-        (case text
-          ("✓" "-->")
-          ("✗" "==>")
-          ("N/A" "~~>")))
+        (scase text
+               ("✓" "-->")
+               ("✗" "==>")
+               ("N/A" "~~>")))
     #+END_SRC
-
 
 * The end
 
