@@ -1667,6 +1667,63 @@ Background Process Runner.
                ("N/A" "~~>")))
     #+END_SRC
 
+*** Snippet
+
+    #+BEGIN_SRC snippet :tangle ~/.emacs.d/snippets/markdown-mode/answer.snip
+      # name: answer
+      # key: answer
+      # --
+      { ${1:$$(yas-choose-value '("✓" "✗" "N/A"))} ${2:$$(z-determine-arrow (yas-field-value 1))} ${3:[N/A]} ;; ${4:Comment} --> [$5/$6] }
+    #+END_SRC
+
+*** Haskell parser
+
+    The following is a (very WIP) parser for my "Marking Markup" I created.
+
+    It's WIP because:
+
+    - It gives no AST yet.
+    - My Haskell is very beginner-like, so there might be places it could be tidied up.
+
+    #+BEGIN_SRC haskell :tangle ~/bin/m.hs
+      import Text.ParserCombinators.Parsec
+
+      determineArrow "✓" = "-->"
+      determineArrow "✗" = "==>"
+      determineArrow "N/A" = "~~>"
+      determineArrow x = x ++ " NOT VALID"
+
+      p = do
+        string "{ "
+        indicator <- string "✓"
+                    <|> string "✗"
+                    <|> string "N/A"
+        space
+        arrow <- string $ determineArrow indicator
+        correctAnswer <- manyTill anyChar (try (string ";;"))
+        comment <- manyTill anyChar (lookAhead (try (string "-->")))
+        string "--> " -- wasn't consumed because of `lookAhead'
+        char '['
+        markObtained <- digit
+        char '/'
+        markOutOf <- digit
+        char ']'
+        string " }"
+
+      main =
+        do
+          input <- getContents
+          case parse p "(unknown)" input of
+                      Left e -> do putStrLn "Error parsing input:"; print e
+                      Right r -> mapM_ print r
+    #+END_SRC
+
+
+**** TODO Make it return AST.
+**** TODO Tidy up code (where?)
+**** TODO Make it more robust
+**** TODO Design and write Pandoc filter.
+
 * The end
 
   #+BEGIN_SRC emacs-lisp :tangle yes
