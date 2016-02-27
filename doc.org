@@ -226,7 +226,9 @@ This site is available as a few other formats:
 
   I use Awesome (and no desktop environment) for managing windows.
 
-  #+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2
+** TODO Recreate config in Org (again)
+
+  # #+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2
 
 * zsh
 
