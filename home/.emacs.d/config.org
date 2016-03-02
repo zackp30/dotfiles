@@ -704,6 +704,13 @@
        (autoload 'ghc-init "ghc" nil t))
    #+END_SRC
 
+** Go
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package company-go
+    :config
+    (add-hook 'go-mode-hook (lambda ()
+                                  (add-to-list 'company-backends 'company-go))))
+#+END_SRC
 * edit-server
 
   The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
