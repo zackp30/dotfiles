@@ -1304,10 +1304,11 @@
       (add-hook 'text-mode-hook 'rainbow-delimiters-mode-enable))
   #+END_SRC
 
-* imenu
+* Imenu
 
   Useful for navigating around my config.
 
+  I got the following from somewhere but I can't remember where from.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package imenu
@@ -1315,7 +1316,7 @@
       (add-to-list 'imenu-generic-expression
                    '("Used Packages"
                      "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
-      (define-key zack-keys-minor-mode-map (kbd "C-d") 'imenu))
+      (define-key zack-keys-minor-mode-map (kbd "C-x l") 'imenu))
   #+END_SRC
 
 * Misc
