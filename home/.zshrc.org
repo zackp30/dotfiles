@@ -650,4 +650,9 @@ shell, since they aren't actual programs.
     export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
   #+END_SRC
+* asdf
+
+  #+BEGIN_SRC shell :tangle yes
+    . $HOME/.asdf/asdf.sh
+  #+END_SRC
 
