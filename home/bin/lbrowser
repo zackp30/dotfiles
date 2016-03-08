@@ -1,3 +1,4 @@
 #!/bin/bash
+export CHROME_DEVEL_SANDBOX=$HOME/chrome-linux/chrome_sandbox
 
 $(browser) $@

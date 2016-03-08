@@ -1,12 +1,12 @@
 #!/bin/bash
 
+
 case $HOST in
     xieshaij)
         echo "chrome"
         ;;
 
     linux-m03e)
-        #echo "dockerchromium"
-        echo "chromium"
+        echo ~/chrome-linux/chrome
         ;;
 esac
