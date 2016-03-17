@@ -131,6 +131,7 @@
                     mmm-mode ;; Multiple Major Modes
                     mode-icons ;; icons for major modes
                     nim-mode ;; major mode for Nim
+                    ob-ipython
                     org-bullets
                     org-ref
                     pinentry
