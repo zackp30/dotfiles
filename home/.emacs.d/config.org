@@ -1690,7 +1690,7 @@ Background Process Runner.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (defun indent-buffer ()
-      "Format the whole buffer."
+      "Format the entire buffer."
       (indent-region (point-min) (point-max) nil)
       (untabify (point-min) (point-max))
       (save-buffer))
