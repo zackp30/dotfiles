@@ -101,7 +101,7 @@ S: shell command to run"
  '(flyspell-incorrect ((t (:underline (:color "#CC9393" :style wave) :slant italic))))
  '(font-lock-comment-face ((t (:foreground "#7F9F7F" :slant italic))))
  '(helm-match ((t (:background "#3F3F3F"))))
- '(markdown-markup-face ((t (:inherit shadow :foreground "dim gray" :slant normal :weight normal))))
+ '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
  '(mode-line ((t (:background "#440000" :foreground "#ffffff" :inverse-video nil :box (:line-width 5 :style released-button)))))
  '(org-document-title ((t (:inherit org-level-1 :box 2 :underline nil :height 2.0)))))
 
