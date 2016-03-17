@@ -1789,7 +1789,9 @@ Background Process Runner.
 * Keys
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (define-key zack-keys-minor-mode-map (kbd "C-x f") 'fill-region)
+    (bind-keys :map zack-keys-minor-mode-map
+               ("C-x f" . fill-region)
+               ("C-x c" . calc))
   #+END_SRC
 
 * The end
