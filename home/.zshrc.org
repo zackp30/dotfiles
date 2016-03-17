@@ -638,6 +638,11 @@
     alias :q='exit'
    #+END_SRC
 
+** =disp=
+   #+BEGIN_SRC shell :tangle yes
+   alias disp='DISPLAY=:100 '
+   #+END_SRC
+
 * emacsclient script
   
 Can't be an alias since almost nothing can read aliases from the
