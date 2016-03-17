@@ -1814,9 +1814,11 @@ Background Process Runner.
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package typo
        :config
-       (add-hook 'markdown-mode-hook (lambda ()
-                                       (typo-mode)
-                                       (typo-change-language "English"))))
+       (defun enable-typo-mode ()
+         (typo-mode 1)
+         (typo-change-language "English"))
+       (add-hook 'org-mode-hook 'enable-typo-mode)
+       (add-hook 'markdown-mode-hook 'enable-typo-mode))
    #+END_SRC
 
 * Keys
