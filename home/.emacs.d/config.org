@@ -71,6 +71,7 @@
                     ctags ;; ctags integration for Emacs
                     d-mode ;; mode for the D language
                     dired+ ;; extensions for Dired
+                    dired-subtree
                     dired-rainbow ;; RAINBOWS
                     dired-toggle-sudo
                     edit-server ;; used by Edit With Emacs
