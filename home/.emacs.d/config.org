@@ -602,6 +602,12 @@
      (setq python-shell-interpreter "python3") ;; I use Python 3
    #+END_SRC
 
+** Prose lint
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+   (use-package flycheck-proselint)
+   #+END_SRC
+
 ** Load-path inheritance
 
    This makes sure that when requiring a file that's within my `load-path' when editing Emacs Lisp code that Flycheck uses my load-path instead of an internal one.
