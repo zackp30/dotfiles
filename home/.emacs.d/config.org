@@ -859,12 +859,6 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-space
        :config
-       (unbind-key "C-p" evil-normal-state-map)
-       (unbind-key "C-p" global-map)
-       (unbind-key "C-]" evil-motion-state-map)
-       (unbind-key "C-]" global-map)
-       (setq evil-space-next-key (kbd "C-]"))
-       (setq evil-space-prev-key (kbd "C-p"))
        (evil-space-mode 1))
    #+END_SRC
 
