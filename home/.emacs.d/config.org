@@ -878,6 +878,14 @@
       (global-git-gutter-mode 1))
   #+END_SRC
 
+* Dired
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package dired-subtree
+      :config
+      (bind-keys :map dired-mode-map
+                 ("TAB" . dired-subtree-insert)
+                 ("<backtab>" . dired-subtree-remove)))
+  #+END_SRC
 * Helm
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package helm
