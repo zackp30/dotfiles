@@ -133,6 +133,7 @@
                     nim-mode ;; major mode for Nim
                     ocodo-svg-modelines
                     org-bullets
+                    org-ref
                     pinentry
                     projectile ;; project management
                     projectile-rails
@@ -556,6 +557,12 @@
     #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ox-reveal)
     #+END_SRC
+
+** Org-ref
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package org-ref)
+#+END_SRC
 
 * Winner
 
