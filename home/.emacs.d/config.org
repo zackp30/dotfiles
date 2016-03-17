@@ -1343,6 +1343,17 @@
       (define-key zack-keys-minor-mode-map (kbd "C-x l") 'imenu))
   #+END_SRC
 
+* Browser
+
+Change default browser used in Emacs to Chromium.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "chrome")
+    ;; I compile Chromium myself, and the binary is called "chrome"
+  #+END_SRC
+
+
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
