@@ -14,3 +14,5 @@
             line-end))
   :modes (text-mode markdown-mode gfm-mode))
 (add-to-list 'flycheck-checkers 'proselint)
+
+(provide 'flycheck-proselint)
