@@ -564,6 +564,11 @@
   (use-package org-ref)
 #+END_SRC
 
+** revealjs
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq org-reveal-root "https://xack.xyz/misc/docs/reveal.js")
+   #+END_SRC
+
 * Winner
 
   #+BEGIN_SRC emacs-lisp :tangle yes
