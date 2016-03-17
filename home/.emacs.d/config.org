@@ -1776,6 +1776,16 @@ Background Process Runner.
 **** TODO Make it more robust
 **** TODO Design and write Pandoc filter.
 
+** Typographic mode
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package typo
+       :config
+       (add-hook 'markdown-mode-hook (lambda ()
+                                       (typo-mode)
+                                       (typo-change-language "English"))))
+   #+END_SRC
+
 * Keys
 
   #+BEGIN_SRC emacs-lisp :tangle yes
