@@ -131,7 +131,6 @@
                     mmm-mode ;; Multiple Major Modes
                     mode-icons ;; icons for major modes
                     nim-mode ;; major mode for Nim
-                    ocodo-svg-modelines
                     org-bullets
                     org-ref
                     pinentry
