@@ -154,6 +154,7 @@
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
                     table ;; tables!
                     tiny
+                    typo
                     todotxt ;; Mode for the todo.txt markup
                     tuareg ;; ocaml
                     undo-tree ;; vim-like undo tree
