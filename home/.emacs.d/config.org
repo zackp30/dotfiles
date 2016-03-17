@@ -86,6 +86,7 @@
                     evil ;; VIM for Emacs
                     evil-anzu
                     evil-args ;; delimited text objects
+                    evil-space
                     evil-indent-textobject ;; indentation text object for Evil
                     evil-leader ;; VIM's leader key for Emacs
                     evil-matchit ;; `%' extensions in Evil
@@ -166,8 +167,7 @@
                     ws-butler ;; whitespace removal
                     yaml-mode ;; major mode for YAML
                     yasnippet ;; snippets
-                    zenburn-theme ;; Zenburn theme
-                    evil-space)
+                    zenburn-theme) ;; Zenburn theme
       "List of packages.")
 
     (loop for pkg in pkgs do
