@@ -16,3 +16,5 @@ doc.html
 doc.*
 
 _minted-doc/
+
+.scons*
