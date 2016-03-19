@@ -743,7 +743,15 @@
       (evil-set-initial-state 'dired-mode 'emacs)
       (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
       (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
-      (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize))
+      (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
+      ;; http://stackoverflow.com/questions/20882935/how-to-move-between-visual-lines-and-move-past-newline-in-evil-mode
+      ;; Make movement keys work like they should
+      (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+      (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+      (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+      (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+                                            ; Make horizontal movement cross lines
+      (setq-default evil-cross-lines t))
   #+END_SRC
 
 ** Text-object delimiters
