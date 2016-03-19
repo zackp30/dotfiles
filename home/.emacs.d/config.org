@@ -739,8 +739,7 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package edit-server
       :config
-      (when (string= (system-name) "linux-wtin.site") ;; home PC
-        (edit-server-start)))
+      (edit-server-start))
   #+END_SRC
 
 * Anzu
