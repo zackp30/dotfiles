@@ -387,6 +387,12 @@
      (setq org-latex-minted-langs '((conf-space "aconf")
                                     (conf-unix "squid")))
    #+END_SRC
+** UTF-8 in XeLaTeX
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+   ()
+   #+END_SRC
+
 ** Todo states
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -743,6 +749,13 @@
         (edit-server-start)))
   #+END_SRC
 
+* Eldoc
+
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+  (global-eldoc-mode -1)
+  #+END_SRC
+
 * Anzu
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -975,12 +988,10 @@
 
    I like Clojure, so CIDER is a must for me.
 
-   The following enables Eldoc for use with CIDER.
-
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package cider
        :config
-       (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+       ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
        (a-mode ".boot" "clojure")
        (add-to-list 'magic-mode-alist '(". boot" . clojure-mode)))
    #+END_SRC
@@ -1362,7 +1373,6 @@ Change default browser used in Emacs to Chromium.
     ;; I compile Chromium myself, and the binary is called "chrome"
   #+END_SRC
 
-
 * Misc
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1531,13 +1541,6 @@ Change default browser used in Emacs to Chromium.
             search-ring
             regexp-search-ring
             evil-ex-history))
-  #+END_SRC
-
-* Eldoc
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-hook 'python-mode-hook 'turn-on-eldoc-mode)
-    (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   #+END_SRC
 
 * Extra-warning face
