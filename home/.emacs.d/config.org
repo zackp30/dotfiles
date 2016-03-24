@@ -758,7 +758,7 @@
   (global-eldoc-mode -1)
   #+END_SRC
 
-* TODO Report bug to emacs-bugs
+** TODO Report bug to emacs-bugs
 
   Eldoc causes freezing of Emacs.
 
