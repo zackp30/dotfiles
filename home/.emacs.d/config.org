@@ -95,6 +95,7 @@
                     evil-numbers
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
+                    flycheck-pos-tip
                     flycheck-rust ;; flycheck for the Rust language
                     fountain-mode
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
@@ -604,12 +605,20 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package flycheck
-      :init
+      :config
       (setq flycheck-check-syntax-automatically '(save mode-enabled)) ;; check when the file is written, or a new mode is enabled.
       (setq flycheck-highlighting-mode 'symbols)
       (add-hook 'after-init-hook 'global-flycheck-mode) ;; enable flycheck globally
       (setq flycheck-indication-mode 'left-fringe)) ;; indicate syntax errors/warnings in the left-fringe.
   #+END_SRC
+
+** pos-tip
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package flycheck-pos-tip
+       :config
+       (flycheck-pos-tip-mode 1))
+   #+END_SRC
 
 
 ** Flyspell
