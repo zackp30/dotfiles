@@ -75,6 +75,26 @@ S: shell command to run"
      ("~" org-code verbatim)
      ("+"
       (:strike-through t)))))
+ '(org-latex-compiler "xelatex")
+ '(org-latex-default-packages-alist
+   (quote
+    (("" "minted" t)
+     ("AUTO" "inputenc" t
+      ("pdflatex"))
+     ("T1" "fontenc" t
+      ("pdflatex"))
+     ("" "graphicx" t)
+     ("" "grffile" t)
+     ("" "longtable" nil)
+     ("" "wrapfig" nil)
+     ("" "rotating" nil)
+     ("normalem" "ulem" t)
+     ("" "amsmath" t)
+     ("" "textcomp" t)
+     ("" "amssymb" t)
+     ("" "fontspec" t)
+     ("" "capt-of" nil)
+     ("" "hyperref" nil))))
  '(package-selected-packages
    (quote
     (zenburn-theme yasnippet yaml-mode ws-butler which-key wgrep-ag web-mode wanderlust use-package tuareg todotxt tiny surround stumpwm-mode smart-mode-line slime-company slim-mode scss-mode rust-mode rinari realgud rainbow-identifiers rainbow-delimiters rainbow-blocks racket-mode purescript-mode puml-mode projectile-rails org-bullets ocodo-svg-modelines nim-mode mode-icons mmm-mode material-theme markdown-mode magit-tramp lua-mode lentic julia-mode js2-mode io-mode indent-guide ibuffer-vc hydra hy-mode highlight-numbers highlight-indentation helm-swoop helm-projectile helm-ag graphviz-dot-mode go-mode gnuplot-mode gnuplot gitignore-mode gitconfig-mode git-timemachine git-gutter gist ghci-completion geiser fountain-mode flycheck-rust evil-visualstar evil-space evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-indent-textobject evil-args evil-anzu etags-select emojify emmet-mode emacs-eclim elixir-mode elfeed el-get ein editorconfig edit-server dired-toggle-sudo dired-rainbow dired+ d-mode ctags company-tern company-ghc company-anaconda coffee-mode cmake-mode cider calfw browse-kill-ring bpr boxquote bookmark+ beacon bbdb ag ace-window ace-jump-helm-line ace-flyspell)))
