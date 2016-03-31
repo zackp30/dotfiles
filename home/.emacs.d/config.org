@@ -43,7 +43,6 @@
   passed to `require-package' to download and install.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-
     (require 'cl)
     ;; Install packages.
     (defvar pkgs '(use-package
@@ -71,30 +70,32 @@
                     ctags ;; ctags integration for Emacs
                     d-mode ;; mode for the D language
                     dired+ ;; extensions for Dired
-                    dired-subtree
                     dired-rainbow ;; RAINBOWS
+                    dired-subtree
                     dired-toggle-sudo
                     edit-server ;; used by Edit With Emacs
                     editorconfig ;; make sure I conform to style guides
                     ein ;; iPython Notebook for Emacs
                     el-get
-                    elixir-mode ;; major mode for Elixir
                     elfeed
+                    elixir-mode ;; major mode for Elixir
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
-                    emojify ;; emojis :smile:
                     emmet-mode ;; http://emmet.io implementation for Emacs
+                    emojify ;; emojis :smile:
                     etags-select
                     evil ;; VIM for Emacs
                     evil-anzu
                     evil-args ;; delimited text objects
-                    evil-space
                     evil-indent-textobject ;; indentation text object for Evil
                     evil-leader ;; VIM's leader key for Emacs
                     evil-matchit ;; `%' extensions in Evil
                     evil-nerd-commenter ;; efficent commenting for Evil
                     evil-numbers
+                    evil-space
+                    evil-textobj-anyblock
                     evil-visualstar
                     flycheck ;; on the fly syntax checking
+                    flycheck-pos-tip
                     flycheck-rust ;; flycheck for the Rust language
                     fountain-mode
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
@@ -114,8 +115,8 @@
                     helm-ag ;; integration with Helm and `ag'
                     helm-projectile ;; projectile integration for helm
                     helm-swoop ;; grep-like tool for Helm
-                    highlight-numbers ;; rainbowify numbers
                     highlight-indentation
+                    highlight-numbers ;; rainbowify numbers
                     hy-mode ;; hy mode
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
@@ -138,8 +139,8 @@
                     pinentry
                     projectile ;; project management
                     projectile-rails
-                    purescript-mode
                     puml-mode
+                    purescript-mode
                     racket-mode ;; mode for the Racket
                     rainbow-blocks ;; omg more rainbows
                     rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
@@ -157,9 +158,9 @@
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
                     table ;; tables!
                     tiny
-                    typo ;; typographic quotes
                     todotxt ;; Mode for the todo.txt markup
                     tuareg ;; ocaml
+                    typo ;; typographic quotes
                     undo-tree ;; vim-like undo tree
                     wanderlust ;; email
                     web-mode ;; mode for web stuff
@@ -604,12 +605,20 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package flycheck
-      :init
+      :config
       (setq flycheck-check-syntax-automatically '(save mode-enabled)) ;; check when the file is written, or a new mode is enabled.
       (setq flycheck-highlighting-mode 'symbols)
       (add-hook 'after-init-hook 'global-flycheck-mode) ;; enable flycheck globally
       (setq flycheck-indication-mode 'left-fringe)) ;; indicate syntax errors/warnings in the left-fringe.
   #+END_SRC
+
+** pos-tip
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package flycheck-pos-tip
+       :config
+       (flycheck-pos-tip-mode 1))
+   #+END_SRC
 
 
 ** Flyspell
@@ -853,6 +862,15 @@
      (lexical-let ((default-color (cons (face-background 'mode-line)
                                         (face-foreground 'mode-line))))
        (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+   #+END_SRC
+
+** textobj-anyblock
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-textobj-anyblock
+       :config
+       (define-key evil-inner-text-objects-map "b" 'evil-textobj-anyblock-inner-block)
+       (define-key evil-outer-text-objects-map "b" 'evil-textobj-anyblock-a-block))
    #+END_SRC
 
 ** Cursor changing
