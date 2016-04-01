@@ -16,7 +16,7 @@ modKey = mod4Mask
 
 
 main = do
-    xmproc <- spawnPipe "~/bin/xmobar ~/.xmobarrc"
+    xmproc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
     xmonad $ defaultConfig
        {
           terminal = "urxvt-256color"
