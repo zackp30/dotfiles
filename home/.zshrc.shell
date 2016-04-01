@@ -113,8 +113,8 @@ function zle-line-finish () {
 zle -N zle-line-init
 zle -N zle-line-finish
 
-source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
-source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
+# source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
+# source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
 source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source_if_exists ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source_if_exists ~/.homesick/repos/homeshick/homeshick.sh
