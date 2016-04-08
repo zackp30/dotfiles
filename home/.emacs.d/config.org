@@ -138,7 +138,6 @@
                     org-ref
                     pinentry
                     projectile ;; project management
-                    projectile-rails
                     puml-mode
                     purescript-mode
                     racket-mode ;; mode for the Racket
@@ -1233,11 +1232,13 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package projectile
+      :disabled t
       :bind ("C-c v f" . helm-projectile-find-file)
       :config
       (setq projectile-completion-system 'helm)
       (projectile-global-mode)
-      (add-hook 'projectile-mode-hook 'projectile-rails-on))
+      ;; (add-hook 'projectile-mode-hook 'projectile-rails-on)
+)
   #+END_SRC
 
 * Mode-line
@@ -1256,8 +1257,9 @@
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package mode-icons
-:config
-    (mode-icons-mode 1))
+    :disabled t
+    :config
+    (mode-icons-mode))
 #+END_SRC
 
 * Ag
@@ -1297,10 +1299,6 @@
       (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
   #+END_SRC
 
-
-  (require 'ctags)
-  (setq ctags-command "/usr/bin/ctags-exuberant -e -R ")
-  (setq vc-follow-symlinks t)
 * Email
 
   #+BEGIN_SRC emacs-lisp :tangle yes

@@ -19,7 +19,7 @@
 
 ;; Since my configuration is a giant Org document, this needs to go
 ;; here since the correct version of Org isn't loaded, as `(require
-;; 'org)' requires the built-in Emacs Org.
+;; 'org)` requires the built-in Emacs Org.
 
 (el-get-bundle org-mode ;; following from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/org-mode.rcp
   :website "http://orgmode.org/"
