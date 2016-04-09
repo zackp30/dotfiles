@@ -66,6 +66,20 @@ S: shell command to run"
  '(el-get-git-shallow-clone t)
  '(indent-guide-char "│")
  '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
+ '(org-capture-templates
+   (quote
+    (("t" "Link and text" entry
+      (file+headline "~/org/notes.org" "Links")
+      "* [[%:link][%:description]]
+#+BEGIN_QUOTE
+%i
+#+END_QUOTE
+
+%?")
+     ("L" "Link" entry
+      (file+headline "~/org/notes.org" "Links")
+      "* %? [[%:link][%:description]]
+Captured On: %U"))))
  '(org-emphasis-alist
    (quote
     (("*" bold)

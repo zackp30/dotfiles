@@ -466,13 +466,11 @@
 
 ** Org-capture + Org-protocol
 
+   Template declarations are in [[file:~/.emacs.d/init.el]] so I can use M-x customize-variable RET with it.
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'org-capture)
      (require 'org-protocol)
-     (setq org-capture-templates `(("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
-                                    "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-                                   ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
-                                    "* %? [[%:link][%:description]] \nCaptured On: %U")))
 
      ;; Org Capture
      ;; Thank you random person from StackOverflow
@@ -490,6 +488,14 @@
        (if (equal "emacs-capture" (frame-parameter nil 'name))
            (delete-frame)))
    #+END_SRC
+
+*** Bookmarklets
+
+**** Link and text
+
+     #+BEGIN_SRC javascript
+     location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
+     #+END_SRC
 
 ** Beautiful Org
 *** Org-bullets
