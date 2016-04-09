@@ -71,6 +71,7 @@ S: shell command to run"
     (("t" "Link and text" entry
       (file+headline "~/org/notes.org" "Links")
       "* [[%:link][%:description]]
+Captured On: %U
 #+BEGIN_QUOTE
 %i
 #+END_QUOTE
