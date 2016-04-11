@@ -8,7 +8,7 @@ This site is available as a few other formats:
 
 * TODO [0/2]
   - [ ] More screenshots
-  - [ ] Describe packages better
+  - [ ] Describe packages in more detail
 
 * Introduction
   
