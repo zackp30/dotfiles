@@ -25,7 +25,7 @@ This site is available as a few other formats:
   My main strength is understanding the syntax of new programming
   languages, of which I have understood the syntax of:
 
-  -  Ruby --- an object oriented scripting language designed with
+  - [[http://ruby-lang.org][Ruby]] --- an object oriented scripting language designed with
     readability in mind
   -  Some LISP variants
     - [[http://clojure.org][Clojure]] (50%) --- Java Virtual Machine based language which
