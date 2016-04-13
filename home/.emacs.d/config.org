@@ -341,8 +341,9 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'find-lisp)
-
-     (setq org-agenda-files (append (find-lisp-find-files "~/org/" "\.org$") (find-lisp-find-files "~/MassRevision" "\.org$")))
+     (setq org-agenda-files
+           (append (find-lisp-find-files "~/org" "\.org$")
+                   (find-lisp-find-files "~/MassRevision" "\.org$")))
    #+END_SRC
 ** =org-log-done=
 
@@ -584,6 +585,13 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq org-reveal-root "https://xack.xyz/misc/docs/reveal.js")
    #+END_SRC
+
+** auto-fill-mode
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-hook 'org-mode-hook 'turn-on-auto-fill)
+   #+END_SRC
+
 
 * Winner
 
