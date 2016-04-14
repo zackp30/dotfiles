@@ -266,6 +266,65 @@ This site is available as a few other formats:
 
     #+INCLUDE: "~/.tmuxinator/x.yml" src yaml
 
+* Snippets
+** Get list of URLs for a series from the BBC iPlayer
+
+   First include jQuery (I’m lazy and just just used jQuery for this,
+   please forgive me :wink:).
+
+   Then go to the BBC iPlayer series you wish to obtain the links for.
+
+   Then paste the contents of =~/snippets/iplayer-series-to-links.js=
+   (after =C-x C-v t=) into the developer console of your browser.
+
+   Then we can use =jq= (or any other programming language of your
+   choice) to join the array (which doesn't use anything
+   JSON-specific) into a space separated string for use with things
+   like =youtube-dl=.
+
+*** =iplayer-series-to-links.js=
+
+    If we store all the URLs as an array, we can easily copy and paste
+    and paste it into a terminal to be parsed by a REPL or whatever. In
+    Chromium at least, if we =console.log(x)= each URL found then we
+    get the location of the URL to the right of the message, making
+    copy-and-paste a pain.
+
+    #+BEGIN_SRC javascript :tangle ~/snippets/iplayer-series-to-links.js
+      var b = []
+    #+END_SRC
+
+    =a.list-item-link= appears to be (after 2 minutes of inspecting
+    using the developer tools of Chromium) the optimum selection for
+    the list of episodes.
+
+    #+BEGIN_SRC javascript :tangle ~/snippets/iplayer-series-to-links.js
+      $('a.list-item-link').each(function (a) {
+    #+END_SRC
+
+    The links are not complete links (doesn't include a domain), which
+    means that we need to reconstruct them, which is easy since
+    =http://www.bbc.co.uk= is the only missing piece.
+
+    #+BEGIN_SRC javascript :tangle ~/snippets/iplayer-series-to-links.js
+           b.push("http://www.bbc.co.uk" + $(this).attr('href'))
+      })
+    #+END_SRC
+
+    Spit out the URLs to the console.
+
+    #+BEGIN_SRC javascript :tangle ~/snippets/iplayer-series-to-links.js
+      console.log(b)
+    #+END_SRC
+
+
+*** =iplayer-series-to-links.jq=
+
+    #+BEGIN_SRC jq :tangle ~/snippets/iplayer-series-to-links.jq
+    join("  ")
+    #+END_SRC
+
+
 * Wiki
 
   #+INCLUDE: "~/wiki/index.org" :minlevel 2
