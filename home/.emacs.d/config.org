@@ -1853,6 +1853,7 @@ Background Process Runner.
          (typo-mode 1)
          (typo-change-language "English"))
        (add-hook 'org-mode-hook 'enable-typo-mode)
+       (add-hook 'wl-draft-mode-hook 'enable-typo-mode)
        (add-hook 'markdown-mode-hook 'enable-typo-mode))
    #+END_SRC
 
