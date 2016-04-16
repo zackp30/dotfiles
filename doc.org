@@ -127,7 +127,7 @@ This site is available as a few other formats:
      -  [[http://weechat.org][WeeChat]] is my IRC client.
      -  My version control of choice is [[http://git-scm.com][Git]].
      -  Linux distribution of choice is [[http://opensuse.org][openSUSE]].
-     -  Todo list manager of choice is [[http://taskwarrior.org][taskwarrior]].
+     -  Todo list manager of choice is [[http://orgmode.org][Org]].
      -  Shell of choice is [[http://www.zsh.org/][zsh]]. 
      -  Browser of choice is Chromium /or/ [[http://elinks.cz][Elinks]] depending on if I'm
         using my phone with physical keyboard (limited credit, so using
