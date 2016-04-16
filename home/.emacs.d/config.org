@@ -1181,6 +1181,9 @@
 
 * Emojis
 
+  Disabled due to it interfering with something in the past,
+  unfortunately I never got around to submitting a bug report.
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (global-emojify-mode 0)
   #+END_SRC
