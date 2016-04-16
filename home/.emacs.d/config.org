@@ -469,7 +469,7 @@
 
 ** Org-capture + Org-protocol
 
-   Template declarations are in [[file:~/.emacs.d/init.el]] so I can use M-x customize-variable RET with it.
+   Template declarations are in =init.el= so I can use M-x customize-variable RET with it.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'org-capture)
