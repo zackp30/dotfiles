@@ -95,8 +95,8 @@ This site is available as a few other formats:
 
       #+BEGIN_EXAMPLE
      $ uname -a
-     Linux xieshaij 4.1.12-1-default #1 SMP PREEMPT Thu Oct 29 06:43:42 UTC
-     2015 (e24bad1) x86_64 x86_64 x86_64 GNU/Linux
+     Linux xieshaij 4.1.20-11-default #1 SMP PREEMPT Fri Mar 18 14:42:07 UTC
+     2016 (0a392b2) x86_64 x86_64 x86_64 GNU/Linux
       #+END_EXAMPLE
 
 **** Web system
