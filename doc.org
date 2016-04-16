@@ -52,11 +52,11 @@ This site is available as a few other formats:
 
     (Updated and revised version of my work experience CV follows)
 
-    I am 15 year old programmer, who likes Ruby, and is learning Haskell and
-    Clojure. I have been fiddling with computers since the age of 10, when I
-    first connected to IRC and started to learn more and more about
-    programming. I since learned Python, moved onto Ruby, and also fiddle
-    with Haskell, and Common Lisp.
+    I am a 15 year old programmer, who likes Ruby, and is learning
+    Haskell and Clojure. I have been fiddling with computers since the
+    age of 10, when I first connected to IRC and started to learn more
+    and more about programming. I since learned Python, moved onto
+    Ruby, and also fiddle with Haskell, and Common Lisp.
 
     Since the age of 13 I was administering my own server (a virtual machine
     running on a friends virtualisation-capable dedicated server). My father
