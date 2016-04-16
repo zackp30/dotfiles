@@ -124,7 +124,7 @@ This site is available as a few other formats:
      -  Emails are, of course, written in Emacs.
      -  Programming done in, you guessed it: Emacs.
      -  Wanderlust and [[http://www.mutt.org/][mutt]] are my email clients.
-     -  [[http://weechat.org][WeeChat]] is my IRC client.
+     -  IRC client of choice is [[http://weechat.org][WeeChat]]
      -  My version control of choice is [[http://git-scm.com][Git]].
      -  Linux distribution of choice is [[http://opensuse.org][openSUSE]].
      -  Todo list manager of choice is [[http://orgmode.org][Org]].
