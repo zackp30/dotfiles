@@ -130,7 +130,7 @@ This site is available as a few other formats:
      -  Todo list manager of choice is [[http://orgmode.org][Org]].
      -  Shell of choice is [[http://www.zsh.org/][zsh]]. 
      -  Browser of choice is Chromium /or/ [[http://elinks.cz][Elinks]] depending on if I'm
-        using my phone with physical keyboard (limited credit, so using
+        using my phone with physical keyboard (credit is limited, so using
         =elinks= over ssh without images is great for that).
      -  Programming language of choice is Ruby, or shell script when doing
        simple things.
