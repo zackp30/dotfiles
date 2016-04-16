@@ -903,7 +903,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package evil-matchit
        :config
-       (global-evil-matchit-mode))
+       (global-evil-matchit-mode 1))
    #+END_SRC
 
 ** Space
