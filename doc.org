@@ -6,11 +6,14 @@ This site is available as a few other formats:
 - [[http://xack.xyz/misc/doc.org][Org]]
 - [[http://xack.xyz/misc/doc.pdf][PDF]]
 
+#+COLUMNS: %13SCHEDULED %25ITEM %TODO %3PRIORITY %TAGS
 * TODO [0/2]
   - [ ] More screenshots
   - [ ] Describe packages in more detail
 
 * Introduction
+
+  (Extracted from my college application)
   
   Hi, I'm Zack Piper.
 
@@ -22,24 +25,20 @@ This site is available as a few other formats:
   ICT, which are all predominantly computer based, my favorite is still
   computer science.
 
-  My main strength is understanding the syntax of new programming
-  languages, of which I have understood the syntax of:
+  I have dabbled with the following programming languages:
 
   - [[http://ruby-lang.org][Ruby]] --- an object oriented scripting language designed with
     readability in mind
   -  Some LISP variants
-    - [[http://clojure.org][Clojure]] (50%) --- Java Virtual Machine based language which
+    - [[http://clojure.org][Clojure]] --- Java Virtual Machine based language which
       is a lot like LISP.
-    - [[http://racket-lang.org][Racket]] (30%) --- an interesting language which is useful for
+    - [[http://racket-lang.org][Racket]] --- an interesting language which is useful for
       implementing other languages.
-    - [[http://www.lispworks.com/documentation/common-lisp.html][Common Lisp]] (60%) --- a standard of LISP
-    - [[http://trac.sacrideo.us/wg/wiki/R7RSHomePage][Scheme]] (20%) --- a variant of LISP which is a lot more
+    - [[http://www.lispworks.com/documentation/common-lisp.html][Common Lisp]] --- a standard of LISP
+    - [[http://trac.sacrideo.us/wg/wiki/R7RSHomePage][Scheme]] --- a variant of LISP which is a lot more
       minimal
-  - [[http://haskell.org][Haskell]] (5%) --- a very very interesting purely functional
+  - [[http://haskell.org][Haskell]] --- a very very interesting purely functional
     language, which implements static and strong typing
-
-  Another main strength is programming in general, but it's still a hobby
-  but I hope to get a full-time job in programming.
 
   I enjoy programming a lot, and that's why I want a full-time job.
 
