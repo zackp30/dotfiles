@@ -239,6 +239,8 @@ This site is available as a few other formats:
   [[http://tmux.github.io][tmux]] is short for "terminal multiplexer", it is "window management"
   for the standard terminal.
 
+** TODO Fix Powerline not showing left segments in tmux
+
 ** Screenshots
 
    - [[file:screens/1437482737.png][Vanilla]]
