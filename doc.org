@@ -239,6 +239,8 @@ This site is available as a few other formats:
   [[http://tmux.github.io][tmux]] is short for "terminal multiplexer", it is "window management"
   for the standard terminal.
 
+** TODO Fix Powerline not showing left segments in tmux
+
 ** Screenshots
 
    - [[file:screens/1437482737.png][Vanilla]]
@@ -305,14 +307,14 @@ This site is available as a few other formats:
     =http://www.bbc.co.uk= is the only missing piece.
 
     #+BEGIN_SRC javascript :tangle ~/snippets/iplayer-series-to-links.js
-           b.push("http://www.bbc.co.uk" + $(this).attr('href'))
-      })
+           b.push("http://www.bbc.co.uk" + $(this).attr('href'));
+      });
     #+END_SRC
 
     Spit out the URLs to the console.
 
     #+BEGIN_SRC javascript :tangle ~/snippets/iplayer-series-to-links.js
-      console.log(b)
+      console.log(b);
     #+END_SRC
 
 
