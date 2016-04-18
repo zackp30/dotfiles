@@ -78,7 +78,7 @@ Captured On: %U
 
 %?")
      ("w" "Web site" entry
-      (file "")
+      (file "~/org/notes.org")
       "* %a :website:\n\n%U %?\n\n%:initial")
      ("L" "Link" entry
       (file+headline "~/org/notes.org" "Links")
