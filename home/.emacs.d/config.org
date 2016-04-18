@@ -216,6 +216,7 @@
         :pkgname "org-drill"
         :description "org-drill"
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
+      (el-get-bundle alphapapa/org-protocol-capture-html)
       (el-get-bundle github:zackp30/ox-twbs)
       (el-get-bundle org-reveal
         :type github
@@ -500,6 +501,13 @@
      location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
 
+**** HTML
+
+     #+BEGIN_SRC javascript
+       javascript:location.href = 'org-protocol://capture-html://w/' + encodeURIComponent(location.href) + '/' + encodeURIComponent(document.title) + '/' + encodeURIComponent(function () {var html = ""; if (typeof document.getSelection != "undefined") {var sel = document.getSelection(); if (sel.rangeCount) {var container = document.createElement("div"); for (var i = 0, len = sel.rangeCount; i < len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());} html = container.innerHTML;}} else if (typeof document.selection != "undefined") {if (document.selection.type == "Text") {html = document.selection.createRange().htmlText;}} var relToAbs = function (href) {var a = document.createElement("a"); a.href = href; var abs = a.protocol + "//" + a.host + a.pathname + a.search + a.hash; a.remove(); return abs;}; var elementTypes = [['a', 'href'], ['img', 'src']]; var div = document.createElement('div'); div.innerHTML = html; elementTypes.map(function(elementType) {var elements = div.getElementsByTagName(elementType[0]); for (var i = 0; i < elements.length; i++) {elements[i].setAttribute(elementType[1], relToAbs(elements[i].getAttribute(elementType[1])));}}); return div.innerHTML;}());
+     #+END_SRC
+
+
 ** Beautiful Org
 *** Org-bullets
     #+BEGIN_SRC emacs-lisp :tangle yes
@@ -591,7 +599,6 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'org-mode-hook 'turn-on-auto-fill)
    #+END_SRC
-
 
 * Winner
 
@@ -1637,6 +1644,7 @@ Change default browser used in Emacs to Chromium.
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package tiny
       :config
+      (define-key zack-keys-minor-mode-map (kbd "C-j") 'tiny-expand)
       (tiny-setup-default))
   #+END_SRC
 

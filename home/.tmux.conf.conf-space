@@ -1,5 +1,4 @@
 run-shell "powerline-daemon -q"
-source "/home/zack/powerline/powerline/bindings/tmux/powerline-base.conf"
 source "/home/zack/powerline/powerline/bindings/tmux/powerline.conf"
 
 set -g mode-keys vi
@@ -16,7 +15,6 @@ bind-key @ switch-client -l
 
 set -g base-index 1
 
-set -g display-time 2000
 
 set -s escape-time 0
 
@@ -38,5 +36,3 @@ set -g history-limit 200000 # insane scroll back size
 run-shell ~/bin/zsetuppowerline
 run-shell ~/.tmux/tmux-pain-control/pain_control.tmux
 run-shell ~/.tmux/tmux-copycat/copycat.tmux
-
-
