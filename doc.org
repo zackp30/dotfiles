@@ -324,7 +324,6 @@ This site is available as a few other formats:
     join("  ")
     #+END_SRC
 
-
 * Wiki
 
   #+INCLUDE: "~/wiki/index.org" :minlevel 2
