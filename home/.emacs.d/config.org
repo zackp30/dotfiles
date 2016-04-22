@@ -400,7 +400,7 @@
 ** Todo states
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-todo-keywords '((sequence "TODO" "DONE")))
+     (setq org-todo-keywords '((sequence "TODO" "IN PROGRESS" "DONE")))
    #+END_SRC
 
 ** Import the LaTeX package
@@ -1338,15 +1338,15 @@
      (a-mode ".wl" "emacs-lisp")
      (add-to-list 'auto-mode-alist
                   '("mutt-" . mail-mode)) ;; mutt temporary files
-     (defun foo-wl ()
+     (defun wl-evil ()
        (when evil-mode (evil-change-state 'emacs)))
 
-     (add-hook 'wl-hook 'foo-wl)
-     (add-hook 'wl-folder-mode-hook 'foo-wl)
-     (add-hook 'wl-summary-mode-hook 'foo-wl)
-     (add-hook 'wl-message-mode-hook 'foo-wl)
-     (add-hook 'mime-view-mode-hook 'foo-wl)
-     (add-hook 'wl-template-mode-hook 'foo-wl)
+     (add-hook 'wl-hook 'wl-evil)
+     (add-hook 'wl-folder-mode-hook 'wl-evil)
+     (add-hook 'wl-summary-mode-hook 'wl-evil)
+     (add-hook 'wl-message-mode-hook 'wl-evil)
+     (add-hook 'mime-view-mode-hook 'wl-evil)
+     (add-hook 'wl-template-mode-hook 'wl-evil)
    #+END_SRC
 *** Disable message splitting on big attachments
 
