@@ -216,6 +216,7 @@
         :pkgname "org-drill"
         :description "org-drill"
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
+      (el-get-bundle alphapapa/org-protocol-capture-html)
       (el-get-bundle github:zackp30/ox-twbs)
       (el-get-bundle org-reveal
         :type github
@@ -474,6 +475,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'org-capture)
      (require 'org-protocol)
+     (require 'org-protocol-capture-html)
 
      ;; Org Capture
      ;; Thank you random person from StackOverflow
@@ -499,6 +501,12 @@
      #+BEGIN_SRC javascript
      location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
+
+**** HTML
+
+     #+BEGIN_SRC javascript
+     #+END_SRC
+
 
 ** Beautiful Org
 *** Org-bullets
@@ -591,7 +599,6 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'org-mode-hook 'turn-on-auto-fill)
    #+END_SRC
-
 
 * Winner
 
@@ -1637,6 +1644,7 @@ Change default browser used in Emacs to Chromium.
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package tiny
       :config
+      (define-key zack-keys-minor-mode-map (kbd "C-j") 'tiny-expand)
       (tiny-setup-default))
   #+END_SRC
 

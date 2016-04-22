@@ -3,6 +3,7 @@
   #+BEGIN_SRC conf-space :tangle yes
     run-shell "powerline-daemon -q"
   #+END_SRC
+
 * Vi keys
   
   #+BEGIN_SRC conf-space :tangle yes
