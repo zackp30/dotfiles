@@ -1322,6 +1322,12 @@
       (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
   #+END_SRC
 
+* Misc keybindings
+** =kill-this-buffer=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (define-key zack-keys-minor-mode-map (kbd "C-x C-;") 'kill-this-buffer)
+   #+END_SRC
 * Email
 
   #+BEGIN_SRC emacs-lisp :tangle yes
