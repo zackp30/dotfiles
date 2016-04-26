@@ -6,7 +6,7 @@ case $HOST in
         echo "chrome"
         ;;
 
-    linux-m03e)
+    linux-wjii)
         echo ~/chrome-linux/chrome
         ;;
 esac

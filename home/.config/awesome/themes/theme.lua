@@ -98,8 +98,6 @@ theme.layout_cornerne = home .. ".config/awesome/themes/layouts/cornernew.png"
 theme.layout_cornersw = home .. ".config/awesome/themes/layouts/cornersww.png"
 theme.layout_cornerse = home .. ".config/awesome/themes/layouts/cornersew.png"
 
-theme.awesome_icon = "/usr/local/share/awesome/icons/awesome16.png"
-
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
