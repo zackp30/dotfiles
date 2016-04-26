@@ -1889,6 +1889,13 @@ Background Process Runner.
 
 * Cascade startup system
 
+  This is the remnants of my mini “init-system” for Emacs, which
+  enabled me to easily have multiple Emacs server start
+  automatically. That was until I discovered each buffer has it’s own
+  working directory, which made this pointless.
+
+  It is kept here for historical reasons.
+
 ** =waitforemacs=
 
    Hangs until a certain other Emacs server starts.
