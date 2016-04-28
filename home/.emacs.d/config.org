@@ -1701,7 +1701,9 @@ Background Process Runner.
 
   From https://github.com/tonsky/FiraCode/wiki/Setting-up-Emacs
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+  Disabled due to the error "Attempted to shape unibyte text", which ended up breaking some seemingly unrelated things, such as =?= in Ediff's control panel?
+
+#+BEGIN_SRC emacs-lisp :tangle no
   (scase (getenv "HOST")
          ("xieshaij" (set-default-font "Fira Code-8"))
          ("linux-m03e" (set-default-font "Fira Code-8")))
