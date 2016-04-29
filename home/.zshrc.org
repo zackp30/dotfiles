@@ -23,7 +23,7 @@
 
 * Functions
 ** Detect command
-   
+
    This function returns exit code =1= if the command does *not* exist.
 
    #+BEGIN_SRC shell :tangle yes
@@ -32,7 +32,7 @@
          return 0
      }
    #+END_SRC
-  
+
 ** Run command
 
    This function runs the command if the command exists.
@@ -46,7 +46,7 @@
    #+END_SRC
 
 ** =source_if_exists=
-   
+
    Source the file if =file= exists.
 
    #+BEGIN_SRC shell :tangle yes
@@ -57,7 +57,7 @@
 
 ** Emacs projects
 
-   WARNING: I don't use this anymore.   
+   WARNING: I don't use this anymore.
 
 *** =ep=
 
@@ -158,7 +158,7 @@
 
 ** TODO [0/1]
    - [ ] Decide whether to go over the top and use an sqlite/mysql/whatever database for this.
-  
+
 * gpg-agent
 
   Runs =gpg-agent= if it isn't already running.
@@ -182,7 +182,7 @@
     From the ZSH wiki.
     Create a zkbd compatible hash to add other keys to this hash, see:
     man 5 terminfo.
-  
+
   #+BEGIN_SRC shell :tangle yes
     typeset -A key
 
@@ -221,7 +221,7 @@
   #+END_SRC
 
 * Source plugins
-  
+
   #+BEGIN_SRC shell :tangle yes
     # source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
     # source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
@@ -458,7 +458,7 @@
                               -c "silent tag $(cut -f2 <<< "$line")"
      }
   #+END_SRC
-  
+
 * ssh-agent
 
 #+BEGIN_SRC shell :tangle yes
@@ -490,7 +490,7 @@
 * pprompt
 
   My own multi-line prompt, [[http://assets.apertron.net/screens/1443966011.png][I like it]].
-  
+
 ** Colors
 
   #+BEGIN_SRC shell :tangle yes
@@ -503,11 +503,11 @@
     _p_color_host_fg=black
 
     #+END_SRC
-    
+
 ** Modules
-   
+
 *** Root-or-not-root symbol
-    
+
 #+BEGIN_SRC shell :tangle yes
 
 
@@ -522,7 +522,7 @@
 #+END_SRC
 
 *** Hostname
-    
+
 #+BEGIN_SRC shell :tangle yes
     p_module_host() {
         echo "%F{$_p_color_host_fg}%K{$_p_color_host}%m%k%f"
@@ -546,7 +546,7 @@
 #+END_SRC
 
 *** Time
-    
+
 #+BEGIN_SRC shell :tangle yes
     p_module_time() {
         echo '%F{$_p_color_date}%D{%H:%M:%S}%f'
@@ -604,7 +604,7 @@
    `git-rebase` mess up with a repo with empty commit messages.
 
    #+BEGIN_SRC shell :tangle yes
-     alias gcem="git commit -am 'The commit message was empty.'"
+     alias gcem="git commit -am 'The commit message was empty'"
    #+END_SRC
 
 ** =grmv=
@@ -644,7 +644,7 @@
    #+END_SRC
 
 * emacsclient script
-  
+
 Can't be an alias since almost nothing can read aliases from the
 shell, since they aren't actual programs.
 
@@ -659,4 +659,3 @@ shell, since they aren't actual programs.
   #+BEGIN_SRC shell :tangle yes
     source_if_exists $HOME/.evm/scripts/evm
   #+END_SRC
-
