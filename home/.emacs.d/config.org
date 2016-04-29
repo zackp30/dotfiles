@@ -499,12 +499,20 @@
 **** Link and text
 
      #+BEGIN_SRC javascript
-     location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
+     javascript:location.href='org-protocol://capture://t/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
 
 **** HTML
 
      #+BEGIN_SRC javascript
+     javascript:location.href = 'org-protocol://capture-readability://w/' + encodeURIComponent(location.href) + '/' + encodeURIComponent(document.title) + '/';
+     #+END_SRC
+
+
+**** Link
+
+     #+BEGIN_SRC javascript
+     javascript:location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
 
 
