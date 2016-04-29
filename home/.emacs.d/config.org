@@ -389,7 +389,8 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq org-latex-minted-langs '((conf-space "aconf")
-                                    (conf-unix "squid")))
+                                    (conf-unix "squid")
+                                    (text "snippet")))
    #+END_SRC
 ** UTF-8 in XeLaTeX
 
@@ -1765,7 +1766,7 @@ Background Process Runner.
 #+END_SRC
 
 * which-key
-  
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package which-key
       :config
