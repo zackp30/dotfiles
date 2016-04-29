@@ -328,7 +328,7 @@ if [[ $DISPLAY ]]; then unset TMUX; fi
 
 [[ ! -z $TMUX ]] && export TMOUT=3600
 
-alias gcem="git commit -am 'The commit message was empty.'"
+alias gcem="git commit -am 'The commit message was empty'"
 
 alias grmv="git remote -v"
 
