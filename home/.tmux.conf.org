@@ -5,7 +5,7 @@
   #+END_SRC
 
 * Vi keys
-  
+
   #+BEGIN_SRC conf-space :tangle yes
     set -g mode-keys vi
     set -g status-keys vi
@@ -24,12 +24,9 @@
   #+END_SRC
 
 * Settings
+
   #+BEGIN_SRC conf-space :tangle yes
-
-
     set -g base-index 1
-
-
     set -s escape-time 0
 
     set -g aggressive-resize on
@@ -46,11 +43,10 @@
     set-window-option -g pane-base-index 1 # 0 on any keyboard is in a weird placed IMO
 
     set -g history-limit 200000 # insane scroll back size
-
   #+END_SRC
-  
+
 * Plugins
-  
+
   #+BEGIN_SRC conf-space :tangle yes
     run-shell ~/bin/zsetuppowerline
     run-shell ~/.tmux/tmux-pain-control/pain_control.tmux
