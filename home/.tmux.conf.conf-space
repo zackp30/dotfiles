@@ -13,8 +13,6 @@ bind-key "#" last-window
 bind-key @ switch-client -l
 
 set -g base-index 1
-
-
 set -s escape-time 0
 
 set -g aggressive-resize on
@@ -35,3 +33,4 @@ set -g history-limit 200000 # insane scroll back size
 run-shell ~/bin/zsetuppowerline
 run-shell ~/.tmux/tmux-pain-control/pain_control.tmux
 run-shell ~/.tmux/tmux-copycat/copycat.tmux
+run-shell ~/.tmux/tmux-fingers/tmux-fingers.tmux

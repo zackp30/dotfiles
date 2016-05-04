@@ -58,3 +58,6 @@
 [submodule "home/.config/awesome/tyrannical"]
 	path = home/.config/awesome/tyrannical
 	url = https://github.com/Elv13/tyrannical
+[submodule "home/.tmux/tmux-fingers"]
+	path = home/.tmux/tmux-fingers
+	url = https://github.com/morantron/tmux-fingers
