@@ -1889,7 +1889,8 @@ Background Process Runner.
          (typo-change-language "English"))
        (add-hook 'org-mode-hook 'enable-typo-mode)
        (add-hook 'wl-draft-mode-hook 'enable-typo-mode)
-       (add-hook 'markdown-mode-hook 'enable-typo-mode))
+       (add-hook 'markdown-mode-hook 'enable-typo-mode)
+       (add-hook 'git-commit-mode-hook 'enable-typo-mode))
    #+END_SRC
 
 * Keys
