@@ -1092,7 +1092,9 @@
        (a-mode ".djhtml" "web")
        (a-mode ".ejs" "web")
        (a-mode ".html?" "web")
-       (a-mode ".php" "web"))
+       (a-mode ".php" "web")
+       (setq web-mode-enable-auto-closing t)
+       (setq web-mode-enable-auto-pairing t))
    #+END_SRC
 
 ** Gitolite
