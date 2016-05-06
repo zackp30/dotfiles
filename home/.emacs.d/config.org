@@ -1351,20 +1351,22 @@
    Not used much, but might switch to Wanderlust one day.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (require 'wl)
-     (autoload 'wl "wl" "Wanderlust" t)
-     (a-mode ".wl" "emacs-lisp")
-     (add-to-list 'auto-mode-alist
-                  '("mutt-" . mail-mode)) ;; mutt temporary files
-     (defun wl-evil ()
-       (when evil-mode (evil-change-state 'emacs)))
+     (use-package wl
+       :config
+       (autoload 'wl "wl" "Wanderlust" t)
+       (a-mode ".wl" "emacs-lisp")
+       (add-to-list 'auto-mode-alist
+                    '("mutt-" . mail-mode)) ;; mutt temporary files
+       (defun wl-evil ()
+         (when evil-mode (evil-change-state 'emacs)))
 
-     (add-hook 'wl-hook 'wl-evil)
-     (add-hook 'wl-folder-mode-hook 'wl-evil)
-     (add-hook 'wl-summary-mode-hook 'wl-evil)
-     (add-hook 'wl-message-mode-hook 'wl-evil)
-     (add-hook 'mime-view-mode-hook 'wl-evil)
-     (add-hook 'wl-template-mode-hook 'wl-evil)
+       (add-hook 'wl-hook 'wl-evil)
+       (add-hook 'wl-folder-mode-hook 'wl-evil)
+       (add-hook 'wl-summary-mode-hook 'wl-evil)
+       (add-hook 'wl-message-mode-hook 'wl-evil)
+       (add-hook 'mime-view-mode-hook 'wl-evil)
+       (add-hook 'wl-template-mode-hook 'wl-evil)
+       (add-hook 'mail-citation-hook 'sc-cite-original))
    #+END_SRC
 *** Disable message splitting on big attachments
 
