@@ -32,6 +32,6 @@ PreCommit:
 #  IndexTags:
 #    enabled: true # Generate a tags file with `ctags` each time HEAD changes
 
-CommitMsg:
-  SpellCheck:
-    enabled: true
+# CommitMsg:
+#   SpellCheck:
+#     enabled: true

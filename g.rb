@@ -1,6 +1,11 @@
 $settings = {
   whitespace: {
-    exts: %w(md org),
-    exceptions: %w(home/.zsh/plugins/)
+    files: [
+      'home/.emacs.d/config.org',
+      'home/.emacs.d/config.org',
+      'home/.emacs.d/init.el',
+      'home/.zshrc.org',
+      'doc.org'
+    ]
   }
 }

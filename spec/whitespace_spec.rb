@@ -1,8 +1,9 @@
 require './g.rb'
 
 describe 'File' do
-  Dir.glob("**/*.{#{$settings[:whitespace][:exts].join(',')}}", File::FNM_DOTMATCH).each do |g|
-next if
+  # Dir.glob("**/*.{#{$settings[:whitespace][:exts].join(',')}}", File::FNM_DOTMATCH).each do |g|
+  $settings[:whitespace][:files].each do |g|
+    next if
     describe g do
       line = 0
       IO.foreach g do |l|

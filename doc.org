@@ -13,7 +13,7 @@ This site is available as a few other formats:
 * Introduction
 
   (Extracted from my college application)
-  
+
   Hi, I'm Zack Piper.
 
   I'm studying computer science at secondary school. It is going well
@@ -79,7 +79,7 @@ This site is available as a few other formats:
     password, and is encrypted with the GNU Privacy Guard (an OpenPGP
     implementation), and the password to my account on the machine is simply
     not guessable.
-    
+
 **** My server setup
 
 ***** Miscellaneous
@@ -128,7 +128,7 @@ This site is available as a few other formats:
      -  My version control of choice is [[http://git-scm.com][Git]].
      -  Linux distribution of choice is [[http://opensuse.org][openSUSE]].
      -  Todo list manager of choice is [[http://orgmode.org][Org]].
-     -  Shell of choice is [[http://www.zsh.org/][zsh]]. 
+     -  Shell of choice is [[http://www.zsh.org/][zsh]].
      -  Browser of choice is Chromium /or/ [[http://elinks.cz][Elinks]] depending on if I'm
         using my phone with physical keyboard (credit is limited, so using
         =elinks= over ssh without images is great for that).
@@ -253,7 +253,7 @@ This site is available as a few other formats:
    =tmuxinator= handles the automatic creation of tmux sessions using handy YAML files.
 
    A single command can produce a huge and complex tmux session.
-   
+
 *** Emacs server
 
     #+INCLUDE: "~/.tmuxinator/emacs.yml" src yaml
