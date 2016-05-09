@@ -115,6 +115,7 @@
                     helm-ag ;; integration with Helm and `ag'
                     helm-projectile ;; projectile integration for helm
                     helm-swoop ;; grep-like tool for Helm
+                    highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
                     hy-mode ;; hy mode
@@ -614,6 +615,13 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package winner)
   #+END_SRC
+
+* Highlight
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package highlight)
+  #+END_SRC
+
 
 * PlantUML
 
