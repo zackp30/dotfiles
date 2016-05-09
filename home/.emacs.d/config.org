@@ -393,11 +393,6 @@
                                     (conf-unix "squid")
                                     (text "snippet")))
    #+END_SRC
-** UTF-8 in XeLaTeX
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-   ()
-   #+END_SRC
 
 ** Todo states
 
