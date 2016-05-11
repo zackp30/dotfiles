@@ -1,4 +1,4 @@
-;; Presentations in Org
+;;; Presentations in Org
 
 (defun pres-vis ()
   (org-show-subtree)

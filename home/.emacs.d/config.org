@@ -366,7 +366,6 @@
    #+END_SRC
 
 *** Options
-
     - =frame= produces a box around all code blocks.
     - =fontsize \\scriptsize= make the fontsize the same as the rest
       of the document.
@@ -458,7 +457,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun my-org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
-                (string= lang "gnuplot")
+                (string= lang "gnuplot") ;; don’t ask for gnuplot blocks
                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
      (add-hook 'after-init-hook (lambda ()
@@ -617,6 +616,40 @@
     (use-package highlight)
   #+END_SRC
 
+* AutoInsert
+
+From https://gist.github.com/jrnold/675584
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun z-yas/expand-by-uuid (mode uuid)
+      "Expand snippet template in MODE by its UUID."
+      (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
+
+    (defun z-yas/exists? (mode name)
+      "Return t if MODE has snippet NAME, nil otherwise."
+      (not (notany (lambda (x)
+                     (when (equal (type-of x)
+                                  'string)
+                       (file-exists-p (concat x "/" mode "/" name ".snip"))))
+                   (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
+
+    (defun cdr-or-second (cons-or-list)
+      (scase (symbol-name (type-of cons-or-list))
+             ("cons" (cdr cons-or-list))
+             ("list" (second cons-or-list))))
+
+    (use-package autoinsert
+      :config
+      (auto-insert-mode 1)
+      (setq auto-insert-query nil)
+      (map nil (lambda (x)
+                 (let ((mode-name (symbol-name (cdr-or-second x)))
+                       (regex (first x)))
+                   (when (z-yas/exists? mode-name "header")
+                     (define-auto-insert regex
+                       `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
+           auto-mode-alist))
+  #+END_SRC
 
 * PlantUML
 
