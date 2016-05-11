@@ -1346,21 +1346,36 @@
 
 * AutoInsert
 
-From https://gist.github.com/jrnold/675584
+
+** Utilities
+*** =z-yas/expand-by-uuid=
+
+    From https://gist.github.com/jrnold/675584, adapted slightly for my use.
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z-yas/expand-by-uuid (mode uuid)
+        "Expand snippet template in MODE by its UUID."
+        (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
+    #+END_SRC
+
+*** =z-yas/exists?=
+
+    Determines whether snippet =name= exists for mode =mode=.
+
+    I couldn't find an internal list of snippets yasnippet knows
+    about, so this will have to do.
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z-yas/exists? (mode name)
+        "Return t if MODE has snippet NAME, nil otherwise."
+        (not (notany (lambda (x)
+                       (when (equal (type-of x)
+                                    'string) 
+                         (file-exists-p (concat x "/" mode "/" name ".snip"))))
+                     (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
+    #+END_SRC
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun z-yas/expand-by-uuid (mode uuid)
-      "Expand snippet template in MODE by its UUID."
-      (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
-
-    (defun z-yas/exists? (mode name)
-      "Return t if MODE has snippet NAME, nil otherwise."
-      (not (notany (lambda (x)
-                     (when (equal (type-of x)
-                                  'string)
-                       (file-exists-p (concat x "/" mode "/" name ".snip"))))
-                   (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
-
     (defun z/cdr-or-last (cons-or-list)
       (if (condition-case nil
               (progn 
