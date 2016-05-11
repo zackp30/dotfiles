@@ -495,20 +495,20 @@
 **** Link and text
 
      #+BEGIN_SRC javascript
-     javascript:location.href='org-protocol://capture://t/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
+       javascript:location.href='org-protocol://capture://t/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
 
 **** HTML
 
      #+BEGIN_SRC javascript
-     javascript:location.href = 'org-protocol://capture-readability://w/' + encodeURIComponent(location.href) + '/' + encodeURIComponent(document.title) + '/';
+       javascript:location.href = 'org-protocol://capture-readability://w/' + encodeURIComponent(location.href) + '/' + encodeURIComponent(document.title) + '/';
      #+END_SRC
 
 
 **** Link
 
      #+BEGIN_SRC javascript
-     javascript:location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
+       javascript:location.href='org-protocol://capture://L/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
 
 
@@ -614,41 +614,6 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package highlight)
-  #+END_SRC
-
-* AutoInsert
-
-From https://gist.github.com/jrnold/675584
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun z-yas/expand-by-uuid (mode uuid)
-      "Expand snippet template in MODE by its UUID."
-      (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
-
-    (defun z-yas/exists? (mode name)
-      "Return t if MODE has snippet NAME, nil otherwise."
-      (not (notany (lambda (x)
-                     (when (equal (type-of x)
-                                  'string)
-                       (file-exists-p (concat x "/" mode "/" name ".snip"))))
-                   (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
-
-    (defun cdr-or-second (cons-or-list)
-      (scase (symbol-name (type-of cons-or-list))
-             ("cons" (cdr cons-or-list))
-             ("list" (second cons-or-list))))
-
-    (use-package autoinsert
-      :config
-      (auto-insert-mode 1)
-      (setq auto-insert-query nil)
-      (map nil (lambda (x)
-                 (let ((mode-name (symbol-name (cdr-or-second x)))
-                       (regex (first x)))
-                   (when (z-yas/exists? mode-name "header")
-                     (define-auto-insert regex
-                       `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
-           auto-mode-alist))
   #+END_SRC
 
 * PlantUML
@@ -1377,6 +1342,45 @@ From https://gist.github.com/jrnold/675584
       (define-key yas-minor-mode-map (kbd "<tab>") nil)
       (define-key yas-minor-mode-map (kbd "TAB") nil)
       (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
+  #+END_SRC
+
+* AutoInsert
+
+From https://gist.github.com/jrnold/675584
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun z-yas/expand-by-uuid (mode uuid)
+      "Expand snippet template in MODE by its UUID."
+      (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
+
+    (defun z-yas/exists? (mode name)
+      "Return t if MODE has snippet NAME, nil otherwise."
+      (not (notany (lambda (x)
+                     (when (equal (type-of x)
+                                  'string)
+                       (file-exists-p (concat x "/" mode "/" name ".snip"))))
+                   (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
+
+    (defun z/cdr-or-last (cons-or-list)
+      (if (condition-case nil
+              (progn 
+                (length cons-or-list)
+                nil)
+            (wrong-type-argument t))
+          (cdr cons-or-list)
+          (first (last cons-or-list))))
+
+    (use-package autoinsert
+      :config
+      (auto-insert-mode 1)
+      (setq auto-insert-query nil)
+      (map nil (lambda (x)
+                 (let ((mode-name (symbol-name (z/cdr-or-last x)))
+                       (regex (first x)))
+                   (when (z-yas/exists? mode-name "header")
+                     (define-auto-insert regex
+                       `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
+           auto-mode-alist))
   #+END_SRC
 
 * Misc keybindings
