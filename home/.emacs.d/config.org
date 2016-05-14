@@ -141,6 +141,7 @@
                     projectile ;; project management
                     puml-mode
                     purescript-mode
+                    racer ;; Rust code completion
                     racket-mode ;; mode for the Racket
                     rainbow-blocks ;; omg more rainbows
                     rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
@@ -1165,6 +1166,18 @@
        :config
        (add-hook 'scheme-mode-hook (lambda ()
                                      (add-to-list 'company-backends 'geiser-company-backend))))
+   #+END_SRC
+
+** Rust
+
+   Code completion for Rust.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package racer
+       :config
+       (add-hook 'rust-mode-hook 'racer-mode)
+       (setq racer-cmd "~/.cargo/bin/racer")
+       (setq racer-rust-src-path (expand-file-name "~/rust")))
    #+END_SRC
 
 * ibuffer
