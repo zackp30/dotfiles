@@ -537,6 +537,7 @@
       '((ruby . t)
         (gnuplot . t)
         (org . t)
+        (lisp . t)
         (plantuml . t)
         (dot . t)))
      (setq org-src-fontify-natively t)
