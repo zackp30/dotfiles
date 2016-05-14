@@ -458,6 +458,7 @@
      (defun my-org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
                 (string= lang "gnuplot") ;; don’t ask for gnuplot blocks
+                (string= lang "emacs-lisp") ;; don’t ask for Emacs Lisp blocks
                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
      (add-hook 'after-init-hook (lambda ()
