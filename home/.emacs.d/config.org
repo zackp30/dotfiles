@@ -155,6 +155,7 @@
                     slime ;; REPL for Common Lisp
                     slime-company
                     smart-mode-line ;; a nice mode line
+                    spaceline
                     stumpwm-mode
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
                     table ;; tables!
@@ -891,7 +892,7 @@
 
    I found this in Bling's dotemacs.
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
+   #+BEGIN_SRC emacs-lisp :tangle no
      (set-face-background 'mode-line "SaddleBrown")
      (defun my-evil-modeline-change (default-color)
        "changes the modeline color when the evil mode changes"
@@ -1302,11 +1303,21 @@
   #+END_SRC
 
 * Mode-line
+** Spaceline
+   
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package spaceline-config
+       :config
+       (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+       (spaceline-helm-mode 1)
+       (spaceline-spacemacs-theme))
+   #+END_SRC
+
 ** Smart-Mode-Line
 
   I have yet to get around to making my own mode-line, but Smart-Mode-Line is great, so I don't see why I need to, other than for fun of course.
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package smart-mode-line
       :config
       (setq sml/theme 'dark)
