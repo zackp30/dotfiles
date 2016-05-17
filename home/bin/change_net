@@ -4,6 +4,6 @@ cfgdir=/home/zack/netcfgs
 
 name=$1
 
-cp $cfgdir/$name /etc/sysconfig/network/ifcfg-wlan0
+cp $cfgdir/$name /etc/sysconfig/network/ifcfg-wlp2s0
 
 systemctl restart network

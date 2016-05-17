@@ -145,7 +145,7 @@ Captured On: %U"))))
  '(font-lock-comment-face ((t (:foreground "#7F9F7F" :slant italic))))
  '(helm-match ((t (:background "#3F3F3F"))))
  '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
- '(mode-line ((t (:background "#440000" :foreground "#ffffff"))))
+ '(mode-line ((t nil)))
  '(org-document-title ((t (:inherit org-level-1 :box 2 :underline nil :height 2.0)))))
 
 (server-start)
