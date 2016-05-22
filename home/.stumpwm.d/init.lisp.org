@@ -46,7 +46,7 @@
      (defcommand chromium () () ;; "chrome" on xieshaij, chromium elsehwhere; TODO: Other machines.
        (run-shell-command "CHROME_DEVEL_SANDBOX=~/chrome-linux/chrome_sandbox ~/chrome-linux/chrome"))
    #+END_SRC
-   
+
 ** fprev
 
    #+BEGIN_SRC common-lisp :tangle yes
@@ -80,7 +80,7 @@
 ** Launch urxvt, a terminal emulator.
 
    #+BEGIN_SRC common-lisp :tangle yes
-    (define-key *root-map* (kbd "c") "exec urxvt-256color")
+    (define-key *root-map* (kbd "c") "exec urxvtc-256color")
    #+END_SRC
 
 ** Chromium
@@ -114,6 +114,11 @@
     (define-key *root-map* (kbd "`") "lock") ;; reload config
    #+END_SRC
 
+** =run-shell-command=
+   #+BEGIN_SRC common-lisp :tangle yes
+     (define-key *misc-map* (kbd ",") "run-shell-comman")
+   #+END_SRC
+
 ** CopyQ
 
    #+BEGIN_SRC common-lisp :tangle yes
@@ -121,7 +126,6 @@
      (define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
      (define-key *misc-map* (kbd "C-p") "exec ~/ins/bin/copyq paste")
    #+END_SRC
-
 
 * Create workspaces
   #+BEGIN_SRC common-lisp :tangle yes

@@ -146,7 +146,7 @@ Captured On: %U"))))
  '(helm-match ((t (:background "#3F3F3F"))))
  '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
  '(mode-line ((t nil)))
- '(org-document-title ((t (:inherit org-level-1 :box 2 :underline nil :height 2.0)))))
+ '(org-document-title ((t (:inherit org-level-1 :foreground "#8CD0D3" :box nil :underline nil :height 2.0)))))
 
 (server-start)
 

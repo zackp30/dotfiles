@@ -28,7 +28,7 @@
     (set-prefix-key (kbd "M-z"))
     (set-prefix-key (kbd "M-C-z")))
 
-(define-key *root-map* (kbd "c") "exec urxvt-256color")
+(define-key *root-map* (kbd "c") "exec urxvtc-256color")
 
 (define-key *root-map* (kbd "C-c") "chromium") ;; browser
 
@@ -40,6 +40,8 @@
 (setq *mouse-focus-policy* :sloppy)
 
 (define-key *root-map* (kbd "`") "lock") ;; reload config
+
+(define-key *misc-map* (kbd ",") "run-shell-command")
 
 (run-shell-command "~/ins/bin/copyq")
 (define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")

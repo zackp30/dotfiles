@@ -15,12 +15,11 @@
 
 * Package archives
 
-  I use the Org mode archive, MELPA, Marmalade and GNU ELPA.
+  I use the Org mode archive, MELPA, and GNU ELPA.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq package-archives `(("melpa" . ,melpa-url)
                              ("org" . "http://orgmode.org/elpa/")
-                             ("marmalade" . "https://marmalade-repo.org/packages/")
                              ("gnu" . "https://elpa.gnu.org/packages/")))
     (package-initialize)
     (package-refresh-contents)
@@ -207,6 +206,34 @@
                      `((string= ,(first form) ,to-compare)
                        ,(second form)))
                    forms)))
+   #+END_SRC
+** =re-seq=
+   
+   From http://emacs.stackexchange.com/a/7150/7096
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (defun re-seq (regexp string)
+       "Get a list of all regexp matches in a string"
+       (save-match-data
+         (let ((pos 0)
+               matches)
+           (while (string-match regexp string pos)
+             (push (match-beginning 0) matches)
+             (setq pos (match-beginning 0)))
+          matches)))
+   #+END_SRC
+
+** =re-apply=
+   
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (defun re-apply (regex fn)
+       (let ((matches (re-seq regex
+                              (buffer-string)))
+             cur)
+         (while (setq cur (pop matches))
+           (message (number-to-string cur)))))
+
+     (re-apply "a" 'message)
    #+END_SRC
 
 * El-get
@@ -2021,3 +2048,4 @@ Background Process Runner.
 ** =emacsinotify=
 
    #+INCLUDE: "~/bin/emacsinotify" src shell
+

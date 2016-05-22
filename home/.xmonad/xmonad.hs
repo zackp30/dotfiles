@@ -52,8 +52,4 @@ myXPConfig = defaultXPConfig
 
 -- see http://xmonad.org/xmonad-docs/xmonad/XMonad-ManageHook.html
 myManageHook = composeAll
-    [
-      className =? "Pidgin"             --> doFloat
-    , className =? "XCalc"              --> doFloat
-    , className =? "mpv"                --> doFloat
-    ]
+    [className =? "mpv"                --> doFloat]
