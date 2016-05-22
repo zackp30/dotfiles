@@ -116,7 +116,7 @@
 
 ** =run-shell-command=
    #+BEGIN_SRC common-lisp :tangle yes
-     (define-key *misc-map* (kbd ",") "run-shell-comman")
+     (define-key *root-map* (kbd ",") "run-shell-command")
    #+END_SRC
 
 ** CopyQ

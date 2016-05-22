@@ -41,7 +41,7 @@
 
 (define-key *root-map* (kbd "`") "lock") ;; reload config
 
-(define-key *misc-map* (kbd ",") "run-shell-command")
+(define-key *root-map* (kbd ",") "run-shell-command")
 
 (run-shell-command "~/ins/bin/copyq")
 (define-key *misc-map* (kbd "c") "exec ~/ins/bin/copyq show")
