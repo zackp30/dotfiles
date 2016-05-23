@@ -207,7 +207,7 @@
                    forms)))
    #+END_SRC
 ** =re-seq=
-   
+
    From http://emacs.stackexchange.com/a/7150/7096
 
    #+BEGIN_SRC emacs-lisp :tangle no
@@ -223,7 +223,7 @@
    #+END_SRC
 
 ** =re-apply=
-   
+
    #+BEGIN_SRC emacs-lisp :tangle no
      (defun re-apply (regex fn)
        (let ((matches (re-seq regex
@@ -1894,7 +1894,6 @@ Background Process Runner.
       (add-to-list 'which-key-key-replacement-alist '("RET" . "⏎"))
       (add-to-list 'which-key-key-replacement-alist '("DEL" . "⇤"))
       (add-to-list 'which-key-key-replacement-alist '("SPC" . "␣"))
-      (which-key--show-evil-operator-keymap)
       (setq which-key-idle-delay 0.3))
   #+END_SRC
 
