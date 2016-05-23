@@ -1,7 +1,7 @@
 ! Colors - also see scripts/xcolor for switching
 
-URxvt.perl-lib: ~/.urxvt/urxvt-perls/:~/.urxvt/perl/
-URxvt.perl-ext-common: default,matcher,notify
+URxvt.perl-lib: ~/.urxvt/urxvt-perls/
+URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: lbrowser
 URxvt.matcher.button: 1
 
@@ -10,6 +10,8 @@ Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
 Xft.hintstyle: hintfull
+
+urxvt.font: xft:Hack:size=8
 
 URxvt.scrollBar: false
 URxvt.jumpScroll: true
@@ -57,3 +59,8 @@ URxvt*color12: #94bff3
 URxvt*color13: #ec93d3
 URxvt*color14: #93e0e3
 URxvt*color15: #ffffff
+
+Emacs.font: Hack-8
+
+Gdraw.ScreenWidthInches: 30
+Gdraw.ScreenWidthCentimeters: 37.3

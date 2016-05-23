@@ -1829,7 +1829,7 @@ Background Process Runner.
 
 * Font
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle yes
   (scase (getenv "HOST")
          ("xieshaij" (set-default-font "Hack-9")))
 #+END_SRC
