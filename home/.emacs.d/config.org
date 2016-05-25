@@ -52,7 +52,7 @@
                     avy ;; easymotion
                     bbdb
                     beacon
-                    bookmark+ ;; improved boomarks
+                    bookmark+ ;; improved bookmarks
                     boxquote
                     bpr
                     browse-kill-ring ;; menu for the killring
