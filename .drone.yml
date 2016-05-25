@@ -1,4 +1,0 @@
-build:
-  image: opensuse:42.1
-  commands:
-    - ls
