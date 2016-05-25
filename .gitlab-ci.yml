@@ -7,4 +7,4 @@ test:
     - export LC_ALL=en_US.UTF-8
     - zypper -n in ruby
     - gem install rspec
-    - rspec .
+    - rspec.ruby2.1 .
