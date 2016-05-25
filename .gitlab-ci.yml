@@ -1,7 +1,6 @@
-image: opensuse:42.1
+image: ruby
 test:
   stage: test
   script:
-    - zypper -n in ruby
     - gem install rspec
     - rspec.ruby2.1 .
