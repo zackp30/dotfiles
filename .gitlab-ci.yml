@@ -4,5 +4,4 @@ test:
   script:
     - zypper -n in ruby
     - gem install rspec
-    - ls
-    - rspec.ruby2.1
+    - rspec.ruby2.1 .
