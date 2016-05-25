@@ -2,11 +2,11 @@ image: opensuse:42.1
 test:
   stage: test
   script:
+    - zypper -n in glibc-locale ruby
     - glibc-locale
     - locale-gen
     - export LANG=en_US.UTF-8
     - export LANGUAGE=en_US.UTF-8
     - export LC_ALL=en_US.UTF-8
-    - zypper -n in ruby
     - gem install rspec
     - rspec.ruby2.1 .
