@@ -3,4 +3,4 @@ test:
   stage: test
   script:
     - gem install rspec
-    - rspec.ruby2.1 .
+    - rspec .
