@@ -126,7 +126,6 @@
                     lentic
                     lua-mode ;; mode for the Lua language
                     magit ;; git integration
-                    magit-tramp ;; TRAMP integration for Magit
                     markdown-mode ;; mode for the Markdown markup
                     material-theme
                     mmm-mode ;; Multiple Major Modes
@@ -155,7 +154,7 @@
                     smart-mode-line ;; a nice mode line
                     spaceline
                     stumpwm-mode
-                    surround ;; Delete surrounding characters (`()', `[]', etc.).
+                    evil-surround ;; Delete surrounding characters (`()', `[]', etc.).
                     table ;; tables!
                     tiny
                     todotxt ;; Mode for the todo.txt markup
@@ -524,13 +523,13 @@
 **** Link and text
 
      #+BEGIN_SRC javascript
-       javascript:location.href='org-protocol://capture://t/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
+       location.href='org-protocol://capture://t/'+encodeURIComponent(location.href)+'/'+encodeURIComponent(document.title)+'/'+encodeURIComponent(window.getSelection())
      #+END_SRC
 
 **** HTML
 
      #+BEGIN_SRC javascript
-       javascript:location.href = 'org-protocol://capture-readability://w/' + encodeURIComponent(location.href) + '/' + encodeURIComponent(document.title) + '/';
+       location.href = 'org-protocol://capture-readability://w/' + encodeURIComponent(location.href) + '/' + encodeURIComponent(document.title) + '/';
      #+END_SRC
 
 
@@ -872,9 +871,9 @@
 ** Text-object delimiters
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package surround
+     (use-package evil-surround
        :config
-       (global-surround-mode 1))
+       (global-evil-surround-mode 1))
    #+END_SRC
 
 
