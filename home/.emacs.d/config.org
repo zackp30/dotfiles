@@ -45,7 +45,6 @@
     ;; Install packages.
     (defvar pkgs '(use-package
                     ace-flyspell ;; ace-jump-mode for flyspell
-                    ace-jump-helm-line ;; use `ace-jump' to jump to a line in Helm.
                     ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
                     anzu
@@ -109,10 +108,7 @@
                     go-mode ;; major mode for go
                     graphviz-dot-mode
                     haskell-mode ;; major mode for Haskell
-                    helm ;; menus for ALL the things
-                    helm-ag ;; integration with Helm and `ag'
-                    helm-projectile ;; projectile integration for helm
-                    helm-swoop ;; grep-like tool for Helm
+                    ivy ;; menus for ALL the things
                     highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
@@ -253,11 +249,6 @@
         :description "Exports Org-mode contents to Reveal.js HTML presentation."
         :depends org-mode
         :features ox-reveal)
-      (el-get-bundle helm-bbdb
-        :type http
-        :pkgname "helm-bbdb"
-        :description "helm-bbdb"
-        :url "https://raw.githubusercontent.com/emacs-helm/helm-bbdb/master/helm-bbdb.el")
       ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/ntcmd.rcp
       (el-get-bundle ntcmd
         :type emacswiki
@@ -983,42 +974,12 @@
                  ("TAB" . dired-subtree-insert)
                  ("<backtab>" . dired-subtree-remove)))
   #+END_SRC
-* Helm
+* Ivy
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package helm
+    (use-package ivy
       :config
-      (helm-mode 1)
-      (helm-autoresize-mode 1)
-      (global-set-key (kbd "C-x C-f") 'helm-find-files)
-      (setq helm-mode-fuzzy-match t))
+      (ivy-mode 1))
   #+END_SRC
-** Projectile
-   Integrate Projectile and Helm.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package helm-projectile
-       :config
-       (global-set-key (kbd "C-c h") 'helm-projectile))
-   #+END_SRC
-
-** Helm-M-x
-
-   Helm's version of M-x.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (define-key global-map (kbd "M-x") 'helm-M-x)
-   #+END_SRC
-
-** Helm-swoop
-
-   Alternative to I-search.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package helm-swoop
-       :config
-       (define-key global-map (kbd "C-c C-a C-c") 'helm-swoop))
-   #+END_SRC
-
 * Languages
 ** SCSS
 
@@ -1316,12 +1277,8 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package projectile
       :disabled t
-      :bind ("C-c v f" . helm-projectile-find-file)
       :config
-      (setq projectile-completion-system 'helm)
-      (projectile-global-mode)
-      ;; (add-hook 'projectile-mode-hook 'projectile-rails-on)
-)
+      (projectile-global-mode))
   #+END_SRC
 
 * Mode-line
@@ -1331,7 +1288,6 @@
      (use-package spaceline-config
        :config
        (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-       (spaceline-helm-mode 1)
        (spaceline-spacemacs-theme))
    #+END_SRC
 
@@ -1831,7 +1787,8 @@ Background Process Runner.
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (scase (getenv "HOST")
-         ("xieshaij" (set-default-font "Hack-9")))
+         ("xieshaij" (set-default-font "Hack-9"))
+         ("linux-wjii" (set-default-font "Hack-9")))
 #+END_SRC
 
 * Calc
