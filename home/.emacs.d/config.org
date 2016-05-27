@@ -108,7 +108,6 @@
                     go-mode ;; major mode for go
                     graphviz-dot-mode
                     haskell-mode ;; major mode for Haskell
-                    ivy ;; menus for ALL the things
                     highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
@@ -117,6 +116,7 @@
                     ibuffer-vc ;; ibuffer integration for vc.el
                     indent-guide ;; a "ruler" for indentation
                     io-mode ;; major mode for Io
+                    ivy ;; menus for ALL the things
                     js2-mode ;; major mode for JavaScript
                     julia-mode ;; mode for the Julia language
                     lentic
@@ -152,6 +152,7 @@
                     spaceline
                     stumpwm-mode
                     surround ;; Delete surrounding characters (`()', `[]', etc.).
+                    swiper ;; `helm-swoop' for Ivy
                     table ;; tables!
                     tiny
                     todotxt ;; Mode for the todo.txt markup
