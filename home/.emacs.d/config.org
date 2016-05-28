@@ -150,7 +150,7 @@
                     smart-mode-line ;; a nice mode line
                     spaceline
                     stumpwm-mode
-                    surround ;; Delete surrounding characters (`()', `[]', etc.).
+                    evil-surround ;; Delete surrounding characters (`()', `[]', etc.).
                     swiper ;; `helm-swoop' for Ivy
                     table ;; tables!
                     tiny
