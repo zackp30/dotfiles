@@ -7,6 +7,6 @@ case $HOST in
         ;;
 
     linux-wjii)
-        echo ~/chrome-linux/chrome
+        echo "firefox-docker"
         ;;
 esac
