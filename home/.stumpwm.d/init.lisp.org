@@ -186,3 +186,9 @@
     (program-with-layout gimp)
   #+END_SRC
 
+
+* Modal bindings
+
+
+#+BEGIN_SRC common-lisp :tangle yes
+#+END_SRC
