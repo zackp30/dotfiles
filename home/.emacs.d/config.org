@@ -70,6 +70,7 @@
                     dired-rainbow ;; RAINBOWS
                     dired-subtree
                     dired-toggle-sudo
+                    dynamic-ruler ;; ruler
                     edit-server ;; used by Edit With Emacs
                     editorconfig ;; make sure I conform to style guides
                     ein ;; iPython Notebook for Emacs
@@ -475,12 +476,12 @@
    of Graphviz/PlantUML diagrams.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun my-org-confirm-babel-evaluate (lang body)
+     (defun z/org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
                 (string= lang "gnuplot") ;; don’t ask for gnuplot blocks
                 (string= lang "emacs-lisp") ;; don’t ask for Emacs Lisp blocks
                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
-     (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+     (setq org-confirm-babel-evaluate 'z/org-confirm-babel-evaluate)
      (add-hook 'after-init-hook (lambda ()
                                   (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))) ;; readd TAB back to normal mode in EVIL
    #+END_SRC
@@ -1960,6 +1961,13 @@ Background Process Runner.
                ("C-x f" . fill-region)
                ("C-x c" . calc))
   #+END_SRC
+
+* Dynamic ruler
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package dynamic-ruler)
+  #+END_SRC
+
 
 * The end
 
