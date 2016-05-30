@@ -43,7 +43,7 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt-256color"
+terminal = "urxvtc-256color"
 editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor
 
