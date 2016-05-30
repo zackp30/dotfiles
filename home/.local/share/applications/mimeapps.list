@@ -4,3 +4,6 @@ x-scheme-handler/org-protocol=org-protocol.desktop
 
 [Default Applications]
 text/html=chromium-browser.desktop;
+x-scheme-handler/web+tg=chromium-browser.desktop
+x-scheme-handler/https=firefox-docker.desktop
+x-scheme-handler/http=firefox-docker.desktop
