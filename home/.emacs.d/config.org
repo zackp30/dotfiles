@@ -640,7 +640,6 @@
   	(volatile-highlights-mode 1))
   #+END_SRC
 
-
 * Highlight
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -708,6 +707,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq-default flycheck-emacs-lisp-load-path 'inherit)
    #+END_SRC
+
 * Emmet
 
   [[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".
@@ -816,6 +816,7 @@
     (add-hook 'go-mode-hook (lambda ()
                                   (add-to-list 'company-backends 'company-go))))
 #+END_SRC
+
 * edit-server
 
   The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
@@ -977,6 +978,7 @@
   #+END_SRC
 
 * Dired
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package dired-subtree
       :config
@@ -984,12 +986,15 @@
                  ("TAB" . dired-subtree-insert)
                  ("<backtab>" . dired-subtree-remove)))
   #+END_SRC
+
 * Ivy
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ivy
       :config
       (ivy-mode 1))
   #+END_SRC
+
 * Languages
 ** SCSS
 
@@ -1423,6 +1428,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (define-key zack-keys-minor-mode-map (kbd "C-x C-;") 'kill-this-buffer)
    #+END_SRC
+
 * Email
 
   #+BEGIN_SRC emacs-lisp :tangle yes
