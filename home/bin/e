@@ -1,3 +1,3 @@
 #!/bin/sh
 
-~/ins/bin/emacsclient -c $@
+emacsclient -c $@

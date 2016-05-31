@@ -9,7 +9,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 
 -- Battery
 local assault = require('assault')
@@ -43,7 +42,7 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvtc-256color"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -92,19 +91,28 @@ end
 
 
 
-if beautiful.wallpaper then
-    for s in screen do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+awful.screen.connect_for_each_screen(function(s)
+    -- Wallpaper
+    if beautiful.wallpaper then
+        local wallpaper = beautiful.wallpaper
+        -- If wallpaper is a function, call it with the screen
+        if type(wallpaper) == "function" then
+            wallpaper = wallpaper(s)
+        end
+        gears.wallpaper.maximized(wallpaper, s, true)
     end
-end
+
+    -- Each screen has its own tag table.
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+end)
 
 
 -- Define a tag table which hold all screen tags.
 tags = {}
-for s in screen do
+awful.screen.connect_for_each_screen(function(s)
    -- Each screen has its own tag table.
    tags[s] = awful.tag({ "♨", "⌨", "⚡", "✉", "☕", "❁", "☃", "☄", "⚢" }, s, awful.layout.layouts[1])
-end
+end)
 
 
 
@@ -124,7 +132,6 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
 
 
@@ -178,7 +185,7 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
-for s in screen do
+awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
@@ -217,7 +224,7 @@ for s in screen do
             myassault
         },
     }
-end
+end)
 
 
 
@@ -319,10 +326,7 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.get_cache_dir() .. "/history_eval")
               end,
-              {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "lua execute prompt", group = "awesome"})
 )
 
 clientkeys = awful.util.table.join(
