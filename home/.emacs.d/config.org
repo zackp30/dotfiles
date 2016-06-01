@@ -173,9 +173,14 @@
 
     (loop for pkg in pkgs do
           (require-package pkg))
+    (setq package-menu-async nil)
+    ;; disable this, I hate it when I
+    ;; press "U" just when I run `list-packages' to result in it claiming
+    ;; there's no updates avaialble so I have to press ‘U’ it again.
 #+END_SRC
 
 * use-package
+
   use-package (https://github.com/jwiegley/use-package) handles
   loading of packages, allowing a neatly organized configuration.
 
@@ -232,6 +237,34 @@
 
      (re-apply "a" 'message)
    #+END_SRC
+
+** =a-mode=
+
+  `a-mode' is (if I remember correctly) my first Emacs Lisp function,
+  quite simple really, all it does is act as a wrapper for
+  `auto-mode-alist', shortening the overall use of it from:
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (add-to-list 'auto-mode-alist "\\.markdown\\" 'markdown-mode)
+  #+END_SRC
+
+  to:
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (a-mode "markdown" "markdown-mode")
+  #+END_SRC
+
+  which I prefer
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun a-mode (ext mode)
+      "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
+      (add-to-list 'auto-mode-alist
+                   (cons
+                    (format "\\%s\\'" ext)
+                    (intern (concat mode "-mode")))))
+  #+END_SRC
+
 
 * El-get
 
@@ -290,31 +323,1053 @@
         :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
 
-* a-mode
+* Ag
 
-  `a-mode' is (if I remember correctly) my first Emacs Lisp function,
-  quite simple really, all it does is act as a wrapper for
-  `auto-mode-alist', shortening the overall use of it from:
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (add-to-list 'auto-mode-alist "\\.markdown\\" 'markdown-mode)
-  #+END_SRC
-
-  to:
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (a-mode "markdown" "markdown-mode")
-  #+END_SRC
-
-  which I prefer
+  Ag is a super-fast alternative to grep.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun a-mode (ext mode)
-      "A 'shortcut' for `(add-to-list 'auto-mode-alist [...])`'"
-      (add-to-list 'auto-mode-alist
-                   (cons
-                    (format "\\%s\\'" ext)
-                    (intern (concat mode "-mode")))))
+    (use-package ag
+      :config
+      (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
+  #+END_SRC
+
+* Anzu
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package anzu
+      :config
+      (global-anzu-mode 1))
+  #+END_SRC
+
+* AutoInsert
+
+** Utilities
+*** =z-yas/expand-by-uuid=
+
+    From https://gist.github.com/jrnold/675584, adapted slightly for my use.
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z-yas/expand-by-uuid (mode uuid)
+        "Expand snippet template in MODE by its UUID."
+        (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
+    #+END_SRC
+
+*** =z-yas/exists?=
+
+    Determines whether snippet =name= exists for mode =mode=.
+
+    I couldn't find an internal list of snippets yasnippet knows
+    about, so this will have to do.
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z-yas/exists? (mode name)
+        "Return t if MODE has snippet NAME, nil otherwise."
+        (not (notany (lambda (x)
+                       (when (equal (type-of x)
+                                    'string)
+                         (file-exists-p (concat x "/" mode "/" name ".snip"))))
+                     (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
+    #+END_SRC
+
+*** =z/cdr-or-last=
+
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z/cdr-or-last (cons-or-list)
+        "Get the last element (or )"
+        (if (condition-case nil
+                (progn
+                  (length cons-or-list)
+                  nil)
+              (wrong-type-argument t))
+            (cdr cons-or-list)
+            (first (last cons-or-list))))
+    #+END_SRC
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package autoinsert
+      :config
+      (auto-insert-mode 1)
+      (setq auto-insert-query nil)
+      (map nil (lambda (x)
+                 (let ((mode-name (symbol-name (z/cdr-or-last x)))
+                       (regex (first x)))
+                   (when (z-yas/exists? mode-name "header")
+                     (define-auto-insert regex
+                       `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
+           auto-mode-alist))
+  #+END_SRC
+
+*** =z/fill-unfill=
+
+    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z/fill-unfill ()
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'z/fill-unfill)
+                   (progn
+                     (setq last-command nil)
+                     (point-max))
+                 fill-column)))
+          (call-interactively 'fill-paragraph)))
+      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
+    #+END_SRC
+
+* Automatic modes
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (a-mode ".md" "markdown")
+    (a-mode ".slidemd" "markdown")
+    (a-mode ".markdown" "markdown")
+    (a-mode ".mdwn" "markdown")
+    (a-mode "Gemfile" "ruby")
+    (a-mode "Guardfile" "ruby")
+    (a-mode "Rakefile" "ruby")
+  #+END_SRC
+
+* avy
+
+  =avy= is like VIM's [[https://github.com/Lokaltog/vim-easymotion][EasyMotion]] but for Emacs.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package avy
+      :config
+      (define-key global-map (kbd "C-c k c") 'avy-goto-char)
+      (define-key global-map (kbd "C-c k w") 'avy-goto-word-1)
+      (define-key global-map (kbd "C-c k l") 'avy-goto-line))
+  #+END_SRC
+
+* Batch indentation
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun indent-buffer ()
+      "Format the entire buffer."
+      (indent-region (point-min) (point-max) nil)
+      (untabify (point-min) (point-max))
+      (save-buffer))
+    #+END_SRC
+
+* BBDB
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package bbdb
+    :init
+    (setq bbdb-file "~/org/bbdb")
+    :config
+    (bbdb-initialize))
+#+END_SRC
+
+* Beacon
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package beacon
+    :config
+    (beacon-mode 1))
+#+END_SRC
+
+* Boxquote
+
+  From https://github.com/joedicastro/dotfiles/tree/master/emacs
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package boxquote
+      :config
+      (setq-default  boxquote-bottom-corner "╰"       ; U+2570
+                     boxquote-side          "│ "      ; U+2572 + space
+                     boxquote-top-and-tail  "────"    ; U+2500 (×4)
+                     boxquote-top-corner    "╭"))     ; U+256F
+  #+END_SRC
+
+* BPR
+
+Background Process Runner.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package bpr
+    :config
+    (setq bpr-colorize-output t))
+#+END_SRC
+
+* Browser
+
+Change default browser used in Emacs to Chromium.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq browse-url-browser-function 'browse-url-generic
+          browse-url-generic-program "chrome")
+    ;; I compile Chromium myself, and the binary is called "chrome"
+  #+END_SRC
+
+* Calc
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package calc-ext
+    :config
+    (define-key calc-mode-map "lr" 'calc-reset))
+  (use-package calc
+    :config
+    (define-key calc-mode-map "lp" 'calc-pop))
+#+END_SRC
+
+* Cascade startup system
+
+  This is the remnants of my mini “init-system” for Emacs, which
+  enabled me to easily have multiple Emacs server start
+  automatically. That was until I discovered each buffer has it’s own
+  working directory, which made this pointless.
+
+  It is kept here for historical reasons.
+
+** =waitforemacs=
+
+   Hangs until a certain other Emacs server starts.
+
+   #+INCLUDE: "~/bin/waitforemacs" src shell
+
+** =emacsinotify=
+
+   #+INCLUDE: "~/bin/emacsinotify" src shell
+
+* Company
+
+  =Company= is a fantastic alternative to =auto-complete=.
+
+  The following:
+
+  - Enables it globally.
+  - Makes the completion window popup almost instantly.
+  - Makes the completion window popup even if I type a single character.
+  - Unbinds `C-w` when within the completion window to prevent a conflict with =evil-mode=.
+  - Rebind the previously unbound =company-show-location= to =C-u=.
+  - And finally makes =company-backends= local.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package company
+      :config
+      (add-hook 'after-init-hook 'global-company-mode) ;; enable company-mode globally
+      (setq company-idle-delay 0.1)
+      (setq company-minimum-prefix-length 1)
+      (unbind-key (kbd "C-w") company-active-map)
+      (define-key company-active-map (kbd "C-u") 'company-show-location)
+      (make-variable-buffer-local 'company-backends)
+       (add-hook 'c-mode-hook (lambda ()
+                                      (add-to-list 'company-backends 'company-clang))))
+  #+END_SRC
+
+** Anaconda
+
+   Allows for auto-completion with Python and Company.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package company-anaconda
+       :config
+       (add-hook 'python-mode-hook (lambda ()
+                                     (anaconda-mode)
+                                     (add-to-list 'company-backends 'company-anaconda))))
+   #+END_SRC
+
+** Haskell
+
+   Utilize =ghc= to autocomplete using Company.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package company-ghc
+       :config
+       (add-hook 'haskell-mode-hook (lambda ()
+                                      (add-to-list 'company-backends 'company-ghc)))
+       ;; Haskell!
+       (autoload 'ghc-init "ghc" nil t))
+   #+END_SRC
+
+** Go
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package company-go
+    :config
+    (add-hook 'go-mode-hook (lambda ()
+                                  (add-to-list 'company-backends 'company-go))))
+#+END_SRC
+
+* Dired
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package dired-subtree
+      :config
+      (bind-keys :map dired-mode-map
+                 ("TAB" . dired-subtree-insert)
+                 ("<backtab>" . dired-subtree-remove)))
+  #+END_SRC
+
+* Dynamic ruler
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package dynamic-ruler)
+  #+END_SRC
+
+* edit-server
+
+  The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package edit-server
+      :config
+      (edit-server-start))
+  #+END_SRC
+
+* Eldoc
+
+  +Disable Eldoc because it causes all of Emacs to freeze.+
+
+  Turns out it was Fira-code with the ligature code I found causing
+  Emacs to freeze with =Attempted to shape unibyte text=
+
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+  (global-eldoc-mode 1)
+  #+END_SRC
+
+* Email
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (add-hook 'mail-mode-hook 'auto-fill-mode) ;; hard-wrap text when emailing
+  #+END_SRC
+
+** Wanderlust
+
+   Not used much, but might switch to Wanderlust one day.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package wl
+       :config
+       (autoload 'wl "wl" "Wanderlust" t)
+       (a-mode ".wl" "emacs-lisp")
+       (add-to-list 'auto-mode-alist
+                    '("mutt-" . mail-mode)) ;; mutt temporary files
+       (defun wl-evil ()
+         (when evil-mode (evil-change-state 'emacs)))
+
+       (add-hook 'wl-hook 'wl-evil)
+       (add-hook 'wl-folder-mode-hook 'wl-evil)
+       (add-hook 'wl-summary-mode-hook 'wl-evil)
+       (add-hook 'wl-message-mode-hook 'wl-evil)
+       (add-hook 'mime-view-mode-hook 'wl-evil)
+       (add-hook 'wl-template-mode-hook 'wl-evil)
+       (add-hook 'mail-citation-hook 'sc-cite-original))
+   #+END_SRC
+*** Disable message splitting on big attachments
+
+    Thanks to lack of the below code I managed to send 55 emails at one
+    time... while complaining about an abusive IP address.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq mime-edit-split-message nil)
+   #+END_SRC
+
+* Emmet
+
+  [[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".
+
+** =turn-on-emmet-mode=
+
+   Tiny function to use instead of =(lambda [...])= to DRY the code.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun turn-on-emmet-mode ()
+       (emmet-mode 1))
+   #+END_SRC
+
+   For =(web|sgml|css)-mode=, turn on emmet-mode.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package emmet-mode
+       :config
+       (add-hook 'web-mode-hook 'turn-on-emmet-mode)
+       (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
+       (add-hook 'css-mode-hook 'turn-on-emmet-mode))
+   #+END_SRC
+
+
+* Emojis
+
+  Disabled due to it interfering with something in the past,
+  unfortunately I never got around to submitting a bug report.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (global-emojify-mode 0)
+  #+END_SRC
+
+* EVIL
+
+  EVIL is VIM within Emacs.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package evil
+      :init
+      (setq evil-toggle-key "C-c C-j")
+      :config
+      (evil-mode 1)
+      (evil-set-initial-state 'dired-mode 'emacs)
+      (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
+      (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
+      (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
+      ;; http://stackoverflow.com/questions/20882935/how-to-move-between-visual-lines-and-move-past-newline-in-evil-mode
+      ;; Make movement keys work like they should
+      (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+      (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+      (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+      (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+                                            ; Make horizontal movement cross lines
+      (setq-default evil-cross-lines t))
+  #+END_SRC
+
+** Text-object delimiters
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-surround
+       :config
+       (global-evil-surround-mode 1))
+   #+END_SRC
+
+
+** NERD-commenter
+
+   VIM's NERD-commenter but for Emacs.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-nerd-commenter
+       :config
+       (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
+       (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
+       (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
+       (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
+       (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
+       (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
+       (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line))
+   #+END_SRC
+
+** Leader
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-leader
+       :config
+       (evil-leader/set-leader "<SPC>") ;; space is my leader
+       (global-evil-leader-mode 1)
+       (evil-leader/set-key
+         "p b" 'projectile-switch-to-buffer
+         "p D" 'projectile-dired
+         "p d" 'projectile-find-dir
+         "p s" 'projectile-switch-project
+         "p R" 'projectile-regenerate-tags
+         "p j" 'projectile-find-tag
+         "g t r" 'ctags-create-or-update-tags-table))
+   #+END_SRC
+** Modeline color changing
+
+   I found this in Bling's dotemacs.
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (set-face-background 'mode-line "SaddleBrown")
+     (defun my-evil-modeline-change (default-color)
+       "changes the modeline color when the evil mode changes"
+       (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
+                          ((evil-visual-state-p) '("#330022" . "#ffffff"))
+                          ((evil-normal-state-p) default-color)
+                          (t '("#440000" . "#ffffff")))))
+         (set-face-background 'mode-line (car color))
+         (set-face-foreground 'mode-line (cdr color))))
+
+     (lexical-let ((default-color (cons (face-background 'mode-line)
+                                        (face-foreground 'mode-line))))
+       (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
+   #+END_SRC
+
+** textobj-anyblock
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-textobj-anyblock
+       :config
+       (define-key evil-inner-text-objects-map "b" 'evil-textobj-anyblock-inner-block)
+       (define-key evil-outer-text-objects-map "b" 'evil-textobj-anyblock-a-block))
+   #+END_SRC
+
+** Cursor changing
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq evil-insert-state-cursor '((bar . 2) "white")
+           evil-visual-state-cursor '((bar . 5) "white")
+           evil-normal-state-cursor '((hollow . 5) "white"))
+   #+END_SRC
+
+** Matching
+
+   Extends =%=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-matchit
+       :config
+       (global-evil-matchit-mode 1))
+   #+END_SRC
+
+** Space
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-space
+       :config
+       (evil-space-mode 1))
+   #+END_SRC
+
+* Extra-warning face
+
+  Used to make things stand out even more then =font-lock-warning-face=.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defface extra-warning-face
+      '((t :background "red"
+           :foreground "brightblue"))
+      "Face for even more warninger warnings."
+      :group 'basic-faces)
+
+    (defvar keywords '(("\\b\\(BUG\\)\\b" 1 'extra-warning-face))
+      "List of keywords to highlight in extra-warning-face.")
+
+    (add-hook 'prog-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
+    (add-hook 'text-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
+  #+END_SRC
+
+* Flycheck
+
+  Flycheck is the "modern equivalent of flymake", think of it as [[https://github.com/scrooloose/syntastic][Syntastic]] but for Emacs.
+
+  It adds:
+
+  - Markers in the fringe where syntax errors/style errors/warnings occur.
+  - Adds an underline exactly where the error occurs. Fantastic when using a spell checker.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package flycheck
+      :config
+      (setq flycheck-check-syntax-automatically '(save mode-enabled)) ;; check when the file is written, or a new mode is enabled.
+      (setq flycheck-highlighting-mode 'symbols)
+      (add-hook 'after-init-hook 'global-flycheck-mode) ;; enable flycheck globally
+      (setq flycheck-indication-mode 'left-fringe)) ;; indicate syntax errors/warnings in the left-fringe.
+  #+END_SRC
+
+** pos-tip
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package flycheck-pos-tip
+       :config
+       (flycheck-pos-tip-mode 1))
+   #+END_SRC
+
+
+** Flyspell
+
+   Spell checking for Flycheck.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-hook 'prog-mode-hook  'flyspell-prog-mode)
+     (add-hook 'text-mode-hook  'flyspell-mode)
+     (setq python-shell-interpreter "python3") ;; I use Python 3
+   #+END_SRC
+
+** Prose lint
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+   (use-package flycheck-proselint)
+   #+END_SRC
+
+** Load-path inheritance
+
+   This makes sure that when requiring a file that's within my `load-path' when editing Emacs Lisp code that Flycheck uses my load-path instead of an internal one.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq-default flycheck-emacs-lisp-load-path 'inherit)
+   #+END_SRC
+
+* Font
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (scase (getenv "HOST")
+         ("xieshaij" (set-default-font "Hack-9"))
+         ("linux-wjii" (set-default-font "Hack-9")))
+#+END_SRC
+
+* General coding style
+
+  - No tabs for indentation
+  - 2 space indentation
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq-default indent-tabs-mode nil)
+     (setq-default tab-width 2)
+   #+END_SRC
+
+* Git-gutter
+
+  Git-gutter displays a summary of =git diff= in the left fringe of the current buffer.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package git-gutter
+      :config
+      (global-git-gutter-mode 1))
+  #+END_SRC
+
+* Highlight
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package highlight)
+  #+END_SRC
+
+* highlight-indentation
+
+  Highlight indentation, a complement to indent-guide.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package highlight-indentation
+      :config
+      (highlight-indentation-mode 1)) ;; enable globally
+  #+END_SRC
+
+* History
+
+  - Save an insane amount of previously-used commands.
+  - =savehist-file= specifies where to save the variables.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq list-command-history-max 500)
+    (setq savehist-file "~/.emacs.d/savehist")
+    (savehist-mode 1)
+    (setq history-length t)
+    (setq history-delete-duplicates t)
+    (setq savehist-save-minibuffer-history 1)
+    (setq savehist-additional-variables
+          '(kill-ring
+            search-ring
+            regexp-search-ring
+            evil-ex-history))
+  #+END_SRC
+
+* Hydras
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (defhydra window-resize (:color blue)
+
+    "
+  Resizing
+  ========
+
+  _h_: left      _k_: up
+  _l_: right     _j_: down"
+
+    ("h" shrink-window-horizontally)
+    ("k" shrink-window-horizontally)
+    ("l" shrink-window-horizontally)
+    ("j" shrink-window-horizontally))
+#+END_SRC
+
+* ibuffer
+
+  ibuffer is an enhanced version of the standard =buffer-menu=.
+
+** VC
+
+   Integrate ibuffer and vc.el.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ibuffer-vc
+       :bind ("C-x C-b" . ibuffer)
+       :init
+       (require 'ibuffer-vc)
+       :config
+       (setq ibuffer-formats
+             '((mark modified read-only vc-status-mini " "
+                     (name 18 18 :left :elide)
+                     " "
+                     (size 9 -1 :right)
+                     " "
+                     (mode 16 16 :left :elide)
+                     " "
+                     (vc-status 16 16 :left)
+                     " "
+                     filename-and-process)))
+       (add-hook 'ibuffer-hook
+                 (lambda ()
+                   (ibuffer-vc-set-filter-groups-by-vc-root))))
+   #+END_SRC
+
+* Imenu
+
+  Useful for navigating around my config.
+
+  I got the following from somewhere but I can't remember where from.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package imenu
+      :config
+      (add-to-list 'imenu-generic-expression
+                   '("Used Packages"
+                     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
+      (define-key zack-keys-minor-mode-map (kbd "C-x l") 'imenu))
+  #+END_SRC
+
+* indent-guide
+
+  Indent-guide adds a fancy line to indicate the current indentation position.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package indent-guide
+      :config
+      (indent-guide-global-mode 1)) ;; enable globally
+  #+END_SRC
+
+* Insert shell command
+
+  Insert the output of a shell command into the buffer at cursor's position.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun insert-shell-command (command)
+      (interactive "scommand: ")
+      (insert (shell-command-to-string command)))
+
+    (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
+  #+END_SRC
+
+* Ivy
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package ivy
+      :config
+      (ivy-mode 1))
+  #+END_SRC
+
+* Keys
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (bind-keys :map zack-keys-minor-mode-map
+               ("C-x f" . fill-region)
+               ("C-x c" . calc))
+  #+END_SRC
+
+* Languages
+** SCSS
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package scss-mode
+       :config
+       (setq scss-compile-at-save nil)
+       (a-mode ".scss" "scss"))
+
+   #+END_SRC
+
+** Common Lisp
+*** SLIME
+
+    SLIME (Superior Lisp Interaction Mode for Emacs) turns Emacs into
+    an excellent IDE for Common Lisp.
+
+    The following makes sure that I can still use the SLIME REPL
+    history when on-the-go with my physical keyboard and phone.
+
+    =slime-setup= is also loads:
+
+    - slime-fancy: makes SLIME spiffy with history, and other stuff.
+    - slime-repl: the core of SLIME
+    - slime-company: auto-completion in the REPL when using SLIME.
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (require 'slime-autoloads)
+      (use-package slime
+        :config
+        (add-hook 'slime-repl-mode-hook
+                  (lambda ()
+                    ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
+                    (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+                    (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
+                    (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
+                    (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
+        (slime-setup '(slime-fancy slime-repl slime-company))
+        (setq inferior-lisp-program "sbcl")) ;; use SBCL
+    #+END_SRC
+
+
+** Haskell
+
+   I don't program in Haskell much, but someday I will.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package haskell-mode
+       :config
+       (setq haskell-font-lock-symbols t) ;; spiffy symbols.
+       (add-hook 'haskell-mode-hook 'ghc-init)
+       (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+   #+END_SRC
+
+
+** Cider
+
+   I like Clojure, so CIDER is a must for me.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package cider
+       :config
+       ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+       (a-mode ".boot" "clojure")
+       (add-to-list 'magic-mode-alist '(". boot" . clojure-mode)))
+   #+END_SRC
+
+** JavaScript
+
+   I like JavaScript.
+
+   js2-mode is a great alternative to the standard js-mode.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package js2-mode
+       :init
+       (a-mode ".es6" "js2")
+       (a-mode ".js" "js2")
+       (add-hook 'js2-mode-hook (lambda ()
+                                  (tern-mode t) ;; enable auto-completion using ternjs.
+                                  (add-to-list 'company-backends 'company-tern))))
+   #+END_SRC
+
+*** Notes
+
+    - js2-mode works great with ES6
+    - ternjs doesn't work at all with ES6, but it is in the works.
+
+** Web
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package web-mode
+       :config
+       (a-mode ".phtml" "web")
+       (a-mode ".liquid" "web")
+       (a-mode ".hamlet" "web")
+       (a-mode ".julius" "web")
+       (a-mode ".tpl\\.php" "web")
+       (a-mode ".[agj]sp" "web")
+       (a-mode ".as[cp]x" "web")
+       (a-mode ".erb" "web")
+       (a-mode ".mustache" "web")
+       (a-mode ".djhtml" "web")
+       (a-mode ".ejs" "web")
+       (a-mode ".html?" "web")
+       (a-mode ".php" "web")
+
+       (setq web-mode-enable-auto-closing t)
+       (setq web-mode-enable-auto-pairing t))
+   #+END_SRC
+
+** Gitolite
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package gl-conf-mode
+       :config
+       (setq gdscript-tab-width 2)
+       (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
+                                       gl-conf-mode)))
+   #+END_SRC
+
+
+** GDScript
+
+   Godot's scripting language.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'gdscript-mode)
+   #+END_SRC
+
+   Also enable rainbow things for GDScript.
+
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-hook 'gdscript-mode-hook 'rainbow-identifiers-mode)
+     (add-hook 'gdscript-mode-hook 'rainbow-delimiters-mode)
+   #+END_SRC
+
+** CMake
+
+   CMake is a great alternative to autotools/automake. I use it for
+   any C/C++ project I work on.
+
+   The following makes =CMakeLists.txt= use =cmake-mode=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package cmake-mode
+       :init
+       (add-to-list 'auto-mode-alist
+                    '("CMakeLists.txt" . cmake-mode)))
+   #+END_SRC
+
+** VisualBasic
+
+   Used for work experience.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+     (a-mode ".vbs" "visual-basic")
+   #+END_SRC
+
+** Scheme
+
+   Geiser is great for scheme.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package geiser
+       :config
+       (add-hook 'scheme-mode-hook (lambda ()
+                                     (add-to-list 'company-backends 'geiser-company-backend))))
+   #+END_SRC
+
+** Rust
+
+   Code completion for Rust.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package racer
+       :config
+       (add-hook 'rust-mode-hook 'racer-mode)
+       (setq racer-cmd "~/.cargo/bin/racer")
+       (setq racer-rust-src-path (expand-file-name "~/rust")))
+   #+END_SRC
+
+* Magit
+  Magit is fantastic!
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package magit
+      :bind (:map evil-motion-state-map
+                  ("C-d" . nil)
+
+                  :map zack-keys-minor-mode-map
+                  ("C-d RET C-s" . magit-status))
+
+      :config
+      (setq magit-auto-revert-mode nil)
+      (setq magit-last-seen-setup-instructions "1.4.0"))
+  #+END_SRC
+
+* Misc
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'htmlize)
+    (electric-indent-mode 1) ;; automatically indent on RET or others
+    (show-paren-mode 1) ;; highlight matching parens
+    (mouse-avoidance-mode 'banish) ;; be gone cursor!
+    (setq initial-scratch-message ;; I know it's a scratch buffer by now!
+          (format ";; Emacs was started at %s"
+                  (format-time-string "%Y-%m-%dT%T")))
+  #+END_SRC
+
+** Backups
+
+   I don't commit on every change I make, that'd be silly, so put
+   numbered backups in here to not pollute commit history and
+   directory listings.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+     (setq delete-old-versions -1)
+     (setq version-control t)
+     (setq vc-make-backup-files t)
+     (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+   #+END_SRC
+
+* Misc keybindings
+** =kill-this-buffer=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (define-key zack-keys-minor-mode-map (kbd "C-x C-;") 'kill-this-buffer)
+   #+END_SRC
+
+* Mode-line
+** Spaceline
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package spaceline-config
+       :config
+       (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+       (spaceline-spacemacs-theme))
+   #+END_SRC
+
+** Smart-Mode-Line
+
+  I have yet to get around to making my own mode-line, but Smart-Mode-Line is great, so I don't see why I need to, other than for fun of course.
+
+  #+BEGIN_SRC emacs-lisp :tangle no
+    (use-package smart-mode-line
+      :config
+      (setq sml/theme 'dark)
+      (sml/setup))
+  #+END_SRC
+
+** mode-icons
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package mode-icons
+    :disabled t
+    :config
+    (mode-icons-mode))
+#+END_SRC
+
+* Multiple-Major-Modes
+
+  This package is *fantastic* for things that embed other languages.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package mmm-mode
+      :config
+      (setq mmm-global-mode 'maybe)
+      (mmm-add-classes
+       '((markdown-latex
+          :submode latex-mode
+          :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
+          :back "\\\\end")
+         (markdown-erb
+          :submode ruby-mode
+          :front "<%"
+          :back "%>")
+         (markdown-clojure
+          :submode clojure-mode
+          :front "```clojure"
+          :back "```")
+         (markdown-ruby
+          :submode ruby-mode
+          :front "```ruby"
+          :back "```")
+         (markdown-haskell
+          :submode haskell-mode
+          :front "```haskell"
+          :back "```")
+         (markdown-lisp
+          :submode common-lisp-mode
+          :front "```commonlisp"
+          :back "```")
+         (shell-json
+          :submode javascript-mode
+          :front "<<JSON"
+          :back "JSON")))
+      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
+      (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
+      (mmm-add-mode-ext-class 'shell-mode "\\.sh\\'" 'shell-json)
+      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-clojure)
+      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-ruby)
+      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-lisp)
+      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-haskell))
+    (a-mode ".mderb" "markdown")
+  #+END_SRC
+
+* No GUI stuff
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (column-number-mode 1) ;; enable column number in modeline
+    (menu-bar-mode -1) ;; disabe menubar
+    (tool-bar-mode -1) ;; disable toolbar
+    (when (fboundp 'scroll-bar-mode)
+      (scroll-bar-mode -1)) ;; disable scrollbar
   #+END_SRC
 
 * Org
@@ -590,7 +1645,7 @@
      (org-clock-persistence-insinuate)
    #+END_SRC
 
-** Exporting engine
+** Exporting
 *** TWBS
 
     When exporting using =org-twbs= (Twitter Bootstrap for Org mode) I
@@ -607,6 +1662,12 @@
 
     #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ox-reveal)
+    #+END_SRC
+
+*** HTML
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (setq org-export-htmlize-output-type 'css)
     #+END_SRC
 
 ** Org-ref
@@ -627,1125 +1688,6 @@
      (add-hook 'org-mode-hook 'turn-on-auto-fill)
    #+END_SRC
 
-* Winner
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package winner)
-  #+END_SRC
-
-* Volatile-highlights
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package volatile-highlights
-  	:config
-  	(volatile-highlights-mode 1))
-  #+END_SRC
-
-* Highlight
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package highlight)
-  #+END_SRC
-
-* PlantUML
-
-    Enable auto-image-file-mode everywhere, otherwise, when using
-    `auto-revert-mode` the raw text of the image is displayed after
-    reverting
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (auto-image-file-mode 1)
-    (add-hook 'image-mode-hook 'auto-revert-mode)
-  #+END_SRC
-
-* Flycheck
-
-  Flycheck is the "modern equivalent of flymake", think of it as [[https://github.com/scrooloose/syntastic][Syntastic]] but for Emacs.
-
-  It adds:
-
-  - Markers in the fringe where syntax errors/style errors/warnings occur.
-  - Adds an underline exactly where the error occurs. Fantastic when using a spell checker.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package flycheck
-      :config
-      (setq flycheck-check-syntax-automatically '(save mode-enabled)) ;; check when the file is written, or a new mode is enabled.
-      (setq flycheck-highlighting-mode 'symbols)
-      (add-hook 'after-init-hook 'global-flycheck-mode) ;; enable flycheck globally
-      (setq flycheck-indication-mode 'left-fringe)) ;; indicate syntax errors/warnings in the left-fringe.
-  #+END_SRC
-
-** pos-tip
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package flycheck-pos-tip
-       :config
-       (flycheck-pos-tip-mode 1))
-   #+END_SRC
-
-
-** Flyspell
-
-   Spell checking for Flycheck.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (add-hook 'prog-mode-hook  'flyspell-prog-mode)
-     (add-hook 'text-mode-hook  'flyspell-mode)
-     (setq python-shell-interpreter "python3") ;; I use Python 3
-   #+END_SRC
-
-** Prose lint
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-   (use-package flycheck-proselint)
-   #+END_SRC
-
-** Load-path inheritance
-
-   This makes sure that when requiring a file that's within my `load-path' when editing Emacs Lisp code that Flycheck uses my load-path instead of an internal one.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq-default flycheck-emacs-lisp-load-path 'inherit)
-   #+END_SRC
-
-* Emmet
-
-  [[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".
-
-** =turn-on-emmet-mode=
-
-   Tiny function to use instead of =(lambda [...])= to DRY the code.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun turn-on-emmet-mode ()
-       (emmet-mode 1))
-   #+END_SRC
-
-   For =(web|sgml|css)-mode=, turn on emmet-mode.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package emmet-mode
-       :config
-       (add-hook 'web-mode-hook 'turn-on-emmet-mode)
-       (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
-       (add-hook 'css-mode-hook 'turn-on-emmet-mode))
-   #+END_SRC
-
-* avy
-
-  =avy= is like VIM's [[https://github.com/Lokaltog/vim-easymotion][EasyMotion]] but for Emacs.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package avy
-      :config
-      (define-key global-map (kbd "C-c k c") 'avy-goto-char)
-      (define-key global-map (kbd "C-c k w") 'avy-goto-word-1)
-      (define-key global-map (kbd "C-c k l") 'avy-goto-line))
-  #+END_SRC
-
-* Magit
-  Magit is fantastic!
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package magit
-      :bind (:map evil-motion-state-map
-                  ("C-d" . nil)
-
-                  :map zack-keys-minor-mode-map
-                  ("C-d RET C-s" . magit-status))
-      :config
-      (setq magit-auto-revert-mode nil)
-      (setq magit-last-seen-setup-instructions "1.4.0"))
-  #+END_SRC
-
-* Company
-
-  =Company= is a fantastic alternative to =auto-complete=.
-
-  The following:
-
-  - Enables it globally.
-  - Makes the completion window popup almost instantly.
-  - Makes the completion window popup even if I type a single character.
-  - Unbinds `C-w` when within the completion window to prevent a conflict with =evil-mode=.
-  - Rebind the previously unbound =company-show-location= to =C-u=.
-  - And finally makes =company-backends= local.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package company
-      :config
-      (add-hook 'after-init-hook 'global-company-mode) ;; enable company-mode globally
-      (setq company-idle-delay 0.1)
-      (setq company-minimum-prefix-length 1)
-      (unbind-key (kbd "C-w") company-active-map)
-      (define-key company-active-map (kbd "C-u") 'company-show-location)
-      (make-variable-buffer-local 'company-backends)
-       (add-hook 'c-mode-hook (lambda ()
-                                      (add-to-list 'company-backends 'company-clang))))
-  #+END_SRC
-
-** Anaconda
-
-   Allows for auto-completion with Python and Company.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package company-anaconda
-       :config
-       (add-hook 'python-mode-hook (lambda ()
-                                     (anaconda-mode)
-                                     (add-to-list 'company-backends 'company-anaconda))))
-   #+END_SRC
-
-** Haskell
-
-   Utilize =ghc= to autocomplete using Company.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package company-ghc
-       :config
-       (add-hook 'haskell-mode-hook (lambda ()
-                                      (add-to-list 'company-backends 'company-ghc)))
-       ;; Haskell!
-       (autoload 'ghc-init "ghc" nil t))
-   #+END_SRC
-
-** Go
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package company-go
-    :config
-    (add-hook 'go-mode-hook (lambda ()
-                                  (add-to-list 'company-backends 'company-go))))
-#+END_SRC
-
-* edit-server
-
-  The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package edit-server
-      :config
-      (edit-server-start))
-  #+END_SRC
-
-* Eldoc
-
-  +Disable Eldoc because it causes all of Emacs to freeze.+
-
-  Turns out it was Fira-code with the ligature code I found causing
-  Emacs to freeze with =Attempted to shape unibyte text=
-
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-  (global-eldoc-mode 1)
-  #+END_SRC
-
-* Anzu
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package anzu
-      :config
-      (global-anzu-mode 1))
-  #+END_SRC
-
-* EVIL
-
-  EVIL is VIM within Emacs.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package evil
-      :init
-      (setq evil-toggle-key "C-c C-j")
-      :config
-      (evil-mode 1)
-      (evil-set-initial-state 'dired-mode 'emacs)
-      (evil-define-key 'normal global-map (kbd "}]") 'emmet-next-edit-point)
-      (evil-define-key 'normal global-map (kbd "{[") 'emmet-prev-edit-point)
-      (evil-define-key 'normal global-map (kbd "U") 'undo-tree-visualize)
-      ;; http://stackoverflow.com/questions/20882935/how-to-move-between-visual-lines-and-move-past-newline-in-evil-mode
-      ;; Make movement keys work like they should
-      (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-      (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-      (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-      (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-                                            ; Make horizontal movement cross lines
-      (setq-default evil-cross-lines t))
-  #+END_SRC
-
-** Text-object delimiters
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package evil-surround
-       :config
-       (global-evil-surround-mode 1))
-   #+END_SRC
-
-
-** NERD-commenter
-
-   VIM's NERD-commenter but for Emacs.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package evil-nerd-commenter
-       :config
-       (define-key evil-normal-state-map "gci" 'evilnc-comment-or-uncomment-lines)
-       (define-key evil-normal-state-map "gcl" 'evilnc-quick-comment-or-uncomment-to-the-line)
-       (define-key evil-normal-state-map "gll" 'evilnc-quick-comment-or-uncomment-to-the-line)
-       (define-key evil-normal-state-map "gcc" 'evilnc-copy-and-comment-lines)
-       (define-key evil-normal-state-map "gcp" 'evilnc-comment-or-uncomment-paragraphs)
-       (define-key evil-normal-state-map "gcr" 'comment-or-uncomment-region)
-       (define-key evil-normal-state-map "gcv" 'evilnc-toggle-invert-comment-line-by-line))
-   #+END_SRC
-
-** Leader
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package evil-leader
-       :config
-       (evil-leader/set-leader "<SPC>") ;; space is my leader
-       (global-evil-leader-mode 1)
-       (evil-leader/set-key
-         "p b" 'projectile-switch-to-buffer
-         "p D" 'projectile-dired
-         "p d" 'projectile-find-dir
-         "p s" 'projectile-switch-project
-         "p R" 'projectile-regenerate-tags
-         "p j" 'projectile-find-tag
-         "g t r" 'ctags-create-or-update-tags-table))
-   #+END_SRC
-** Modeline color changing
-
-   I found this in Bling's dotemacs.
-
-   #+BEGIN_SRC emacs-lisp :tangle no
-     (set-face-background 'mode-line "SaddleBrown")
-     (defun my-evil-modeline-change (default-color)
-       "changes the modeline color when the evil mode changes"
-       (let ((color (cond ((evil-insert-state-p) '("#002233" . "#ffffff"))
-                          ((evil-visual-state-p) '("#330022" . "#ffffff"))
-                          ((evil-normal-state-p) default-color)
-                          (t '("#440000" . "#ffffff")))))
-         (set-face-background 'mode-line (car color))
-         (set-face-foreground 'mode-line (cdr color))))
-
-     (lexical-let ((default-color (cons (face-background 'mode-line)
-                                        (face-foreground 'mode-line))))
-       (add-hook 'post-command-hook (lambda () (my-evil-modeline-change default-color))))
-   #+END_SRC
-
-** textobj-anyblock
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package evil-textobj-anyblock
-       :config
-       (define-key evil-inner-text-objects-map "b" 'evil-textobj-anyblock-inner-block)
-       (define-key evil-outer-text-objects-map "b" 'evil-textobj-anyblock-a-block))
-   #+END_SRC
-
-** Cursor changing
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq evil-insert-state-cursor '((bar . 2) "white")
-           evil-visual-state-cursor '((bar . 5) "white")
-           evil-normal-state-cursor '((hollow . 5) "white"))
-   #+END_SRC
-
-** Matching
-
-   Extends =%=.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package evil-matchit
-       :config
-       (global-evil-matchit-mode 1))
-   #+END_SRC
-
-** Space
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package evil-space
-       :config
-       (evil-space-mode 1))
-   #+END_SRC
-
-* Git-gutter
-
-  Git-gutter displays a summary of =git diff= in the left fringe of the current buffer.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package git-gutter
-      :config
-      (global-git-gutter-mode 1))
-  #+END_SRC
-
-* Dired
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package dired-subtree
-      :config
-      (bind-keys :map dired-mode-map
-                 ("TAB" . dired-subtree-insert)
-                 ("<backtab>" . dired-subtree-remove)))
-  #+END_SRC
-
-* Ivy
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ivy
-      :config
-      (ivy-mode 1))
-  #+END_SRC
-
-* Languages
-** SCSS
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package scss-mode
-       :config
-       (setq scss-compile-at-save nil)
-       (a-mode ".scss" "scss"))
-
-   #+END_SRC
-
-** Common Lisp
-*** SLIME
-
-    SLIME (Superior Lisp Interaction Mode for Emacs) turns Emacs into
-    an excellent IDE for Common Lisp.
-
-    The following makes sure that I can still use the SLIME REPL
-    history when on-the-go with my physical keyboard and phone.
-
-    =slime-setup= is also loads:
-
-    - slime-fancy: makes SLIME spiffy with history, and other stuff.
-    - slime-repl: the core of SLIME
-    - slime-company: auto-completion in the REPL when using SLIME.
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (require 'slime-autoloads)
-      (use-package slime
-        :config
-        (add-hook 'slime-repl-mode-hook
-                  (lambda ()
-                    ;; my portable keyboard + VX Connectbot doesn't like M-p and M-n.
-                    (evil-define-key 'insert slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
-                    (evil-define-key 'insert slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)
-                    (evil-define-key 'normal slime-repl-mode-map (kbd "C-p") 'slime-repl-previous-input)
-                    (evil-define-key 'normal slime-repl-mode-map (kbd "C-n") 'slime-repl-next-input)))
-        (slime-setup '(slime-fancy slime-repl slime-company))
-        (setq inferior-lisp-program "sbcl")) ;; use SBCL
-    #+END_SRC
-
-
-** Haskell
-
-   I don't program in Haskell much, but someday I will.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package haskell-mode
-       :config
-       (setq haskell-font-lock-symbols t) ;; spiffy symbols.
-       (add-hook 'haskell-mode-hook 'ghc-init)
-       (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
-   #+END_SRC
-
-
-** Cider
-
-   I like Clojure, so CIDER is a must for me.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package cider
-       :config
-       ;; (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-       (a-mode ".boot" "clojure")
-       (add-to-list 'magic-mode-alist '(". boot" . clojure-mode)))
-   #+END_SRC
-
-** JavaScript
-
-   I like JavaScript.
-
-   js2-mode is a great alternative to the standard js-mode.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package js2-mode
-       :init
-       (a-mode ".es6" "js2")
-       (a-mode ".js" "js2")
-       (add-hook 'js2-mode-hook (lambda ()
-                                  (tern-mode t) ;; enable auto-completion using ternjs.
-                                  (add-to-list 'company-backends 'company-tern))))
-   #+END_SRC
-
-*** Notes
-
-    - js2-mode works great with ES6
-    - ternjs doesn't work at all with ES6, but it is in the works.
-
-** Web
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package web-mode
-       :config
-       (a-mode ".phtml" "web")
-       (a-mode ".liquid" "web")
-       (a-mode ".hamlet" "web")
-       (a-mode ".julius" "web")
-       (a-mode ".tpl\\.php" "web")
-       (a-mode ".[agj]sp" "web")
-       (a-mode ".as[cp]x" "web")
-       (a-mode ".erb" "web")
-       (a-mode ".mustache" "web")
-       (a-mode ".djhtml" "web")
-       (a-mode ".ejs" "web")
-       (a-mode ".html?" "web")
-       (a-mode ".php" "web")
-
-       (setq web-mode-enable-auto-closing t)
-       (setq web-mode-enable-auto-pairing t))
-   #+END_SRC
-
-** Gitolite
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package gl-conf-mode
-       :config
-       (setq gdscript-tab-width 2)
-       (add-to-list 'auto-mode-alist '("gitolite\\.conf\\'" .
-                                       gl-conf-mode)))
-   #+END_SRC
-
-
-** GDScript
-
-   Godot's scripting language.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (require 'gdscript-mode)
-   #+END_SRC
-
-   Also enable rainbow things for GDScript.
-
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (add-hook 'gdscript-mode-hook 'rainbow-identifiers-mode)
-     (add-hook 'gdscript-mode-hook 'rainbow-delimiters-mode)
-   #+END_SRC
-
-** CMake
-
-   CMake is a great alternative to autotools/automake. I use it for
-   any C/C++ project I work on.
-
-   The following makes =CMakeLists.txt= use =cmake-mode=.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package cmake-mode
-       :init
-       (add-to-list 'auto-mode-alist
-                    '("CMakeLists.txt" . cmake-mode)))
-   #+END_SRC
-
-** VisualBasic
-
-   Used for work experience.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-     (a-mode ".vbs" "visual-basic")
-   #+END_SRC
-
-** Scheme
-
-   Geiser is great for scheme.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package geiser
-       :config
-       (add-hook 'scheme-mode-hook (lambda ()
-                                     (add-to-list 'company-backends 'geiser-company-backend))))
-   #+END_SRC
-
-** Rust
-
-   Code completion for Rust.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package racer
-       :config
-       (add-hook 'rust-mode-hook 'racer-mode)
-       (setq racer-cmd "~/.cargo/bin/racer")
-       (setq racer-rust-src-path (expand-file-name "~/rust")))
-   #+END_SRC
-
-* ibuffer
-
-  ibuffer is an enhanced version of the standard =buffer-menu=.
-
-** VC
-
-   Integrate ibuffer and vc.el.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package ibuffer-vc
-       :bind ("C-x C-b" . ibuffer)
-       :init
-       (require 'ibuffer-vc)
-       :config
-       (setq ibuffer-formats
-             '((mark modified read-only vc-status-mini " "
-                     (name 18 18 :left :elide)
-                     " "
-                     (size 9 -1 :right)
-                     " "
-                     (mode 16 16 :left :elide)
-                     " "
-                     (vc-status 16 16 :left)
-                     " "
-                     filename-and-process)))
-       (add-hook 'ibuffer-hook
-                 (lambda ()
-                   (ibuffer-vc-set-filter-groups-by-vc-root))))
-   #+END_SRC
-
-* indent-guide
-
-  Indent-guide adds a fancy line to indicate the current indentation position.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package indent-guide
-      :config
-      (indent-guide-global-mode 1)) ;; enable globally
-  #+END_SRC
-
-* Emojis
-
-  Disabled due to it interfering with something in the past,
-  unfortunately I never got around to submitting a bug report.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (global-emojify-mode 0)
-  #+END_SRC
-
-* highlight-indentation
-
-  Highlight indentation, a complement to indent-guide.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package highlight-indentation
-      :config
-      (highlight-indentation-mode 1)) ;; enable globally
-  #+END_SRC
-
-* Multiple-Major-Modes
-
-  This package is *fantastic* for things that embed other languages.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package mmm-mode
-      :config
-      (setq mmm-global-mode 'maybe)
-      (mmm-add-classes
-       '((markdown-latex
-          :submode latex-mode
-          :front "\\\\begin" ;; 2 blackslashes because of basedocument requiring 2 because of macro processing.
-          :back "\\\\end")
-         (markdown-erb
-          :submode ruby-mode
-          :front "<%"
-          :back "%>")
-         (markdown-clojure
-          :submode clojure-mode
-          :front "```clojure"
-          :back "```")
-         (markdown-ruby
-          :submode ruby-mode
-          :front "```ruby"
-          :back "```")
-         (markdown-haskell
-          :submode haskell-mode
-          :front "```haskell"
-          :back "```")
-         (markdown-lisp
-          :submode common-lisp-mode
-          :front "```commonlisp"
-          :back "```")
-         (shell-json
-          :submode javascript-mode
-          :front "<<JSON"
-          :back "JSON")))
-      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-latex)
-      (mmm-add-mode-ext-class 'markdown-mode "\\.mderb\\'" 'markdown-erb)
-      (mmm-add-mode-ext-class 'shell-mode "\\.sh\\'" 'shell-json)
-      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-clojure)
-      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-ruby)
-      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-lisp)
-      (mmm-add-mode-ext-class 'markdown-mode "\\.md\\'" 'markdown-haskell))
-    (a-mode ".mderb" "markdown")
-  #+END_SRC
-
-* Projectile
-
-  Projectile is great for handling large projects.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package projectile
-      :disabled t
-      :config
-      (projectile-global-mode))
-  #+END_SRC
-
-* Mode-line
-** Spaceline
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package spaceline-config
-       :config
-       (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-       (spaceline-spacemacs-theme))
-   #+END_SRC
-
-** Smart-Mode-Line
-
-  I have yet to get around to making my own mode-line, but Smart-Mode-Line is great, so I don't see why I need to, other than for fun of course.
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package smart-mode-line
-      :config
-      (setq sml/theme 'dark)
-      (sml/setup))
-  #+END_SRC
-
-** mode-icons
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package mode-icons
-    :disabled t
-    :config
-    (mode-icons-mode))
-#+END_SRC
-
-* Ag
-
-  Ag is a super-fast alternative to grep.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ag
-      :config
-      (define-key ag-mode-map (kbd "k") nil)) ;; stop conflicts with evil
-  #+END_SRC
-
-* ws-butler
-
-  Used to remove whitespace.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ws-butler
-      :config
-      (add-hook 'prog-mode-hook 'ws-butler-mode))
-  #+END_SRC
-
-* YASnippet
-
-  Snippet for Emacs.
-
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package yasnippet
-      :config
-      (yas-global-mode 1)
-      (a-mode ".snip" "snippet")
-      (define-key yas-minor-mode-map (kbd "C-c 7 n") 'yas-next-field)
-      (define-key yas-minor-mode-map (kbd "C-c 7 p") 'yas-prev-field)
-      (define-key yas-minor-mode-map (kbd "<tab>") nil)
-      (define-key yas-minor-mode-map (kbd "TAB") nil)
-      (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
-  #+END_SRC
-
-* AutoInsert
-
-** Utilities
-*** =z-yas/expand-by-uuid=
-
-    From https://gist.github.com/jrnold/675584, adapted slightly for my use.
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z-yas/expand-by-uuid (mode uuid)
-        "Expand snippet template in MODE by its UUID."
-        (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
-    #+END_SRC
-
-*** =z-yas/exists?=
-
-    Determines whether snippet =name= exists for mode =mode=.
-
-    I couldn't find an internal list of snippets yasnippet knows
-    about, so this will have to do.
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z-yas/exists? (mode name)
-        "Return t if MODE has snippet NAME, nil otherwise."
-        (not (notany (lambda (x)
-                       (when (equal (type-of x)
-                                    'string)
-                         (file-exists-p (concat x "/" mode "/" name ".snip"))))
-                     (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
-    #+END_SRC
-
-*** =z/cdr-or-last=
-
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z/cdr-or-last (cons-or-list)
-        "Get the last element (or )"
-        (if (condition-case nil
-                (progn
-                  (length cons-or-list)
-                  nil)
-              (wrong-type-argument t))
-            (cdr cons-or-list)
-            (first (last cons-or-list))))
-    #+END_SRC
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package autoinsert
-      :config
-      (auto-insert-mode 1)
-      (setq auto-insert-query nil)
-      (map nil (lambda (x)
-                 (let ((mode-name (symbol-name (z/cdr-or-last x)))
-                       (regex (first x)))
-                   (when (z-yas/exists? mode-name "header")
-                     (define-auto-insert regex
-                       `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
-           auto-mode-alist))
-  #+END_SRC
-
-*** =z/fill-unfill=
-
-    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z/fill-unfill ()
-        (interactive)
-        (let ((fill-column
-               (if (eq last-command 'z/fill-unfill)
-                   (progn
-                     (setq last-command nil)
-                     (point-max))
-                 fill-column)))
-          (call-interactively 'fill-paragraph)))
-      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
-    #+END_SRC
-
-* Misc keybindings
-** =kill-this-buffer=
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (define-key zack-keys-minor-mode-map (kbd "C-x C-;") 'kill-this-buffer)
-   #+END_SRC
-
-* Email
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-hook 'mail-mode-hook 'auto-fill-mode) ;; hard-wrap text when emailing
-  #+END_SRC
-
-** Wanderlust
-
-   Not used much, but might switch to Wanderlust one day.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package wl
-       :config
-       (autoload 'wl "wl" "Wanderlust" t)
-       (a-mode ".wl" "emacs-lisp")
-       (add-to-list 'auto-mode-alist
-                    '("mutt-" . mail-mode)) ;; mutt temporary files
-       (defun wl-evil ()
-         (when evil-mode (evil-change-state 'emacs)))
-
-       (add-hook 'wl-hook 'wl-evil)
-       (add-hook 'wl-folder-mode-hook 'wl-evil)
-       (add-hook 'wl-summary-mode-hook 'wl-evil)
-       (add-hook 'wl-message-mode-hook 'wl-evil)
-       (add-hook 'mime-view-mode-hook 'wl-evil)
-       (add-hook 'wl-template-mode-hook 'wl-evil)
-       (add-hook 'mail-citation-hook 'sc-cite-original))
-   #+END_SRC
-*** Disable message splitting on big attachments
-
-    Thanks to lack of the below code I managed to send 55 emails at one
-    time... while complaining about an abusive IP address.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq mime-edit-split-message nil)
-   #+END_SRC
-
-* Undo-Tree
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package undo-tree
-      :config
-      (setq undo-tree-auto-save-history 1)
-      (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
-      (setq undo-tree-visualizer-diff t))
-  #+END_SRC
-
-* Rainbows
-** Numbers
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package highlight-numbers
-      :config
-      (add-hook 'prog-mode-hook 'highlight-numbers-mode))
-  #+END_SRC
-
-** Identifiers
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package rainbow-identifiers
-      :config
-      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
-  #+END_SRC
-
-** Delimiters
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package rainbow-delimiters
-      :config
-      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
-      (add-hook 'text-mode-hook 'rainbow-delimiters-mode-enable))
-  #+END_SRC
-
-* Imenu
-
-  Useful for navigating around my config.
-
-  I got the following from somewhere but I can't remember where from.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package imenu
-      :config
-      (add-to-list 'imenu-generic-expression
-                   '("Used Packages"
-                     "\\(^\\s-*(use-package +\\)\\(\\_<.+\\_>\\)" 2))
-      (define-key zack-keys-minor-mode-map (kbd "C-x l") 'imenu))
-  #+END_SRC
-
-* Browser
-
-Change default browser used in Emacs to Chromium.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "chrome")
-    ;; I compile Chromium myself, and the binary is called "chrome"
-  #+END_SRC
-
-* Misc
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq echo-keystrokes 0.01)
-    (setq org-export-htmlize-output-type 'css)
-    (set-face-attribute 'default nil :height 85)
-    (require 'tramp) ;; edit files on remote locations
-    (require 'whitespace) ;; whitespace monitor
-    (column-number-mode 1) ;; enable column number in modeline
-    (menu-bar-mode -1) ;; disabe menubar
-    (tool-bar-mode -1) ;; disable toolbar
-    (when (fboundp 'scroll-bar-mode)
-      (scroll-bar-mode -1)) ;; disable scrollbar
-    (electric-pair-mode 1) ;; match parens automatically
-    (setq-default indent-tabs-mode nil) ;; no tabs.
-    (setq-default tab-width 2) ;; Ruby-style indentation
-    (require 'saveplace)
-    (setq-default save-place t)
-    (a-mode ".md" "markdown")
-    (a-mode ".slidemd" "markdown")
-    (a-mode ".markdown" "markdown")
-    (a-mode ".mdwn" "markdown")
-    (a-mode "Gemfile" "ruby")
-    (a-mode "Guardfile" "ruby")
-    (a-mode "Rakefile" "ruby")
-    (require 'htmlize)
-    (electric-indent-mode 1) ;; automatically indent on RET or others
-    (show-paren-mode 1) ;; highlight matching parens
-    (mouse-avoidance-mode 'banish) ;; be gone cursor!
-    (setq initial-scratch-message ;; I know it's a scratch buffer by now!
-          (format ";; Emacs was started at %s"
-                  (format-time-string "%Y-%m-%dT%T")))
-    (setq package-menu-async nil)
-    ;; disable this, I hate it when I
-    ;; press "U" just when I run `list-packages' to result in it claiming
-    ;; there's no updates avaialble so I have to run it again.
-  #+END_SRC
-
-** Backups
-
-   I don't commit on every change I make, that'd be silly, so put
-   numbered backups in here to not pollute commit history and
-   directory listings.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-     (setq delete-old-versions -1)
-     (setq version-control t)
-     (setq vc-make-backup-files t)
-     (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
-   #+END_SRC
-
-* Sort sexps
-  From Sacha Chua.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun sort-sexps-in-region (beg end)
-      "Can be handy for sorting out duplicates.
-        Sorts the sexps from BEG to END. Leaves the point at where it
-        couldn't figure things out (ex: syntax errors)."
-      (interactive "r")
-      (let ((input (buffer-substring beg end))
-            list last-point form result)
-        (save-restriction
-          (save-excursion
-            (narrow-to-region beg end)
-            (goto-char (point-min))
-            (setq last-point (point-min))
-            (setq form t)
-            (while (and form (not (eobp)))
-              (setq form (ignore-errors (read (current-buffer))))
-              (when form
-                (add-to-list 'list
-                             (cons
-                              (prin1-to-string form)
-                              (buffer-substring last-point (point))))
-                (setq last-point (point))))
-            (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
-            (delete-region (point-min) (point))
-            (insert (mapconcat 'cdr list "\n"))))))
-  #+END_SRC
-** Get a random item from a list
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun get-rnd-list (lst)
-       "Get a random item from a list."
-       (nth (random* (length lst)) lst))
-   #+END_SRC
-
-** Get a random color
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun random-color ()
-       "Get a random color."
-       (get-rnd-list '("blue" "red" "yellow" "pink")))
-   #+END_SRC
-*** TODO [0/1]
-    - [ ] Add more colors
-
-
-** Increment the number at point, like VIM's =C-a=
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun increment-number-at-point ()
-       (interactive)
-       (skip-chars-backward "0123456789")
-       (or (looking-at "[0123456789]+")
-           (error "No number at point"))
-       (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
-     (global-set-key (kbd "C-c +") 'increment-number-at-point)
-   #+END_SRC
-
-** Decrement the number at point, like VIM's =C-x=
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun decrement-number-at-point ()
-       (interactive)
-       (skip-chars-backward "0123456789")
-       (or (looking-at "[0123456789]+")
-           (error "No number at point"))
-       (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
-
-     (global-set-key (kbd "C-c -") 'decrement-number-at-point)
-
-   #+END_SRC
-
-* Boxquote
-
-  From https://github.com/joedicastro/dotfiles/tree/master/emacs
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package boxquote
-      :config
-      (setq-default  boxquote-bottom-corner "╰"       ; U+2570
-                     boxquote-side          "│ "      ; U+2572 + space
-                     boxquote-top-and-tail  "────"    ; U+2500 (×4)
-                     boxquote-top-corner    "╭"))     ; U+256F
-  #+END_SRC
-
-* Insert shell command
-
-  Insert the output of a shell command into the buffer at cursor's position.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun insert-shell-command (command)
-      (interactive "scommand: ")
-      (insert (shell-command-to-string command)))
-
-    (define-key global-map (kbd "C-c C-g") 'insert-shell-command)
-  #+END_SRC
-
-* History
-
-  - Save an insane amount of previously-used commands.
-  - =savehist-file= specifies where to save the variables.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (setq list-command-history-max 500)
-    (setq savehist-file "~/.emacs.d/savehist")
-    (savehist-mode 1)
-    (setq history-length t)
-    (setq history-delete-duplicates t)
-    (setq savehist-save-minibuffer-history 1)
-    (setq savehist-additional-variables
-          '(kill-ring
-            search-ring
-            regexp-search-ring
-            evil-ex-history))
-  #+END_SRC
-
-* Extra-warning face
-
-  Used to make things stand out even more then =font-lock-warning-face=.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (defface extra-warning-face
-      '((t :background "red"
-           :foreground "brightblue"))
-      "Face for even more warninger warnings."
-      :group 'basic-faces)
-
-    (defvar keywords '(("\\b\\(BUG\\)\\b" 1 'extra-warning-face))
-      "List of keywords to highlight in extra-warning-face.")
-
-    (add-hook 'prog-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
-    (add-hook 'text-mode-hook (lambda () (font-lock-add-keywords nil keywords)))
-  #+END_SRC
-
-* Misc utilities
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (require 'calendar)
-    (defun insdate-insert-current-date (&optional omit-day-of-week-p)
-      "Insert today's date using the current locale.
-    With a prefix argument, the date is inserted without the day of
-    the week."
-      (interactive "P*")
-      (insert (calendar-date-string (calendar-current-date) nil
-                                    omit-day-of-week-p)))
-  #+END_SRC
-
 * Override keymap
 
   Idea from http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
@@ -1764,17 +1706,6 @@ Change default browser used in Emacs to Chromium.
       t " z-keys" 'zack-keys-minor-mode-map)
   #+END_SRC
 
-* Tiny
-
-  [[https://github.com/abo-abo/tiny][Tiny]] is an alternative to macros, using a tiny template language.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package tiny
-      :config
-      (define-key zack-keys-minor-mode-map (kbd "C-j") 'tiny-expand)
-      (tiny-setup-default))
-  #+END_SRC
-
 * Pinentry
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1783,105 +1714,32 @@ Change default browser used in Emacs to Chromium.
       (setenv "INSIDE_EMACS" "1"))
   #+END_SRC
 
+* PlantUML
+
+    Enable auto-image-file-mode everywhere, otherwise, when using
+    `auto-revert-mode` the raw text of the image is displayed after
+    reverting
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (auto-image-file-mode 1)
+    (add-hook 'image-mode-hook 'auto-revert-mode)
+  #+END_SRC
+
 * Pretty symbols
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq prettify-symbols-alist '(("!=" "≠")
                                    ("! " "¬")))
   #+END_SRC
 
-* Hydras
+* Projectile
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (defhydra window-resize (:color blue)
-
-    "
-  Resizing
-  ========
-
-  _h_: left      _k_: up
-  _l_: right     _j_: down"
-
-    ("h" shrink-window-horizontally)
-    ("k" shrink-window-horizontally)
-    ("l" shrink-window-horizontally)
-    ("j" shrink-window-horizontally))
-#+END_SRC
-
-* BPR
-
-Background Process Runner.
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package bpr
-    :config
-    (setq bpr-colorize-output t))
-#+END_SRC
-
-* Font
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (scase (getenv "HOST")
-         ("xieshaij" (set-default-font "Hack-9"))
-         ("linux-wjii" (set-default-font "Hack-9")))
-#+END_SRC
-
-* Calc
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package calc-ext
-    :config
-    (define-key calc-mode-map "lr" 'calc-reset))
-  (use-package calc
-    :config
-    (define-key calc-mode-map "lp" 'calc-pop))
-#+END_SRC
-
-* BBDB
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package bbdb
-    :init
-    (setq bbdb-file "~/org/bbdb")
-    :config
-    (bbdb-initialize))
-#+END_SRC
-
-* which-key
+  Projectile is great for handling large projects.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package which-key
+    (use-package projectile
+      :disabled t
       :config
-      (which-key-mode 1)
-      (add-to-list 'which-key-key-replacement-alist '("TAB" . "↹"))
-      (add-to-list 'which-key-key-replacement-alist '("RET" . "⏎"))
-      (add-to-list 'which-key-key-replacement-alist '("DEL" . "⇤"))
-      (add-to-list 'which-key-key-replacement-alist '("SPC" . "␣"))
-      (setq which-key-idle-delay 0.3))
-  #+END_SRC
-
-* Beacon
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (use-package beacon
-    :config
-    (beacon-mode 1))
-#+END_SRC
-
-* Batch indentation
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (defun indent-buffer ()
-      "Format the entire buffer."
-      (indent-region (point-min) (point-max) nil)
-      (untabify (point-min) (point-max))
-      (save-buffer))
-    #+END_SRC
-
-* Unicode
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (set-language-environment "UTF-8")
-    (set-default-coding-systems 'utf-8)
+      (projectile-global-mode))
   #+END_SRC
 
 * Prose
@@ -1971,20 +1829,201 @@ Background Process Runner.
        (add-hook 'git-commit-mode-hook 'enable-typo-mode))
    #+END_SRC
 
-* Keys
+* Rainbows
+** Numbers
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (bind-keys :map zack-keys-minor-mode-map
-               ("C-x f" . fill-region)
-               ("C-x c" . calc))
+    (use-package highlight-numbers
+      :config
+      (add-hook 'prog-mode-hook 'highlight-numbers-mode))
   #+END_SRC
 
-* Dynamic ruler
+** Identifiers
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package dynamic-ruler)
+    (use-package rainbow-identifiers
+      :config
+      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
   #+END_SRC
 
+** Delimiters
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package rainbow-delimiters
+      :config
+      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode-enable)
+      (add-hook 'text-mode-hook 'rainbow-delimiters-mode-enable))
+  #+END_SRC
+
+* save-place
+
+  Save and restore the cursor position when visiting a buffer.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (save-place-mode 1)
+  #+END_SRC
+
+* Sort sexps
+  From Sacha Chua.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (defun sort-sexps-in-region (beg end)
+      "Can be handy for sorting out duplicates.
+        Sorts the sexps from BEG to END. Leaves the point at where it
+        couldn't figure things out (ex: syntax errors)."
+      (interactive "r")
+      (let ((input (buffer-substring beg end))
+            list last-point form result)
+        (save-restriction
+          (save-excursion
+            (narrow-to-region beg end)
+            (goto-char (point-min))
+            (setq last-point (point-min))
+            (setq form t)
+            (while (and form (not (eobp)))
+              (setq form (ignore-errors (read (current-buffer))))
+              (when form
+                (add-to-list 'list
+                             (cons
+                              (prin1-to-string form)
+                              (buffer-substring last-point (point))))
+                (setq last-point (point))))
+            (setq list (sort list (lambda (a b) (string< (car a) (car b)))))
+            (delete-region (point-min) (point))
+            (insert (mapconcat 'cdr list "\n"))))))
+  #+END_SRC
+** Get a random item from a list
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun get-rnd-list (lst)
+       "Get a random item from a list."
+       (nth (random* (length lst)) lst))
+   #+END_SRC
+
+** Get a random color
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun random-color ()
+       "Get a random color."
+       (get-rnd-list '("blue" "red" "yellow" "pink")))
+   #+END_SRC
+*** TODO [0/1]
+    - [ ] Add more colors
+
+
+** Increment the number at point, like VIM's =C-a=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun increment-number-at-point ()
+       (interactive)
+       (skip-chars-backward "0123456789")
+       (or (looking-at "[0123456789]+")
+           (error "No number at point"))
+       (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+     (global-set-key (kbd "C-c +") 'increment-number-at-point)
+   #+END_SRC
+
+** Decrement the number at point, like VIM's =C-x=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun decrement-number-at-point ()
+       (interactive)
+       (skip-chars-backward "0123456789")
+       (or (looking-at "[0123456789]+")
+           (error "No number at point"))
+       (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
+
+     (global-set-key (kbd "C-c -") 'decrement-number-at-point)
+
+   #+END_SRC
+
+* Tiny
+
+  [[https://github.com/abo-abo/tiny][Tiny]] is an alternative to macros, using a tiny template language.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package tiny
+      :config
+      (define-key zack-keys-minor-mode-map (kbd "C-j") 'tiny-expand)
+      (tiny-setup-default))
+  #+END_SRC
+
+* TRAMP
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package tramp)
+  #+END_SRC
+
+* Undo-Tree
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package undo-tree
+      :config
+      (setq undo-tree-auto-save-history 1)
+      (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
+      (setq undo-tree-visualizer-diff t))
+  #+END_SRC
+
+* Unicode
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (set-language-environment "UTF-8")
+    (set-default-coding-systems 'utf-8)
+  #+END_SRC
+
+* Volatile-highlights
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package volatile-highlights
+  	:config
+  	(volatile-highlights-mode 1))
+  #+END_SRC
+
+* which-key
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package which-key
+      :config
+      (which-key-mode 1)
+      (add-to-list 'which-key-key-replacement-alist '("TAB" . "↹"))
+      (add-to-list 'which-key-key-replacement-alist '("RET" . "⏎"))
+      (add-to-list 'which-key-key-replacement-alist '("DEL" . "⇤"))
+      (add-to-list 'which-key-key-replacement-alist '("SPC" . "␣"))
+      (setq which-key-idle-delay 0.3))
+  #+END_SRC
+
+* Winner
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package winner)
+  #+END_SRC
+
+* ws-butler
+
+  Used to remove whitespace.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package ws-butler
+      :config
+      (add-hook 'prog-mode-hook 'ws-butler-mode))
+  #+END_SRC
+
+* YASnippet
+
+  Snippet for Emacs.
+
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package yasnippet
+      :config
+      (yas-global-mode 1)
+      (a-mode ".snip" "snippet")
+      (define-key yas-minor-mode-map (kbd "C-c 7 n") 'yas-next-field)
+      (define-key yas-minor-mode-map (kbd "C-c 7 p") 'yas-prev-field)
+      (define-key yas-minor-mode-map (kbd "<tab>") nil)
+      (define-key yas-minor-mode-map (kbd "TAB") nil)
+      (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
+  #+END_SRC
 
 * The end
 
@@ -1992,23 +2031,3 @@ Background Process Runner.
     (provide 'init) ;; that's a wrap folks!
     ;;; init.el ends here
   #+END_SRC
-
-* Cascade startup system
-
-  This is the remnants of my mini “init-system” for Emacs, which
-  enabled me to easily have multiple Emacs server start
-  automatically. That was until I discovered each buffer has it’s own
-  working directory, which made this pointless.
-
-  It is kept here for historical reasons.
-
-** =waitforemacs=
-
-   Hangs until a certain other Emacs server starts.
-
-   #+INCLUDE: "~/bin/waitforemacs" src shell
-
-** =emacsinotify=
-
-   #+INCLUDE: "~/bin/emacsinotify" src shell
-
