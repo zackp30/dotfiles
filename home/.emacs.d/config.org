@@ -1423,6 +1423,23 @@
            auto-mode-alist))
   #+END_SRC
 
+*** =z/fill-unfill=
+
+    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z/fill-unfill ()
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'z/fill-unfill)
+                   (progn
+                     (setq last-command nil)
+                     (point-max))
+                 fill-column)))
+          (call-interactively 'fill-paragraph)))
+      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
+    #+END_SRC
+
 * Misc keybindings
 ** =kill-this-buffer=
 

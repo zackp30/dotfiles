@@ -1,12 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-
-case $HOST in
+case `hostname` in
     xieshaij)
         echo "chrome"
         ;;
 
-    linux-wjii)
-        echo "firefox-docker"
+    zos)
+        echo "chromium"
         ;;
 esac
