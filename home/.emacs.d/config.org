@@ -341,82 +341,6 @@
       (global-anzu-mode 1))
   #+END_SRC
 
-* AutoInsert
-
-** Utilities
-*** =z-yas/expand-by-uuid=
-
-    From https://gist.github.com/jrnold/675584, adapted slightly for my use.
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z-yas/expand-by-uuid (mode uuid)
-        "Expand snippet template in MODE by its UUID."
-        (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
-    #+END_SRC
-
-*** =z-yas/exists?=
-
-    Determines whether snippet =name= exists for mode =mode=.
-
-    I couldn't find an internal list of snippets yasnippet knows
-    about, so this will have to do.
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z-yas/exists? (mode name)
-        "Return t if MODE has snippet NAME, nil otherwise."
-        (not (notany (lambda (x)
-                       (when (equal (type-of x)
-                                    'string)
-                         (file-exists-p (concat x "/" mode "/" name ".snip"))))
-                     (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
-    #+END_SRC
-
-*** =z/cdr-or-last=
-
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z/cdr-or-last (cons-or-list)
-        "Get the last element (or )"
-        (if (condition-case nil
-                (progn
-                  (length cons-or-list)
-                  nil)
-              (wrong-type-argument t))
-            (cdr cons-or-list)
-            (first (last cons-or-list))))
-    #+END_SRC
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package autoinsert
-      :config
-      (auto-insert-mode 1)
-      (setq auto-insert-query nil)
-      (map nil (lambda (x)
-                 (let ((mode-name (symbol-name (z/cdr-or-last x)))
-                       (regex (first x)))
-                   (when (z-yas/exists? mode-name "header")
-                     (define-auto-insert regex
-                       `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
-           auto-mode-alist))
-  #+END_SRC
-
-*** =z/fill-unfill=
-
-    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z/fill-unfill ()
-        (interactive)
-        (let ((fill-column
-               (if (eq last-command 'z/fill-unfill)
-                   (progn
-                     (setq last-command nil)
-                     (point-max))
-                 fill-column)))
-          (call-interactively 'fill-paragraph)))
-      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
-    #+END_SRC
-
 * Automatic modes
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -2024,6 +1948,83 @@ Change default browser used in Emacs to Chromium.
       (define-key yas-minor-mode-map (kbd "TAB") nil)
       (define-key zack-keys-minor-mode-map (kbd "C-c RET") 'yas-expand))
   #+END_SRC
+
+** AutoInsert
+*** =z-yas/expand-by-uuid=
+
+     From https://gist.github.com/jrnold/675584, adapted slightly for my use.
+
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (defun z-yas/expand-by-uuid (mode uuid)
+         "Expand snippet template in MODE by its UUID."
+         (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
+     #+END_SRC
+
+*** =z-yas/exists?=
+
+     Determines whether snippet =name= exists for mode =mode=.
+
+     I couldn't find an internal list of snippets yasnippet knows
+     about, so this will have to do.
+
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (defun z-yas/exists? (mode name)
+         "Return t if MODE has snippet NAME, nil otherwise."
+         (not (notany (lambda (x)
+                        (when (equal (type-of x)
+                                     'string)
+                          (file-exists-p (concat x "/" mode "/" name ".snip"))))
+                      (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
+     #+END_SRC
+
+*** =z/cdr-or-last=
+
+
+     #+BEGIN_SRC emacs-lisp :tangle yes
+       (defun z/cdr-or-last (cons-or-list)
+         "Get the last element (or )"
+         (if (condition-case nil
+                 (progn
+                   (length cons-or-list)
+                   nil)
+               (wrong-type-argument t))
+             (cdr cons-or-list)
+             (first (last cons-or-list))))
+     #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package autoinsert
+       :config
+       (auto-insert-mode 1)
+       (setq auto-insert-query nil)
+       (map nil (lambda (x)
+                  (let ((mode-name (symbol-name (z/cdr-or-last x)))
+                        (regex (first x)))
+                    (when (z-yas/exists? mode-name "header")
+                      (define-auto-insert regex
+                        `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
+            auto-mode-alist))
+   #+END_SRC
+
+
+* Utilities
+** =z/fill-unfill=
+
+    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z/fill-unfill ()
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'z/fill-unfill)
+                   (progn
+                     (setq last-command nil)
+                     (point-max))
+                 fill-column)))
+          (call-interactively 'fill-paragraph)))
+      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
+    #+END_SRC
+
 
 * The end
 
