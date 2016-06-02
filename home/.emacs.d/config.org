@@ -2006,7 +2006,6 @@ Change default browser used in Emacs to Chromium.
             auto-mode-alist))
    #+END_SRC
 
-
 * Utilities
 ** =z/fill-unfill=
 
@@ -2024,7 +2023,6 @@ Change default browser used in Emacs to Chromium.
           (call-interactively 'fill-paragraph)))
       (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
     #+END_SRC
-
 
 * The end
 
