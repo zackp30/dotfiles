@@ -103,7 +103,7 @@ awful.screen.connect_for_each_screen(function(s)
         end
         gears.wallpaper.maximized(wallpaper, s, true)
     end
-   tags[s] = awful.tag({ "♨", "⌨", "⚡", "✉", "☕", "❁", "☃", "☄", "⚢" }, s, awful.layout.layouts[1])
+   tags[s] = awful.tag({"𝛀", "λ", "Σ", "Ξ", "Θ", "Φ", "ξ", "ω", "Δ", "𝟆"}, s, awful.layout.layouts[1])
 end)
 
 

@@ -1971,19 +1971,14 @@ Change default browser used in Emacs to Chromium.
      #+BEGIN_SRC emacs-lisp :tangle yes
        (defun z-yas/exists? (mode name)
          "Return t if MODE has snippet NAME, nil otherwise."
-         (not (notany (lambda (x)
-                        (when (equal (type-of x)
-                                     'string)
-                          (file-exists-p (concat x "/" mode "/" name ".snip"))))
-                      (append yas-snippet-dirs `(,yas-installed-snippets-dir)))))
+         (yas-lookup-snippet name (intern mode) t))
      #+END_SRC
 
 *** =z/cdr-or-last=
 
-
      #+BEGIN_SRC emacs-lisp :tangle yes
        (defun z/cdr-or-last (cons-or-list)
-         "Get the last element (or )"
+         "Get the last element (or cdr)"
          (if (condition-case nil
                  (progn
                    (length cons-or-list)
@@ -1992,6 +1987,8 @@ Change default browser used in Emacs to Chromium.
              (cdr cons-or-list)
              (first (last cons-or-list))))
      #+END_SRC
+
+*** Require
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package autoinsert

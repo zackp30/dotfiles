@@ -30,3 +30,5 @@
     (widen)))
 
 (define-key org-mode-map (kbd "M-s C-s s") 'pres-mode)
+
+(provide 'pres)
