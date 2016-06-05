@@ -11,7 +11,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 
 -- Fancy widgets
-require("blingbling")
+local blingbling = require("blingbling")
 
 -- Battery
 local assault = require('assault')
