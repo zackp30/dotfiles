@@ -181,7 +181,7 @@ mytasklist.buttons = awful.util.table.join(
                                           end))
 
 
--- System load graph
+-- CPU graph
 local cpu_graph = blingbling.line_graph({height = 18,
                        width = 200,
                        show_text = true,
