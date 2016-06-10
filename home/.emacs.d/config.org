@@ -1345,8 +1345,8 @@ Change default browser used in Emacs to Chromium.
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'find-lisp)
      (setq org-agenda-files
-           (append (find-lisp-find-files "~/org" "\.org$")
-                   (find-lisp-find-files "~/MassRevision" "\.org$")))
+           (append (find-lisp-find-files "~/org" "\.org$")))
+                   ;; (find-lisp-find-files "~/MassRevision" "\.org$")))
    #+END_SRC
 ** =org-log-done=
 
