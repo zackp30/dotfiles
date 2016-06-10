@@ -60,6 +60,7 @@ S: shell command to run"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-safe-themes
    (quote
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "26614652a4b3515b4bbbb9828d71e206cc249b67c9142c06239ed3418eff95e2" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
@@ -92,9 +93,10 @@ Captured On: %U
       (file+headline "~/org/notes.org" "Links")
       "* %? [[%:link][%:description]]
 Captured On: %U")
-     (("tw" "Work TODOs") "Work TODO item" entry
+     ("z" "Work TODO item" entry
       (file+headline "~/org/work.org" "Work")
-      "* %^{Name}\\n %^G"))))
+      "* TODO %^{Name} %^G
+%?"))))
  '(org-emphasis-alist
    (quote
     (("*" bold)
