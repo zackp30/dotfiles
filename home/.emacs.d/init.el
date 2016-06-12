@@ -72,7 +72,7 @@ S: shell command to run"
  '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
  '(org-capture-templates
    (quote
-    (("t" "Link and text" entry
+    (("l" "Link and text" entry
       (file+headline "~/org/notes.org" "Links")
       "* [[%:link][%:description]]
 Captured On: %U
