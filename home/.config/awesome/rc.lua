@@ -139,6 +139,7 @@ myassault = assault({
 
 -- Create a wibox for each screen and add it
 mywibox = {}
+mybottomwibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -196,6 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
 
     -- Add widgets to the wibox
     mywibox[s]:setup {
@@ -215,6 +217,16 @@ awful.screen.connect_for_each_screen(function(s)
             mylayoutbox[s],
             myassault
         },
+    }
+    mybottomwibox[s]:setup {
+        layout = wibox.layout.align.horizontal,
+        blingbling.line_graph({height = 18,
+                               width = 200,
+                               show_text = true,
+                               label = "Load: $percent %",
+                               rounded_size = 0.3,
+                               graph_background_color = "#00000033"
+        })
     }
 end)
 
