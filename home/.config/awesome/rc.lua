@@ -191,6 +191,16 @@ local cpu_graph = blingbling.line_graph({height = 18,
 
 vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
 
+-- Volume
+
+local volume_master = blingbling.volume({height = 18,
+                                         width = 40,
+                                         bar = true,
+                                         show_text = true,
+                                         label = "$percent%",
+                                         pulseaudio = true})
+volume_master:update_master()
+volume_master:set_master_control()
 
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
@@ -229,13 +239,14 @@ awful.screen.connect_for_each_screen(function(s)
             s == 1 and wibox.widget.systray(),
             mytextclock,
             mylayoutbox[s],
+            volume_master,
             myassault
         },
     }
     mybottomwibox[s]:setup({
           layout = wibox.layout.align.horizontal,
           cpu_graph,
-                          })
+    })
 end)
 
 
