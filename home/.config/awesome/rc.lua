@@ -180,6 +180,18 @@ mytasklist.buttons = awful.util.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
+
+-- System load graph
+local cpu_graph = blingbling.line_graph({height = 18,
+                       width = 200,
+                       show_text = true,
+                       label = "Load: $percent %",
+                       rounded_size = 0.3,
+                       graph_background_color = "#00000033"})
+
+vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
+
+
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
