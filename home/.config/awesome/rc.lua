@@ -10,6 +10,9 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 
+-- Fancy widgets
+require("blingbling")
+
 -- Battery
 local assault = require('assault')
 
