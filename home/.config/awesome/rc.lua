@@ -13,6 +13,8 @@ local naughty = require("naughty")
 -- Fancy widgets
 local blingbling = require("blingbling")
 
+local vicious = require("vicious")
+
 -- Battery
 local assault = require('assault')
 
