@@ -79,7 +79,6 @@
                     elixir-mode ;; major mode for Elixir
                     emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emmet-mode ;; http://emmet.io implementation for Emacs
-                    emojify ;; emojis :smile:
                     etags-select
                     evil ;; VIM for Emacs
                     evil-anzu
@@ -588,16 +587,6 @@ Change default browser used in Emacs to Chromium.
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq mime-edit-split-message nil)
    #+END_SRC
-
-
-* Emojis
-
-  Disabled due to it interfering with something in the past,
-  unfortunately I never got around to submitting a bug report.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (global-emojify-mode 0)
-  #+END_SRC
 
 * EVIL
 
