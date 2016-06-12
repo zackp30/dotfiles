@@ -127,10 +127,6 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
--- Menubar configuration
-
-
-
 -- Create a textclock widget
 mytextclock = awful.widget.textclock(" %a %b %d, %H:%M:%S ", 1)
 
