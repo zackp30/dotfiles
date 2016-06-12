@@ -21,7 +21,7 @@
 	url = git://github.com/cedlemo/blingbling.git
 [submodule "home/.config/awesome/blingbling"]
 	path = home/.config/awesome/blingbling
-	url = git://github.com/cedlemo/blingbling.git
+	url = git@g.apertron.net:Xack/blingbling-modified.git
 [submodule "home/.config/awesome/hints"]
 	path = home/.config/awesome/hints
 	url = https://github.com/zackpete/hints
@@ -33,7 +33,7 @@
 	url = https://github.com/hoelzro/obvious
 [submodule "home/.config/awesome/vicious"]
 	path = home/.config/awesome/vicious
-	url = http://g.apertron.net/Xack/vicious.git
+	url = https://g.apertron.net/Xack/vicious-mirror.git
 [submodule "home/.zsh/plugins/opp.zsh"]
 	path = home/.zsh/plugins/opp.zsh
 	url = https://github.com/hchbaw/opp.zsh
