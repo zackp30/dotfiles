@@ -590,29 +590,6 @@ Change default browser used in Emacs to Chromium.
      (setq mime-edit-split-message nil)
    #+END_SRC
 
-* Emmet
-
-  [[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".
-
-** =turn-on-emmet-mode=
-
-   Tiny function to use instead of =(lambda [...])= to DRY the code.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun turn-on-emmet-mode ()
-       (emmet-mode 1))
-   #+END_SRC
-
-   For =(web|sgml|css)-mode=, turn on emmet-mode.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package emmet-mode
-       :config
-       (add-hook 'web-mode-hook 'turn-on-emmet-mode)
-       (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
-       (add-hook 'css-mode-hook 'turn-on-emmet-mode))
-   #+END_SRC
-
 
 * Emojis
 
@@ -1085,6 +1062,29 @@ Change default browser used in Emacs to Chromium.
 
        (setq web-mode-enable-auto-closing t)
        (setq web-mode-enable-auto-pairing t))
+   #+END_SRC
+
+*** Emmet
+
+  [[http:/emmet.io][Emmet]] is an incredibly useful tool when dealing with HTML, think of it as "super-charged snippets for HTML".
+
+** =turn-on-emmet-mode=
+
+   Tiny function to use instead of =(lambda [...])= to DRY the code.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun turn-on-emmet-mode ()
+       (emmet-mode 1))
+   #+END_SRC
+
+   For =(web|sgml|css)-mode=, turn on emmet-mode.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package emmet-mode
+       :config
+       (add-hook 'web-mode-hook 'turn-on-emmet-mode)
+       (add-hook 'sgml-mode-hook 'turn-on-emmet-mode)
+       (add-hook 'css-mode-hook 'turn-on-emmet-mode))
    #+END_SRC
 
 ** Gitolite
