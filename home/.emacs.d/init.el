@@ -91,7 +91,10 @@ Captured On: %U
      ("L" "Link" entry
       (file+headline "~/org/notes.org" "Links")
       "* %? [[%:link][%:description]]
-Captured On: %U"))))
+Captured On: %U")
+     (("tw" "Work TODOs") "Work TODO item" entry
+      (file+headline "~/org/work.org" "Work")
+      "* %^{Name}\\n %^G"))))
  '(org-emphasis-alist
    (quote
     (("*" bold)
