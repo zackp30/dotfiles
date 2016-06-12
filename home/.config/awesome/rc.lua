@@ -129,7 +129,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock()
+mytextclock = awful.widget.textclock(" %a %b %d, %H:%M:%S ", 1)
 
 -- Battery
 myassault = assault({
