@@ -1,0 +1,21 @@
+* Meta tags
+
+  For quite a while I’ve been using, in my own documents, something I
+  call “Meta tags” (or MTags) that is, tags used to convey information
+  about the text within a document, but not directly related to the text.
+
+  You could say these are HTML meta tags (=meta=), but slightly more
+  terse and compact.
+
+* Syntax
+
+  MTags have a relatively simple form:
+
+  1. An opening square bracket (=[=).
+  2. A character, or a string, delimited by =｢= and =｣=, describing
+     what the MTag is about, that is. A character or string is
+     A description code, as described in [[Description Codes]].
+  4. An opening parenthesis (=(=).
+  5. The text the meta tag applies to.
+  6. A closing parenthesis (=)=).
+  7. A closing square bracket (=]=).
