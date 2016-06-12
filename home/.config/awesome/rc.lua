@@ -232,16 +232,10 @@ awful.screen.connect_for_each_screen(function(s)
             myassault
         },
     }
-    mybottomwibox[s]:setup {
-        layout = wibox.layout.align.horizontal,
-        blingbling.line_graph({height = 18,
-                               width = 200,
-                               show_text = true,
-                               label = "Load: $percent %",
-                               rounded_size = 0.3,
-                               graph_background_color = "#00000033"
-        })
-    }
+    mybottomwibox[s]:setup({
+          layout = wibox.layout.align.horizontal,
+          cpu_graph,
+                          })
 end)
 
 
