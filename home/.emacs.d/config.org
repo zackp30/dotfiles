@@ -2007,6 +2007,13 @@ Change default browser used in Emacs to Chromium.
             auto-mode-alist))
    #+END_SRC
 
+* Key translation
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (define-key key-translation-map (kbd "<f9> b m o") (kbd "｢"))
+    (define-key key-translation-map (kbd "<f9> b m o") (kbd "｣"))
+  #+END_SRC
+
 * Utilities
 ** =z/fill-unfill=
 
