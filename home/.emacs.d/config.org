@@ -2025,7 +2025,7 @@ Change default browser used in Emacs to Chromium.
         (let ((fill-column
                (if (eq last-command 'z/fill-unfill)
                    (progn
-                     (setq last-command nil)
+                     (setq this-command nil)
                      (point-max))
                  fill-column)))
           (call-interactively 'fill-paragraph)))
