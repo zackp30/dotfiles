@@ -1181,6 +1181,7 @@ Change default browser used in Emacs to Chromium.
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'htmlize)
     (electric-indent-mode 1) ;; automatically indent on RET or others
+    (electric-pair-mode 1) ;; autometically insert pair characters
     (show-paren-mode 1) ;; highlight matching parens
     (mouse-avoidance-mode 'banish) ;; be gone cursor!
     (setq initial-scratch-message ;; I know it's a scratch buffer by now!
