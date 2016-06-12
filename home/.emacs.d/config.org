@@ -265,7 +265,6 @@
                     (intern (concat mode "-mode")))))
   #+END_SRC
 
-
 * El-get
 
   #+BEGIN_SRC emacs-lisp :tangle yes
