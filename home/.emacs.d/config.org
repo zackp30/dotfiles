@@ -1157,7 +1157,7 @@ Change default browser used in Emacs to Chromium.
                   ("C-d" . nil)
 
                   :map zack-keys-minor-mode-map
-                  ("C-d RET C-s" . magit-status))
+                  ("C-d RET s" . magit-status))
 
       :config
       (setq magit-auto-revert-mode nil)
