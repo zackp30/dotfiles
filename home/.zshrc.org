@@ -256,12 +256,20 @@
   I found this a long time ago, and I can’t remember where I found it
   from, credit goes to whoever made this.
 
+  Add the =zsh-completions= repository to the completion module load-path.
+
   #+BEGIN_SRC shell-script :tangle yes
-    setopt prompt_subst
     fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
-    autoload -U colors && colors
+  #+END_SRC
+
+  Load completion initialization module.
+  
+  #+BEGIN_SRC shell-script :tangle yes
     autoload -Uz compinit
     compinit
+  #+END_SRC
+
+  #+BEGIN_SRC shell-script :tangle yes
     zstyle ':completion:*' menu select
     zstyle ':completion:*' auto-description 'specify: %d'
     zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -309,6 +317,7 @@
   #+BEGIN_SRC shell-script :tangle yes
     bindkey -s '^O' '^qcd\n'
   #+END_SRC
+
 * VCS prompt
 ** Enable caching
 
@@ -565,18 +574,20 @@
 
 ** Load
    #+BEGIN_SRC shell-script :tangle yes
-    p_load() {
-        export PS1=$(p_module_pwd)" "
-        export PS1=$PS1$(p_module_time)" "
-        export PS1=$PS1$(p_module_user)
-        export PS1=$PS1$(p_module_host)" "
-        export PS1=$PS1$(p_module_privsymbol)" "
-        export PS1=$PS1'$(vcs_super_info)'
-        export PS1=$PS1$'\n'
-        export PS1=$PS1"$ "
-    }
+     setopt prompt_subst
+      autoload -U colors && colors
+     p_load() {
+         export PS1=$(p_module_pwd)" "
+         export PS1=$PS1$(p_module_time)" "
+         export PS1=$PS1$(p_module_user)
+         export PS1=$PS1$(p_module_host)" "
+         export PS1=$PS1$(p_module_privsymbol)" "
+         export PS1=$PS1'$(vcs_super_info)'
+         export PS1=$PS1$'\n'
+         export PS1=$PS1"$ "
+     }
 
-    p_load
+     p_load
    #+END_SRC
 ** Dumb terminal handling
 
