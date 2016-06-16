@@ -1378,7 +1378,8 @@ Change default browser used in Emacs to Chromium.
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq org-latex-minted-langs '((conf-space "aconf")
                                     (conf-unix "squid")
-                                    (text "snippet")))
+                                    (jq "text")
+                                    (snippet "lisp")))
    #+END_SRC
 
 ** Todo states
@@ -1435,7 +1436,7 @@ Change default browser used in Emacs to Chromium.
 #+END_SRC
 
 
-** Confirm or not to confirm, that is the question
+** Confirm or not to confirm that is the question
 
    (Sorry to any Shakespeare fans)
 
