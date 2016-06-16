@@ -2,7 +2,7 @@
 ** =add-zsh-hook=
    Allows the user to add hooks to certain events that happen in zsh.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      autoload -U add-zsh-hook
    #+END_SRC
 
@@ -11,13 +11,13 @@
 
    =e=: see  [[emacsclient script]]
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      export EDITOR=e
    #+END_SRC
 
 ** Correction
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     setopt CORRECT
   #+END_SRC
 
@@ -26,7 +26,7 @@
 
    This function returns exit code =1= if the command does *not* exist.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      function detect_command() {
          command -v $1 >/dev/null 2>&1 || return 1
          return 0
@@ -37,7 +37,7 @@
 
    This function runs the command if the command exists.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      function run_command() {
          if [ $($(detect_command $1); echo $?) -eq 0 ]; then
              $@
@@ -49,7 +49,7 @@
 
    Source the file if =file= exists.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      function source_if_exists() {
          [ ! -e "$1" ] || source "$1"
      }
@@ -61,7 +61,7 @@
 
 *** =ep=
 
-    #+BEGIN_SRC shell :tangle yes
+    #+BEGIN_SRC shell-script :tangle yes
       function ep {
           emacsclient -c -s $(basename $(projectroot)) $@
       }
@@ -69,7 +69,7 @@
 
 *** =ep-start=
 
-    #+BEGIN_SRC shell :tangle yes
+    #+BEGIN_SRC shell-script :tangle yes
       function ep-start {
           sleep 1 # wait for shells to initialise, THEN start
           waitforemacs $(basename $(projectroot))
@@ -85,7 +85,7 @@
 
 *** =ep-stop=
 
-    #+BEGIN_SRC shell :tangle yes
+    #+BEGIN_SRC shell-script :tangle yes
 
 
 
@@ -106,19 +106,19 @@
 ** Gitignore templates
 
    http://gitignore.io
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      function gi() { curl -L -s https://www.gitignore.io/api/$@ }
    #+END_SRC
 
 ** Load Minetest mods into config
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      mt_load_mods() {
        find -maxdepth 1 -mindepth 1 -type d -printf 'load_mod_%f = true\n' >> $1
      }
    #+END_SRC
 
 * PATH
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     export PATH=$PATH:$HOME/.fzf/bin
     export PATH=$PATH:/usr/local/bin
     export PATH=$PATH:$HOME/.local/bin
@@ -127,7 +127,7 @@
 
 ** =~/bin=
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     export PATH=$HOME/bin:$PATH
   #+END_SRC
 
@@ -149,7 +149,7 @@
 
 * History
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     HISTSIZE=99999999
     SAVEHIST=99999999
     HISTFILE=~/.zsh_history
@@ -164,7 +164,7 @@
   Runs =gpg-agent= if it isn't already running.
   In GPG 2.1 (currently I only use this on my Arch systems) this doesn't exist.
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     if [ -f "${HOME}/.gpg-agent-info" ]; then
         . "${HOME}/.gpg-agent-info"
         export GPG_AGENT_INFO
@@ -183,7 +183,7 @@
     Create a zkbd compatible hash to add other keys to this hash, see:
     man 5 terminfo.
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     typeset -A key
 
     key[Home]=${terminfo[khome]}
@@ -222,7 +222,7 @@
 
 * Source plugins
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     # source_if_exists ~/.zsh/plugins/opp.zsh/opp.zsh
     # source_if_exists ~/.zsh/plugins/opp.zsh/opp/*.zsh
     source_if_exists ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -238,14 +238,25 @@
 
   Initial =pyenv= if found.
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     if detect_command pyenv; then
         eval "$(pyenv init -)"
     fi
   #+END_SRC
 
+* Allow myself to type in comments
+
+  #+BEGIN_SRC shell-script :tangle yes
+    setopt interactivecomments
+  #+END_SRC
+
+
 * Completion
-  #+BEGIN_SRC shell :tangle yes
+
+  I found this a long time ago, and I can’t remember where I found it
+  from, credit goes to whoever made this.
+
+  #+BEGIN_SRC shell-script :tangle yes
     setopt prompt_subst
     fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
     autoload -U colors && colors
@@ -268,7 +279,7 @@
     eval "$(dircolors -b)"
   #+END_SRC
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]] && [[ "$TERM" != "dumb"  ]]; then
         export TERM='xterm-256color'
     fi
@@ -279,7 +290,7 @@
 
    This feature is built-in, it brings vi to zsh.
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     bindkey -v
   #+END_SRC
 
@@ -287,7 +298,7 @@
 
    Fancier version of =C-r=.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      bindkey -M vicmd 'k' history-substring-search-up
      bindkey -M vicmd 'j' history-substring-search-down
      bindkey '^[[A' history-substring-search-up
@@ -296,13 +307,13 @@
 
 ** =C-o= -> =cd=
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     bindkey -s '^O' '^qcd\n'
   #+END_SRC
 * VCS prompt
 ** Enable caching
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     ZSH_VCS_PROMPT_ENABLE_CACHING='true'
   #+END_SRC
 
@@ -315,7 +326,7 @@
   otherwise I would give credit. (I believe I made the =z-prexec=
   function however)
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
 
     VIM_PROMPT="%F{yellow}%F{blue}[%f%F{yellow}N%f%F{blue}]%k%f"
     function z-preexec() {
@@ -340,7 +351,7 @@
 
   Code not mine.
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     zle -N zle-line-init
     zle -N zle-keymap-select
     fancy-ctrl-z () {
@@ -368,7 +379,7 @@
       - Bypass fuzzy finder if there's only one match (--select-1)
       - Exit if there's no match (--exit-0)
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     fe() {
         local file
         file=$(fzf --query="$1" --select-1 --exit-0)
@@ -378,7 +389,7 @@
 
 ** fd - cd to selected directory
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     fd() {
         local dir
         dir=$(find ${1:-*} -path '*/\.*' -prune \
@@ -389,7 +400,7 @@
 
 ** fda - including hidden directories
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     fda() {
         local dir
         dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
@@ -398,7 +409,7 @@
 
 ** fh - repeat history
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
       fh() {
           eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s | sed 's/ *[0-9]* *//')
       }
@@ -406,7 +417,7 @@
 
 ** fkill - kill process
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      fkill() {
          ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9}
      }
@@ -414,7 +425,7 @@
 
 ** fbr - checkout git branch
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     fbr() {
         local branches branch
         branches=$(git branch) &&
@@ -425,7 +436,7 @@
 
 ** fstage - stage uncommited file
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     fstage() {
         local files to_stage
         files="$(git status --porcelain)"
@@ -436,7 +447,7 @@
 
 ** fco - checkout git commit
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     fco() {
         local commits commit
         commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
@@ -447,7 +458,7 @@
 
 ** ftags - search ctags
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      ftags() {
          local line
          [ -e tags ] &&
@@ -461,7 +472,7 @@
 
 * ssh-agent
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell-script :tangle yes
     SSH_ENV="$HOME/.ssh/environment"
 
     function start_agent {
@@ -493,7 +504,7 @@
 
 ** Colors
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     _p_color_date=cyan
     _p_color_pwd=cyan
     _p_color_pwd_fg=red
@@ -508,7 +519,7 @@
 
 *** Root-or-not-root symbol
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell-script :tangle yes
 
 
   p_module_privsymbol() {
@@ -523,7 +534,7 @@
 
 *** Hostname
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell-script :tangle yes
     p_module_host() {
         echo "%F{$_p_color_host_fg}%K{$_p_color_host}%m%k%f"
     }
@@ -531,7 +542,7 @@
 
 *** Username
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell-script :tangle yes
     p_module_user() {
         echo "%F{$_p_color_user_fg}%K{$_p_color_user}%n%F{red}⍟%f%k%f"
     }
@@ -539,7 +550,7 @@
 
 *** Current directory.
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell-script :tangle yes
     p_module_pwd() {
         echo "%F{$_p_color_pwd_fg}%K{$_p_color_pwd}%~%k%f"
     }
@@ -547,14 +558,14 @@
 
 *** Time
 
-#+BEGIN_SRC shell :tangle yes
+#+BEGIN_SRC shell-script :tangle yes
     p_module_time() {
         echo '%F{$_p_color_date}%D{%H:%M:%S}%f'
     }
 #+END_SRC
 
 ** Load
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     p_load() {
         export PS1=$(p_module_pwd)" "
         export PS1=$PS1$(p_module_time)" "
@@ -575,13 +586,13 @@
    wait forever for a prompt), so simply set =PS1= to a very simple
    prompt.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
    #+END_SRC
 
 * Unset =DISPLAY= because of my remote desktop inheriting it, preventing me from attaching to tmux.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     if [[ $DISPLAY ]]; then unset TMUX; fi
   #+END_SRC
 
@@ -590,7 +601,7 @@
     When in tmux I leave some panes to idle, but when I'm not in tmux I don't need =$TMOUT=
     especially when forwarding ports, so determine if within =TMUX= and set =TMOUT= to an hour.
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     [[ ! -z $TMUX ]] && export TMOUT=3600
   #+END_SRC
 
@@ -603,43 +614,43 @@
    The commit message (obviously) isn't empty, but things like
    `git-rebase` mess up with a repo with empty commit messages.
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      alias gcem="git commit -am 'The commit message was empty'"
    #+END_SRC
 
 ** =grmv=
 
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      alias grmv="git remote -v"
    #+END_SRC
 
 ** =gpull=
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      alias gpull='git pull'
    #+END_SRC
 
 ** =gstatus=
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      alias gstatus='git status'
    #+END_SRC
 
 ** =..=
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
      alias ..='cd ..'
    #+END_SRC
 
 ** =cab=
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     alias cab='cabal install'
    #+END_SRC
 
 ** =:q=
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
     alias :q='exit'
    #+END_SRC
 
 ** =disp=
-   #+BEGIN_SRC shell :tangle yes
+   #+BEGIN_SRC shell-script :tangle yes
    alias disp='DISPLAY=:100 '
    #+END_SRC
 
@@ -650,13 +661,13 @@ shell, since they aren't actual programs.
 
 #+INCLUDE: "~/bin/e" src shell
 * RVM
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
   #+END_SRC
 * direnv
 
-  #+BEGIN_SRC shell :tangle yes
+  #+BEGIN_SRC shell-script :tangle yes
     if detect_command direnv; then
         eval "$(direnv hook zsh)"
     fi
