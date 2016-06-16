@@ -244,7 +244,7 @@
     fi
   #+END_SRC
 
-* Allow myself to type in comments
+* Allow myself to use comments interactively
 
   #+BEGIN_SRC shell-script :tangle yes
     setopt interactivecomments
