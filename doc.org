@@ -24,7 +24,8 @@ This site is available as a few other formats:
   ICT, which are all predominantly computer based, my favorite is still
   computer science.
 
-  I have dabbled with the following programming languages:
+  I have dabbled with the following programming languages (this
+  is not to say I know these, I’m just a tinkerer).
 
   - [[http://ruby-lang.org][Ruby]] --- an object oriented scripting language designed with
     readability in mind
