@@ -67,7 +67,8 @@ S: shell command to run"
  '(edit-server-url-major-mode-alist
    (quote
     (("b.6697.eu" . markdown-mode)
-     ("news.ycombinator.com" . markdown-mode))))
+     ("news.ycombinator.com" . markdown-mode)
+     ("reddit.com" . markdown-mode))))
  '(el-get-git-shallow-clone t)
  '(indent-guide-char "│")
  '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))

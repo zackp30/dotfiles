@@ -128,6 +128,7 @@
                     mmm-mode ;; Multiple Major Modes
                     mode-icons ;; icons for major modes
                     nim-mode ;; major mode for Nim
+                    nix-mode ;; major mode for Nix
                     ob-ipython
                     org-bullets
                     org-ref
@@ -1148,6 +1149,13 @@ Change default browser used in Emacs to Chromium.
        (setq racer-rust-src-path (expand-file-name "~/rust")))
    #+END_SRC
 
+** Nix
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+   (use-package nix-mode)
+   #+END_SRC
+
+
 * Magit
   Magit is fantastic!
 
@@ -1982,7 +1990,6 @@ Change default browser used in Emacs to Chromium.
      (use-package autoinsert
        :config
        (auto-insert-mode 1)
-       (setq auto-insert-query nil)
        (map nil (lambda (x)
                   (let ((mode-name (symbol-name (z/cdr-or-last x)))
                         (regex (first x)))

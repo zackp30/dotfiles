@@ -47,7 +47,7 @@ end
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvt-256color"
 editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -236,7 +236,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
-            s == 1 and wibox.widget.systray(),
+            wibox.widget.systray(),
             mytextclock,
             mylayoutbox[s],
             volume_master,

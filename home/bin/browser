@@ -6,6 +6,6 @@ case `hostname` in
         ;;
 
     zos)
-        echo "chromium"
+        echo "/home/zack/chrome-linux/chrome"
         ;;
 esac
