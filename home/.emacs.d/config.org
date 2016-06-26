@@ -277,6 +277,23 @@
         :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
       (el-get-bundle alphapapa/org-protocol-capture-html)
       (el-get-bundle github:zackp30/ox-twbs)
+      (el-get-bundle mu4e
+       :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
+       :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
+       :type github
+       :pkgname "djcb/mu"
+       :post-init (setq mu4e-mu-binary
+                        ;; "el-get-dir/mu4e/mu/mu"
+                        (expand-file-name
+                         "mu"
+                         (expand-file-name
+                          "mu"
+                          (el-get-package-directory 'mu4e))))
+       :build `(("autoreconf" "-i")
+                ("./configure")
+                ("make"))
+       :load-path "mu4e"
+       :info "mu4e/mu4e.info")
       (el-get-bundle org-reveal
         :type github
         :pkgname "yjwen/org-reveal"
@@ -587,6 +604,63 @@ Change default browser used in Emacs to Chromium.
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq mime-edit-split-message nil)
    #+END_SRC
+
+** mu4e
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package mu4e
+       :config
+
+       ;; default
+       (setq mu4e-maildir (expand-file-name "~/.mail"))
+
+       (setq mu4e-drafts-folder "/[Gmail].Drafts")
+       (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+       (setq mu4e-trash-folder  "/[Gmail].Trash")
+
+       ;; don't save message to Sent Messages, GMail/IMAP will take care of this
+       (setq mu4e-sent-messages-behavior 'delete)
+
+       ;; setup some handy shortcuts
+       (setq mu4e-maildir-shortcuts
+             '(("/INBOX"             . ?i)
+               ("/[Gmail].Sent Mail" . ?s)
+               ("/[Gmail].Trash"     . ?t)))
+       (setq mu4e-contexts
+             `(,(make-mu4e-context
+                 :name "Work"
+                 :enter-func (lambda () (mu4e-message "Switch to the Private context"))
+                 ;; leave-func not defined
+                 :match-func (lambda (msg)
+                               (when msg 
+                                 (mu4e-message-contact-field-matches msg 
+                                                                     :to "zack@infosecparners.co.uk")))
+                 :vars '((user-mail-address . "zack@infosecparners.co.uk")
+                         (user-full-name . "Zack Piper")))))
+
+
+       ;; allow for updating mail using 'U' in the main view:
+       (setq mu4e-get-mail-command "mbsync -a"))
+
+     ;; sending mail -- replace USERNAME with your gmail username
+     ;; also, make sure the gnutls command line utils are installed
+     ;; package 'gnutls-bin' in Debian/Ubuntu, 'gnutls' in Archlinux.
+     (use-package smtpmail
+       :config
+
+
+       (setq message-send-mail-function 'smtpmail-send-it
+             starttls-use-gnutls t
+             smtpmail-starttls-credentials
+             '(("smtp.gmail.com" 587 nil nil))
+             smtpmail-auth-credentials
+             (expand-file-name "~/.authinfo.gpg")
+             smtpmail-default-smtp-server "smtp.gmail.com"
+             smtpmail-smtp-server "smtp.gmail.com"
+             smtpmail-smtp-service 587
+             smtpmail-debug-info t))
+   #+END_SRC
+
 
 * EVIL
 
@@ -1203,6 +1277,13 @@ Change default browser used in Emacs to Chromium.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (define-key zack-keys-minor-mode-map (kbd "C-x C-;") 'kill-this-buffer)
+   #+END_SRC
+
+** =clipboard-yank=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (define-key zack-keys-minor-mode-map (kbd "C-M-y") 'clipboard-yank)
+     (define-key minibuffer-local-map (kbd "C-M-y") 'clipboard-yank)
    #+END_SRC
 
 * Mode-line
