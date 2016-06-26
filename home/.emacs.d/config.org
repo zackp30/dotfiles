@@ -577,8 +577,7 @@ Change default browser used in Emacs to Chromium.
        (add-hook 'wl-summary-mode-hook 'wl-evil)
        (add-hook 'wl-message-mode-hook 'wl-evil)
        (add-hook 'mime-view-mode-hook 'wl-evil)
-       (add-hook 'wl-template-mode-hook 'wl-evil)
-       (add-hook 'mail-citation-hook 'sc-cite-original))
+       (add-hook 'wl-template-mode-hook 'wl-evil))
    #+END_SRC
 *** Disable message splitting on big attachments
 
