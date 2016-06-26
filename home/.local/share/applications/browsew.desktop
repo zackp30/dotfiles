@@ -1,11 +1,11 @@
 [Desktop Entry]
 Categories=Network;WebBrowser;GTK;
 Encoding=UTF-8
-Name=Chromium
+Name=Browser wrapper
 GenericName=Web Browser
 Comment=Web Browser
-TryExec=/home/zack/chrome-linux/chrome %u
-Exec=/home/zack/chrome-linux/chrome %u
+TryExec=/home/zack/bin/lbrowser %u
+Exec=/home/zack/bin/lbrowser %u
 Terminal=false
 StartupNotify=true
 MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;application/x-xpinstall;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
