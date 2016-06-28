@@ -353,6 +353,7 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package anzu
+      :diminish anzu-mode
       :config
       (global-anzu-mode 1))
   #+END_SRC
@@ -405,6 +406,7 @@
 
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package beacon
+    :diminish beacon-mode
     :config
     (beacon-mode 1))
 #+END_SRC
@@ -487,6 +489,7 @@ Change default browser used in Emacs to Chromium.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package company
+      :diminish company-mode
       :config
       (add-hook 'after-init-hook 'global-company-mode) ;; enable company-mode globally
       (setq company-idle-delay 0.1)
@@ -869,12 +872,13 @@ Change default browser used in Emacs to Chromium.
      (setq-default tab-width 2)
    #+END_SRC
 
-* Git-gutter
+* GitGutter
 
   Git-gutter displays a summary of =git diff= in the left fringe of the current buffer.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package git-gutter
+      :diminish git-gutter-mode
       :config
       (global-git-gutter-mode 1))
   #+END_SRC
@@ -983,6 +987,7 @@ Change default browser used in Emacs to Chromium.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package indent-guide
+      :diminish indent-guide-mode
       :config
       (indent-guide-global-mode 1)) ;; enable globally
   #+END_SRC
@@ -1705,6 +1710,8 @@ Change default browser used in Emacs to Chromium.
     (define-minor-mode zack-keys-minor-mode
       "Override package keys."
       t " z-keys" 'zack-keys-minor-mode-map)
+
+    (diminish zack-keys-minor-mode)
   #+END_SRC
 
 * Pinentry
@@ -1959,6 +1966,7 @@ Change default browser used in Emacs to Chromium.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package undo-tree
+      :diminish undo-tree-mode
       :config
       (setq undo-tree-auto-save-history 1)
       (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
@@ -1976,14 +1984,16 @@ Change default browser used in Emacs to Chromium.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package volatile-highlights
-  	:config
-  	(volatile-highlights-mode 1))
+      :diminish volatile-highlights-mode
+      :config
+      (volatile-highlights-mode 1))
   #+END_SRC
 
 * which-key
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package which-key
+      :diminish which-key-mode
       :config
       (which-key-mode 1)
       (add-to-list 'which-key-key-replacement-alist '("TAB" . "↹"))
