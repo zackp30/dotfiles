@@ -632,8 +632,8 @@ Change default browser used in Emacs to Chromium.
                                    :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
                                    ;; leave-func not defined
                                    :match-func (lambda (msg)
-                                                 (when msg 
-                                                   (mu4e-message-contact-field-matches msg 
+                                                 (when msg
+                                                   (mu4e-message-contact-field-matches msg
                                                                                        :to "zack@apertron.net")))
                                    :vars '((user-mail-address . "zack@apertron.net")
                                            (user-full-name . "Zack Piper")))
@@ -641,8 +641,8 @@ Change default browser used in Emacs to Chromium.
                                    :enter-func (lambda () (mu4e-message "Switch to the Work context"))
                                    ;; leave-func not defined
                                    :match-func (lambda (msg)
-                                                 (when msg 
-                                                   (mu4e-message-contact-field-matches msg 
+                                                 (when msg
+                                                   (mu4e-message-contact-field-matches msg
                                                                                        :to "zack@infosecpartners.co.uk")))
                                    :vars '((user-mail-address . "zack@infosecpartners.co.uk")
                                            (user-full-name . "Zack Piper")))))
@@ -650,7 +650,7 @@ Change default browser used in Emacs to Chromium.
 
        ;; allow for updating mail using 'U' in the main view:
        (setq mu4e-get-mail-command "mbsync -a")
-       (setq mu4e-update-interval 30))
+       (setq mu4e-update-interval 3600))
 
      ;; sending mail -- replace USERNAME with your gmail username
      ;; also, make sure the gnutls command line utils are installed
@@ -671,7 +671,7 @@ Change default browser used in Emacs to Chromium.
    #+END_SRC
 
 *** Notifications
-    
+
     #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package mu4e-alert
         :config

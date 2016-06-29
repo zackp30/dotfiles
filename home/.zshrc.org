@@ -263,7 +263,7 @@
   #+END_SRC
 
   Load completion initialization module.
-  
+
   #+BEGIN_SRC shell-script :tangle yes
     autoload -Uz compinit
     compinit
