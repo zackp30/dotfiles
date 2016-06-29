@@ -127,6 +127,7 @@
                     material-theme
                     mmm-mode ;; Multiple Major Modes
                     mode-icons ;; icons for major modes
+                    mu4e-alert
                     nim-mode ;; major mode for Nim
                     nix-mode ;; major mode for Nix
                     ob-ipython
@@ -615,47 +616,52 @@ Change default browser used in Emacs to Chromium.
        :config
 
        ;; default
-       (setq mu4e-maildir (expand-file-name "~/.mail"))
+       (setq mu4e-maildir "~/.mail/")
 
-       (setq mu4e-drafts-folder "/[Gmail].Drafts")
-       (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-       (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-       ;; don't save message to Sent Messages, GMail/IMAP will take care of this
-       (setq mu4e-sent-messages-behavior 'delete)
+       (setq mu4e-drafts-folder "/Drafts")
+       (setq mu4e-sent-folder   "/Sent Mail")
+       (setq mu4e-trash-folder  "/Trash")
 
        ;; setup some handy shortcuts
        (setq mu4e-maildir-shortcuts
              '(("/INBOX"             . ?i)
-               ("/[Gmail].Sent Mail" . ?s)
-               ("/[Gmail].Trash"     . ?t)))
+               ("/Sent Mail" . ?s)
+               ("/Trash"     . ?t)))
        (setq mu4e-contexts
-             `(,(make-mu4e-context
-                 :name "Work"
-                 :enter-func (lambda () (mu4e-message "Switch to the Private context"))
-                 ;; leave-func not defined
-                 :match-func (lambda (msg)
-                               (when msg 
-                                 (mu4e-message-contact-field-matches msg 
-                                                                     :to "zack@infosecparners.co.uk")))
-                 :vars '((user-mail-address . "zack@infosecparners.co.uk")
-                         (user-full-name . "Zack Piper")))))
+             `(,(make-mu4e-context :name "Personal"
+                                   :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
+                                   ;; leave-func not defined
+                                   :match-func (lambda (msg)
+                                                 (when msg 
+                                                   (mu4e-message-contact-field-matches msg 
+                                                                                       :to "zack@apertron.net")))
+                                   :vars '((user-mail-address . "zack@apertron.net")
+                                           (user-full-name . "Zack Piper")))
+               ,(make-mu4e-context :name "Work"
+                                   :enter-func (lambda () (mu4e-message "Switch to the Work context"))
+                                   ;; leave-func not defined
+                                   :match-func (lambda (msg)
+                                                 (when msg 
+                                                   (mu4e-message-contact-field-matches msg 
+                                                                                       :to "zack@infosecpartners.co.uk")))
+                                   :vars '((user-mail-address . "zack@infosecpartners.co.uk")
+                                           (user-full-name . "Zack Piper")))))
 
 
        ;; allow for updating mail using 'U' in the main view:
-       (setq mu4e-get-mail-command "mbsync -a"))
+       (setq mu4e-get-mail-command "mbsync -a")
+       (setq mu4e-update-interval 30))
 
      ;; sending mail -- replace USERNAME with your gmail username
      ;; also, make sure the gnutls command line utils are installed
      ;; package 'gnutls-bin' in Debian/Ubuntu, 'gnutls' in Archlinux.
      (use-package smtpmail
        :config
-
-
        (setq message-send-mail-function 'smtpmail-send-it
              starttls-use-gnutls t
              smtpmail-starttls-credentials
-             '(("smtp.gmail.com" 587 nil nil))
+             '(("smtp.gmail.com" 587 nil nil)
+               ("apertron.net" 587 nil nil))
              smtpmail-auth-credentials
              (expand-file-name "~/.authinfo.gpg")
              smtpmail-default-smtp-server "smtp.gmail.com"
@@ -663,6 +669,15 @@ Change default browser used in Emacs to Chromium.
              smtpmail-smtp-service 587
              smtpmail-debug-info t))
    #+END_SRC
+
+*** Notifications
+    
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package mu4e-alert
+        :config
+        (mu4e-alert-set-default-style 'libnotify)
+        (add-hook 'after-init-hook #'mu4e-alert-enable-notifications))
+    #+END_SRC
 
 
 * EVIL
