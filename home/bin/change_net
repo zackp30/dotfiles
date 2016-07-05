@@ -12,4 +12,6 @@ systemctl restart network
 
 if [[ "$Z_DNSSERVER" != "" ]]; then
     echo "nameserver $Z_DNSSERVER" >| /etc/resolv.conf
+else
+    echo "nameserver 8.8.8.8" >| /etc/resolv.conf
 fi
