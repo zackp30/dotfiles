@@ -6,4 +6,10 @@ name=$1
 
 cp $cfgdir/$name /etc/sysconfig/network/ifcfg-wlp2s0
 
+source $cfgdir/$name
+
 systemctl restart network
+
+if [[ "$Z_DNSSERVER" != "" ]]; then
+    echo "nameserver $Z_DNSSERVER" >| /etc/resolv.conf
+fi
