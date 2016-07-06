@@ -83,6 +83,8 @@ Captured On: %U
 #+END_QUOTE
 
 %?")
+     ("e" "todo" entry (file+headline "~/org/work/todo.org" "Tasks")
+      "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
      ("w" "Web site" entry
       (file "~/org/notes.org")
       "* %a :website:
