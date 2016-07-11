@@ -650,6 +650,7 @@ Change default browser used in Emacs to Chromium.
                                    :vars '((user-mail-address . "zack@infosecpartners.co.uk")
                                            (user-full-name . "Zack Piper")))))
 
+       (setq mml-secure-openpgp-signers '("61FCF3D9"))
 
        ;; allow for updating mail using 'U' in the main view:
        (setq mu4e-get-mail-command "mbsync -a")

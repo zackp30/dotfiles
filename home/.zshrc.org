@@ -682,3 +682,12 @@ shell, since they aren't actual programs.
         eval "$(direnv hook zsh)"
     fi
   #+END_SRC
+
+* Linuxbrew
+
+  #+BEGIN_SRC shell-script :tangle yes
+    export PATH="/home/zack/.linuxbrew/bin:$PATH"
+    export MANPATH="/home/zack/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
+  #+END_SRC
+
