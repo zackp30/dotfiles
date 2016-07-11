@@ -120,7 +120,6 @@
 * PATH
   #+BEGIN_SRC shell-script :tangle yes
     export PATH=$PATH:$HOME/.fzf/bin
-    export PATH=$PATH:/usr/local/bin
     export PATH=$PATH:$HOME/.local/bin
     export GOPATH=$HOME/gostuff
   #+END_SRC
@@ -691,3 +690,8 @@ shell, since they aren't actual programs.
     export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
   #+END_SRC
 
+* Things that *must* go last
+
+  #+BEGIN_SRC shell-script :tangle yes
+    export PATH=/usr/local/bin:$PATH
+  #+END_SRC

@@ -56,7 +56,6 @@ mt_load_mods() {
 }
 
 export PATH=$PATH:$HOME/.fzf/bin
-export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 export GOPATH=$HOME/gostuff
 
@@ -357,3 +356,5 @@ fi
 export PATH="/home/zack/.linuxbrew/bin:$PATH"
 export MANPATH="/home/zack/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
+
+export PATH=/usr/local/bin:$PATH
