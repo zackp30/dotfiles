@@ -611,6 +611,24 @@ Change default browser used in Emacs to Chromium.
 ** mu4e
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'json)
+     (defun z/get-quote ()
+       (let* ((quote-json (json-read-file "~/.quotes.json"))
+              (quote-text (cdr (assoc 'text (elt quote-json (random (length quote-json))))))
+              (quote-author (cdr (assoc 'author (elt quote-json (random (length quote-json)))))))
+         (list quote-text quote-author)))
+
+     (defun z/mu4e-sig ()
+       (let ((-quote (z/get-quote)))
+         (setq message-signature (concat "
+      Zack Piper         PGP: 409B 6B17 96C2 7546 2A17  0311 3804 BB82 D39D C0E3
+                         Ethereum: b5892b7e34896c4b75a9651a57c3d63e2701385a
+                         BitCoin: 33c144xhzbXEbkMfHatM4JDxV82Un9dFBo
+
+      ---------
+
+      "
+                                         (cdr -quote)))))
      (use-package mu4e
        :config
 
@@ -622,6 +640,8 @@ Change default browser used in Emacs to Chromium.
        (setq org-mu4e-convert-to-html t)
        (setq mu4e-trash-folder  "/Trash")
 
+
+       (add-hook 'message-signature-setup-hook 'z/mu4e-sig)
        ;; setup some handy shortcuts
        (setq mu4e-maildir-shortcuts
              '(("/INBOX"             . ?i)
@@ -681,7 +701,6 @@ Change default browser used in Emacs to Chromium.
         (mu4e-alert-set-default-style 'libnotify)
         (add-hook 'after-init-hook #'mu4e-alert-enable-notifications))
     #+END_SRC
-
 
 * EVIL
 

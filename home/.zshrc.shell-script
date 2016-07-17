@@ -1,6 +1,8 @@
 autoload -U add-zsh-hook
 
-export EDITOR=e
+export PATH=$HOME/atom/out/Atom:$PATH
+
+export EDITOR=ei
 
 setopt CORRECT
 
