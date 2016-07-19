@@ -1,6 +1,6 @@
 "*":
   Hydrogen:
-    kernelspec: "{\"kernelspecs\":{\"python3\":{\"resource_dir\":\"/home/zack/.local/lib/python3.5/site-packages/ipykernel/resources\",\"spec\":{\"display_name\":\"Python 3\",\"language\":\"python\",\"argv\":[\"/usr/bin/python3\",\"-m\",\"ipykernel\",\"-f\",\"{connection_file}\"],\"env\":{}}},\"javascript\":{\"resource_dir\":\"/home/zack/.local/share/jupyter/kernels/javascript\",\"spec\":{\"display_name\":\"Javascript (Node.js)\",\"language\":\"javascript\",\"argv\":[\"/home/zack/.nvm/versions/node/v6.2.2/bin/node\",\"/home/zack/.nvm/versions/node/v6.2.2/lib/node_modules/ijavascript/lib/kernel.js\",\"{connection_file}\",\"--protocol=5.0\"],\"env\":{}}},\"ruby\":{\"resource_dir\":\"/home/zack/.ipython/kernels/ruby\",\"spec\":{\"display_name\":\"Ruby 2.3.0\",\"language\":\"ruby\",\"argv\":[\"/home/zack/.rvm/gems/ruby-2.3.0/bin/iruby\",\"kernel\",\"{connection_file}\"],\"env\":{}}}}}"
+    kernelspec: "{\"kernelspecs\":{\"python3\":{\"resource_dir\":\"/home/zack/.local/lib/python3.5/site-packages/ipykernel/resources\",\"spec\":{\"env\":{},\"argv\":[\"/usr/bin/python3\",\"-m\",\"ipykernel\",\"-f\",\"{connection_file}\"],\"language\":\"python\",\"display_name\":\"Python 3\"}},\"javascript\":{\"resource_dir\":\"/home/zack/.local/share/jupyter/kernels/javascript\",\"spec\":{\"env\":{},\"argv\":[\"/home/zack/.nvm/versions/node/v6.2.2/bin/node\",\"/home/zack/.nvm/versions/node/v6.2.2/lib/node_modules/ijavascript/lib/kernel.js\",\"{connection_file}\",\"--protocol=5.0\"],\"language\":\"javascript\",\"display_name\":\"Javascript (Node.js)\"}},\"ruby\":{\"resource_dir\":\"/home/zack/.ipython/kernels/ruby\",\"spec\":{\"env\":{},\"argv\":[\"/home/zack/.rvm/gems/ruby-2.3.0/bin/iruby\",\"kernel\",\"{connection_file}\"],\"language\":\"ruby\",\"display_name\":\"Ruby 2.3.0\"}},\"bash\":{\"resource_dir\":\"/home/zack/.local/share/jupyter/kernels/bash\",\"spec\":{\"env\":{\"PS1\":\"$\"},\"argv\":[\"/usr/bin/python3\",\"-m\",\"bash_kernel\",\"-f\",\"{connection_file}\"],\"language\":\"bash\",\"display_name\":\"Bash\"}}}}"
   "autocomplete-plus": {}
   core:
     disabledPackages: [
@@ -8,7 +8,7 @@
     ]
     themes: [
       "one-dark-ui"
-      "atom-dark-syntax"
+      "solarized-dark-syntax"
     ]
   editor:
     backUpBeforeSaving: true
@@ -29,6 +29,8 @@
     coffeelintExecutablePath: "/usr/bin/"
   "linter-csslint":
     csslintExecutablePath: "/usr/bin/"
+  "linter-eslint":
+    disableWhenNoEslintConfig: false
   "linter-jshint":
     jshintExecutablePath: "/usr/bin"
   metrics:
