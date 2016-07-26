@@ -2,7 +2,7 @@ autoload -U add-zsh-hook
 
 export PATH=$HOME/atom/out/Atom:$PATH
 
-export EDITOR=ei
+export EDITOR=e
 
 setopt CORRECT
 
