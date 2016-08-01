@@ -1725,6 +1725,10 @@ Change default browser used in Emacs to Chromium.
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq org-export-htmlize-output-type 'css)
+      (setq org-twbs-head (concat org-twbs-head
+                                  (with-temp-buffer
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
+                                    (buffer-string))))) ;; =.org= note: extra paren since we close the far above =use-package=
     #+END_SRC
 
 ** Org-ref
