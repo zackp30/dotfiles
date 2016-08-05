@@ -1727,8 +1727,9 @@ Change default browser used in Emacs to Chromium.
       (setq org-export-htmlize-output-type 'css)
       (setq org-twbs-head (concat org-twbs-head
                                   (with-temp-buffer
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                     (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
-                                    (buffer-string))))) ;; =.org= note: extra paren since we close the far above =use-package=
+                                    (buffer-string)))) ;; =.org= note: extra paren since we close the far above =use-package=
     #+END_SRC
 
 ** Org-ref
