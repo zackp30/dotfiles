@@ -1,0 +1,1 @@
+~/atom/out/Atom/atom -w $*

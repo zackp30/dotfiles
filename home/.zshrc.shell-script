@@ -1,5 +1,7 @@
 autoload -U add-zsh-hook
 
+export PATH=$HOME/atom/out/Atom:$PATH
+
 export EDITOR=e
 
 setopt CORRECT
@@ -56,7 +58,6 @@ mt_load_mods() {
 }
 
 export PATH=$PATH:$HOME/.fzf/bin
-export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 export GOPATH=$HOME/gostuff
 
@@ -127,11 +128,13 @@ if detect_command pyenv; then
     eval "$(pyenv init -)"
 fi
 
-setopt prompt_subst
+setopt interactivecomments
+
 fpath=(~/.zsh/plugins/zsh-completions/src ~/.zsh/completion $fpath)
-autoload -U colors && colors
+
 autoload -Uz compinit
 compinit
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -145,7 +148,6 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-setopt interactivecomments
 eval "$(dircolors -b)"
 
 if [[ -z "$STY" && -z "$TMUX" ]] && [[ "$TERM" == (xterm|rxvt|konsole)* || -n "$COLORTERM" ]] && [[ "$TERM" != "dumb"  ]]; then
@@ -309,6 +311,8 @@ p_module_time() {
     echo '%F{$_p_color_date}%D{%H:%M:%S}%f'
 }
 
+setopt prompt_subst
+ autoload -U colors && colors
 p_load() {
     export PS1=$(p_module_pwd)" "
     export PS1=$PS1$(p_module_time)" "
@@ -324,7 +328,7 @@ p_load
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-if [[ $DISPLAY ]]; then unset TMUX; fi
+if $DISPLAY; then unset TMUX; fi
 
 [[ ! -z $TMUX ]] && export TMOUT=3600
 
@@ -350,3 +354,9 @@ export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if detect_command direnv; then
     eval "$(direnv hook zsh)"
 fi
+
+export PATH="/home/zack/.linuxbrew/bin:$PATH"
+export MANPATH="/home/zack/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
+
+export PATH=/usr/local/bin:$PATH

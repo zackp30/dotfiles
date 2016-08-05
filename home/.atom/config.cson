@@ -1,18 +1,22 @@
 "*":
+  Hydrogen:
+    kernelspec: "{\"kernelspecs\":{\"python3\":{\"resource_dir\":\"/home/zack/.local/lib/python3.5/site-packages/ipykernel/resources\",\"spec\":{\"env\":{},\"argv\":[\"/usr/bin/python3\",\"-m\",\"ipykernel\",\"-f\",\"{connection_file}\"],\"language\":\"python\",\"display_name\":\"Python 3\"}},\"javascript\":{\"resource_dir\":\"/home/zack/.local/share/jupyter/kernels/javascript\",\"spec\":{\"env\":{},\"argv\":[\"/home/zack/.nvm/versions/node/v6.2.2/bin/node\",\"/home/zack/.nvm/versions/node/v6.2.2/lib/node_modules/ijavascript/lib/kernel.js\",\"{connection_file}\",\"--protocol=5.0\"],\"language\":\"javascript\",\"display_name\":\"Javascript (Node.js)\"}},\"ruby\":{\"resource_dir\":\"/home/zack/.ipython/kernels/ruby\",\"spec\":{\"env\":{},\"argv\":[\"/home/zack/.rvm/gems/ruby-2.3.0/bin/iruby\",\"kernel\",\"{connection_file}\"],\"language\":\"ruby\",\"display_name\":\"Ruby 2.3.0\"}},\"bash\":{\"resource_dir\":\"/home/zack/.local/share/jupyter/kernels/bash\",\"spec\":{\"env\":{\"PS1\":\"$\"},\"argv\":[\"/usr/bin/python3\",\"-m\",\"bash_kernel\",\"-f\",\"{connection_file}\"],\"language\":\"bash\",\"display_name\":\"Bash\"}}}}"
   "autocomplete-plus": {}
   core:
     disabledPackages: [
-      "background-tips"
+      "language-gfm"
     ]
     themes: [
-      "solarized-dark-ui"
+      "one-dark-ui"
       "solarized-dark-syntax"
     ]
   editor:
-    fontSize: 12
+    backUpBeforeSaving: true
+    fontSize: 15
     invisibles: {}
     showIndentGuide: true
     showInvisibles: true
+    tabType: "soft"
   "exception-reporting":
     userId: "d6a6a0eb-61e4-8042-024d-5df028948645"
   linter:
@@ -25,10 +29,14 @@
     coffeelintExecutablePath: "/usr/bin/"
   "linter-csslint":
     csslintExecutablePath: "/usr/bin/"
+  "linter-eslint":
+    disableWhenNoEslintConfig: false
   "linter-jshint":
     jshintExecutablePath: "/usr/bin"
   metrics:
     userId: "4cd2409d-c082-4855-8bf5-c0c4263458ad"
+  tabs:
+    enableVcsColoring: true
   "tree-view": {}
   welcome:
     showOnStartup: false

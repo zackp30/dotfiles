@@ -66,6 +66,7 @@
                     company-tern ;; completion for `tern-mode'.
                     ctags ;; ctags integration for Emacs
                     d-mode ;; mode for the D language
+                    deft
                     dired+ ;; extensions for Dired
                     dired-rainbow ;; RAINBOWS
                     dired-subtree
@@ -95,7 +96,6 @@
                     flycheck ;; on the fly syntax checking
                     flycheck-pos-tip
                     flycheck-rust ;; flycheck for the Rust language
-                    fountain-mode
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
                     ghc
                     ghci-completion ;; GHC integration for company
@@ -535,6 +535,14 @@ Change default browser used in Emacs to Chromium.
                                   (add-to-list 'company-backends 'company-go))))
 #+END_SRC
 
+* Deft
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package deft
+      :config
+      (setq deft-directory "~/org")
+      (setq deft-extensions '("org" "md" "txt")))
+  #+END_SRC
+
 * Dired
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -612,6 +620,28 @@ Change default browser used in Emacs to Chromium.
 ** mu4e
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'json)
+     (defun z/get-quote ()
+       (let* ((quote-json (json-read-file "~/.quotes.json"))
+              (quote-and-author (elt quote-json (random (length quote-json)))))
+         quote-and-author))
+
+     (defun z/mu4e-sig ()
+       (let ((-quote (z/get-quote)))
+         (insert (concat "-- 
+      Zack Piper         PGP: 409B 6B17 96C2 7546 2A17
+                              0311 3804 BB82 D39D C0E3
+                         Ethereum: b5892b7e34896c4b75a9651a57c3d63e2701385a
+                         BitCoin: 33c144xhzbXEbkMfHatM4JDxV82Un9dFBo
+
+      ------------
+      Random quote
+      ------------
+
+      "
+                         "“"(cdr (assoc 'text -quote))"”"
+                         " -- "
+                         (cdr (assoc 'author -quote))))))
      (use-package mu4e
        :config
 
@@ -623,6 +653,8 @@ Change default browser used in Emacs to Chromium.
        (setq org-mu4e-convert-to-html t)
        (setq mu4e-trash-folder  "/Trash")
 
+
+       (add-hook 'message-signature-setup-hook 'z/mu4e-sig)
        ;; setup some handy shortcuts
        (setq mu4e-maildir-shortcuts
              '(("/INBOX"             . ?i)
@@ -650,6 +682,7 @@ Change default browser used in Emacs to Chromium.
                                    :vars '((user-mail-address . "zack@infosecpartners.co.uk")
                                            (user-full-name . "Zack Piper")))))
 
+       (setq mml-secure-openpgp-signers '("61FCF3D9"))
 
        ;; allow for updating mail using 'U' in the main view:
        (setq mu4e-get-mail-command "mbsync -a")
@@ -1692,6 +1725,11 @@ Change default browser used in Emacs to Chromium.
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq org-export-htmlize-output-type 'css)
+      (setq org-twbs-head (concat org-twbs-head
+                                  (with-temp-buffer
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
+                                    (buffer-string)))) ;; =.org= note: extra paren since we close the far above =use-package=
     #+END_SRC
 
 ** Org-ref
@@ -1986,8 +2024,6 @@ Change default browser used in Emacs to Chromium.
     (use-package undo-tree
       :diminish undo-tree-mode
       :config
-      (setq undo-tree-auto-save-history 1)
-      (setq undo-tree-history-directory-alist (quote (("." . "~/.emacs.d/undo/"))))
       (setq undo-tree-visualizer-diff t))
   #+END_SRC
 

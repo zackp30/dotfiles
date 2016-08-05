@@ -2,3 +2,5 @@
   'ctrl-alt-l': 'linter:lint'
 '.editor:not(.mini).vim-mode:not(.insert-mode):not(.jumpy-jump-mode)':
   'f': 'jumpy:toggle'
+'.editor':
+  'ctrl-alt-q': 'autoflow:reflow-selection'

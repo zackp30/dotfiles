@@ -120,7 +120,6 @@
 * PATH
   #+BEGIN_SRC shell-script :tangle yes
     export PATH=$PATH:$HOME/.fzf/bin
-    export PATH=$PATH:/usr/local/bin
     export PATH=$PATH:$HOME/.local/bin
     export GOPATH=$HOME/gostuff
   #+END_SRC
@@ -603,7 +602,7 @@
 * Unset =DISPLAY= because of my remote desktop inheriting it, preventing me from attaching to tmux.
 
    #+BEGIN_SRC shell-script :tangle yes
-    if [[ $DISPLAY ]]; then unset TMUX; fi
+    if $DISPLAY; then unset TMUX; fi
   #+END_SRC
 
 * Cleanup of old sessions
@@ -681,4 +680,18 @@ shell, since they aren't actual programs.
     if detect_command direnv; then
         eval "$(direnv hook zsh)"
     fi
+  #+END_SRC
+
+* Linuxbrew
+
+  #+BEGIN_SRC shell-script :tangle yes
+    export PATH="/home/zack/.linuxbrew/bin:$PATH"
+    export MANPATH="/home/zack/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
+  #+END_SRC
+
+* Things that *must* go last
+
+  #+BEGIN_SRC shell-script :tangle yes
+    export PATH=/usr/local/bin:$PATH
   #+END_SRC
