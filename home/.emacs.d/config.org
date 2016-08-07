@@ -628,7 +628,7 @@ Change default browser used in Emacs to Chromium.
 
      (defun z/mu4e-sig ()
        (let ((-quote (z/get-quote)))
-         (insert (concat "-- 
+         (insert (concat "--
       Zack Piper         PGP: 409B 6B17 96C2 7546 2A17
                               0311 3804 BB82 D39D C0E3
                          Ethereum: b5892b7e34896c4b75a9651a57c3d63e2701385a
@@ -642,68 +642,68 @@ Change default browser used in Emacs to Chromium.
                          "“"(cdr (assoc 'text -quote))"”"
                          " -- "
                          (cdr (assoc 'author -quote))))))
-     (use-package mu4e
-       :config
+     ;; (use-package mu4e
+     ;;   :config
 
-       ;; default
-       (setq mu4e-maildir "~/.mail/")
+     ;;   ;; default
+     ;;   (setq mu4e-maildir "~/.mail/")
 
-       (setq mu4e-drafts-folder "/Drafts")
-       (setq mu4e-sent-folder   "/Sent Mail")
-       (setq org-mu4e-convert-to-html t)
-       (setq mu4e-trash-folder  "/Trash")
+     ;;   (setq mu4e-drafts-folder "/Drafts")
+     ;;   (setq mu4e-sent-folder   "/Sent Mail")
+     ;;   (setq org-mu4e-convert-to-html t)
+     ;;   (setq mu4e-trash-folder  "/Trash")
 
 
-       (add-hook 'message-signature-setup-hook 'z/mu4e-sig)
-       ;; setup some handy shortcuts
-       (setq mu4e-maildir-shortcuts
-             '(("/INBOX"             . ?i)
-               ("/Sent Mail" . ?s)
-               ("/Trash"     . ?t)))
-       (use-package org-mu4e)
+     ;;   (add-hook 'message-signature-setup-hook 'z/mu4e-sig)
+     ;;   ;; setup some handy shortcuts
+     ;;   (setq mu4e-maildir-shortcuts
+     ;;         '(("/INBOX"             . ?i)
+     ;;           ("/Sent Mail" . ?s)
+     ;;           ("/Trash"     . ?t)))
+     ;;   (use-package org-mu4e)
 
-       (setq mu4e-contexts
-             `(,(make-mu4e-context :name "Personal"
-                                   :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
-                                   ;; leave-func not defined
-                                   :match-func (lambda (msg)
-                                                 (when msg
-                                                   (mu4e-message-contact-field-matches msg
-                                                                                       :to "zack@apertron.net")))
-                                   :vars '((user-mail-address . "zack@apertron.net")
-                                           (user-full-name . "Zack Piper")))
-               ,(make-mu4e-context :name "Work"
-                                   :enter-func (lambda () (mu4e-message "Switch to the Work context"))
-                                   ;; leave-func not defined
-                                   :match-func (lambda (msg)
-                                                 (when msg
-                                                   (mu4e-message-contact-field-matches msg
-                                                                                       :to "zack@infosecpartners.co.uk")))
-                                   :vars '((user-mail-address . "zack@infosecpartners.co.uk")
-                                           (user-full-name . "Zack Piper")))))
+     ;;   (setq mu4e-contexts
+     ;;         `(,(make-mu4e-context :name "Personal"
+     ;;                               :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
+     ;;                               ;; leave-func not defined
+     ;;                               :match-func (lambda (msg)
+     ;;                                             (when msg
+     ;;                                               (mu4e-message-contact-field-matches msg
+     ;;                                                                                   :to "zack@apertron.net")))
+     ;;                               :vars '((user-mail-address . "zack@apertron.net")
+     ;;                                       (user-full-name . "Zack Piper")))
+     ;;           ,(make-mu4e-context :name "Work"
+     ;;                               :enter-func (lambda () (mu4e-message "Switch to the Work context"))
+     ;;                               ;; leave-func not defined
+     ;;                               :match-func (lambda (msg)
+     ;;                                             (when msg
+     ;;                                               (mu4e-message-contact-field-matches msg
+     ;;                                                                                   :to "zack@infosecpartners.co.uk")))
+     ;;                               :vars '((user-mail-address . "zack@infosecpartners.co.uk")
+     ;;                                       (user-full-name . "Zack Piper")))))
 
-       (setq mml-secure-openpgp-signers '("61FCF3D9"))
+     ;;   (setq mml-secure-openpgp-signers '("61FCF3D9"))
 
-       ;; allow for updating mail using 'U' in the main view:
-       (setq mu4e-get-mail-command "mbsync -a")
-       (setq mu4e-update-interval 3600))
+     ;;   ;; allow for updating mail using 'U' in the main view:
+     ;;   (setq mu4e-get-mail-command "mbsync -a")
+     ;;   (setq mu4e-update-interval 3600))
 
-     ;; sending mail -- replace USERNAME with your gmail username
-     ;; also, make sure the gnutls command line utils are installed
-     ;; package 'gnutls-bin' in Debian/Ubuntu, 'gnutls' in Archlinux.
-     (use-package smtpmail
-       :config
-       (setq message-send-mail-function 'smtpmail-send-it
-             starttls-use-gnutls t
-             smtpmail-starttls-credentials
-             '(("smtp.gmail.com" 587 nil nil)
-               ("apertron.net" 587 nil nil))
-             smtpmail-auth-credentials
-             (expand-file-name "~/.authinfo.gpg")
-             smtpmail-default-smtp-server "smtp.gmail.com"
-             smtpmail-smtp-server "smtp.gmail.com"
-             smtpmail-smtp-service 587
-             smtpmail-debug-info t))
+     ;; ;; sending mail -- replace USERNAME with your gmail username
+     ;; ;; also, make sure the gnutls command line utils are installed
+     ;; ;; package 'gnutls-bin' in Debian/Ubuntu, 'gnutls' in Archlinux.
+     ;; (use-package smtpmail
+     ;;   :config
+     ;;   (setq message-send-mail-function 'smtpmail-send-it
+     ;;         starttls-use-gnutls t
+     ;;         smtpmail-starttls-credentials
+     ;;         '(("smtp.gmail.com" 587 nil nil)
+     ;;           ("apertron.net" 587 nil nil))
+     ;;         smtpmail-auth-credentials
+     ;;         (expand-file-name "~/.authinfo.gpg")
+     ;;         smtpmail-default-smtp-server "smtp.gmail.com"
+     ;;         smtpmail-smtp-server "smtp.gmail.com"
+     ;;         smtpmail-smtp-service 587
+     ;;         smtpmail-debug-info t))
    #+END_SRC
 
 *** Notifications
@@ -1725,7 +1725,7 @@ Change default browser used in Emacs to Chromium.
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq org-export-htmlize-output-type 'css)
-      (setq org-twbs-head (concat org-twbs-head
+      (setq org-html-head (concat org-twbs-head
                                   (with-temp-buffer
                                     (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                     (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))

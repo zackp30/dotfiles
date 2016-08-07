@@ -9,3 +9,12 @@ $settings = {
     ]
   }
 }
+
+module ZHelpers
+  extend RSpec::Matchers::DSL
+  matcher :have_no_whitespace do
+    match do |line|
+      line.sub(/[ \t]+$/, '') == line
+    end
+  end
+end
