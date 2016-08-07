@@ -17,7 +17,7 @@ module ZHelpers
       line.sub(/[ \t]+$/, '') == line
     end
     failure_message do |actual|
-      "expected that #{actual} would have no whitespace"
+      "expected that #{actual.inspect} would have no whitespace"
     end
   end
 end
