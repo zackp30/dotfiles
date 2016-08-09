@@ -6,4 +6,4 @@ test:
     - export LANGUAGE=en_US.UTF-8
     - export LC_ALL=en_US.UTF-8
     - gem install rspec
-    - rspec.ruby2.1 .
+    - rspec.ruby2.1 -f doc .
