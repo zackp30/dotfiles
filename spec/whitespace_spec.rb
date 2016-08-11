@@ -1,5 +1,3 @@
-require './g.rb'
-
 describe 'File' do
   include ZHelpers
   $settings[:whitespace][:files].each do |g|

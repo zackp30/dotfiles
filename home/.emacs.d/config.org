@@ -441,8 +441,7 @@ Change default browser used in Emacs to Chromium.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq browse-url-browser-function 'browse-url-generic
-          browse-url-generic-program "chrome")
-    ;; I compile Chromium myself, and the binary is called "chrome"
+          browse-url-generic-program "chromium")
   #+END_SRC
 
 * Calc
