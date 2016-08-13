@@ -71,7 +71,6 @@ S: shell command to run"
      ("reddit.com" . markdown-mode))))
  '(el-get-git-shallow-clone t)
  '(indent-guide-char "│")
- '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
  '(org-capture-templates
    (quote
