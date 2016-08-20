@@ -46,6 +46,7 @@
     (defvar pkgs '(use-package
                     ace-flyspell ;; ace-jump-mode for flyspell
                     ace-window ;; jump to a window using `ace-jump'.
+                    ace-link
                     ag ;; the silver searcher
                     anzu
                     avy ;; easymotion
@@ -340,6 +341,14 @@
         :description "org-learn"
         :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
+
+* Ace-link
+    
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package ace-link
+      :config
+      (ace-link-setup-default))
+  #+END_SRC
 
 * Ag
 
@@ -715,7 +724,6 @@ Change default browser used in Emacs to Chromium.
         (add-hook 'after-init-hook #'mu4e-alert-enable-notifications))
     #+END_SRC
 
-
 * EVIL
 
   EVIL is VIM within Emacs.
@@ -940,6 +948,7 @@ Change default browser used in Emacs to Chromium.
     (use-package helm
       :config
       (global-set-key (kbd "M-x") 'helm-M-x)
+      (global-set-key (kbd "C-x C-f") 'helm-find-files)
       (helm-mode 1)
       (helm-autoresize-mode 1))
   #+END_SRC
