@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: header
+# key: header
+# --
+;;;Commentary
+;; ${1:Commentary}
