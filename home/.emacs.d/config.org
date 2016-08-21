@@ -45,8 +45,9 @@
     ;; Install packages.
     (defvar pkgs '(use-package
                     ace-flyspell ;; ace-jump-mode for flyspell
-                    ace-window ;; jump to a window using `ace-jump'.
                     ace-link
+                    ace-mc
+                    ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
                     anzu
                     avy ;; easymotion

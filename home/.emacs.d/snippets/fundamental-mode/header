@@ -2,5 +2,5 @@
 # name: header
 # key: header
 # --
-;;;Commentary
+;;; Commentary
 ;; ${1:Commentary}
