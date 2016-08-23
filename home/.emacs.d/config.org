@@ -44,10 +44,6 @@
     (require 'cl)
     ;; Install packages.
     (defvar pkgs '(use-package
-                    ace-flyspell ;; ace-jump-mode for flyspell
-                    ace-link
-                    ace-mc
-                    ace-window ;; jump to a window using `ace-jump'.
                     ag ;; the silver searcher
                     anzu
                     avy ;; easymotion
@@ -131,6 +127,7 @@
                     mmm-mode ;; Multiple Major Modes
                     mode-icons ;; icons for major modes
                     mu4e-alert
+                    multiple-cursors
                     nim-mode ;; major mode for Nim
                     nix-mode ;; major mode for Nix
                     ob-ipython
@@ -1391,6 +1388,16 @@ Change default browser used in Emacs to Chromium.
     (mode-icons-mode))
 #+END_SRC
 
+* Multiple-Cursors 
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package multiple-cursors
+      :config
+      (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+      (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+      (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+      (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this))
+  #+END_SRC
+
 * Multiple-Major-Modes
 
   This package is *fantastic* for things that embed other languages.
@@ -1438,6 +1445,7 @@ Change default browser used in Emacs to Chromium.
     (a-mode ".mderb" "markdown")
   #+END_SRC
 
+ 
 * No GUI stuff
 
   #+BEGIN_SRC emacs-lisp :tangle yes
