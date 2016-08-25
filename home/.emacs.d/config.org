@@ -179,7 +179,6 @@
     ;; press "U" just when I run `list-packages' to result in it claiming
     ;; there's no updates avaialble so I have to press ‘U’ it again.
 #+END_SRC
-
 * use-package
 
   use-package (https://github.com/jwiegley/use-package) handles
@@ -558,6 +557,12 @@ Change default browser used in Emacs to Chromium.
       (bind-keys :map dired-mode-map
                  ("TAB" . dired-subtree-insert)
                  ("<backtab>" . dired-subtree-remove)))
+  #+END_SRC
+
+* Dired+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package dired+
+      :quelpa (dired+ :fetcher git :url "https://g.apertron.net/Xack/diredp.git"))
   #+END_SRC
 
 * Dynamic ruler
