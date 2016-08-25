@@ -332,11 +332,6 @@
                    ;; if tramp will be used.
                    (autoload 'tramp-check-proper-method-and-host "tramp.el"))
         :info "share/info")
-      (el-get-bundle org-learn
-        :type http
-        :pkgname "org-learn"
-        :description "org-learn"
-        :url "http://orgmode.org/w/?p=org-mode.git;a=blob_plain;f=contrib/lisp/org-learn.el"))
     #+END_SRC
 
 * Ace-link
