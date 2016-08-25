@@ -270,36 +270,8 @@
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package el-get
       :config
-      (el-get-bundle org-drill
-        :type http
-        :pkgname "org-drill"
-        :description "org-drill"
-        :url "https://bitbucket.org/eeeickythump/org-drill/raw/default/org-drill.el")
       (el-get-bundle alphapapa/org-protocol-capture-html)
       (el-get-bundle github:zackp30/ox-twbs)
-      (el-get-bundle mu4e
-       :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
-       :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
-       :type github
-       :pkgname "djcb/mu"
-       :post-init (setq mu4e-mu-binary
-                        ;; "el-get-dir/mu4e/mu/mu"
-                        (expand-file-name
-                         "mu"
-                         (expand-file-name
-                          "mu"
-                          (el-get-package-directory 'mu4e))))
-       :build `(("autoreconf" "-i")
-                ("./configure")
-                ("make"))
-       :load-path "mu4e"
-       :info "mu4e/mu4e.info")
-      (el-get-bundle org-reveal
-        :type github
-        :pkgname "yjwen/org-reveal"
-        :description "Exports Org-mode contents to Reveal.js HTML presentation."
-        :depends org-mode
-        :features ox-reveal)
       ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/ntcmd.rcp
       (el-get-bundle ntcmd
         :type emacswiki
@@ -331,7 +303,7 @@
                    ;; Helm will try to call this function in order to figure out
                    ;; if tramp will be used.
                    (autoload 'tramp-check-proper-method-and-host "tramp.el"))
-        :info "share/info")
+        :info "share/info"))
     #+END_SRC
 
 * Ace-link
@@ -715,11 +687,10 @@ Change default browser used in Emacs to Chromium.
 
 *** Notifications
 
-    #+BEGIN_SRC emacs-lisp :tangle yes
+    #+BEGIN_SRC emacs-lisp :tangle no
       (use-package mu4e-alert
         :config
-        (mu4e-alert-set-default-style 'libnotify)
-        (add-hook 'after-init-hook #'mu4e-alert-enable-notifications))
+        (mu4e-alert-set-default-style 'libnotify))
     #+END_SRC
 
 * EVIL
@@ -1725,14 +1696,6 @@ Change default browser used in Emacs to Chromium.
      (use-package ob-diagrams)
      #+END_SRC
 
-
-** Org-drill
-
-   Used for my flashcards.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (require 'org-drill)
-   #+END_SRC
 
 ** Clocking
 
