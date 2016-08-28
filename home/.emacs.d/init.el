@@ -26,13 +26,27 @@
 ;; here since the correct version of Org isn't loaded, as `(require
 ;; 'org)` requires the built-in Emacs Org.
 
-(quelpa 'org-mode)
+(el-get-bundle org-mode ;; following from https://raw.githubusercontent.com/dimitri/el-get/master/recipes/org-mode.rcp
+  :website "http://orgmode.org/"
+  :description "Org-mode is for keeping notes, maintaining ToDo lists, doing project planning, and authoring with a fast and effective plain-text system."
+  :type git
+  :url "git://orgmode.org/org-mode"
+  :info "doc"
+  :build/berkeley-unix `,(mapcar
+                          (lambda (target)
+                            (list "gmake" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
+                          '("oldorg"))
+  :build `,(mapcar
+            (lambda (target)
+              (list "make" target (concat "EMACS=" (shell-quote-argument el-get-emacs))))
+            '("oldorg"))
+  :load-path ("." "contrib/lisp" "lisp")
+  :load ("lisp/org-loaddefs.el"))
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/emacs-dbgr/")
 (setq custom-theme-directory "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(require 'org)
 (require 'htmlize)
 
 (setq vc-follow-symlinks t)

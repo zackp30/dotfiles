@@ -18,7 +18,6 @@
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (setq package-archives `(("melpa" . ,melpa-url)
-                             ("org" . "http://orgmode.org/elpa/")
                              ("gnu" . "https://elpa.gnu.org/packages/")))
     (package-initialize)
     (package-refresh-contents)
@@ -153,7 +152,6 @@
                     smart-mode-line ;; a nice mode line
                     spaceline
                     stumpwm-mode
-                    swiper ;; `helm-swoop' for Ivy
                     table ;; tables!
                     tiny
                     todotxt ;; Mode for the todo.txt markup
@@ -605,84 +603,22 @@ Change default browser used in Emacs to Chromium.
               (quote-and-author (elt quote-json (random (length quote-json)))))
          quote-and-author))
 
-     (defun z/mu4e-sig ()
+     (defun z/mail-sig ()
        (let ((-quote (z/get-quote)))
-         (insert (concat "--
-      Zack Piper         PGP: 409B 6B17 96C2 7546 2A17
-                              0311 3804 BB82 D39D C0E3
-                         Ethereum: b5892b7e34896c4b75a9651a57c3d63e2701385a
-                         BitCoin: 33c144xhzbXEbkMfHatM4JDxV82Un9dFBo
+         (insert (concat "
 
-      ------------
-      Random quote
-      ------------
+-- 
+Zack Piper         PGP: 409B 6B17 96C2 7546 2A17
+                        0311 3804 BB82 D39D C0E3
+
+------------
+Random quote
+------------
 
       "
                          "“"(cdr (assoc 'text -quote))"”"
                          " -- "
                          (cdr (assoc 'author -quote))))))
-     ;; (use-package mu4e
-     ;;   :config
-
-     ;;   ;; default
-     ;;   (setq mu4e-maildir "~/.mail/")
-
-     ;;   (setq mu4e-drafts-folder "/Drafts")
-     ;;   (setq mu4e-sent-folder   "/Sent Mail")
-     ;;   (setq org-mu4e-convert-to-html t)
-     ;;   (setq mu4e-trash-folder  "/Trash")
-
-
-     ;;   (add-hook 'message-signature-setup-hook 'z/mu4e-sig)
-     ;;   ;; setup some handy shortcuts
-     ;;   (setq mu4e-maildir-shortcuts
-     ;;         '(("/INBOX"             . ?i)
-     ;;           ("/Sent Mail" . ?s)
-     ;;           ("/Trash"     . ?t)))
-     ;;   (use-package org-mu4e)
-
-     ;;   (setq mu4e-contexts
-     ;;         `(,(make-mu4e-context :name "Personal"
-     ;;                               :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
-     ;;                               ;; leave-func not defined
-     ;;                               :match-func (lambda (msg)
-     ;;                                             (when msg
-     ;;                                               (mu4e-message-contact-field-matches msg
-     ;;                                                                                   :to "zack@apertron.net")))
-     ;;                               :vars '((user-mail-address . "zack@apertron.net")
-     ;;                                       (user-full-name . "Zack Piper")))
-     ;;           ,(make-mu4e-context :name "Work"
-     ;;                               :enter-func (lambda () (mu4e-message "Switch to the Work context"))
-     ;;                               ;; leave-func not defined
-     ;;                               :match-func (lambda (msg)
-     ;;                                             (when msg
-     ;;                                               (mu4e-message-contact-field-matches msg
-     ;;                                                                                   :to "zack@infosecpartners.co.uk")))
-     ;;                               :vars '((user-mail-address . "zack@infosecpartners.co.uk")
-     ;;                                       (user-full-name . "Zack Piper")))))
-
-     ;;   (setq mml-secure-openpgp-signers '("61FCF3D9"))
-
-     ;;   ;; allow for updating mail using 'U' in the main view:
-     ;;   (setq mu4e-get-mail-command "mbsync -a")
-     ;;   (setq mu4e-update-interval 3600))
-
-     ;; ;; sending mail -- replace USERNAME with your gmail username
-     ;; ;; also, make sure the gnutls command line utils are installed
-     ;; ;; package 'gnutls-bin' in Debian/Ubuntu, 'gnutls' in Archlinux.
-     ;; (use-package smtpmail
-     ;;   :config
-     ;;   (setq message-send-mail-function 'smtpmail-send-it
-     ;;         starttls-use-gnutls t
-     ;;         smtpmail-starttls-credentials
-     ;;         '(("smtp.gmail.com" 587 nil nil)
-     ;;           ("apertron.net" 587 nil nil))
-     ;;         smtpmail-auth-credentials
-     ;;         (expand-file-name "~/.authinfo.gpg")
-     ;;         smtpmail-default-smtp-server "smtp.gmail.com"
-     ;;         smtpmail-smtp-server "smtp.gmail.com"
-     ;;         smtpmail-smtp-service 587
-     ;;         smtpmail-debug-info t))
    #+END_SRC
 
 *** Notifications
@@ -918,6 +854,7 @@ Change default browser used in Emacs to Chromium.
       :config
       (global-set-key (kbd "M-x") 'helm-M-x)
       (global-set-key (kbd "C-x C-f") 'helm-find-files)
+      (global-set-key (kbd "C-x b") 'helm-mini)
       (helm-mode 1)
       (helm-autoresize-mode 1))
   #+END_SRC
@@ -2098,9 +2035,9 @@ Change default browser used in Emacs to Chromium.
      From https://gist.github.com/jrnold/675584, adapted slightly for my use.
 
      #+BEGIN_SRC emacs-lisp :tangle yes
-       (defun z-yas/expand-by-uuid (mode uuid)
+       (defun z-yas/expand (mode name)
          "Expand snippet template in MODE by its UUID."
-         (yas-expand-snippet (yas--template-content (yas--get-template-by-uuid mode uuid))))
+         (yas-expand-snippet (yas-lookup-snippet name mode)))
      #+END_SRC
 
 *** =z-yas/exists?=
@@ -2113,7 +2050,8 @@ Change default browser used in Emacs to Chromium.
      #+BEGIN_SRC emacs-lisp :tangle yes
        (defun z-yas/exists? (mode name)
          "Return t if MODE has snippet NAME, nil otherwise."
-         (yas-lookup-snippet name (intern mode) t))
+         (when (yas-lookup-snippet name mode t)
+           t))
      #+END_SRC
 
 *** =z/cdr-or-last=
@@ -2137,11 +2075,11 @@ Change default browser used in Emacs to Chromium.
        :config
        (auto-insert-mode 1)
        (map nil (lambda (x)
-                  (let ((mode-name (symbol-name (z/cdr-or-last x)))
+                  (let ((-mode-name (z/cdr-or-last x))
                         (regex (first x)))
-                    (when (z-yas/exists? mode-name "header")
+                    (when (z-yas/exists? -mode-name "header")
                       (define-auto-insert regex
-                        `(lambda () (z-yas/expand-by-uuid mode-name "header"))))))
+                        `((lambda () (z-yas/expand ,-mode-name "header")))))))
             auto-mode-alist))
    #+END_SRC
 
