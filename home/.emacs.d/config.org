@@ -84,6 +84,7 @@
                     evil-indent-textobject ;; indentation text object for Evil
                     evil-leader ;; VIM's leader key for Emacs
                     evil-matchit ;; `%' extensions in Evil
+                    evil-multiedit ;; multiple-cursors in EVIL mode
                     evil-nerd-commenter ;; efficent commenting for Evil
                     evil-numbers
                     evil-space
@@ -114,8 +115,6 @@
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
                     indent-guide ;; a "ruler" for indentation
-                    io-mode ;; major mode for Io
-                    ivy ;; menus for ALL the things
                     js2-mode ;; major mode for JavaScript
                     julia-mode ;; mode for the Julia language
                     lentic
@@ -142,7 +141,6 @@
                     rainbow-delimiters ;; RAINNNNNNNNNNBOOOOWWZZ
                     rainbow-identifiers ;; rainbows!
                     realgud
-                    rinari ;; Rails
                     ruby-mode ;; mode for the Ruby language
                     rust-mode ;; mode for the Rust language
                     scss-mode ;; mode for the Sass language
@@ -154,8 +152,6 @@
                     stumpwm-mode
                     table ;; tables!
                     tiny
-                    todotxt ;; Mode for the todo.txt markup
-                    tuareg ;; ocaml
                     typo ;; typographic quotes
                     undo-tree ;; vim-like undo tree
                     volatile-highlights
@@ -747,6 +743,14 @@ Random quote
      (use-package evil-space
        :config
        (evil-space-mode 1))
+   #+END_SRC
+
+** Multiedit
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package evil-multiedit
+       :config
+       (evil-multiedit-default-keybinds))
    #+END_SRC
 
 * Extra-warning face
@@ -1993,7 +1997,7 @@ Random quote
       (add-to-list 'which-key-key-replacement-alist '("RET" . "⏎"))
       (add-to-list 'which-key-key-replacement-alist '("DEL" . "⇤"))
       (add-to-list 'which-key-key-replacement-alist '("SPC" . "␣"))
-      (setq which-key-idle-delay 0.3))
+      (setq which-key-idle-delay 0.5))
   #+END_SRC
 
 * Winner
