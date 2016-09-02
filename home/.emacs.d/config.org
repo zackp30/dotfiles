@@ -131,6 +131,8 @@
                     ob-ipython
                     org-bullets
                     org-ref
+                    outorg
+                    outshine
                     pinentry
                     projectile ;; project management
                     puml-mode
@@ -1688,10 +1690,23 @@ Random quote
    #+END_SRC
 
 ** auto-fill-mode
+   
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'org-mode-hook 'turn-on-auto-fill)
    #+END_SRC
+
+** Outshine
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package outshine
+       :config
+       (use-package outorg)
+       (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+       (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
+       (add-hook 'shell-script-mode-hook 'outline-minor-mode))
+   #+END_SRC
+
 
 * Override keymap
 
