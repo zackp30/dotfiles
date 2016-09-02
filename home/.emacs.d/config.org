@@ -135,6 +135,7 @@
                     outshine
                     pinentry
                     projectile ;; project management
+                    polymode
                     puml-mode
                     purescript-mode
                     racer ;; Rust code completion
@@ -1707,6 +1708,13 @@ Random quote
        (add-hook 'shell-script-mode-hook 'outline-minor-mode))
    #+END_SRC
 
+** Polymode
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package poly-org
+       :config
+       (a-mode ".org" "poly-org"))
+   #+END_SRC
 
 * Override keymap
 
