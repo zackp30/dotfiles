@@ -304,7 +304,7 @@
     #+END_SRC
 
 * Ace-link
-    
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ace-link
       :config
@@ -606,7 +606,7 @@ Change default browser used in Emacs to Chromium.
        (let ((-quote (z/get-quote)))
          (insert (concat "
 
--- 
+--
 Zack Piper         PGP: 409B 6B17 96C2 7546 2A17
                         0311 3804 BB82 D39D C0E3
 
@@ -1303,7 +1303,7 @@ Random quote
     (mode-icons-mode))
 #+END_SRC
 
-* Multiple-Cursors 
+* Multiple-Cursors
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package multiple-cursors
       :config
@@ -1360,7 +1360,7 @@ Random quote
     (a-mode ".mderb" "markdown")
   #+END_SRC
 
- 
+
 * No GUI stuff
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1502,8 +1502,8 @@ Random quote
          ((eq format 'latex)
           (format "\\colorbox{%s}{%s}" path desc)))))
    #+END_SRC
- 
-** Link types  
+
+** Link types
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defvar cve-format-latex (concat "\\href{https://cve.mitre.org/cgi-bin/cvename.cgi?name=%s}{%s}"))
      (org-add-link-type "cve"
@@ -1691,7 +1691,7 @@ Random quote
    #+END_SRC
 
 ** auto-fill-mode
-   
+
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'org-mode-hook 'turn-on-auto-fill)
