@@ -1,7 +1,5 @@
 autoload -U add-zsh-hook
 
-export PATH=$HOME/atom/out/Atom:$PATH
-
 export EDITOR=e
 
 setopt CORRECT
@@ -328,7 +326,7 @@ p_load
 
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 
-if $DISPLAY; then unset TMUX; fi
+if [[ $DISPLAY ]]; then unset TMUX; fi
 
 [[ ! -z $TMUX ]] && export TMOUT=3600
 
@@ -360,6 +358,3 @@ export MANPATH="/home/zack/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
 
 export PATH=/usr/local/bin:$PATH
-
-export NVM_DIR="/home/zack/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -602,7 +602,7 @@
 * Unset =DISPLAY= because of my remote desktop inheriting it, preventing me from attaching to tmux.
 
    #+BEGIN_SRC shell-script :tangle yes
-    if $DISPLAY; then unset TMUX; fi
+    if [[ $DISPLAY ]]; then unset TMUX; fi
   #+END_SRC
 
 * Cleanup of old sessions
