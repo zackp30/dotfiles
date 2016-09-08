@@ -61,6 +61,7 @@
                     company-anaconda ;; Python completion for company
                     company-ghc ;; Haskell completion for company
                     company-tern ;; completion for `tern-mode'.
+                    counsel
                     ctags ;; ctags integration for Emacs
                     d-mode ;; mode for the D language
                     deft
@@ -75,7 +76,6 @@
                     el-get
                     elfeed
                     elixir-mode ;; major mode for Elixir
-                    emacs-eclim ;; turn emacs into an even more IDEer thing using eclim!
                     emmet-mode ;; http://emmet.io implementation for Emacs
                     etags-select
                     evil ;; VIM for Emacs
@@ -107,7 +107,6 @@
                     go-mode ;; major mode for go
                     graphviz-dot-mode
                     haskell-mode ;; major mode for Haskell
-                    helm
                     highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
@@ -115,6 +114,7 @@
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
                     indent-guide ;; a "ruler" for indentation
+                    ivy
                     js2-mode ;; major mode for JavaScript
                     julia-mode ;; mode for the Julia language
                     lentic
@@ -134,8 +134,8 @@
                     outorg
                     outshine
                     pinentry
-                    projectile ;; project management
                     polymode
+                    projectile ;; project management
                     puml-mode
                     purescript-mode
                     racer ;; Rust code completion
@@ -856,7 +856,7 @@ Random quote
 
 * Helm
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package helm
       :config
       (global-set-key (kbd "M-x") 'helm-M-x)
@@ -989,7 +989,7 @@ Random quote
 
 * Ivy
 
-  #+BEGIN_SRC emacs-lisp :tangle no
+  #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ivy
       :config
       (ivy-mode 1))
