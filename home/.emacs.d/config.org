@@ -107,6 +107,7 @@
                     go-mode ;; major mode for go
                     graphviz-dot-mode
                     haskell-mode ;; major mode for Haskell
+                    helm
                     highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
@@ -856,7 +857,7 @@ Random quote
 
 * Helm
 
-  #+BEGIN_SRC emacs-lisp :tangle no
+  #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package helm
       :config
       (global-set-key (kbd "M-x") 'helm-M-x)
@@ -989,7 +990,7 @@ Random quote
 
 * Ivy
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package ivy
       :config
       (ivy-mode 1))
