@@ -106,6 +106,7 @@
                     gnuplot-mode ;; major mode for gnuplot
                     go-mode ;; major mode for go
                     graphviz-dot-mode
+                    groovy-mode
                     haskell-mode ;; major mode for Haskell
                     helm
                     highlight
@@ -1217,6 +1218,12 @@ Random quote
    (use-package nix-mode)
    #+END_SRC
 
+* Lentic
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+  (use-package lentic-rot13)
+  #+END_SRC
+
 * Magit
   Magit is fantastic!
 
@@ -1711,7 +1718,7 @@ Random quote
 
 ** Polymode
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
+   #+BEGIN_SRC emacs-lisp :tangle no
      (use-package poly-org
        :config
        (a-mode ".org" "poly-org"))
