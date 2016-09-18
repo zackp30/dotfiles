@@ -358,3 +358,6 @@ export MANPATH="/home/zack/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/zack/.linuxbrew/share/info:$INFOPATH"
 
 export PATH=/usr/local/bin:$PATH
+
+export NVM_DIR="/home/zack/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

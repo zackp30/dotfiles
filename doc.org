@@ -225,7 +225,7 @@ This site is available as a few other formats:
 
   I use Awesome (and no desktop environment) for managing windows.
 
-** TODO Recreate config in Org (again)
+** IN PROGRESS Recreate config in Org (again)
 
   # #+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2
 

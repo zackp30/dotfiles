@@ -566,4 +566,5 @@ myassaulttimer:connect_signal("timeout",
                               function()
                                  myassault:emit_signal("widget::updated") -- redraw
                               end)
+
 myassaulttimer:start()
