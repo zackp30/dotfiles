@@ -214,10 +214,14 @@ root.buttons(awful.util.table.join(
 ))
 
 globalkeys = awful.util.table.join(
-   awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-      {description = "view previous", group = "tag"}),
-   awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-      {description = "view next", group = "tag"}),
+   awful.key({modkey,            }, "F1",     function () awful.screen.focus(1) end),
+   awful.key({modkey,            }, "F2",     function () awful.screen.focus(2) end),
+   awful.key({modkey,            }, "F3",     function () awful.screen.focus(3) end),
+   awful.key({modkey, "Mod1"     }, "k",     function () awful.client.focus.global_bydirection("up") end),
+   awful.key({modkey, "Mod1"     }, "j",     function () awful.client.focus.global_bydirection("down") end),
+   awful.key({modkey, "Mod1"     }, "h",     function () awful.client.focus.global_bydirection("left") end),
+   awful.key({modkey, "Mod1"     }, "l",     function () awful.client.focus.global_bydirection("right") end),
+
    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
       {description = "go back", group = "tag"}),
 
