@@ -10,6 +10,7 @@
     local wibox = require("wibox")
     -- Theme handling library
     local beautiful = require("beautiful")
+    beautiful.init(os.getenv("HOME") .. "/.config/awesome/" .. "themes/theme.lua")
     -- Notification library
     local naughty = require("naughty")
 
@@ -169,6 +170,17 @@
    #+END_SRC
 
 * Widgets
+** Initial variables
+
+   #+BEGIN_SRC lua :tangle yes
+     mywibox = {}
+     mybottomwibox = {}
+     mypromptbox = {}
+     mylayoutbox = {}
+     mytaglist = {}
+   #+END_SRC
+
+
 ** Clock
 
    #+BEGIN_SRC lua :tangle yes
@@ -240,7 +252,7 @@
                                               rounded_size = 0.3,
                                               graph_background_color = "#00000033"})
 
-     vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2)
+     -- vicious.register(cpu_graph, vicious.widgets.cpu,'$1',2) -- 
    #+END_SRC
 
 ** Volume
@@ -301,8 +313,8 @@
              },
          }
          mybottomwibox[s]:setup({
-               layout = wibox.layout.align.horizontal,
-               cpu_graph,
+               layout = wibox.layout.align.horizontal
+               -- cpu_graph,
          })
      end)
    #+END_SRC
@@ -513,7 +525,7 @@
    And finally, set the keybindings
 
    #+BEGIN_SRC lua :tangle yes
-   root.keys(gloalkeys)
+   root.keys(globalkeys)
    #+END_SRC
 
 * Rules
