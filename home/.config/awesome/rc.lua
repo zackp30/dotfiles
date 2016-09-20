@@ -185,7 +185,7 @@ mytasklist.buttons = awful.util.table.join(
 local cpu_graph = blingbling.line_graph({height = 18,
                        width = 200,
                        show_text = true,
-                       label = "CPU: $percent %",
+                       label = "cpu: $percent %",
                        rounded_size = 0.3,
                        graph_background_color = "#00000033"})
 
