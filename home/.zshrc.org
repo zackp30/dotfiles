@@ -249,7 +249,6 @@
     setopt interactivecomments
   #+END_SRC
 
-
 * Completion
 
   I found this a long time ago, and I can’t remember where I found it
@@ -669,11 +668,6 @@ Can't be an alias since almost nothing can read aliases from the
 shell, since they aren't actual programs.
 
 #+INCLUDE: "~/bin/e" src shell
-* RVM
-  #+BEGIN_SRC shell-script :tangle yes
-    export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-  #+END_SRC
 * direnv
 
   #+BEGIN_SRC shell-script :tangle yes
@@ -694,4 +688,6 @@ shell, since they aren't actual programs.
 
   #+BEGIN_SRC shell-script :tangle yes
     export PATH=/usr/local/bin:$PATH
+    export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
   #+END_SRC

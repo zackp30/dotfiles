@@ -4,6 +4,9 @@ case `hostname` in
     xieshaij)
         echo "chrome"
         ;;
+    treline)
+        echo "chromium"
+        ;;
 
     zos)
         echo "chromium"

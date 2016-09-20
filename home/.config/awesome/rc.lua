@@ -179,7 +179,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
-    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
+    -- mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
 
     -- Add widgets to the wibox
     mywibox[s]:setup {
@@ -201,10 +201,10 @@ awful.screen.connect_for_each_screen(function(s)
             myassault
         },
     }
-    mybottomwibox[s]:setup({
-          layout = wibox.layout.align.horizontal
-          -- cpu_graph,
-    })
+    -- mybottomwibox[s]:setup({
+    --       layout = wibox.layout.align.horizontal
+    --       -- cpu_graph,
+    -- })
 end)
 
 root.buttons(awful.util.table.join(
