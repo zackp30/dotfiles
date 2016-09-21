@@ -1368,7 +1368,6 @@ Random quote
     (a-mode ".mderb" "markdown")
   #+END_SRC
 
-
 * No GUI stuff
 
   #+BEGIN_SRC emacs-lisp :tangle yes
