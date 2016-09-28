@@ -225,7 +225,8 @@ This site is available as a few other formats:
 
   I use Awesome (and no desktop environment) for managing windows.
 
-** IN PROGRESS Recreate config in Org (again)
+** DONE Recreate config in Org (again)
+   CLOSED: [2016-09-21 Wed 11:41]
 
   # #+INCLUDE: "~/.homesick/repos/dotfiles/home/.config/awesome/rc.org" :minlevel 2
 
@@ -325,6 +326,3 @@ This site is available as a few other formats:
     join("  ")
     #+END_SRC
 
-* Wiki
-
-  #+INCLUDE: "~/wiki/index.org" :minlevel 2

@@ -94,7 +94,9 @@
                     flycheck ;; on the fly syntax checking
                     flycheck-pos-tip
                     flycheck-rust ;; flycheck for the Rust language
+                    flycheck-ledger
                     geiser ;; Racket, Chicken and Guile integration (REPLs, auto-completion) for Emacs.
+                    general
                     ghc
                     ghci-completion ;; GHC integration for company
                     gist ;; GitHub Gist integration for Emacs.
@@ -109,6 +111,7 @@
                     groovy-mode
                     haskell-mode ;; major mode for Haskell
                     helm
+                    helm-swoop
                     highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
@@ -120,6 +123,7 @@
                     js2-mode ;; major mode for JavaScript
                     julia-mode ;; mode for the Julia language
                     lentic
+                    ledger-mode
                     lua-mode ;; mode for the Lua language
                     magit ;; git integration
                     markdown-mode ;; mode for the Markdown markup
@@ -1633,6 +1637,7 @@ Random quote
         (gnuplot . t)
         (org . t)
         (lisp . t)
+        (ledger . t)
         (plantuml . t)
         (dot . t)))
      (setq org-src-fontify-natively t)

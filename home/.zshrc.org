@@ -575,14 +575,14 @@
      setopt prompt_subst
       autoload -U colors && colors
      p_load() {
-         export PS1=$(p_module_pwd)" "
-         export PS1=$PS1$(p_module_time)" "
-         export PS1=$PS1$(p_module_user)
-         export PS1=$PS1$(p_module_host)" "
-         export PS1=$PS1$(p_module_privsymbol)" "
-         export PS1=$PS1'$(vcs_super_info)'
-         export PS1=$PS1$'\n'
-         export PS1=$PS1"$ "
+         PS1=$(p_module_pwd)" "
+         PS1=$PS1$(p_module_time)" "
+         PS1=$PS1$(p_module_user)
+         PS1=$PS1$(p_module_host)" "
+         PS1=$PS1$(p_module_privsymbol)" "
+         PS1=$PS1'$(vcs_super_info)'
+         PS1=$PS1$'\n'
+         PS1=$PS1"$ "
      }
 
      p_load
