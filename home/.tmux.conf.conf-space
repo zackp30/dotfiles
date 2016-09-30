@@ -1,12 +1,11 @@
 run-shell "powerline-daemon -q"
+source ~/powerline/powerline/bindings/tmux/powerline.conf
 
 set -g mode-keys vi
 set -g status-keys vi
 
 set -g prefix C-b # use this prefix key, this is the default but just in case it goes weird or something I guess
 bind-key m split-window mutt # email
-bind-key q run-shell -b tmux-charsel # find regex
-bind-key t run-shell -b tmux-task # open taskwarrior
 bind-key 0 select-window -t :10
 bind-key C-d detach-client -P
 bind-key "#" last-window
