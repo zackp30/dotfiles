@@ -29,7 +29,6 @@ set-window-option -g pane-base-index 1 # 0 on any keyboard is in a weird placed 
 
 set -g history-limit 200000 # insane scroll back size
 
-run-shell ~/bin/zsetuppowerline
 run-shell ~/.tmux/tmux-pain-control/pain_control.tmux
 run-shell ~/.tmux/tmux-copycat/copycat.tmux
 run-shell ~/.tmux/tmux-fingers/tmux-fingers.tmux

@@ -137,6 +137,7 @@
                     ob-ipython
                     org-bullets
                     org-ref
+                    org-caldav
                     outorg
                     outshine
                     pinentry

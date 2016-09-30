@@ -47,7 +47,6 @@
 * Plugins
 
   #+BEGIN_SRC conf-space :tangle yes
-    run-shell ~/bin/zsetuppowerline
     run-shell ~/.tmux/tmux-pain-control/pain_control.tmux
     run-shell ~/.tmux/tmux-copycat/copycat.tmux
     run-shell ~/.tmux/tmux-fingers/tmux-fingers.tmux
