@@ -4,7 +4,6 @@ source ~/powerline/powerline/bindings/tmux/powerline.conf
 set -g mode-keys vi
 set -g status-keys vi
 
-set -g prefix C-b # use this prefix key, this is the default but just in case it goes weird or something I guess
 bind-key m split-window mutt # email
 bind-key 0 select-window -t :10
 bind-key C-d detach-client -P
@@ -21,6 +20,7 @@ set -g message-fg white
 
 set -g pane-border-fg '#333333'
 set -g pane-active-border-fg cyan
+set -g pane-border-status
 
 set -g default-terminal 'screen-256color' # otherwise colors go weird
 set -g update-environment "REMOTE_HOSTNAME SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
@@ -28,6 +28,7 @@ set -g update-environment "REMOTE_HOSTNAME SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_P
 set-window-option -g pane-base-index 1 # 0 on any keyboard is in a weird placed IMO
 
 set -g history-limit 200000 # insane scroll back size
+set -g pane-border-format "#[fg=cyan]#{?pane_active,#[reverse],}#{pane_index}#[default]"
 
 run-shell ~/.tmux/tmux-pain-control/pain_control.tmux
 run-shell ~/.tmux/tmux-copycat/copycat.tmux
