@@ -1,3 +1,5 @@
+#+INFOJS_OPT: view:info
+
 The documentation for my dotfiles.
 
 This site is available as a few other formats:

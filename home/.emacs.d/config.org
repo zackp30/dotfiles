@@ -1684,11 +1684,11 @@ Random quote
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq org-export-htmlize-output-type 'css)
-      (setq org-html-head (concat org-twbs-head
-                                  (with-temp-buffer
-                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
-                                    (buffer-string)))) ;; =.org= note: extra paren since we close the far above =use-package=
+      ;; (setq org-html-head (concat org-html-head
+      ;;                             (with-temp-buffer
+      ;;                               (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+      ;;                               ;; (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
+      ;;                               (buffer-string)))) ;; =.org= note: extra paren since we close the far above =use-package=
     #+END_SRC
 
 ** Org-ref
@@ -1871,6 +1871,13 @@ Random quote
        (add-hook 'markdown-mode-hook 'enable-typo-mode)
        (add-hook 'git-commit-mode-hook 'enable-typo-mode))
    #+END_SRC
+
+* Printing
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package printing)
+  #+END_SRC
+
 
 * Rainbows
 ** Numbers
