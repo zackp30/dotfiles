@@ -1257,6 +1257,7 @@ Random quote
     (setq initial-scratch-message ;; I know it's a scratch buffer by now!
           (format ";; Emacs was started at %s"
                   (format-time-string "%Y-%m-%dT%T")))
+    (require 'nmap-mode)
   #+END_SRC
 
 ** Backups

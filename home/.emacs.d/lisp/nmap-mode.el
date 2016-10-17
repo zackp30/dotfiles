@@ -3,9 +3,11 @@
 
 (add-to-list 'auto-mode-alist '("\\.nmap\\'" . nmap-mode))
 
-(defface nmap-face-open '((t :background "green"))
+(defface nmap-face-open `((t (:background "green" :foreground "black")))
   "Face for open ports"
   :group 'nmap-faces)
 
 (font-lock-add-keywords 'nmap-mode
-                        '(("\\<open\\>" . nmap-face-open)))
+                        '(("\\<open\\>" . 'nmap-face-open)))
+
+(provide 'nmap-mode)
