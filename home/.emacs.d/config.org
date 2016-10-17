@@ -347,6 +347,7 @@
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
+    (a-mode ".rng" "nxml")
   #+END_SRC
 
 * avy
@@ -1684,11 +1685,11 @@ Random quote
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq org-export-htmlize-output-type 'css)
-      ;; (setq org-html-head (concat org-html-head
-      ;;                             (with-temp-buffer
-      ;;                               (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
-      ;;                               ;; (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
-      ;;                               (buffer-string)))) ;; =.org= note: extra paren since we close the far above =use-package=
+      (setq org-html-head (concat org-html-head
+                                  (with-temp-buffer
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
+                                    (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
+                                    (buffer-string)))) ;; =.org= note: extra paren since we close the far above =use-package=
     #+END_SRC
 
 ** Org-ref
