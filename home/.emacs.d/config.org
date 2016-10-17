@@ -1892,7 +1892,7 @@ Random quote
 
 ** Identifiers
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package rainbow-identifiers
       :config
       (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
