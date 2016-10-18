@@ -110,7 +110,7 @@ This site is available as a few other formats:
 
      I use the GNU Emacs text editor (or VIM when I'm sudo'ing into a user
      that does not have my user-specific configuraton
-     (https://github.com/zackp30/dotfiles) installed).
+     (https://g.apertron.net/Xack/dotfiles) installed).
 
      I write all my schoolwork using Emacs in Markdown, using [[http://pandoc.org][Pandoc]],
      the Markdown processor, which compiles it into LaTeX, to later on be
@@ -217,6 +217,7 @@ This site is available as a few other formats:
 
       Linux respects my freedom. As the user of software I have the
       right to freedom to use the software as I wish.
+
 * Emacs configuration
 
   #+INCLUDE: "~/.emacs.d/config.org" :minlevel 2
@@ -237,8 +238,6 @@ This site is available as a few other formats:
 
   [[http://tmux.github.io][tmux]] is short for "terminal multiplexer", it is "window management"
   for the standard terminal.
-
-** TODO Fix Powerline not showing left segments in tmux
 
 ** Screenshots
 
