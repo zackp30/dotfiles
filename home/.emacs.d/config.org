@@ -927,13 +927,13 @@ Random quote
     ("j" shrink-window-horizontally))
 #+END_SRC
 
-* ibuffer
+* IBuffer
 
-  ibuffer is an enhanced version of the standard =buffer-menu=.
+  IBuffer is an enhanced version of the standard =buffer-menu=.
 
 ** VC
 
-   Integrate ibuffer and vc.el.
+   Integrate IBuffer and vc.el.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ibuffer-vc
@@ -957,7 +957,7 @@ Random quote
                    (ibuffer-vc-set-filter-groups-by-vc-root))))
    #+END_SRC
 
-* Imenu
+* imenu
 
   Useful for navigating around my config.
 
