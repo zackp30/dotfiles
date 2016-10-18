@@ -2156,6 +2156,18 @@ Random quote
           (call-interactively 'fill-paragraph)))
       (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
     #+END_SRC
+** =z/org-domain-list=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun z/org-domain-list (&rest domains)
+       (append '(("Domain"
+                  "Resolves to"
+                  "Purpose"))
+               (loop for domain in domains
+                     collect `(,domain ,(shell-command-to-string (concat
+                                                                  "dig +short "
+                                                                  domain))))))
+   #+END_SRC
 
 * The end
 
