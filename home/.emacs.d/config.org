@@ -12,6 +12,11 @@
     (defvar zack-keys-minor-mode-map (make-keymap) "Override package keys.")
   #+END_SRC
 
+* TODO [0/2]
+
+  - [ ] More screenshots
+  - [ ] Describe packages in more detail
+
 * Package archives
 
   I use the Org mode archive, MELPA, and GNU ELPA.
@@ -185,8 +190,9 @@
 #+END_SRC
 * use-package
 
-  use-package (https://github.com/jwiegley/use-package) handles
-  loading of packages, allowing a neatly organized configuration.
+  =use-package= provides the =use-package= function which is a
+  convenience wrapper around =(require […])=, =(add-hook […])=,
+  =(define-key […])=, and others.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'use-package)
@@ -269,6 +275,35 @@
                     (intern (concat mode "-mode")))))
   #+END_SRC
 
+** =z/fill-unfill=
+
+    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z/fill-unfill ()
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'z/fill-unfill)
+                   (progn
+                     (setq this-command nil)
+                     (point-max))
+                 fill-column)))
+          (call-interactively 'fill-paragraph)))
+      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
+    #+END_SRC
+** =z/org-domain-list=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun z/org-domain-list (&rest domains)
+       (append '(("Domain"
+                  "Resolves to"
+                  "Purpose"))
+               (loop for domain in domains
+                     collect `(,domain ,(shell-command-to-string (concat
+                                                                  "dig +short "
+                                                                  domain))))))
+   #+END_SRC
+
 * El-get
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -309,14 +344,6 @@
                    (autoload 'tramp-check-proper-method-and-host "tramp.el"))
         :info "share/info"))
     #+END_SRC
-
-* Ace-link
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ace-link
-      :config
-      (ace-link-setup-default))
-  #+END_SRC
 
 * Ag
 
@@ -2138,36 +2165,6 @@ Random quote
     (define-key key-translation-map (kbd "<f9> b m o") (kbd "｢"))
     (define-key key-translation-map (kbd "<f9> b m o") (kbd "｣"))
   #+END_SRC
-
-* Utilities
-** =z/fill-unfill=
-
-    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z/fill-unfill ()
-        (interactive)
-        (let ((fill-column
-               (if (eq last-command 'z/fill-unfill)
-                   (progn
-                     (setq this-command nil)
-                     (point-max))
-                 fill-column)))
-          (call-interactively 'fill-paragraph)))
-      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
-    #+END_SRC
-** =z/org-domain-list=
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun z/org-domain-list (&rest domains)
-       (append '(("Domain"
-                  "Resolves to"
-                  "Purpose"))
-               (loop for domain in domains
-                     collect `(,domain ,(shell-command-to-string (concat
-                                                                  "dig +short "
-                                                                  domain))))))
-   #+END_SRC
 
 * The end
 

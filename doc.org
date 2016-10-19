@@ -6,10 +6,6 @@ This site is available as a few other formats:
 - [[http://xack.xyz/misc/doc.org][Org]]
 - [[http://xack.xyz/misc/doc.pdf][PDF]]
 
-* TODO [0/2]
-  - [ ] More screenshots
-  - [ ] Describe packages in more detail
-
 * Introduction
 
   (Extracted from my college application)
