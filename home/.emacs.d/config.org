@@ -461,6 +461,15 @@ Change default browser used in Emacs to Chromium.
     (define-key calc-mode-map "lp" 'calc-pop))
 #+END_SRC
 
+* calfw
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package calfw
+      :config
+      (use-package calfw-org))
+  #+END_SRC
+
+
 * Cascade startup system
 
   This is the remnants of my mini “init-system” for Emacs, which
@@ -1285,6 +1294,7 @@ Random quote
           (format ";; Emacs was started at %s"
                   (format-time-string "%Y-%m-%dT%T")))
     (require 'nmap-mode)
+    (setq visible-bell t) ;; disable audible bell
   #+END_SRC
 
 ** Backups
