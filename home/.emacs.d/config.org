@@ -469,7 +469,6 @@ Change default browser used in Emacs to Chromium.
       (use-package calfw-org))
   #+END_SRC
 
-
 * Cascade startup system
 
   This is the remnants of my mini “init-system” for Emacs, which
@@ -550,6 +549,7 @@ Change default browser used in Emacs to Chromium.
 #+END_SRC
 
 * Deft
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package deft
       :config
@@ -2079,6 +2079,7 @@ Random quote
       (add-to-list 'which-key-key-replacement-alist '("RET" . "⏎"))
       (add-to-list 'which-key-key-replacement-alist '("DEL" . "⇤"))
       (add-to-list 'which-key-key-replacement-alist '("SPC" . "␣"))
+      (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
       (setq which-key-idle-delay 0.5))
   #+END_SRC
 
