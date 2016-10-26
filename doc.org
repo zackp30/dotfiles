@@ -49,11 +49,8 @@ This site is available as a few other formats:
 
     (Updated and revised version of my work experience CV follows)
 
-    I am a 15 year old programmer, who likes Ruby, and is learning
-    Haskell and Clojure. I have been fiddling with computers since the
-    age of 10, when I first connected to IRC and started to learn more
-    and more about programming. I since learned Python, moved onto
-    Ruby, and also fiddle with Haskell, and Common Lisp.
+    I am a 16 year old security analyst, who uses Ruby for
+    miscellaneous scripts.
 
     Since the age of 13 I was administering my own server (a virtual machine
     running on a friends virtualisation-capable dedicated server). My father
@@ -185,7 +182,7 @@ This site is available as a few other formats:
       A year passed and I installed openSUSE on everything I could find:
 
       -  My brother's laptop
-      -  My BeagleBone Black (another Raspberry Pi-like thing)
+      -  My Raspberry Pi 3
       -  My PC
       -  My server my father rents
 

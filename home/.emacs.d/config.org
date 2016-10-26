@@ -143,6 +143,7 @@
                     org-bullets
                     org-ref
                     org-caldav
+                    org-gcal
                     outorg
                     outshine
                     pinentry
@@ -1760,13 +1761,13 @@ Random quote
        (add-hook 'shell-script-mode-hook 'outline-minor-mode))
    #+END_SRC
 
-** Polymode
+** org-gcal
 
-   #+BEGIN_SRC emacs-lisp :tangle no
-     (use-package poly-org
-       :config
-       (a-mode ".org" "poly-org"))
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (define-key org-mode-map (kbd "C-c C-p") 'org-gcal-post-at-point)
    #+END_SRC
+
+   
 
 * Override keymap
 
