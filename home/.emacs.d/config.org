@@ -1767,8 +1767,6 @@ Random quote
      (define-key org-mode-map (kbd "C-c C-p") 'org-gcal-post-at-point)
    #+END_SRC
 
-   
-
 * Override keymap
 
   Idea from http://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
