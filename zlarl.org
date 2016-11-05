@@ -1,0 +1,114 @@
+* Arch Linux PC install
+** Notes  
+   
+** Instructions
+*** Download
+
+    Download Arch Linux dual ISO.
+
+    The Arch Linux dual iso is intended to be flashed onto a disk or
+    USB drive, and be booted into by the target machine.
+
+    #+BEGIN_SRC shell-script
+      aria2c "magnet:?xt=urn:btih:5c7614a67bea01b00c2c70598ff481ac65e0b07d&dn=archlinux-2016.10.01-dual.iso&tr=udp://tracker.archlinux.org:6969&tr=http://tracker.archlinux.org:6969/announce"
+    #+END_SRC
+
+*** Flash the image
+
+    Insert the USB drive and flash the downloaded ISO onto the drive.
+
+    #+BEGIN_SRC shell-script
+      echo "Disk name under /dev:"
+      read disk
+      dd if=archlinux-2016.10.01-dual.iso of=/dev/$disk status=progress
+      sync
+    #+END_SRC
+
+*** Shutdown, and boot into drive
+
+    Getting to the boot menu on startup is different for certain
+    vendors. Please consult the manual associated with your device on
+    how to select the boot device to boot into.
+   
+*** Populate pacman keyring
+
+    #+BEGIN_SRC shell-script
+      pacman-key --init
+      pacman-key --populate archlinux
+    #+END_SRC
+
+*** Setup mirrors
+
+    #+BEGIN_SRC shell-script
+      cat <<EOF > /etc/pacman.d/mirrorlist
+      Server = http://mirror.bytemark.co.uk/archlinux/\$repo/os/\$arch
+      Server = http://mirror.cinosure.com/archlinux/\$repo/os/\$arch
+      Server = http://mirrors.manchester.m247.com/arch-linux/\$repo/os/\$arch
+      Server = http://www.mirrorservice.org/sites/ftp.archlinux.org/\$repo/os/\$arch
+      Server = http://arch.serverspace.co.uk/arch/\$repo/os/\$arch
+      Server = http://archlinux.mirrors.uk2.net/\$repo/os/\$arch
+      EOF
+    #+END_SRC
+
+*** Fetch package databases
+
+    #+BEGIN_SRC shell-script
+      pacman -Sy
+    #+END_SRC
+
+*** Install =vim= for text editing
+
+    #+BEGIN_SRC shell-script
+    pacman -S vim
+    #+END_SRC
+
+*** Partitioning
+
+    #+BEGIN_SRC shell-script
+      read disk
+
+      # http://superuser.com/a/984637
+
+      sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk $disk
+          o       # clear partitions
+          n       # new partition
+          p       #   primary
+          1       #   partition 1
+                  #   default, start at beginning of disk
+          +200M   #   200MB ESP
+          t       #   change type
+          ef      #     to ESP
+          n       # new partition
+          p       #   primary partition
+          2       #   new partition 2
+                  #   default, start just after previous partition
+                  #   default, extend to end of disk
+          a       # make partition bootable
+          1       #   partition 1
+          p       # print
+          w       # write
+          q       # finish
+      EOF
+    #+END_SRC
+
+*** Filesystems
+
+    #+BEGIN_SRC shell-script
+      pacman -S dosfstools
+      mkfs.vfat /dev/${disk}1 # ESP
+      mkfs.ext4 /dev/${disk}2 # main data
+    #+END_SRC
+   
+*** Mount
+
+    #+BEGIN_SRC shell-script
+      mount ${disk}2 /mnt
+      mkdir /mnt/boot
+      mount ${disk}1 /mnt/boot
+    #+END_SRC
+
+*** Bootstrap
+
+    #+BEGIN_SRC shell-script
+    pacstrap /mnt base
+    #+END_SRC

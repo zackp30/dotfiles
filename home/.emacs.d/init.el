@@ -140,7 +140,7 @@ Captured On: %U")
  '(org-priority-faces (quote ((67 . "green") (66 . "yellow") (65 . "red"))))
  '(package-selected-packages
    (quote
-    (apache-mode php-mode quelpa-use-package quelpa package-build powershell smart-tabs-mode spaceline highlight yaml-mode ws-butler which-key wgrep-ag web-mode use-package tuareg todotxt tiny surround stumpwm-mode smart-mode-line slime-company slim-mode scss-mode rust-mode rinari realgud rainbow-identifiers rainbow-delimiters rainbow-blocks racket-mode purescript-mode puml-mode projectile-rails org-bullets ocodo-svg-modelines nim-mode mode-icons mmm-mode material-theme markdown-mode magit-tramp lua-mode lentic julia-mode js2-mode io-mode indent-guide ibuffer-vc hy-mode highlight-numbers highlight-indentation helm-swoop helm-projectile helm-ag graphviz-dot-mode go-mode gnuplot-mode gnuplot gitignore-mode gitconfig-mode git-timemachine git-gutter gist ghci-completion geiser fountain-mode flycheck-rust evil-visualstar evil-space evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-indent-textobject evil-args evil-anzu etags-select emojify emmet-mode emacs-eclim elixir-mode elfeed ein editorconfig edit-server dired-toggle-sudo dired-rainbow dired+ d-mode ctags company-tern company-ghc company-anaconda coffee-mode cmake-mode cider calfw browse-kill-ring bpr boxquote bookmark+ beacon bbdb ag ace-window ace-jump-helm-line ace-flyspell)))
+    (apache-mode php-mode quelpa-use-package quelpa package-build powershell smart-tabs-mode highlight yaml-mode ws-butler wgrep-ag web-mode use-package tuareg todotxt tiny surround stumpwm-mode smart-mode-line slime-company slim-mode scss-mode rust-mode rinari realgud rainbow-identifiers rainbow-delimiters rainbow-blocks racket-mode purescript-mode puml-mode projectile-rails org-bullets ocodo-svg-modelines mode-icons mmm-mode material-theme markdown-mode magit-tramp lua-mode lentic julia-mode js2-mode io-mode indent-guide ibuffer-vc hy-mode highlight-numbers highlight-indentation helm-swoop helm-projectile helm-ag graphviz-dot-mode go-mode gnuplot-mode gnuplot gitignore-mode gitconfig-mode git-timemachine git-gutter gist ghci-completion geiser fountain-mode evil-visualstar evil-space evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-indent-textobject evil-args evil-anzu etags-select emojify emmet-mode emacs-eclim elixir-mode elfeed ein editorconfig edit-server dired-toggle-sudo dired-rainbow dired+ d-mode ctags company-tern company-ghc company-anaconda coffee-mode cmake-mode cider calfw browse-kill-ring bpr boxquote bookmark+ beacon bbdb ag ace-window ace-jump-helm-line ace-flyspell)))
  '(persp-keymap-prefix "w")
  '(safe-local-variable-values
    (quote
@@ -167,8 +167,7 @@ Captured On: %U")
  '(helm-match ((t (:background "#3F3F3F"))))
  '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
  '(mode-line ((t nil)))
- '(org-block-begin-line ((t (:background "LavenderBlush4" :foreground "white" :box (:line-width 2 :color "grey75" :style released-button)))))
- '(org-block-end-line ((t (:inherit org-block-begin-line :foreground "white"))))
+ '(org-block ((t (:box nil))))
  '(org-document-title ((t (:inherit org-level-1 :foreground "#8CD0D3" :box nil :underline nil :height 2.0)))))
 
 (server-start)

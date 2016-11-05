@@ -12,6 +12,11 @@
     (defvar zack-keys-minor-mode-map (make-keymap) "Override package keys.")
   #+END_SRC
 
+* TODO [0/2]
+
+  - [ ] More screenshots
+  - [ ] Describe packages in more detail
+
 * Package archives
 
   I use the Org mode archive, MELPA, and GNU ELPA.
@@ -138,6 +143,7 @@
                     org-bullets
                     org-ref
                     org-caldav
+                    org-gcal
                     outorg
                     outshine
                     pinentry
@@ -185,8 +191,9 @@
 #+END_SRC
 * use-package
 
-  use-package (https://github.com/jwiegley/use-package) handles
-  loading of packages, allowing a neatly organized configuration.
+  =use-package= provides the =use-package= function which is a
+  convenience wrapper around =(require […])=, =(add-hook […])=,
+  =(define-key […])=, and others.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (require 'use-package)
@@ -269,6 +276,35 @@
                     (intern (concat mode "-mode")))))
   #+END_SRC
 
+** =z/fill-unfill=
+
+    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+
+    #+BEGIN_SRC emacs-lisp :tangle yes
+      (defun z/fill-unfill ()
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'z/fill-unfill)
+                   (progn
+                     (setq this-command nil)
+                     (point-max))
+                 fill-column)))
+          (call-interactively 'fill-paragraph)))
+      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
+    #+END_SRC
+** =z/org-domain-list=
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun z/org-domain-list (&rest domains)
+       (append '(("Domain"
+                  "Resolves to"
+                  "Purpose"))
+               (loop for domain in domains
+                     collect `(,domain ,(shell-command-to-string (concat
+                                                                  "dig +short "
+                                                                  domain))))))
+   #+END_SRC
+
 * El-get
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -310,14 +346,6 @@
         :info "share/info"))
     #+END_SRC
 
-* Ace-link
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package ace-link
-      :config
-      (ace-link-setup-default))
-  #+END_SRC
-
 * Ag
 
   Ag is a super-fast alternative to grep.
@@ -347,6 +375,7 @@
     (a-mode "Gemfile" "ruby")
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
+    (a-mode ".rng" "nxml")
   #+END_SRC
 
 * avy
@@ -433,6 +462,14 @@ Change default browser used in Emacs to Chromium.
     (define-key calc-mode-map "lp" 'calc-pop))
 #+END_SRC
 
+* calfw
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package calfw
+      :config
+      (use-package calfw-org))
+  #+END_SRC
+
 * Cascade startup system
 
   This is the remnants of my mini “init-system” for Emacs, which
@@ -513,6 +550,7 @@ Change default browser used in Emacs to Chromium.
 #+END_SRC
 
 * Deft
+
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package deft
       :config
@@ -926,13 +964,13 @@ Random quote
     ("j" shrink-window-horizontally))
 #+END_SRC
 
-* ibuffer
+* IBuffer
 
-  ibuffer is an enhanced version of the standard =buffer-menu=.
+  IBuffer is an enhanced version of the standard =buffer-menu=.
 
 ** VC
 
-   Integrate ibuffer and vc.el.
+   Integrate IBuffer and vc.el.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ibuffer-vc
@@ -956,7 +994,7 @@ Random quote
                    (ibuffer-vc-set-filter-groups-by-vc-root))))
    #+END_SRC
 
-* Imenu
+* imenu
 
   Useful for navigating around my config.
 
@@ -1256,6 +1294,8 @@ Random quote
     (setq initial-scratch-message ;; I know it's a scratch buffer by now!
           (format ";; Emacs was started at %s"
                   (format-time-string "%Y-%m-%dT%T")))
+    (require 'nmap-mode)
+    (setq visible-bell t) ;; disable audible bell
   #+END_SRC
 
 ** Backups
@@ -1684,7 +1724,7 @@ Random quote
 
     #+BEGIN_SRC emacs-lisp :tangle yes
       (setq org-export-htmlize-output-type 'css)
-      (setq org-html-head (concat org-twbs-head
+      (setq org-html-head (concat org-html-head
                                   (with-temp-buffer
                                     (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/css.html"))
                                     (insert-file-contents (expand-file-name "~/.homesick/repos/dotfiles/spec.html"))
@@ -1721,13 +1761,13 @@ Random quote
        (add-hook 'shell-script-mode-hook 'outline-minor-mode))
    #+END_SRC
 
-** Polymode
+** org-gcal
 
-   #+BEGIN_SRC emacs-lisp :tangle no
-     (use-package poly-org
-       :config
-       (a-mode ".org" "poly-org"))
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (define-key org-mode-map (kbd "C-c C-p") 'org-gcal-post-at-point)
    #+END_SRC
+
+   
 
 * Override keymap
 
@@ -1872,6 +1912,13 @@ Random quote
        (add-hook 'git-commit-mode-hook 'enable-typo-mode))
    #+END_SRC
 
+* Printing
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package printing)
+  #+END_SRC
+
+
 * Rainbows
 ** Numbers
 
@@ -1883,7 +1930,7 @@ Random quote
 
 ** Identifiers
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle no
     (use-package rainbow-identifiers
       :config
       (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
@@ -2033,6 +2080,7 @@ Random quote
       (add-to-list 'which-key-key-replacement-alist '("RET" . "⏎"))
       (add-to-list 'which-key-key-replacement-alist '("DEL" . "⇤"))
       (add-to-list 'which-key-key-replacement-alist '("SPC" . "␣"))
+      (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
       (setq which-key-idle-delay 0.5))
   #+END_SRC
 
@@ -2129,24 +2177,6 @@ Random quote
     (define-key key-translation-map (kbd "<f9> b m o") (kbd "｢"))
     (define-key key-translation-map (kbd "<f9> b m o") (kbd "｣"))
   #+END_SRC
-
-* Utilities
-** =z/fill-unfill=
-
-    From http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
-
-    #+BEGIN_SRC emacs-lisp :tangle yes
-      (defun z/fill-unfill ()
-        (interactive)
-        (let ((fill-column
-               (if (eq last-command 'z/fill-unfill)
-                   (progn
-                     (setq this-command nil)
-                     (point-max))
-                 fill-column)))
-          (call-interactively 'fill-paragraph)))
-      (define-key global-map [remap fill-paragraph] 'z/fill-unfill)
-    #+END_SRC
 
 * The end
 

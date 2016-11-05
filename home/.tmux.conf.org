@@ -35,6 +35,7 @@
 
     set -g pane-border-fg '#333333'
     set -g pane-active-border-fg cyan
+    set -g pane-border-status
 
     set -g default-terminal 'screen-256color' # otherwise colors go weird
     set -g update-environment "REMOTE_HOSTNAME SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
@@ -42,6 +43,7 @@
     set-window-option -g pane-base-index 1 # 0 on any keyboard is in a weird placed IMO
 
     set -g history-limit 200000 # insane scroll back size
+    set -g pane-border-format "#[fg=cyan]#{?pane_active,#[reverse],}#{pane_index}#[default]"
   #+END_SRC
 
 * Plugins
