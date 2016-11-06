@@ -50,6 +50,7 @@
     (defvar pkgs '(use-package
                     ag ;; the silver searcher
                     anzu
+                    atomic-chrome
                     avy ;; easymotion
                     bbdb
                     beacon
@@ -585,9 +586,9 @@ Change default browser used in Emacs to Chromium.
   The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package edit-server
+    (use-package atomic-chrome
       :config
-      (edit-server-start))
+      (atomic-chrome-start-server))
   #+END_SRC
 
 * Eldoc
@@ -1916,7 +1917,6 @@ Random quote
     (use-package printing)
   #+END_SRC
 
-
 * Rainbows
 ** Numbers
 
@@ -1924,14 +1924,6 @@ Random quote
     (use-package highlight-numbers
       :config
       (add-hook 'prog-mode-hook 'highlight-numbers-mode))
-  #+END_SRC
-
-** Identifiers
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package rainbow-identifiers
-      :config
-      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
   #+END_SRC
 
 ** Delimiters
