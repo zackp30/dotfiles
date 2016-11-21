@@ -79,7 +79,7 @@ S: shell command to run"
  '(org-capture-templates
    (quote
     (("l" "Link and text" entry
-      (file+headline "~/org/notes.org" "Links")
+      (file+headline "~/onotes/notes.org" "Links")
       "* [[%:link][%:description]]
 Captured On: %U
 #+BEGIN_QUOTE
@@ -88,24 +88,24 @@ Captured On: %U
 
 %?")
      ("e" "todo" entry
-      (file+headline "~/org/work/todo.org" "Tasks")
+      (file+headline "~/onotes/work/todo.org" "Tasks")
       "* TODO [#A] %?
 SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
 %a
 ")
      ("w" "Web site" entry
-      (file "~/org/notes.org")
+      (file "~/onotes/notes.org")
       "* %a :website:
 
 %U %?
 
 %:initial")
      ("L" "Link" entry
-      (file+headline "~/org/notes.org" "Links")
+      (file+headline "~/onotes/notes.org" "Links")
       "* %? [[%:link][%:description]]
 Captured On: %U")
      ("z" "Work TODO item" entry
-      (file+headline "~/org/work.org" "Work")
+      (file+headline "~/onotes/work.org" "Work")
       "* TODO %^{Name} %^G
 %?"))))
  '(org-emphasis-alist
@@ -167,6 +167,7 @@ Captured On: %U")
  '(helm-match ((t (:background "#3F3F3F"))))
  '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
  '(mode-line ((t nil)))
+ '(mu4e-header-highlight-face ((t (:inherit region :underline nil :weight bold))))
  '(org-block ((t (:box nil))))
  '(org-document-title ((t (:inherit org-level-1 :foreground "#8CD0D3" :box nil :underline nil :height 2.0)))))
 

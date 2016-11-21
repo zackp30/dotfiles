@@ -1,7 +1,7 @@
 # -*- conf -*-
 [Protocol]
 protocol=org-protocol
-exec=emacs-capture %u
+exec=emacs-capture "%u"
 input=none
 output=none
 helper=true
