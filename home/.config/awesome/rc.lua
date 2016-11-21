@@ -41,7 +41,7 @@ do
     end)
 end
 
-terminal = "urxvt-256color"
+terminal = "termite"
 
 editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor

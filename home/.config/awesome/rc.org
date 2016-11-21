@@ -62,7 +62,7 @@
   This is used later as the default terminal to run.
 
   #+BEGIN_SRC lua :tangle yes
-    terminal = "urxvt-256color"
+    terminal = "termite"
   #+END_SRC
 
 * Editor
