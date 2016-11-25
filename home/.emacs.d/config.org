@@ -1620,7 +1620,7 @@ Random quote
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'org-capture)
      (require 'org-protocol)
-     (require 'org-protocol-capture-html)
+     ;; (require 'org-protocol-capture-html)
 
      ;; Org Capture
      ;; Thank you random person from StackOverflow
