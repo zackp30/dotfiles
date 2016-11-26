@@ -51,7 +51,6 @@
 
 (setq vc-follow-symlinks t)
 
-;; Server handling
 (defun shell-without-newline (s)
   "Remove the newline from the output of a shell command.
 S: shell command to run"
@@ -79,7 +78,7 @@ S: shell command to run"
  '(org-capture-templates
    (quote
     (("l" "Link and text" entry
-      (file+headline "~/org/notes.org" "Links")
+      (file+headline "~/onotes/notes.org" "Links")
       "* [[%:link][%:description]]
 Captured On: %U
 #+BEGIN_QUOTE
@@ -88,24 +87,24 @@ Captured On: %U
 
 %?")
      ("e" "todo" entry
-      (file+headline "~/org/work/todo.org" "Tasks")
+      (file+headline "~/onotes/work/todo.org" "Tasks")
       "* TODO [#A] %?
 SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
 %a
 ")
      ("w" "Web site" entry
-      (file "~/org/notes.org")
+      (file "~/onotes/notes.org")
       "* %a :website:
 
 %U %?
 
 %:initial")
      ("L" "Link" entry
-      (file+headline "~/org/notes.org" "Links")
+      (file+headline "~/onotes/notes.org" "Links")
       "* %? [[%:link][%:description]]
 Captured On: %U")
      ("z" "Work TODO item" entry
-      (file+headline "~/org/work.org" "Work")
+      (file+headline "~/onotes/work.org" "Work")
       "* TODO %^{Name} %^G
 %?"))))
  '(org-emphasis-alist

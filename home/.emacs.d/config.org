@@ -405,7 +405,7 @@
 #+BEGIN_SRC emacs-lisp :tangle yes
   (use-package bbdb
     :init
-    (setq bbdb-file "~/org/bbdb")
+    (setq bbdb-file "~/onotes/bbdb")
     :config
     (bbdb-initialize))
 #+END_SRC
@@ -554,7 +554,7 @@ Change default browser used in Emacs to Chromium.
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package deft
       :config
-      (setq deft-directory "~/org")
+      (setq deft-directory "~/onotes")
       (setq deft-extensions '("org" "md" "txt")))
   #+END_SRC
 
@@ -1438,7 +1438,7 @@ Random quote
       :config
       (rebind-key (kbd "C-c <left>") org-mode-map (kbd "C-x <left>"))
       (rebind-key (kbd "C-c <right>") org-mode-map (kbd "C-x <right>"))
-      (setq org-directory (expand-file-name "~/org/"))
+      (setq org-directory (expand-file-name "~/onotes/"))
   #+END_SRC
 
 ** Key bindings
@@ -1471,7 +1471,7 @@ Random quote
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'find-lisp)
      (setq org-agenda-files
-           (append (find-lisp-find-files "~/org" "\.org$")))
+           (append (find-lisp-find-files org-directory "\.org$")))
    #+END_SRC
 ** =org-log-done=
 
@@ -1917,7 +1917,6 @@ Random quote
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package printing)
   #+END_SRC
-
 
 * Rainbows
 ** Numbers
