@@ -28,17 +28,6 @@
     (package-refresh-contents)
   #+END_SRC
 
-* Local files
-
-  I sometimes have a file called `local.el' which contains functions
-  which have passwords (ERC), this is not checked into version control
-  for obvious reasons.
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (when (file-exists-p "~/.local.el")
-        (load "~/.local.el"))
-  #+END_SRC
-
 * List of packages
 
   This (huge) list contains each package I use, at the end each is
@@ -50,6 +39,7 @@
     (defvar pkgs '(use-package
                     ag ;; the silver searcher
                     anzu
+                    atomic-chrome
                     avy ;; easymotion
                     bbdb
                     beacon
@@ -321,6 +311,25 @@
         :prepare (progn
                    (add-to-list 'auto-mode-alist '("\\.[bB][Aa][Tt]\\'" . ntcmd-mode))
                    (add-to-list 'auto-mode-alist '("\\.[Cc][Mm][Dd]\\'" . ntcmd-mode))))
+(el-get-bundle mu4e
+:name mu4e
+       :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
+       :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
+       :type github
+       :pkgname "djcb/mu"
+       :post-init (setq mu4e-mu-binary
+                        ;; "el-get-dir/mu4e/mu/mu"
+                        (expand-file-name
+                         "mu"
+                         (expand-file-name
+                          "mu"
+                          (el-get-package-directory 'mu4e))))
+       :build `(("autoreconf" "-i")
+                ("./configure")
+                ("make"))
+       :load-path "mu4e"
+       :info "mu4e/mu4e.info"
+       )
       ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/tramp.rcp
       (el-get-bundle tramp
         :description "Transparent Remote Access, Multiple Protocols."
@@ -585,9 +594,9 @@ Change default browser used in Emacs to Chromium.
   The Chrom(e|ium) addon [[https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh][Edit with Emacs]] requires this.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package edit-server
+    (use-package atomic-chrome
       :config
-      (edit-server-start))
+      (atomic-chrome-start-server))
   #+END_SRC
 
 * Eldoc
@@ -1431,7 +1440,7 @@ Random quote
 
 ** Org directory
 
-   =~/org= seems the best place to store such things.
+   =~/onotes= seems the best place to store such things.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package org
@@ -1611,7 +1620,7 @@ Random quote
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'org-capture)
      (require 'org-protocol)
-     (require 'org-protocol-capture-html)
+     ;; (require 'org-protocol-capture-html)
 
      ;; Org Capture
      ;; Thank you random person from StackOverflow
@@ -1766,8 +1775,6 @@ Random quote
    #+BEGIN_SRC emacs-lisp :tangle yes
      (define-key org-mode-map (kbd "C-c C-p") 'org-gcal-post-at-point)
    #+END_SRC
-
-   
 
 * Override keymap
 
@@ -1925,14 +1932,6 @@ Random quote
     (use-package highlight-numbers
       :config
       (add-hook 'prog-mode-hook 'highlight-numbers-mode))
-  #+END_SRC
-
-** Identifiers
-
-  #+BEGIN_SRC emacs-lisp :tangle no
-    (use-package rainbow-identifiers
-      :config
-      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
   #+END_SRC
 
 ** Delimiters
@@ -2175,6 +2174,17 @@ Random quote
   #+BEGIN_SRC emacs-lisp :tangle yes
     (define-key key-translation-map (kbd "<f9> b m o") (kbd "｢"))
     (define-key key-translation-map (kbd "<f9> b m o") (kbd "｣"))
+  #+END_SRC
+
+* Local files
+
+  I sometimes have a file called `local.el' which contains functions
+  which have passwords (ERC), this is not checked into version control
+  for obvious reasons.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (when (file-exists-p "~/.local.el")
+        (load "~/.local.el"))
   #+END_SRC
 
 * The end

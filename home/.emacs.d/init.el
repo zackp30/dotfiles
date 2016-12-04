@@ -21,6 +21,7 @@
 (require-package 'quelpa)
 (quelpa 'quelpa-use-package)
 (require 'quelpa-use-package)
+(server-start)
 
 ;; Since my configuration is a giant Org document, this needs to go
 ;; here since the correct version of Org isn't loaded, as `(require
@@ -166,9 +167,9 @@ Captured On: %U")
  '(helm-match ((t (:background "#3F3F3F"))))
  '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
  '(mode-line ((t nil)))
+ '(mu4e-header-highlight-face ((t (:inherit region :underline nil :weight bold))))
  '(org-block ((t (:box nil))))
  '(org-document-title ((t (:inherit org-level-1 :foreground "#8CD0D3" :box nil :underline nil :height 2.0)))))
 
-(server-start)
 
 (load-theme 'zenburn t)
