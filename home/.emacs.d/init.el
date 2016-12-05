@@ -52,7 +52,6 @@
 
 (setq vc-follow-symlinks t)
 
-;; Server handling
 (defun shell-without-newline (s)
   "Remove the newline from the output of a shell command.
 S: shell command to run"
