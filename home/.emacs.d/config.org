@@ -696,7 +696,9 @@ Random quote
     #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package mu4e-alert
         :config
-        (mu4e-alert-set-default-style 'libnotify))
+        (mu4e-alert-set-default-style 'libnotify)
+        (mu4e-alert-enable-notifications)
+        (mu4e-alert-enable-mode-line-display))
     #+END_SRC
 
 * EVIL
