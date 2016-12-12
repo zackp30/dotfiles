@@ -130,6 +130,8 @@
                     nim-mode ;; major mode for Nim
                     nix-mode ;; major mode for Nix
                     ob-ipython
+                    org-alert
+                    org-download
                     org-bullets
                     org-ref
                     org-caldav
@@ -295,6 +297,20 @@
                                                                   domain))))))
    #+END_SRC
 
+** =z-portfolio/date=
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun z-portfolio/date (date)
+       (interactive "sDate: ")
+       (mu4e-headers-search (concat "to:zack@infosecpartners.co.uk " "date:" date)))
+   #+END_SRC
+
+** Portfolio keymap
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (global-set-key (kbd "C-x s") nil)
+     (global-set-key (kbd "C-x s s") 'z-portfolio/date)
+   #+END_SRC
+
 * El-get
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -311,25 +327,25 @@
         :prepare (progn
                    (add-to-list 'auto-mode-alist '("\\.[bB][Aa][Tt]\\'" . ntcmd-mode))
                    (add-to-list 'auto-mode-alist '("\\.[Cc][Mm][Dd]\\'" . ntcmd-mode))))
-(el-get-bundle mu4e
-:name mu4e
-       :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
-       :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
-       :type github
-       :pkgname "djcb/mu"
-       :post-init (setq mu4e-mu-binary
-                        ;; "el-get-dir/mu4e/mu/mu"
-                        (expand-file-name
-                         "mu"
+      (el-get-bundle mu4e
+        :name mu4e
+        :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
+        :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
+        :type github
+        :pkgname "djcb/mu"
+        :post-init (setq mu4e-mu-binary
+                         ;; "el-get-dir/mu4e/mu/mu"
                          (expand-file-name
                           "mu"
-                          (el-get-package-directory 'mu4e))))
-       :build `(("autoreconf" "-i")
-                ("./configure")
-                ("make"))
-       :load-path "mu4e"
-       :info "mu4e/mu4e.info"
-       )
+                          (expand-file-name
+                           "mu"
+                           (el-get-package-directory 'mu4e))))
+        :build `(("autoreconf" "-i")
+                 ("./configure")
+                 ("make"))
+        :load-path "mu4e"
+        :info "mu4e/mu4e.info"
+        )
       ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/tramp.rcp
       (el-get-bundle tramp
         :description "Transparent Remote Access, Multiple Protocols."
@@ -385,6 +401,7 @@
     (a-mode "Guardfile" "ruby")
     (a-mode "Rakefile" "ruby")
     (a-mode ".rng" "nxml")
+    (a-mode "PKGBUILD" "shell-script")
   #+END_SRC
 
 * avy
@@ -676,10 +693,12 @@ Random quote
 
 *** Notifications
 
-    #+BEGIN_SRC emacs-lisp :tangle no
+    #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package mu4e-alert
         :config
-        (mu4e-alert-set-default-style 'libnotify))
+        (mu4e-alert-set-default-style 'libnotify)
+        (mu4e-alert-enable-notifications)
+        (mu4e-alert-enable-mode-line-display))
     #+END_SRC
 
 * EVIL
@@ -1450,6 +1469,12 @@ Random quote
       (setq org-directory (expand-file-name "~/onotes/"))
   #+END_SRC
 
+** Drag and drop
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package org-download)
+   #+END_SRC
+
 ** Key bindings
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1457,6 +1482,15 @@ Random quote
       (define-key global-map (kbd "C-c a") 'org-agenda)
   #+END_SRC
 
+** Alert
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package org-alert
+       :config
+       (org-alert-enable))
+   #+END_SRC
+
+  
 ** UTF8 checkboxes
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1525,6 +1559,7 @@ Random quote
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq org-latex-minted-langs '((conf-space "aconf")
                                     (conf-unix "squid")
+                                    (shell-script "bash")
                                     (jq "text")
                                     (snippet "lisp")))
    #+END_SRC
@@ -1595,7 +1630,7 @@ Random quote
 #+END_SRC
 
 
-** Confirm or not to confirm that is the question
+** Confirm or not to confirm, that is the question
 
    (Sorry to any Shakespeare fans)
 
@@ -1705,8 +1740,12 @@ Random quote
 ** Clocking
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-clock-persist 'history)
+     (setq org-clock-persist t)
      (org-clock-persistence-insinuate)
+     (setq org-clock-out-remove-zero-time-clocks t)
+     (setq org-clock-into-drawer "CLOCKBOOK")
+     (setq org-log-into-drawer "LOGBOOK")
+     (setq org-clock-out-when-done t)
    #+END_SRC
 
 ** Exporting
@@ -2155,7 +2194,7 @@ Random quote
 
 *** Require
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
+   #+BEGIN_SRC emacs-lisp :tangle no
      (use-package autoinsert
        :config
        (auto-insert-mode 1)

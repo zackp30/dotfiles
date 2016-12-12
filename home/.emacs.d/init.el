@@ -137,6 +137,7 @@ Captured On: %U")
      ("" "fontspec" t)
      ("" "capt-of" nil)
      ("" "hyperref" nil))))
+ '(org-log-into-drawer t)
  '(org-priority-faces (quote ((67 . "green") (66 . "yellow") (65 . "red"))))
  '(package-selected-packages
    (quote
@@ -152,8 +153,7 @@ Captured On: %U")
      (indent-tabs-mode t)
      (encoding . utf-8)
      (haskell-process-use-ghci . t)
-     (haskell-indent-spaces . 4))))
- '(sml/full-mode-string " …"))
+     (haskell-indent-spaces . 4)))))
 
 (require 'ob-tangle)
 (org-babel-load-file "~/.emacs.d/config.org")
@@ -163,7 +163,7 @@ Captured On: %U")
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flyspell-incorrect ((t (:underline (:color "#CC9393" :style wave) :slant italic))))
- '(font-lock-comment-face ((t (:foreground "#7F9F7F" :slant italic))))
+ '(font-lock-comment-face ((t (:foreground "#7F9F7F" :slant normal))))
  '(helm-match ((t (:background "#3F3F3F"))))
  '(markdown-markup-face ((t (:inherit shadow :foreground "white smoke" :slant normal :weight extra-bold))))
  '(mode-line ((t nil)))
