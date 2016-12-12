@@ -137,6 +137,7 @@ Captured On: %U")
      ("" "fontspec" t)
      ("" "capt-of" nil)
      ("" "hyperref" nil))))
+ '(org-log-into-drawer t)
  '(org-priority-faces (quote ((67 . "green") (66 . "yellow") (65 . "red"))))
  '(package-selected-packages
    (quote
@@ -152,8 +153,7 @@ Captured On: %U")
      (indent-tabs-mode t)
      (encoding . utf-8)
      (haskell-process-use-ghci . t)
-     (haskell-indent-spaces . 4))))
- '(sml/full-mode-string " …"))
+     (haskell-indent-spaces . 4)))))
 
 (require 'ob-tangle)
 (org-babel-load-file "~/.emacs.d/config.org")

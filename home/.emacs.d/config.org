@@ -1741,8 +1741,12 @@ Random quote
 ** Clocking
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-clock-persist 'history)
+     (setq org-clock-persist t)
      (org-clock-persistence-insinuate)
+     (setq org-clock-out-remove-zero-time-clocks t)
+     (setq org-clock-into-drawer "CLOCKBOOK")
+     (setq org-log-into-drawer "LOGBOOK")
+     (setq org-clock-out-when-done t)
    #+END_SRC
 
 ** Exporting
@@ -2191,7 +2195,7 @@ Random quote
 
 *** Require
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
+   #+BEGIN_SRC emacs-lisp :tangle no
      (use-package autoinsert
        :config
        (auto-insert-mode 1)
