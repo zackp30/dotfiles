@@ -25,6 +25,7 @@
     (setq package-archives `(("melpa" . ,melpa-url)
                              ("gnu" . "https://elpa.gnu.org/packages/")))
     (package-initialize)
+
     (package-refresh-contents)
   #+END_SRC
 
@@ -141,7 +142,6 @@
                     pinentry
                     polymode
                     projectile ;; project management
-                    puml-mode
                     purescript-mode
                     racer ;; Rust code completion
                     racket-mode ;; mode for the Racket
@@ -327,25 +327,25 @@
         :prepare (progn
                    (add-to-list 'auto-mode-alist '("\\.[bB][Aa][Tt]\\'" . ntcmd-mode))
                    (add-to-list 'auto-mode-alist '("\\.[Cc][Mm][Dd]\\'" . ntcmd-mode))))
-      (el-get-bundle mu4e
-        :name mu4e
-        :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
-        :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
-        :type github
-        :pkgname "djcb/mu"
-        :post-init (setq mu4e-mu-binary
-                         ;; "el-get-dir/mu4e/mu/mu"
-                         (expand-file-name
-                          "mu"
-                          (expand-file-name
-                           "mu"
-                           (el-get-package-directory 'mu4e))))
-        :build `(("autoreconf" "-i")
-                 ("./configure")
-                 ("make"))
-        :load-path "mu4e"
-        :info "mu4e/mu4e.info"
-        )
+;;       (el-get-bundle mu4e
+;;         :name mu4e
+;;         :website "http://www.djcbsoftware.nl/code/mu/mu4e.html"
+;;         :description "An emacs-based e-mail client which uses mu (http://www.djcbsoftware.nl/code/mu/) as its back-end: mu4e."
+;;         :type github
+;;         :pkgname "djcb/mu"
+;;         :post-init (setq mu4e-mu-binary
+;;                          ;; "el-get-dir/mu4e/mu/mu"
+;;                           (expand-file-name
+;;                            "mu"
+;;                            (expand-file-name
+;;                             "mu"
+;;                             (el-get-package-directory 'mu4e))))
+;;          :build `(("autoreconf" "-i")
+;;                   ("./configure")
+;;                   ("make"))
+;;          :load-path "mu4e"
+;;          :info "mu4e/mu4e.info"
+;;          )
       ;; From https://raw.githubusercontent.com/dimitri/el-get/master/recipes/tramp.rcp
       (el-get-bundle tramp
         :description "Transparent Remote Access, Multiple Protocols."
@@ -881,7 +881,7 @@ Random quote
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-hook 'prog-mode-hook  'flyspell-prog-mode)
      (add-hook 'text-mode-hook  'flyspell-mode)
-     (setq python-shell-interpreter "python3") ;; I use Python 3
+     (setq ispell-program-name "aspell")
    #+END_SRC
 
 ** Prose lint
@@ -1741,7 +1741,8 @@ Random quote
 ** Clocking
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq org-clock-persist t)
+     (setq org-clock-in-switch-to-state "IN_PROGRESS")
+     (setq org-clock-out-switch-to-state "TODO")
      (org-clock-persistence-insinuate)
      (setq org-clock-out-remove-zero-time-clocks t)
      (setq org-clock-into-drawer "CLOCKBOOK")

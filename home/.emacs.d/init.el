@@ -1,10 +1,15 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (defvar melpa-url
   "https://melpa.org/packages/"
   "URL to the MELPA Emacs Lisp package Archive.")
 
 (setq package-archives `(("melpa" . ,melpa-url)))
-
-(package-initialize)
 
 ;; A utility function (borrowed from Bling's
 ;; (https://github.com/bling)) configuration to install a package.
@@ -79,7 +84,7 @@ S: shell command to run"
  '(org-capture-templates
    (quote
     (("l" "Link and text" entry
-      (file+headline "~/onotes/notes.org" "Links")
+      (file+headline "~/onotes/todo.org" "Links")
       "* [[%:link][%:description]]
 Captured On: %U
 #+BEGIN_QUOTE
@@ -88,8 +93,8 @@ Captured On: %U
 
 %?")
      ("e" "todo" entry
-      (file+headline "~/onotes/work/todo.org" "Tasks")
-      "* TODO [#A] %?
+      (file+headline "~/onotes/todo.org" "Tasks")
+      "* TODO %?
 SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
 %a
 ")
