@@ -1514,7 +1514,7 @@ Change default browser used in Emacs to Chromium.
        (org-alert-enable))
    #+END_SRC
 
-  
+
 ** UTF8 checkboxes
 
    #+BEGIN_SRC emacs-lisp :tangle yes
