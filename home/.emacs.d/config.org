@@ -666,30 +666,29 @@ Change default browser used in Emacs to Chromium.
 
 ** mu4e
 
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (require 'json)
-     (defun z/get-quote ()
-       (let* ((quote-json (json-read-file "~/.quotes.json"))
-              (quote-and-author (elt quote-json (random (length quote-json)))))
-         quote-and-author))
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (defun z-sig/work () "Work signature"
+            (string-join  (list "Zack Piper            Security Analyst"
+                                "                      InfoSec Partners"
+                                "    http://infosecpartners.com        "
+                                "--------------------------------------"
+                                "Mobile:              (+44) 7460 193762"
+                                "Main line            (+44) 1256 893662")
+                          "\n"))
 
-     (defun z/mail-sig ()
-       (let ((-quote (z/get-quote)))
-         (insert (concat "
+     (defun z-sig/personal () "Personal signature"
+            (string-join  (list "Zack Piper          System administrator"
+                                "        https://apertron.net            ")
+                          "\n"))
 
---
-Zack Piper         PGP: 409B 6B17 96C2 7546 2A17
-                        0311 3804 BB82 D39D C0E3
 
-------------
-Random quote
-------------
-
-      "
-                         "“"(cdr (assoc 'text -quote))"”"
-                         " -- "
-                         (cdr (assoc 'author -quote))))))
+     (defun z/mail-sig () "Generate mail signature"
+            (if (string= "Work" (mu4e-context-name (mu4e-context-current)))
+                (z-sig/work)
+              (z-sig/personal)))
+     (setq mu4e-compose-signature 'z/mail-sig)
    #+END_SRC
+
 
 *** Notifications
 

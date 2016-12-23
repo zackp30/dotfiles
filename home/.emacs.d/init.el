@@ -93,9 +93,9 @@ Captured On: %U
 
 %?")
      ("e" "todo" entry
-      (file+headline "~/onotes/todo.org" "Tasks")
+      (file+headline "~/onotes/todo.org" "Work")
       "* TODO %?
-SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))
+SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d\"))
 %a
 ")
      ("w" "Web site" entry
