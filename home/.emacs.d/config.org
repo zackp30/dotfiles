@@ -666,14 +666,39 @@ Change default browser used in Emacs to Chromium.
 
 ** mu4e
 
-   #+BEGIN_SRC emacs-lisp :tangle no
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (defun z-sig/work () "Work signature"
-            (string-join  (list "Zack Piper            Security Analyst"
-                                "                      InfoSec Partners"
-                                "    http://infosecpartners.com        "
-                                "--------------------------------------"
-                                "Mobile:              (+44) 7460 193762"
-                                "Main line            (+44) 1256 893662")
+            (string-join  (list"+----------------------------------------+"
+                               "|◤                                      ◥|"
+                               "| Zack Piper            Security Analyst |"
+                               "|                       InfoSec Partners |"
+                               "|                                        |"
+                               "|      http://infosecpartners.com        |"
+                               "|󠀳                                        |"
+                               "|   • Security        • Accreditation    |"
+                               "|                                        |"
+                               "|             • Compliance               |"
+                               "|◣                                      ◢|"
+                               "+----------------------------------------+"
+                               "|◤                                      ◥|"
+                               "|                                        |"
+                               "| Mobile              (+44) 7460 193762  |"
+                               "| Main line           (+44) 1256 893662  |"
+                               "|                                        |"
+                               "|◣                                      ◢|"
+                               "+----------------------------------------+"
+                               "PRIVILEGED AND CONFIDENTIAL: This communication, along with any documents,"
+                               "files or attachments, is privileged, confidential or otherwise exempt from"
+                               "disclosure. It is intended only for the use of the individual or entity"
+                               "named above and others who have been specifically authorized to receive it."
+                               ""
+                               "If you are not the intended recipient, you are hereby notified that any"
+                               "dissemination, distribution, use or copying of this communication or its"
+                               "attachments is strictly prohibited. If you received this communication in"
+                               "error, please notify us immediately. We advise you to carry out your own"
+                               "virus check before opening any attachment, as we cannot accept liability"
+                               "for any damage sustained as a result of any software viruses.
+                               ""Thank you.")
                           "\n"))
 
      (defun z-sig/personal () "Personal signature"
