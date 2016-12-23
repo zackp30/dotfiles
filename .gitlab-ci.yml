@@ -1,4 +1,4 @@
-image: g/opensuse
+image: Xack/opensuse
 test:
   stage: test
   script:
