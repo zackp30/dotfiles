@@ -1752,7 +1752,6 @@ Change default browser used in Emacs to Chromium.
      (setq org-src-fontify-natively t)
      (setq org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
      (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
-     (add-to-list 'org-src-lang-modes '("plantuml" . puml))
    #+END_SRC
 *** Languages
 **** Haskell (diagrams)
