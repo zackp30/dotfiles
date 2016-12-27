@@ -103,7 +103,6 @@
                     gnuplot
                     gnuplot-mode ;; major mode for gnuplot
                     go-mode ;; major mode for go
-                    graphviz-dot-mode
                     groovy-mode
                     haskell-mode ;; major mode for Haskell
                     helm
@@ -666,6 +665,16 @@ Change default browser used in Emacs to Chromium.
 
 ** mu4e
 
+
++---+---+---+
+|   | ● |   |
++---+---+---+
+|   |   | ● |
++---+---+---+
+| ● | ● | ● |
++---+---+---+
+
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun z-sig/work () "Work signature"
             (string-join  (list"+----------------------------------------+"
@@ -687,6 +696,15 @@ Change default browser used in Emacs to Chromium.
                                "|                                        |"
                                "|◣                                      ◢|"
                                "+----------------------------------------+"
+                               ""
+                               "             +---+---+---+"
+                               "             |   | ● |   |"
+                               "             +---+---+---+"
+                               "             |   |   | ● |"
+                               "             +---+---+---+"
+                               "             | ● | ● | ● |"
+                               "             +---+---+---+"
+                               ""
                                "PRIVILEGED AND CONFIDENTIAL: This communication, along with any documents,"
                                "files or attachments, is privileged, confidential or otherwise exempt from"
                                "disclosure. It is intended only for the use of the individual or entity"
@@ -1101,6 +1119,13 @@ Change default browser used in Emacs to Chromium.
   #+END_SRC
 
 * Languages
+** Graphviz
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package graphviz-dot-mode
+       :quelpa (graphviz-dot-mode :fetcher git :url "https://github.com/wynro/graphviz-dot-mode"))
+   #+END_SRC
+
 ** SCSS
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1665,6 +1690,7 @@ Change default browser used in Emacs to Chromium.
      (defun z/org-confirm-babel-evaluate (lang body)
        (not (or (string= lang "dot") ;; don't ask to run a Graphviz block
                 (string= lang "gnuplot") ;; don’t ask for gnuplot blocks
+                (string= lang "shell") ;; don’t ask for gnuplot blocks
                 (string= lang "emacs-lisp") ;; don’t ask for Emacs Lisp blocks
                 (string= lang "plantuml")))) ;; don't ask for PlantUML blocks
      (setq org-confirm-babel-evaluate 'z/org-confirm-babel-evaluate)
@@ -1747,6 +1773,7 @@ Change default browser used in Emacs to Chromium.
         (org . t)
         (lisp . t)
         (ledger . t)
+        (shell . t)
         (plantuml . t)
         (dot . t)))
      (setq org-src-fontify-natively t)

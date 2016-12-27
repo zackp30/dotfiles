@@ -16,6 +16,7 @@ module ZHelpers
     match do |line|
       line.sub(/[ \t]+$/, '') == line
     end
+    chain
     failure_message do |actual|
       "expected that #{actual.inspect} would have no whitespace"
     end
