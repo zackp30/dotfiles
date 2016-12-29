@@ -45,8 +45,8 @@ beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
 
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+terminal = "termite"
+editor = os.getenv("EDITOR") or "e"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -59,11 +59,11 @@ modkey = "Mod4"
 -- @DOC_LAYOUT@
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
+    awful.layout.suit.floating,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
@@ -202,6 +202,15 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+    local c = awful.client.focus
+    s.mywinstatuslist = { -- Right
+       awful.titlebar.widget.floatingbutton (c),
+       awful.titlebar.widget.maximizedbutton(c),
+       awful.titlebar.widget.stickybutton   (c),
+       awful.titlebar.widget.ontopbutton    (c),
+       awful.titlebar.widget.closebutton    (c),
+       layout = wibox.layout.fixed.horizontal()
+    }
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
@@ -237,9 +246,7 @@ end)
 -- {{{ Mouse bindings
 -- @DOC_ROOT_BUTTONS@
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, function () mymainmenu:toggle() end)
 ))
 -- }}}
 
@@ -542,14 +549,6 @@ client.connect_signal("request::titlebars", function(c)
             },
             buttons = buttons,
             layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
         },
         layout = wibox.layout.align.horizontal
     }

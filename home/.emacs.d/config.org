@@ -113,6 +113,8 @@
                     hy-mode ;; hy mode
                     hydra ;; micro-states!
                     ibuffer-vc ;; ibuffer integration for vc.el
+                    isearch+
+                    isearch-prop
                     indent-guide ;; a "ruler" for indentation
                     ivy
                     js2-mode ;; major mode for JavaScript
@@ -1079,6 +1081,13 @@ Change default browser used in Emacs to Chromium.
       (define-key zack-keys-minor-mode-map (kbd "C-x l") 'imenu))
   #+END_SRC
 
+* isearch+
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (require 'isearch+)
+    (require 'isearch-prop)
+  #+END_SRC
+
 * indent-guide
 
   Indent-guide adds a fancy line to indicate the current indentation position.
@@ -1373,6 +1382,7 @@ Change default browser used in Emacs to Chromium.
                   (format-time-string "%Y-%m-%dT%T")))
     (require 'nmap-mode)
     (setq visible-bell t) ;; disable audible bell
+    (define-key global-map (kbd "C-z") nil)
   #+END_SRC
 
 ** Backups
@@ -1415,7 +1425,9 @@ Change default browser used in Emacs to Chromium.
 
 ** Smart-Mode-Line
 
-  I have yet to get around to making my own mode-line, but Smart-Mode-Line is great, so I don't see why I need to, other than for fun of course.
+  I have yet to get around to making my own mode-line, but
+  Smart-Mode-Line is great, so I don't see why I need to, other than
+  for fun of course.
 
   #+BEGIN_SRC emacs-lisp :tangle no
     (use-package smart-mode-line
