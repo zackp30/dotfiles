@@ -6,8 +6,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-require("awful.remote")
-require("screenful")
 
 if awesome.startup_errors then
    naughty.notify({ preset = naughty.config.presets.critical,
@@ -205,7 +203,7 @@ root.buttons(awful.util.table.join(
 ))
 
 globalkeys = awful.util.table.join(
-   awful.key({ modkey,           }, "x",      hotkeys_popup.show_help,
+   awful.key({ modkey,           }, "x",      function () awful.util.spawn('rofi -modi combi -show combi -combi-modi run,drun') end,
       {description="show help", group="awesome"}),
    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
       {description="show help", group="awesome"}),
