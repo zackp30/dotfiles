@@ -1103,9 +1103,9 @@ Change default browser used in Emacs to Chromium.
     (use-package ivy
       :config
       (ivy-mode 1)
+      (setq ivy-count-format "%d/%d")
       (setq ivy-use-virtual-buffers t))
   #+END_SRC
-
 * Keys
 
   #+BEGIN_SRC emacs-lisp :tangle yes
