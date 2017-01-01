@@ -1104,6 +1104,7 @@ Change default browser used in Emacs to Chromium.
       :config
       (ivy-mode 1)
       (setq ivy-count-format "%d/%d")
+      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
       (setq ivy-use-virtual-buffers t))
   #+END_SRC
 * Keys
