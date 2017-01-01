@@ -105,8 +105,6 @@
                     go-mode ;; major mode for go
                     groovy-mode
                     haskell-mode ;; major mode for Haskell
-                    helm
-                    helm-swoop
                     highlight
                     highlight-indentation
                     highlight-numbers ;; rainbowify numbers
@@ -971,18 +969,6 @@ Change default browser used in Emacs to Chromium.
       (global-git-gutter-mode 1))
   #+END_SRC
 
-* Helm
-
-  #+BEGIN_SRC emacs-lisp :tangle yes
-    (use-package helm
-      :config
-      (global-set-key (kbd "M-x") 'helm-M-x)
-      (global-set-key (kbd "C-x C-f") 'helm-find-files)
-      (global-set-key (kbd "C-x b") 'helm-mini)
-      (helm-mode 1)
-      (helm-autoresize-mode 1))
-  #+END_SRC
-
 * Highlight
 
   #+BEGIN_SRC emacs-lisp :tangle yes
@@ -1113,10 +1099,11 @@ Change default browser used in Emacs to Chromium.
 
 * Ivy
 
-  #+BEGIN_SRC emacs-lisp :tangle no
+  #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package ivy
       :config
-      (ivy-mode 1))
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t))
   #+END_SRC
 
 * Keys
