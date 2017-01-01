@@ -64,3 +64,6 @@
 [submodule "home/.config/awesome/vicious-mirror"]
 	path = home/.config/awesome/vicious-mirror
 	url = https://g.apertron.net/Xack/vicious-mirror.git
+[submodule "home/.config/awesome/screenful"]
+	path = home/.config/awesome/screenful
+	url = https://github.com/dluksza/screenful
