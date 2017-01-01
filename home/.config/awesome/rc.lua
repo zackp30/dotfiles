@@ -11,6 +11,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+require("awful.remote")
+require("screenful")
 
 -- {{{ Error handling
 -- @DOC_ERROR_HANDLING@
@@ -43,11 +45,15 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 
+-- Gaps
+
+beautiful.useless_gap = 4
+
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
 terminal = "termite"
 editor = os.getenv("EDITOR") or "e"
-editor_cmd = terminal .. " -e " .. editor
+editor_cmd = editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
