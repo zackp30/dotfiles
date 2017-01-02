@@ -203,8 +203,11 @@ root.buttons(awful.util.table.join(
 ))
 
 globalkeys = awful.util.table.join(
-   awful.key({ modkey,           }, "x",      function () awful.util.spawn('rofi -modi combi -show combi -combi-modi run,drun') end,
-      {description="show help", group="awesome"}),
+   awful.key({ modkey,           }, "x",
+      function ()
+         awful.util.spawn('rofi -modi combi -show combi -combi-modi run,drun')
+      end,
+      {description="Application menu", group="launcher"}),
    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
       {description="show help", group="awesome"}),
    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -289,9 +292,8 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
       {description = "run prompt", group = "launcher"}),
 
-   -- Menubar
-   awful.key({ modkey }, "p", function() menubar.show() end,
-      {description = "show the menubar", group = "launcher"})
+   awful.key({ modkey }, "p", function() awful.util.spawn("rofi -show") end,
+      {description = "switch window", group = "launcher"})
 )
 
 clientkeys = awful.util.table.join(
