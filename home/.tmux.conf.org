@@ -2,7 +2,7 @@
 
   #+BEGIN_SRC conf-space :tangle yes
     run-shell "powerline-daemon -q"
-    source /usr/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
+    #source /usr/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
   #+END_SRC
 
 * Vi keys

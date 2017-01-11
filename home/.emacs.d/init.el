@@ -122,6 +122,7 @@ Captured On: %U")
      ("~" org-code verbatim)
      ("+"
       (:strike-through t)))))
+ '(org-enforce-todo-dependencies t)
  '(org-latex-compiler "xelatex")
  '(org-latex-default-packages-alist
    (quote

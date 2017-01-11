@@ -1,5 +1,5 @@
 run-shell "powerline-daemon -q"
-source /usr/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
+#source /usr/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
 
 set -g mode-keys vi
 set -g status-keys vi
