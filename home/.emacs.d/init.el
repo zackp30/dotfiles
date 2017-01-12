@@ -113,6 +113,7 @@ Captured On: %U")
       (file+headline "~/onotes/work.org" "Work")
       "* TODO %^{Name} %^G
 %?"))))
+ '(org-download-image-latex-width 10)
  '(org-emphasis-alist
    (quote
     (("*" bold)
