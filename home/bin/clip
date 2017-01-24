@@ -1,0 +1,3 @@
+#!/bin/bash
+
+maim -s --format png /dev/stdout | copyq copy image/png -

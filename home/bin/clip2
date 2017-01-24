@@ -1,0 +1,5 @@
+#!/bin/bash
+_date=`date`
+maim -s "/tmp/screenshot-$_date.png"
+echo -n "file:///tmp/screenshot-$_date.png" | xclip -selection clipboard
+emacsclient -e '(progn (switch-to-buffer "Portfolio.org") (org-download-yank))'

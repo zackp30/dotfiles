@@ -79,8 +79,12 @@ S: shell command to run"
      ("news.ycombinator.com" . markdown-mode)
      ("reddit.com" . markdown-mode))))
  '(el-get-git-shallow-clone t)
+ '(iedit-case-sensitive-default t)
  '(indent-guide-char "│")
  '(magit-revision-show-gravatars (quote ("^Author:     " . "^Commit:     ")))
+ '(org-agenda-files
+   (quote
+    ("/home/zack/onotes/work.org" "/home/zack/onotes/todo.org" "/home/zack/onotes/Maroush_0.org" "/home/zack/onotes/Wheeler.org" "/home/zack/onotes/Events.org" "/home/zack/onotes/home.org" "/home/zack/onotes/Provision/Windows_laptop.org" "/home/zack/onotes/Mojo.org" "/home/zack/onotes/Accounts/0.org" "/home/zack/onotes/bank.org" "/home/zack/onotes/Fortinet.org" "/home/zack/onotes/beasly.org" "/home/zack/onotes/Angry_email2.org" "/home/zack/onotes/Angry_email.org" "/home/zack/onotes/Install.org" "/home/zack/onotes/Remoting.org")))
  '(org-capture-templates
    (quote
     (("l" "Link and text" entry
@@ -148,7 +152,7 @@ Captured On: %U")
  '(org-priority-faces (quote ((67 . "green") (66 . "yellow") (65 . "red"))))
  '(package-selected-packages
    (quote
-    (apache-mode php-mode quelpa-use-package quelpa package-build powershell smart-tabs-mode highlight yaml-mode ws-butler wgrep-ag web-mode use-package tuareg todotxt tiny surround stumpwm-mode smart-mode-line slime-company slim-mode scss-mode rust-mode rinari realgud rainbow-identifiers rainbow-delimiters rainbow-blocks racket-mode purescript-mode puml-mode projectile-rails org-bullets ocodo-svg-modelines mode-icons mmm-mode material-theme markdown-mode magit-tramp lua-mode lentic julia-mode js2-mode io-mode indent-guide ibuffer-vc hy-mode highlight-numbers highlight-indentation helm-swoop helm-projectile helm-ag graphviz-dot-mode go-mode gnuplot-mode gnuplot gitignore-mode gitconfig-mode git-timemachine git-gutter gist ghci-completion geiser fountain-mode evil-visualstar evil-space evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-indent-textobject evil-args evil-anzu etags-select emojify emmet-mode emacs-eclim elixir-mode elfeed ein editorconfig edit-server dired-toggle-sudo dired-rainbow dired+ d-mode ctags company-tern company-ghc company-anaconda coffee-mode cmake-mode cider calfw browse-kill-ring bpr boxquote bookmark+ beacon bbdb ag ace-window ace-jump-helm-line ace-flyspell)))
+    (bitbake apache-mode php-mode quelpa-use-package quelpa package-build powershell smart-tabs-mode highlight yaml-mode ws-butler wgrep-ag web-mode use-package tuareg todotxt tiny surround stumpwm-mode smart-mode-line slime-company slim-mode scss-mode rust-mode rinari realgud rainbow-identifiers rainbow-delimiters rainbow-blocks racket-mode purescript-mode puml-mode projectile-rails org-bullets ocodo-svg-modelines mode-icons mmm-mode material-theme markdown-mode magit-tramp lua-mode lentic julia-mode js2-mode io-mode indent-guide ibuffer-vc hy-mode highlight-numbers highlight-indentation helm-swoop helm-projectile helm-ag graphviz-dot-mode go-mode gnuplot-mode gnuplot gitignore-mode gitconfig-mode git-timemachine git-gutter gist ghci-completion geiser fountain-mode evil-visualstar evil-space evil-numbers evil-nerd-commenter evil-matchit evil-leader evil-indent-textobject evil-args evil-anzu etags-select emojify emmet-mode emacs-eclim elixir-mode elfeed ein editorconfig edit-server dired-toggle-sudo dired-rainbow dired+ d-mode ctags company-tern company-ghc company-anaconda coffee-mode cmake-mode cider calfw browse-kill-ring bpr boxquote bookmark+ beacon bbdb ag ace-window ace-jump-helm-line ace-flyspell)))
  '(persp-keymap-prefix "w")
  '(safe-local-variable-values
    (quote
